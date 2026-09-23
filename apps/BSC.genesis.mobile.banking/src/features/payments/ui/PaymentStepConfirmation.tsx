@@ -1,0 +1,433 @@
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { formatCurrency } from '@bsc/shared';
+
+import {
+  BscBanner,
+  BscColors,
+  BscIcon,
+  BscRadius,
+  BscSpacing,
+  withAlpha,
+  type BscIconName,
+  BscTextStyles,
+} from '@bsc/ui-native';
+import { PieDelAsistente } from '../../transfers/ui/TransferWizardChrome';
+import {
+  ETIQUETAS_DE_MONTO,
+  tituloDeConfirmacion,
+} from '../data/paymentContracts';
+import {
+  codigoDeMonedaDeLaCuenta,
+  codigoDeMonedaDelPago,
+  comisionDelPago,
+  esPrestamo,
+  impuestoDelPago,
+  montoADebitar,
+  montoDelPago,
+  necesitaConversion,
+  nombreDeLaCuenta,
+  numeroVisible,
+  saldoDeLaCuenta,
+  totalDebitado,
+  type DatosDelPago,
+} from '../domain/paymentFlow';
+
+/**
+ * Paso 2 del pago.
+ *
+ * Portado de `payment_step_confirmation.dart`. Enseña la cifra que se abona al
+ * producto y la que sale de la cuenta, que no son la misma cuando hay
+ * conversión o comisión, y el aviso del impuesto de la Norma 04-04 **solo en
+ * las tarjetas**: un préstamo no lo paga y anunciarlo sería falso.
+ */
+
+export interface PaymentStepConfirmationProps {
+  datos: DatosDelPago;
+  error: string | null;
+  onAtras: () => void;
+  onConfirmar: () => void;
+}
+
+export function PaymentStepConfirmation({
+  datos,
+  error,
+  onAtras,
+  onConfirmar,
+}: PaymentStepConfirmationProps): React.JSX.Element {
+  const monedaPago = codigoDeMonedaDelPago(datos);
+  const monedaCuenta = codigoDeMonedaDeLaCuenta(datos);
+  const prestamo = esPrestamo(datos);
+
+  return (
+    <View style={styles.pantalla}>
+      <ScrollView
+        contentContainerStyle={styles.contenido}
+        showsVerticalScrollIndicator={false}
+      >
+        <Etiqueta texto={tituloDeConfirmacion(datos.tipo)} />
+        <Ficha
+          icono={prestamo ? 'savings' : 'card'}
+          color={BscColors.secondary}
+          titulo={prestamo ? 'Préstamo' : 'Tarjeta de Crédito'}
+          subtitulo={numeroVisible(datos)}
+        />
+
+        <View style={styles.separacion} />
+        <Etiqueta texto="Monto a Pagar" />
+        <View style={styles.tarjeta}>
+          <View style={styles.filaMonto}>
+            <Text style={styles.etiquetaMonto}>
+              {ETIQUETAS_DE_MONTO[datos.tipoDeMonto]}
+            </Text>
+            <Text style={styles.montoGrande}>
+              {formatCurrency(montoDelPago(datos), monedaPago)}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.separacion} />
+        <Etiqueta texto="Cuenta Origen" />
+        <Ficha
+          icono="wallet"
+          color={BscColors.success}
+          titulo={nombreDeLaCuenta(datos)}
+          subtitulo={enmascarar(datos.cuentaOrigen?.identificacion ?? '')}
+          derecha={formatCurrency(saldoDeLaCuenta(datos), monedaCuenta)}
+          etiquetaDerecha="Disponible"
+        />
+
+        <View style={styles.separacion} />
+        <Etiqueta texto="Detalles del Pago" />
+        <View style={styles.tarjeta}>
+          {/*
+            El primer renglón lleva **el nombre de la opción de monto elegida**
+            —«Pago Mínimo», «Al Corte», «Otro Monto»—, no una etiqueta
+            genérica: quien eligió el mínimo lo vuelve a leer al confirmar. Y
+            la cifra es la que se va a debitar, ya convertida si hace falta;
+            el monto en la moneda del pago baja a «Monto Original».
+          */}
+          <Renglon
+            etiqueta={ETIQUETAS_DE_MONTO[datos.tipoDeMonto]}
+            valor={formatCurrency(montoADebitar(datos), monedaCuenta)}
+          />
+
+          {necesitaConversion(datos) && datos.cotizacion !== null ? (
+            <>
+              <Renglon
+                etiqueta="Monto Original"
+                valor={formatCurrency(montoDelPago(datos), monedaPago)}
+              />
+              <Renglon
+                etiqueta="Tasa de Cambio"
+                valor={datos.cotizacion.tasa}
+              />
+            </>
+          ) : null}
+
+          {!prestamo && datos.comisiones.conocidas ? (
+            <>
+              <Renglon
+                etiqueta="Comisión"
+                valor={formatCurrency(comisionDelPago(datos), monedaCuenta)}
+              />
+              <Renglon
+                etiqueta="Impuesto 0.15%"
+                valor={formatCurrency(impuestoDelPago(datos), monedaCuenta)}
+              />
+            </>
+          ) : null}
+
+          <View style={styles.separador} />
+
+          <Renglon
+            etiqueta="Total a Debitar"
+            valor={formatCurrency(totalDebitado(datos), monedaCuenta)}
+            total
+          />
+        </View>
+
+        {/*
+          Cuando el servicio de comisiones no contestó, **no se enseñan ceros**:
+          un cero se lee como «no se cobra nada» y el core cobra igual. Se dice
+          lo que se sabe y lo que no.
+        */}
+        {!datos.comisiones.conocidas ? (
+          <>
+            <View style={styles.separacion} />
+            <BscBanner
+              tone="warning"
+              icon="error"
+              title="No pudimos calcular la comisión ni el impuesto"
+              subtitle={
+                'El total mostrado es el monto del pago. El banco puede ' +
+                'debitar además el impuesto de ley.'
+              }
+              testID="aviso-comisiones-desconocidas"
+            />
+          </>
+        ) : null}
+
+        {datos.comentario !== '' ? (
+          <>
+            <View style={styles.separacion} />
+            <Etiqueta texto="Comentario" />
+            <View style={styles.tarjetaTexto}>
+              <Text style={styles.comentario}>{datos.comentario}</Text>
+            </View>
+          </>
+        ) : null}
+
+        {!prestamo ? (
+          <View style={styles.avisoImpuesto}>
+            <BscIcon name="info" size={20} color={BscColors.info} />
+            <Text style={styles.textoAviso}>
+              Operación sujeta al pago del impuesto de 0.15%, sobre el monto
+              solicitado, según Norma 04-04 de la DGII.
+            </Text>
+          </View>
+        ) : null}
+
+        {error !== null ? (
+          <View style={styles.error}>
+            <BscIcon name="error" size={20} color={BscColors.error} />
+            <Text style={styles.textoError}>{error}</Text>
+          </View>
+        ) : null}
+      </ScrollView>
+
+      <PieDelAsistente
+        atras={{ etiqueta: 'Atrás', onPress: onAtras }}
+        adelante={{
+          etiqueta: 'Confirmar Pago',
+          leading: (
+            <BscIcon name="lock" size={19} color={BscColors.textOnPrimary} />
+          ),
+          onPress: onConfirmar,
+          testID: 'pago-confirmar',
+        }}
+      />
+    </View>
+  );
+}
+
+// ─── Piezas ─────────────────────────────────────────────────────────────────
+
+function Etiqueta({ texto }: { texto: string }): React.JSX.Element {
+  return <Text style={styles.etiqueta}>{texto.toUpperCase()}</Text>;
+}
+
+function Ficha({
+  icono,
+  color,
+  titulo,
+  subtitulo,
+  derecha,
+  etiquetaDerecha,
+}: {
+  icono: BscIconName;
+  color: string;
+  titulo: string;
+  subtitulo: string;
+  derecha?: string;
+  etiquetaDerecha?: string;
+}): React.JSX.Element {
+  return (
+    <View style={[styles.tarjeta, styles.fichaFila]}>
+      <View
+        style={[styles.recuadro, { backgroundColor: withAlpha(color, 0.12) }]}
+      >
+        <BscIcon name={icono} size={22} color={color} />
+      </View>
+
+      <View style={styles.textoFicha}>
+        <Text style={styles.tituloFicha} numberOfLines={1}>
+          {titulo}
+        </Text>
+        <Text style={styles.subtituloFicha} numberOfLines={1}>
+          {subtitulo}
+        </Text>
+      </View>
+
+      {derecha !== undefined ? (
+        <View style={styles.derecha}>
+          <Text style={styles.valorDerecha}>{derecha}</Text>
+          {etiquetaDerecha !== undefined ? (
+            <Text style={styles.etiquetaDerecha}>{etiquetaDerecha}</Text>
+          ) : null}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+function Renglon({
+  etiqueta,
+  valor,
+  total = false,
+}: {
+  etiqueta: string;
+  valor: string;
+  total?: boolean;
+}): React.JSX.Element {
+  return (
+    <View style={styles.renglon}>
+      <Text style={total ? styles.etiquetaTotal : styles.etiquetaRenglon}>
+        {etiqueta}
+      </Text>
+      <Text style={total ? styles.valorTotal : styles.valorRenglon}>
+        {valor}
+      </Text>
+    </View>
+  );
+}
+
+function enmascarar(numero: string): string {
+  return numero.length <= 4 ? numero : `****${numero.slice(-4)}`;
+}
+
+const styles = StyleSheet.create({
+  pantalla: { flex: 1 },
+  contenido: {
+    padding: 16,
+    paddingTop: 20,
+  },
+  separacion: { height: 20 },
+
+  etiqueta: {
+    marginBottom: 10,
+    ...BscTextStyles['Caption/12 Bold'],
+    color: BscColors.textSecondary,
+  },
+
+  tarjeta: {
+    padding: 16,
+    borderRadius: BscRadius.md,
+    backgroundColor: BscColors.surface,
+    borderWidth: 1,
+    borderColor: BscColors.border,
+  },
+  tarjetaTexto: {
+    padding: 14,
+    borderRadius: BscRadius.md,
+    backgroundColor: BscColors.surface,
+    borderWidth: 1,
+    borderColor: BscColors.border,
+  },
+  comentario: {
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textPrimary,
+  },
+
+  fichaFila: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 14,
+  },
+  recuadro: {
+    width: 44,
+    height: 44,
+    borderRadius: BscRadius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textoFicha: { flex: 1 },
+  tituloFicha: {
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.textPrimary,
+  },
+  subtituloFicha: {
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
+  },
+  derecha: { alignItems: 'flex-end' },
+  valorDerecha: {
+    ...BscTextStyles['Body S/14 Bold'],
+    color: BscColors.textPrimary,
+  },
+  etiquetaDerecha: {
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
+  },
+
+  filaMonto: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  etiquetaMonto: {
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.textPrimary,
+  },
+  montoGrande: {
+    ...BscTextStyles['Subtitle/20 Bold'],
+    color: BscColors.textPrimary,
+  },
+
+  renglon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 5,
+  },
+  etiquetaRenglon: {
+    ...BscTextStyles['Body S/14 Medium'],
+    color: BscColors.textSecondary,
+  },
+  valorRenglon: {
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.textPrimary,
+  },
+  etiquetaTotal: {
+    ...BscTextStyles['Body MD/16 Bold'],
+    color: BscColors.textPrimary,
+  },
+  valorTotal: {
+    ...BscTextStyles['Body L/18 Bold'],
+    color: BscColors.primary,
+  },
+  separador: {
+    height: 1,
+    marginVertical: 8,
+    backgroundColor: BscColors.divider,
+  },
+
+  avisoImpuesto: {
+    marginTop: 16,
+    flexDirection: 'row',
+    gap: 10,
+    padding: 14,
+    borderRadius: BscRadius.xs,
+    backgroundColor: withAlpha(BscColors.info, 0.08),
+  },
+  textoAviso: {
+    flex: 1,
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
+  },
+
+  error: {
+    marginTop: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    padding: 12,
+    borderRadius: BscRadius.xs,
+    backgroundColor: withAlpha(BscColors.error, 0.08),
+    borderWidth: 1,
+    borderColor: withAlpha(BscColors.error, 0.3),
+  },
+  textoError: {
+    flex: 1,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.error,
+  },
+
+  pie: {
+    flexDirection: 'row',
+    gap: BscSpacing.sm,
+  },
+  pieUno: { flex: 1 },
+  pieDos: { flex: 2 },
+});

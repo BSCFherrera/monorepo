@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Silueta monocroma del icono, la tercera capa que pide Android 13.
+
+  El sistema la recolorea con la paleta del fondo de pantalla cuando el cliente
+  enciende los iconos temáticos. Sin ella, la aplicación del banco se queda como
+  la única ajena del cajón.
+
+  **Generado.** Ver `scripts/generar-iconos.mjs`.
+
+  Una capa monocroma solo admite un tono, así que las separaciones blancas del
+  logotipo no se pueden pintar: se consiguen con la regla de relleno par-impar,
+  que convierte en hueco cada zona donde dos piezas del símbolo se solapan.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <group android:translateX="18" android:translateY="18">
+    <path
+        android:fillColor="#FF000000"
+        android:fillType="evenOdd"
+        android:pathData="M47.159,53.129 L33.931,61.917 C32.221,59.488 30.601,56.938 28.921,54.448 C34.981,54.328 41.4,54.928 46.11,51.571 L46.23,51.571 Z M58.948,35.37 L36.42,35.37 C36.015,35.514 35.725,35.874 35.67,36.3 L17.342,36.3 C17.191,29.552 21.091,23.342 27.091,20.071 C29.472,18.834 32.09,18.118 34.77,17.972 L47.461,17.972 Z M54.748,35.731 C54.759,45.517 47.093,53.592 37.32,54.089 L24.631,54.149 L13.052,36.751 L35.73,36.751 C36.12,36.631 36.301,36.09 36.48,35.761 L54.748,35.761 Z M43.139,17.642 C37.65,17.672 31.65,16.982 27.18,19.742 L25.861,20.522 L24.871,18.9 L38.07,10.083 C39.81,12.541 41.49,15.122 43.139,17.642 Z" />
+  </group>
+</vector>

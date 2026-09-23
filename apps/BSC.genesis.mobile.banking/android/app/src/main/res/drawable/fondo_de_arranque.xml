@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  El fondo de la ventana mientras la aplicación arranca (Android 11 y
+  anteriores; ver values-v31/styles.xml para Android 12 en adelante).
+
+  **Qué problema resuelve.** Entre que el cliente toca el icono y que React
+  Native tiene listo el primer componente pasan unas décimas de segundo en las
+  que Android ya ha abierto la ventana pero nadie ha pintado nada. Sin este
+  recurso, ese hueco es un rectángulo blanco, y se lee como si la aplicación se
+  hubiera colgado al abrirse.
+
+  **Qué dibuja.** La foto de la pantalla de acceso con su velo ya aplicado
+  (`drawable-nodpi/fondo_de_acceso.jpg`, la misma imagen que usan iOS y las
+  pantallas de arranque y de acceso de React Native) y el logotipo centrado a
+  64 dp, igual que `PantallaDeArranque.tsx`. **Si se cambia el alto del
+  logotipo allí, hay que cambiarlo también aquí.**
+
+  **Sobre el ajuste.** Un `<bitmap>` de Android no sabe recortar para llenar
+  (el `cover` de React Native): o estira o no escala. Se estira (`fill`). La
+  foto es de 393 × 852 y un teléfono habitual está entre 0,45 y 0,50 de
+  proporción, así que la deformación es de pocos puntos porcentuales y solo se
+  ve el instante que dura el arranque.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <color android:color="#1A1718" />
+    </item>
+
+    <item>
+        <bitmap
+            android:gravity="fill"
+            android:src="@drawable/fondo_de_acceso" />
+    </item>
+
+    <item
+        android:width="163dp"
+        android:height="64dp"
+        android:drawable="@drawable/logo_bsc_blanco"
+        android:gravity="center" />
+
+</layer-list>

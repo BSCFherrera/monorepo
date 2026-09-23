@@ -1,0 +1,20 @@
+{
+  "name": "bsc-shared",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/BSC.genesis.mobile.banking/packages/bsc-shared/src",
+  "projectType": "library",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/BSC.genesis.mobile.banking/packages/bsc-shared/tsconfig.json --noEmit"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/BSC.genesis.mobile.banking/packages/bsc-shared/jest.config.js"
+      }
+    }
+  }
+}

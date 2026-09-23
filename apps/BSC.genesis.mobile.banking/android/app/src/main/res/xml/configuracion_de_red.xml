@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Política de red de la aplicación (T-06). **Esta es la de release.**
+
+  No permite tráfico sin cifrar contra nadie y confía solo en las autoridades
+  del sistema: los certificados que el cliente instale a mano **no** se
+  confían, que es lo que impide que quien tenga el teléfono lea la sesión
+  instalando su propia autoridad.
+
+  El manifiesto ya recibe `usesCleartextTraffic` del complemento de Gradle de
+  React Native, que lo pone en `false` para release. Declararlo aquí no es
+  redundante: aquello es el valor por defecto de una herramienta de terceros y
+  puede cambiar al actualizarla, sin que nadie lo note hasta que una
+  compilación de producción hable en claro.
+
+  La excepción del bucle local que necesita `adb reverse` vive en
+  `src/debug/res/xml/configuracion_de_red.xml`, que **solo existe en la
+  compilación de depuración**. Separarlo por tipo de compilación, en vez de
+  meterlo en `debug-overrides`, es lo que garantiza que la excepción no pueda
+  llegar a producción ni por descuido ni por un error de sintaxis.
+
+  Las anclas propias del banco —el «certificate pinning» de T-03— no están
+  todavía: exigen las huellas SPKI reales y una política de rotación, y un pin
+  equivocado deja a todos los clientes sin poder entrar. Es pregunta abierta.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!--
+      ══════════════════════════════════════════════════════════════════════
+      CERTIFICATE PINNING (T-03) — PENDIENTE DE LAS HUELLAS DEL BANCO (D-02)
+      ══════════════════════════════════════════════════════════════════════
+
+      Sin este bloque la aplicación acepta cualquier certificado en el que el
+      sistema confíe, **incluido el de un proxy corporativo o el de una
+      autoridad comprometida**. Con él, solo acepta la clave del banco.
+
+      Para activarlo hacen falta dos huellas y no una:
+
+        1. La de la clave del certificado en uso.
+        2. La de la clave de **respaldo**, que el banco guarda sin usar.
+
+      La segunda no es un lujo. Android valida si cualquiera de las huellas
+      coincide, así que teniendo la de respaldo ya confiada, una rotación de
+      emergencia no exige publicar una versión nueva en la tienda —que tarda
+      días— y no deja a ningún cliente fuera mientras tanto. **Fijar una sola
+      huella es el error clásico del pinning**, y su consecuencia es que nadie
+      puede entrar.
+
+      Las huellas se calculan con:
+
+          node scripts/calcular-pin-spki.mjs <certificado.pem>
+
+      Se fija la clave pública (SPKI) y no el certificado entero: así una
+      renovación que conserve la clave no rompe nada.
+
+      `expiration` es una fecha de caducidad del propio pinning: pasada esa
+      fecha Android deja de exigirlo. Es una red de seguridad contra el caso en
+      que las dos claves queden inservibles y nadie pueda publicar a tiempo;
+      sin ella, un error de rotación deja la aplicación inutilizable para
+      siempre. Hay que fijarla y renovarla con cada versión.
+
+      ⚠️ Este bloque está comentado a propósito. **Un comentario no protege
+      nada**: mientras siga así, `npm run verify` lo reporta como hallazgo de
+      configuración, igual que reporta la firma de release con la llave de
+      depuración.
+
+    <domain-config>
+        <domain includeSubdomains="true">PENDIENTE.bsc.com.do</domain>
+        <pin-set expiration="PENDIENTE-AAAA-MM-DD">
+            <pin digest="SHA-256">PENDIENTE-huella-de-la-clave-en-uso</pin>
+            <pin digest="SHA-256">PENDIENTE-huella-de-la-clave-de-respaldo</pin>
+        </pin-set>
+    </domain-config>
+    -->
+</network-security-config>

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "declaration": true,
+
+    // Los mapas de origen hacen falta para que la cobertura señale la línea
+    // correcta. Sin ellos, `ts-jest` instrumenta el JavaScript compilado y el
+    // informe atribuye sentencias a líneas en blanco y a comentarios, que es
+    // como decir «falta cubrir algo» sin decir qué. Costó media sesión
+    // descubrirlo.
+    "sourceMap": true,
+    "esModuleInterop": true,
+    // Los textos del calendario vienen de `@bsc/i18n`, que los guarda en JSON.
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "types": ["jest", "node"]
+  },
+  "include": ["src/**/*"]
+}

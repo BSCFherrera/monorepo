@@ -1,6 +1,32 @@
+# dependencies
+node_modules/
+.pnpm-store/
 
-.nx/installation
+# nx
 .nx/cache
 .nx/workspace-data
+
+# build outputs
+dist/
+build/
+**/android/app/build/
+**/ios/build/
+**/ios/Pods/
+
+# react native
+.expo/
+*.jsbundle
+
+# env
+.env
+.env.local
+!.env.example
+
+# os / editor
+.DS_Store
+*.log
+
+# Nx (del andamiaje original de BSC.genesis.monorepo)
+.nx/installation
 .nx/self-healing
 .nx/migrate-runs

@@ -1,0 +1,19 @@
+pluginManagement {
+    // La red del banco intercepta TLS con una CA corporativa propia. Windows
+    // confía en ella, pero el almacén del JDK no, y sin esto toda descarga de
+    // Gradle falla con «unable to find valid certification path». WINDOWS-ROOT
+    // hace que Java use el almacén de Windows.
+    //
+    // Va aquí, y no en `org.gradle.jvmargs`, porque ese almacén solo existe en
+    // Windows: en macOS y Linux esa misma opción impide cualquier conexión TLS.
+    // Esta es la primera línea que se evalúa, antes de resolver ningún plugin.
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        System.setProperty('javax.net.ssl.trustStoreType', 'WINDOWS-ROOT')
+    }
+    includeBuild("../node_modules/@react-native/gradle-plugin")
+}
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'BSCMobileAppRN'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')

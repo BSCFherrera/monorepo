@@ -1,0 +1,31 @@
+{
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    // Modo estricto completo. Un proyecto nuevo es el único momento barato para
+    // activarlo: hacerlo después cuesta diez veces más, y esta app mueve dinero,
+    // donde un `undefined` inesperado no es un detalle cosmético.
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Las pruebas usan APIs de Node como oráculo —`Buffer` y `node:crypto`
+    // contrastan nuestras implementaciones contra OpenSSL, y `node:fs` lee los
+    // archivos Dart originales para verificar la paridad de diseño—. Node no
+    // existe en el teléfono y el código de producción no lo usa; esto es solo
+    // para que el verificador de tipos reconozca esas pruebas.
+    "types": ["jest", "node"],
+
+    "baseUrl": ".",
+    "paths": {
+      "@bsc/shared": ["packages/bsc-shared/src/index.ts"],
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "*.ts", "*.tsx"],
+  "exclude": ["node_modules", "**/Pods", "**/build", "android", "ios", "packages"]
+}

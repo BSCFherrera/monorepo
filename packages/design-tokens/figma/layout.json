@@ -1,0 +1,220 @@
+{
+  "viewport": {
+    "desktop": {
+      "macbook-pro": {
+        "width": {
+          "$type": "dimension",
+          "$value": {
+            "value": 1440,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 900,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "tablet": {
+      "ipad-mini": {
+        "width": {
+          "$type": "dimension",
+          "$value": {
+            "value": 768,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 1194,
+            "unit": "px"
+          }
+        }
+      }
+    },
+    "mobile": {
+      "iphone-13-mini": {
+        "width": {
+          "$type": "dimension",
+          "$value": {
+            "value": 375,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 812,
+            "unit": "px"
+          }
+        }
+      },
+      "iphone-14": {
+        "width": {
+          "$type": "dimension",
+          "$value": {
+            "value": 390,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 844,
+            "unit": "px"
+          }
+        }
+      },
+      "iphone-17-pro-max": {
+        "width": {
+          "$type": "dimension",
+          "$value": {
+            "value": 440,
+            "unit": "px"
+          }
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 956,
+            "unit": "px"
+          }
+        }
+      }
+    }
+  },
+  "grid": {
+    "desktop": {
+      "columns": {
+        "$type": "number",
+        "$value": 12
+      },
+      "margin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 112,
+          "unit": "px"
+        }
+      },
+      "gutter": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      }
+    },
+    "tablet": {
+      "columns": {
+        "$type": "number",
+        "$value": 6
+      },
+      "margin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      },
+      "gutter": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      }
+    },
+    "mobile": {
+      "columns": {
+        "$type": "number",
+        "$value": 4
+      },
+      "margin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      },
+      "gutter": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        }
+      }
+    },
+    "container": {
+      "gutter": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        }
+      },
+      "columns": {
+        "2": {
+          "$type": "number",
+          "$value": 2
+        },
+        "3": {
+          "$type": "number",
+          "$value": 3
+        },
+        "5": {
+          "$type": "number",
+          "$value": 5
+        },
+        "6": {
+          "$type": "number",
+          "$value": 6
+        },
+        "12": {
+          "$type": "number",
+          "$value": 12
+        }
+      },
+      "margin": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0,
+          "unit": "px"
+        }
+      }
+    }
+  },
+  "container": {
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 640,
+        "unit": "px"
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 768,
+        "unit": "px"
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1024,
+        "unit": "px"
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1280,
+        "unit": "px"
+      }
+    }
+  }
+}

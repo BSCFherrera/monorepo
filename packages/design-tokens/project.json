@@ -1,0 +1,46 @@
+{
+  "name": "design-tokens",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/design-tokens/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "tsc -p packages/design-tokens/tsconfig.json --noEmit",
+          "tsc -p packages/design-tokens/tsconfig.spec.json"
+        ],
+        "parallel": false
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/design-tokens/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p packages/design-tokens/tsconfig.json"
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node packages/design-tokens/scripts/generate-from-figma.cjs"
+      }
+    },
+    "check-generated": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node packages/design-tokens/scripts/generate-from-figma.cjs --check"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@bsc/design-tokens",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "sideEffects": false,
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.20.3"
+  }
+}
