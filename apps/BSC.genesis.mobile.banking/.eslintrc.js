@@ -1,6 +1,11 @@
 module.exports = {
   root: true,
   extends: '@react-native',
+  plugins: ['@nx'],
+  // Límites de módulos de Nx, compartidos con la configuración raíz. Es la
+  // configuración de ESLint, no código de la app: la regla no aplica aquí.
+  // eslint-disable-next-line @nx/enforce-module-boundaries
+  rules: require('../../eslint.module-boundaries.cjs'),
   overrides: [
     {
       // `jest.setup.js` corre en el entorno de Jest, donde `jest` es global.

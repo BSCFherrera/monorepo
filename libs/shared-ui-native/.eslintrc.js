@@ -1,6 +1,8 @@
 module.exports = {
   root: true,
   extends: '@react-native',
+  plugins: ['@nx'],
+  rules: require('../../eslint.module-boundaries.cjs'),
   overrides: [
     {
       // `jest.setup.js` corre en el entorno de Jest, donde `jest` es global.

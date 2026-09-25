@@ -131,6 +131,13 @@ Every project declares a scope and a type in its `project.json`:
 | `ui-native` | `scope:shared`, `type:ui` |
 | `design-tokens`, `contracts`, `utils`, `i18n` | `scope:shared`, `type:util` |
 
+Boundaries are enforced by `@nx/enforce-module-boundaries` (`@nx/eslint-plugin` 22.7.12) as part of the **lint** sensor. The rule lives in one file, `eslint.module-boundaries.cjs`, loaded by the root flat config and by the legacy `.eslintrc.js` of the app and `libs/shared-ui-native`:
+
+- `scope:shared` → only `scope:shared`; `scope:mobile-banking` → `scope:shared` + `scope:mobile-banking`
+- `type:app` → `type:ui`, `type:util`; `type:ui` → `type:ui`, `type:util`; `type:util` → `type:util`
+
+`bsc-shared` has no `lint` target of its own; its files are linted, with its own tags, by the app's `eslint .` run.
+
 Nx project names are unchanged by the move to `libs/shared-*` (e.g. `pnpm nx run design-tokens:generate`); only the folders moved.
 
 ## Regions
