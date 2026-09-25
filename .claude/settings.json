@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "keystone hook fire PreToolUse",
+            "shell": "bash",
+            "statusMessage": "keystone:bridge:PreToolUse",
+            "type": "command"
+          }
+        ],
+        "matcher": ""
+      }
+    ]
+  }
+}

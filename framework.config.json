@@ -1,0 +1,32 @@
+﻿{
+    "jira":  {
+                 "projectKey":  "GEN"
+             },
+    "repository":  {
+                       "remote":  "origin",
+                       "defaultBranch":  "develop"
+                   },
+    "branchPrefixes":  {
+                           "story":  "feature",
+                           "bug":  "bugfix",
+                           "task":  "tech",
+                           "spike":  "spike"
+                       },
+    "validationCommands":  [
+                               "pnpm lint",
+                               "pnpm typecheck",
+                               "pnpm test",
+                               "pnpm build"
+                           ],
+    "telemetry":  {
+                      "centralRepositoryUrl":  "",
+                      "centralBranch":  "main",
+                      "projectRepositories":  [
+
+                                              ]
+                  },
+    "frameworkUpdate":  {
+                            "enabled":  true,
+                            "branch":  "main"
+                        }
+}

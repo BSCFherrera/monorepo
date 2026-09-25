@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "keystone": {
+    "version": "4.0.0",
+    "installed": "2026-08-27",
+    "agents": [
+      "_(set by `keystone init`)_",
+      "claude-code"
+    ]
+  },
+  "migrations_applied": [
+    "2.0",
+    "2.1",
+    "2.2",
+    "2.3",
+    "2.4",
+    "3.0",
+    "4.0"
+  ]
+}
