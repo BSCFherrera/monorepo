@@ -67,7 +67,7 @@ Pattern: `data/datasources/*_remote_datasource.dart` (raw Dio, hand-written dual
 
 Base `/api/v1`, single `Dio` instance (`lib/core/network/api_client.dart`), interceptor order: `AuthInterceptor` → logging (stripped in release) → `CertificatePinner.configure` (**stub — no real pins**, flag as an existing gap, not something to invent for RN). `AuthInterceptor` (intact, `lib/core/network/auth_interceptor.dart`): proactive refresh 60s before expiry, single-flight 401 retry, `X-Timestamp`/`X-Nonce` anti-replay headers on every request. No `CancelToken` usage anywhere — request cancellation isn't implemented in Flutter either.
 
-`ErrorHandler.handleDioError` (`lib/core/network/error_handler.dart`) is the sole Dio→Failure translator: timeout/connectionError/badCertificate → `NetworkFailure`; 400/409/422 → `ValidationFailure`; 401 → `AuthFailure`; 403 → `AuthFailure(forbidden)`; 404 → `ServerFailure(notFound)`; 429 → `ServerFailure(tooManyRequests)`; 5xx → `ServerFailure(serverError)`. `Failure.message` is backend-authored/user-facing, `Failure.detail` is internal-only, never shown. This exact contract is ported to `packages/contracts/src/failure.ts`.
+`ErrorHandler.handleDioError` (`lib/core/network/error_handler.dart`) is the sole Dio→Failure translator: timeout/connectionError/badCertificate → `NetworkFailure`; 400/409/422 → `ValidationFailure`; 401 → `AuthFailure`; 403 → `AuthFailure(forbidden)`; 404 → `ServerFailure(notFound)`; 429 → `ServerFailure(tooManyRequests)`; 5xx → `ServerFailure(serverError)`. `Failure.message` is backend-authored/user-facing, `Failure.detail` is internal-only, never shown. This exact contract is ported to `libs/shared-contracts/src/failure.ts`.
 
 Full endpoint list (auth, customer, products/accounts/cards/loans, payment-execution, currency-exchange, configuration, beneficiaries, two-factor, devices, tax-receipts-NCF) — ~35 endpoints, enumerated during the audit session; re-derive from `lib/core/network/api_endpoints.dart` (intact) rather than duplicating the full list here, to avoid drift.
 
@@ -124,7 +124,7 @@ Only one real image asset: `assets/images/logo-bsc.svg`. `assets/icons/` exists 
 
 ## 18. Design system
 
-Fully intact and clean (`lib/app/theme/bsc_colors.dart`, `bsc_typography.dart`, `bsc_spacing.dart`, `bsc_theme.dart`) — ported 1:1 to `packages/design-tokens/`. Brand blue (`#0B3B8C`) → institutional green (`#00A651`) gradient identity, 4pt spacing scale, Material-based type scale on system Roboto. `darkTheme` in Flutter is currently identical to `lightTheme` — no real dark mode exists to port. The reusable widget library (`lib/shared/widgets/bsc/*`, ~26 components per `docs/PLAN-MEJORA-ARQUITECTURA-V2.md`) is **corrupted** — not migrated yet; only the token values (colors/typography/spacing/radius/shadows) were recoverable, not the component implementations.
+Fully intact and clean (`lib/app/theme/bsc_colors.dart`, `bsc_typography.dart`, `bsc_spacing.dart`, `bsc_theme.dart`) — ported 1:1 to `libs/shared-design-tokens/`. Brand blue (`#0B3B8C`) → institutional green (`#00A651`) gradient identity, 4pt spacing scale, Material-based type scale on system Roboto. `darkTheme` in Flutter is currently identical to `lightTheme` — no real dark mode exists to port. The reusable widget library (`lib/shared/widgets/bsc/*`, ~26 components per `docs/PLAN-MEJORA-ARQUITECTURA-V2.md`) is **corrupted** — not migrated yet; only the token values (colors/typography/spacing/radius/shadows) were recoverable, not the component implementations.
 
 ## 19. Known risks, blockers, features that cannot be migrated 1:1
 
@@ -143,7 +143,7 @@ Fully intact and clean (`lib/app/theme/bsc_colors.dart`, `bsc_typography.dart`, 
 |---|---|---|---|---|
 | `flutter_bloc` | State management (Bloc/Cubit) | Custom hooks + context, or a lightweight state library per-flow | Low | Confirm per-flow: Bloc→multi-step wizard hook, Cubit→simple data-fetch hook |
 | `dio` | HTTP client | `axios` (mandated) | Low | `data/httpclient/` — done (this milestone) |
-| `dartz` (`Either<Failure,T>`) | Functional error handling | `Result<T>` discriminated union (`@bsc/contracts`) | Low | Done — see `packages/contracts` |
+| `dartz` (`Either<Failure,T>`) | Functional error handling | `Result<T>` discriminated union (`@bsc/contracts`) | Low | Done — see `libs/shared-contracts` |
 | `go_router` | Navigation | `@react-navigation/native` | Medium | Typed navigators, preserve the single synchronous auth-guard pattern |
 | `get_it` | DI | React Context / hooks, or a lightweight DI helper in `common/` | Low | Constructor/hook-based injection, no service-locator-in-component pattern (mirrors CLAUDE.md's own CI rule #6) |
 | `flutter_secure_storage` | Token/session/device-secret storage | `react-native-keychain` or `expo-secure-store` | Medium | Confirm Android/iOS parity with the 14 keys in §6 |

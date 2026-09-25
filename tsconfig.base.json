@@ -16,9 +16,9 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@bsc/contracts": ["packages/contracts/src/index.ts"],
-      "@bsc/utils": ["packages/utils/src/index.ts"],
-      "@bsc/design-tokens": ["packages/design-tokens/src/index.ts"]
+      "@bsc/contracts": ["libs/shared-contracts/src/index.ts"],
+      "@bsc/utils": ["libs/shared-utils/src/index.ts"],
+      "@bsc/design-tokens": ["libs/shared-design-tokens/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

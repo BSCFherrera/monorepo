@@ -3,6 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/BSC.genesis.mobile.banking/packages/bsc-shared/src",
   "projectType": "library",
+  "tags": ["scope:mobile-banking", "type:util"],
   "targets": {
     "typecheck": {
       "executor": "nx:run-commands",

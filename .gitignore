@@ -9,6 +9,7 @@ node_modules/
 # build outputs
 dist/
 build/
+coverage/
 **/android/app/build/
 **/ios/build/
 **/ios/Pods/
@@ -30,3 +31,9 @@ build/
 .nx/installation
 .nx/self-healing
 .nx/migrate-runs
+
+# IA-SDLC framework — memoria local (no se commitea)
+.framework-memory/
+
+.claude/worktrees
+.nx/polygraph

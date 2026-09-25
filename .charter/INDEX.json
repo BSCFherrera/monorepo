@@ -1,0 +1,1661 @@
+{
+  "version": "2.0",
+  "generated": "2026-09-25T15:16:37Z",
+  "primitives": [
+    {
+      "kind": "agent",
+      "id": "architect",
+      "description": "Writes the technical spec (concrete changes + EARS test cases) from the business spec and test plan — step 3 of the SDD pipeline.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Write"
+      ],
+      "path": ".charter/agents/architect.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "auditor",
+      "description": "Dual-flywheel auditor — captures learning candidates and prunes dead rules from the charter.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash"
+      ],
+      "path": ".charter/agents/auditor.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "bootstrap-scout",
+      "description": "Stack detector that seeds the initial charter state from a fresh repo.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob",
+        "Bash"
+      ],
+      "path": ".charter/agents/bootstrap-scout.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "business-spec-writer",
+      "description": "Reads a Jira issue and writes the business-only spec — step 1 of the SDD pipeline. Asks business questions when unclear; never guesses.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Write"
+      ],
+      "path": ".charter/agents/business-spec-writer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "code-reviewer",
+      "description": "General code reviewer that runs the four review sensors on the current diff and surfaces findings.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Bash"
+      ],
+      "path": ".charter/agents/code-reviewer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "debt-reviewer",
+      "description": "Triages the code-debt ledger and recommends which entries to action this cycle.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Bash"
+      ],
+      "path": ".charter/agents/debt-reviewer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "drift-reviewer",
+      "description": "Drift reviewer — flags places the current diff drifts from loaded charter rules.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Bash"
+      ],
+      "path": ".charter/agents/drift-reviewer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "functional-test-designer",
+      "description": "Writes Gherkin functional test cases from the business spec, ensures every business rule is covered — step 2 of the SDD pipeline. Idempotent re-entry.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Write"
+      ],
+      "path": ".charter/agents/functional-test-designer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "learning-curator",
+      "description": "Captures a learning candidate from a surprise, incident, or review finding into charter/learning/inbox/.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Write"
+      ],
+      "path": ".charter/agents/learning-curator.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "mode-switcher",
+      "description": "Pacing-mode coordinator — switches the charter between paired, solo, and autopilot.",
+      "tools": [
+        "Read",
+        "Write"
+      ],
+      "path": ".charter/agents/mode-switcher.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "planner",
+      "description": "Planning scout — loads codebase state and matching idioms for the touched region, then sketches a plan.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob"
+      ],
+      "path": ".charter/agents/planner.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "security-reviewer",
+      "description": "Security-focused PR reviewer that hunts OWASP-top-10 patterns and unsafe defaults.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Glob"
+      ],
+      "path": ".charter/agents/security-reviewer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "spec-author",
+      "description": "Captures intent and acceptance criteria for a unit of work — first step on any task.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Write"
+      ],
+      "path": ".charter/agents/spec-author.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "synthesizer",
+      "description": "Promotes learning-inbox candidates into the right corpus or guide layer.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Write"
+      ],
+      "path": ".charter/agents/synthesizer.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "agent",
+      "id": "verifier",
+      "description": "Runs the verification sensors — lint, type-check, test, build, drift, commit-message — and reports the gate.",
+      "tools": [
+        "Read",
+        "Grep",
+        "Bash"
+      ],
+      "path": ".charter/agents/verifier.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "audit",
+      "description": "Full dual-flywheel audit.",
+      "path": ".charter/commands/audit.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "bootstrap",
+      "description": "One-time initial charter scaffold.",
+      "path": ".charter/commands/bootstrap.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "business-spec",
+      "description": "Step 1 of the SDD pipeline — read the Jira issue via MCP and write the business-only spec.",
+      "args": [
+        {
+          "name": "jira_code",
+          "type": "string",
+          "required": true,
+          "description": "The Jira issue code (e.g. PROJ-123) this spec is for."
+        }
+      ],
+      "path": ".charter/commands/business-spec.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "check-drift",
+      "description": "Run the drift sensor on the current diff.",
+      "path": ".charter/commands/check-drift.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "debt-review",
+      "description": "Triage the code-debt ledger.",
+      "path": ".charter/commands/debt-review.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "learn",
+      "description": "Capture a learning candidate from a surprise, an incident, or a review finding.",
+      "path": ".charter/commands/learn.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "mode",
+      "description": "Switch the charter pacing mode (paired / solo / autopilot).",
+      "path": ".charter/commands/mode.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "orient",
+      "description": "Enter the planning phase.",
+      "path": ".charter/commands/orient.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "review",
+      "description": "Run the four review sensors on the current diff.",
+      "path": ".charter/commands/review.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "spec",
+      "description": "Capture intent and acceptance criteria for a unit of work.",
+      "path": ".charter/commands/spec.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "synthesize",
+      "description": "Promote learning-inbox candidates into the right corpus or guide layer.",
+      "path": ".charter/commands/synthesize.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "tech-spec",
+      "description": "Step 3 of the SDD pipeline — the architect writes the technical spec from the business spec and test plan.",
+      "args": [
+        {
+          "name": "jira_code",
+          "type": "string",
+          "required": true,
+          "description": "The Jira issue code this technical spec is for."
+        }
+      ],
+      "path": ".charter/commands/tech-spec.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "test-plan",
+      "description": "Step 2 of the SDD pipeline — write Gherkin functional test cases covering every business rule.",
+      "args": [
+        {
+          "name": "jira_code",
+          "type": "string",
+          "required": true,
+          "description": "The Jira issue code this test plan is for."
+        }
+      ],
+      "path": ".charter/commands/test-plan.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "command",
+      "id": "verify",
+      "description": "Run the verification sensors — lint, type-check, test, build, drift, commit-message.",
+      "path": ".charter/commands/verify.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/domain/product-shape",
+      "description": "One-paragraph statement of the product.",
+      "path": ".charter/corpus/domain/product-shape.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/design-system/bsc-design-system",
+      "description": "Why front-ends follow the BSC Design System, plus the full token values (color, type, spacing, effects, grids) transcribed from the Figma foundations pages.",
+      "path": ".charter/corpus/idioms/design-system/bsc-design-system.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/dotnet/backend",
+      "description": "Why every backend app (web's non-SSR backend included, and mobile's backend) standardizes on .NET 10 instead of per-team runtime choice.",
+      "path": ".charter/corpus/idioms/dotnet/backend.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/hexagonal-architecture",
+      "description": "Why hexagonal architecture is mandatory and kept language-agnostic across the org's projects.",
+      "path": ".charter/corpus/idioms/hexagonal-architecture.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/nx/monorepo-structure",
+      "description": "Why Nx is the mandatory monorepo tool for every new project, and how boundaries/tags/generators/CI wiring keep it meaningful.",
+      "path": ".charter/corpus/idioms/nx/monorepo-structure.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/react-native/mobile-app",
+      "description": "Why mobile apps standardize on React Native 0.87.x with backend-only business logic and Appium e2e, instead of a native-per-platform or client-heavy setup.",
+      "path": ".charter/corpus/idioms/react-native/mobile-app.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/react/nextjs-ssr",
+      "description": "Why company web apps standardize on Next.js SSR at a pinned React/Next version instead of a client-only SPA.",
+      "path": ".charter/corpus/idioms/react/nextjs-ssr.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/testing-policy",
+      "description": "Why the org holds a mandatory Gherkin-to-E2E trace and an 85% coverage floor across every project.",
+      "path": ".charter/corpus/idioms/testing-policy.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/testing-stack",
+      "description": "Why this repo mandates a test stack per project type — Vitest + Playwright for Next.js web, NUnit + Playwright for .NET backend, Jest + Appium for React Native mobile — instead of one runner picked blind for every project.",
+      "path": ".charter/corpus/idioms/testing-stack.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/idioms/typescript",
+      "description": "Why every app/lib in this repo defaults to TypeScript rather than plain JavaScript.",
+      "path": ".charter/corpus/idioms/typescript.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/process/runtime-resolution",
+      "description": "Why the runtime resolution flow escalates instead of fanning out — staged lookup costs less and keeps decisions auditable.",
+      "path": ".charter/corpus/process/runtime-resolution.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/process/toolchain-preflight",
+      "description": "Why a mandated runtime version (.NET 10, react-native@0.87.x) must be checked as an installed toolchain, not just a manifest pin, before implementation starts.",
+      "path": ".charter/corpus/process/toolchain-preflight.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/CODEBASE_STATE",
+      "description": "Empirical map of this codebase.",
+      "path": ".charter/corpus/state/CODEBASE_STATE.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/GLOBS_INDEX",
+      "description": "Reverse-index of every guide that declares globs: in its frontmatter.",
+      "path": ".charter/corpus/state/GLOBS_INDEX.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/INSTALL_PROFILE",
+      "description": "Selections captured by `keystone init`; read by the bootstrap action.",
+      "path": ".charter/corpus/state/INSTALL_PROFILE.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/charter-debt",
+      "description": "Paired ledger: [code-debt.",
+      "path": ".charter/corpus/state/charter-debt.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/code-debt",
+      "description": "Paired ledger: [charter-debt.",
+      "path": ".charter/corpus/state/code-debt.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/quality-radar",
+      "description": "Five-dimension scorecard for the codebase (or for the most recent reviewed diff).",
+      "path": ".charter/corpus/state/quality-radar.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/risk-fingerprints",
+      "description": "Per-region risk score based on complexity + coupling + coverage.",
+      "path": ".charter/corpus/state/risk-fingerprints.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "corpus",
+      "id": "corpus/state/traffic-topology",
+      "description": "Where attention concentrates in the codebase.",
+      "path": ".charter/corpus/state/traffic-topology.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "computational/eslint",
+      "description": "ESLint configs for libs (flat) and the RN app (legacy) — the lint sensor's source of truth.",
+      "globs": [
+        "libs/**/*.ts",
+        "libs/**/*.tsx",
+        "apps/BSC.genesis.mobile.banking/**/*.js",
+        "apps/BSC.genesis.mobile.banking/**/*.ts",
+        "apps/BSC.genesis.mobile.banking/**/*.tsx"
+      ],
+      "path": ".charter/guides/computational/eslint.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "computational/prettier",
+      "description": "Prettier formatting, checked by the app's verify target.",
+      "globs": [
+        "apps/BSC.genesis.mobile.banking/src/**/*.ts",
+        "apps/BSC.genesis.mobile.banking/src/**/*.tsx",
+        "apps/BSC.genesis.mobile.banking/packages/**/src/**/*.ts"
+      ],
+      "path": ".charter/guides/computational/prettier.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "computational/typescript",
+      "description": "TypeScript compiler (strict) — the type-check sensor's source of truth.",
+      "globs": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "path": ".charter/guides/computational/typescript.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/design-system/bsc-design-system",
+      "description": "Every front-end (web or mobile) design and implementation follows the BSC Design System — semantic color tokens, Google Sans type scale, 4px spacing rhythm, elevation/blur styles, grids. Read before designing or coding any UI.",
+      "globs": [
+        "apps/**/*.tsx",
+        "libs/shared-ui-native/**",
+        "libs/shared-design-tokens/**",
+        "libs/**/*.tsx",
+        "openspec/changes/**/*.md"
+      ],
+      "path": ".charter/guides/idioms/design-system/bsc-design-system.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/dotnet/backend",
+      "description": "Every backend app (an API/service apps/\u003cname\u003e — including the backend behind a non-SSR web/mobile client) is built on .NET 10, never a different runtime, and never the Next.js SSR server itself.",
+      "globs": [
+        "apps/**/*.csproj",
+        "apps/**/*.sln",
+        "apps/**/Program.cs"
+      ],
+      "path": ".charter/guides/idioms/dotnet/backend.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/hexagonal-architecture",
+      "description": "Hexagonal (ports \u0026 adapters) architecture, mandatory and language-agnostic, for every module in every project.",
+      "globs": [
+        "**/domain/**",
+        "**/application/**",
+        "**/infrastructure/**",
+        "**/presentation/**"
+      ],
+      "corpus": [
+        "corpus/idioms/hexagonal-architecture"
+      ],
+      "severity": "must",
+      "path": ".charter/guides/idioms/hexagonal-architecture.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/markdown-docs/spanish-process-docs",
+      "description": "Process docs and templates are written in Spanish, matching the existing corpus.",
+      "globs": [
+        "docs/**/*.md",
+        "README.md"
+      ],
+      "path": ".charter/guides/idioms/markdown-docs/spanish-process-docs.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/nx/monorepo-structure",
+      "description": "Nx is the mandatory monorepo tool for every brand-new project, and governs any repo that already has nx.json — never a forced migration for existing non-Nx projects.",
+      "globs": [
+        "nx.json",
+        "**/project.json"
+      ],
+      "path": ".charter/guides/idioms/nx/monorepo-structure.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/openspec/change-lifecycle",
+      "description": "Changes under openspec/changes/ go through the openspec CLI, never hand-authored.",
+      "globs": [
+        "openspec/**"
+      ],
+      "path": ".charter/guides/idioms/openspec/change-lifecycle.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/powershell/fail-fast-automation",
+      "description": "PowerShell scripts fail fast: $ErrorActionPreference=Stop, mandatory params, guarded Push-Location.",
+      "globs": [
+        "scripts/**/*.ps1"
+      ],
+      "path": ".charter/guides/idioms/powershell/fail-fast-automation.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/react-native/mobile-app",
+      "description": "Mobile apps (apps/\u003cname\u003e shipping to iOS/Android) are built with React Native 0.87.x, keep all business logic in a dedicated backend app, and use Appium for e2e — never Playwright for native e2e.",
+      "globs": [
+        "apps/**/react-native.config.js",
+        "apps/**/metro.config.js",
+        "apps/**/*.appium.config.*",
+        "apps/*/android/**",
+        "apps/*/ios/**",
+        "apps/*-e2e/**",
+        "apps/BSC.genesis.mobile.banking/src/**",
+        "libs/shared-ui-native/src/**"
+      ],
+      "path": ".charter/guides/idioms/react-native/mobile-app.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/react/nextjs-ssr",
+      "description": "Web apps (apps/\u003cname\u003e serving a browser UI) are built with Next.js SSR on React 19.2.8 / Next 16.3.4 — never a client-only SPA setup.",
+      "globs": [
+        "apps/**/next.config.*",
+        "apps/**/next-env.d.ts"
+      ],
+      "path": ".charter/guides/idioms/react/nextjs-ssr.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/testing-policy",
+      "description": "TDD, Gherkin-to-E2E traceability, and coverage thresholds — mandatory for every project, language-agnostic.",
+      "globs": [
+        "**/*.spec.*",
+        "**/*.test.*",
+        "**/*.e2e.*",
+        "**/e2e/**",
+        "**/*.feature"
+      ],
+      "corpus": [
+        "corpus/idioms/testing-policy"
+      ],
+      "severity": "must",
+      "path": ".charter/guides/idioms/testing-policy.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/testing-stack",
+      "description": "The mandatory unit/integration and e2e test frameworks for every project in this repo, by project type — Next.js web uses Vitest + Playwright, .NET backend uses NUnit + Playwright, React Native mobile uses Jest + Appium.",
+      "globs": [
+        "**/*.spec.*",
+        "**/*.test.*",
+        "**/*.e2e.*",
+        "**/e2e/**",
+        "vitest.config.*",
+        "playwright.config.*"
+      ],
+      "corpus": [
+        "corpus/idioms/testing-stack"
+      ],
+      "severity": "must",
+      "path": ".charter/guides/idioms/testing-stack.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "idioms/typescript",
+      "description": "All application code in this repo is TypeScript — no new plain-JavaScript source files.",
+      "globs": [
+        "**/*.ts",
+        "**/*.tsx",
+        "tsconfig*.json"
+      ],
+      "corpus": [
+        "corpus/idioms/typescript"
+      ],
+      "severity": "must",
+      "path": ".charter/guides/idioms/typescript.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/business-spec",
+      "description": "SDD step 1 — read the Jira issue and capture business intent, business-only, before any technical thinking starts.",
+      "path": ".charter/guides/process/business-spec.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/ci-failure",
+      "description": "What to do when CI fails — on a PR, after a merge, or post-deploy.",
+      "path": ".charter/guides/process/ci-failure.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/context-budget",
+      "description": "How much the agent reads, runs, or spawns before making a change.",
+      "path": ".charter/guides/process/context-budget.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/dangerous-actions",
+      "description": "Operations the agent must confirm with the user before executing — irreversible, broadly-visible, or outside the local workspace.",
+      "path": ".charter/guides/process/dangerous-actions.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/escalation",
+      "description": "When the agent is stuck, when to stop and ask the user — versus when to keep going.",
+      "path": ".charter/guides/process/escalation.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/grounding",
+      "description": "The discipline of verifying that what the agent references — functions, APIs, packages, files, flags — actually exists before invoking it.",
+      "path": ".charter/guides/process/grounding.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/implementation",
+      "description": "The phase where code gets written, test-first.",
+      "path": ".charter/guides/process/implementation.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/modes",
+      "description": "Active mode: paired",
+      "path": ".charter/guides/process/modes.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/planning",
+      "description": "The phase that turns an approved spec into an approved plan, before code is written.",
+      "path": ".charter/guides/process/planning.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/pushback",
+      "description": "The discipline of disagreeing with the user when the user is wrong.",
+      "path": ".charter/guides/process/pushback.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/release",
+      "description": "The phase where the change lands and is announced.",
+      "path": ".charter/guides/process/release.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/review",
+      "description": "The phase that confirms a mechanically-correct change is also the right change.",
+      "path": ".charter/guides/process/review.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/runtime-resolution",
+      "description": "How the agent resolves a scenario — staged escalation from rules to corpus to external sources, asking before applying.",
+      "severity": "must",
+      "path": ".charter/guides/process/runtime-resolution.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/scoping",
+      "description": "How big any single commit, PR, or implementation pass is allowed to get before it must split.",
+      "path": ".charter/guides/process/scoping.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/self-validation",
+      "description": "The discipline of refusing to count the agent's own claim as evidence.",
+      "path": ".charter/guides/process/self-validation.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/sensitive-files",
+      "description": "Files the agent must never read into context, write to, or commit.",
+      "path": ".charter/guides/process/sensitive-files.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/spec",
+      "description": "The phase that captures what needs to happen, before deciding how.",
+      "path": ".charter/guides/process/spec.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/subagent-trust",
+      "description": "The discipline of treating subagent reports as claims to verify, not as evidence to accept.",
+      "path": ".charter/guides/process/subagent-trust.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/surgical-edits",
+      "description": "Touch only what serves the task.",
+      "path": ".charter/guides/process/surgical-edits.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/tech-spec",
+      "description": "SDD step 3 — the architect turns the business spec and test plan into concrete changes and EARS technical test cases.",
+      "path": ".charter/guides/process/tech-spec.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/test-plan",
+      "description": "SDD step 2 — write Gherkin functional test cases proving every business rule, with explicit rule coverage.",
+      "path": ".charter/guides/process/test-plan.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/toolchain-preflight",
+      "description": "Before implementation starts on a task touching a stack idiom that mandates a specific runtime version, verify the required SDK/toolchain is actually installed.",
+      "corpus": [
+        "corpus/process/toolchain-preflight"
+      ],
+      "path": ".charter/guides/process/toolchain-preflight.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "guide",
+      "id": "process/verification",
+      "description": "The phase where claims are paired with evidence before commit.",
+      "path": ".charter/guides/process/verification.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "playbook",
+      "id": "sdd",
+      "description": "Jira-sourced spec-driven development pipeline — business spec → test plan → tech spec → plan → implement → validate → commit/PR.",
+      "path": ".charter/playbooks/sdd.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "playbook",
+      "id": "task",
+      "description": "End-to-end task workflow.",
+      "path": ".charter/playbooks/task.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "ai-provenance",
+      "description": "Tracks what percentage of commits and changed lines are AI-generated, from the AI-Generated-By trailer.",
+      "mode": "computational",
+      "on": "release",
+      "run": "# TODO: wire the ai-provenance metric update",
+      "path": ".charter/sensors/ai-provenance.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "build",
+      "description": "The project's build / compile / package step.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm nx run-many -t build",
+      "path": ".charter/sensors/build.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "charter-debt",
+      "description": "Surfaces debt in the charter itself — content that exists but isn't earning its keep.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/charter-debt.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "code-debt",
+      "description": "Surfaces and categorizes debt in the codebase — the known-suboptimal code the team has chosen to live with, plus the shape of any new deb...",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/code-debt.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "commit-message",
+      "description": "Validates conventional-commit format and presence of the AI-Generated-By trailer on agent-produced commits.",
+      "mode": "computational",
+      "on": "PreToolUse",
+      "run": "# TODO: wire the commit-message check",
+      "path": ".charter/sensors/commit-message.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "coverage",
+      "description": "Reads test coverage and updates the State layer.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm nx run-many -t test --coverage",
+      "path": ".charter/sensors/coverage.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "drift",
+      "description": "Compares the diff (or full codebase, during audit) against loaded guide rules.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/drift.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "lint",
+      "description": "Surface-level style and pattern checks.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm nx run-many -t lint",
+      "path": ".charter/sensors/lint.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "quality-radar",
+      "description": "Aggregates verification and review sensors into a five-dimension scorecard for the current diff (or the whole codebase, on audit).",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/quality-radar.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "review-deployment",
+      "description": "An agent reads the diff and reports deployment considerations — schema migration safety (expand-contract), feature-flag gating, environme...",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/review-deployment.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "review-functional",
+      "description": "An agent reads the diff and reports logic, correctness, and behavior issues.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/review-functional.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "review-risk",
+      "description": "An agent reads the diff and reports risk concerns — blast radius, reversibility, hot-spot regions, fan-out and shared-state coupling, irr...",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/review-risk.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "review-security",
+      "description": "An agent reads the diff and reports security concerns — injection, auth, secrets, unsafe deserialization, weak crypto, missing authorizat...",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/review-security.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "risk-fingerprint",
+      "description": "Computes complexity + coupling + coverage patterns per region.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/risk-fingerprint.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "rule-coverage",
+      "description": "Walks the business spec's rules against the test plan's Gherkin coverage table.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/rule-coverage.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "sast",
+      "description": "Static application security testing — pattern-based detection of insecure code in the source tree (SQL injection, command injection, weak...",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "# TODO: wire the sast command (see corpus/state/CODEBASE_STATE.md)",
+      "path": ".charter/sensors/sast.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "secret-scan",
+      "description": "Scans the diff (or repo, on audit) for committed secrets — API keys, tokens, private keys, credentials.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm --dir apps/BSC.genesis.mobile.banking run scan:secrets",
+      "path": ".charter/sensors/secret-scan.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "spec-adherence",
+      "description": "Walks the spec's acceptance criteria against the current diff.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/spec-adherence.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "stack-drift",
+      "description": "Detects when the empirical reality of the repo has diverged from what CODEBASESTATE.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "# TODO: wire the stack-drift command (see corpus/state/CODEBASE_STATE.md)",
+      "path": ".charter/sensors/stack-drift.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "state-region",
+      "description": "Read-only.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/state-region.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "test",
+      "description": "The project's test suite.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm nx run-many -t test",
+      "path": ".charter/sensors/test.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "tracker-card-fetcher",
+      "description": "Fetches a tracker card from Jira / Linear / GitHub Issues / Asana via whatever tracker integration the agent has (MCP server, CLI, policy...",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/tracker-card-fetcher.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "traffic-topology",
+      "description": "Combines git churn + recency + business criticality into a map of where attention concentrates.",
+      "mode": "inferential",
+      "returns": "review-findings",
+      "path": ".charter/sensors/traffic-topology.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "type-check",
+      "description": "Signature and contract consistency.",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm nx run-many -t typecheck",
+      "path": ".charter/sensors/type-check.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "sensor",
+      "id": "vuln-scan",
+      "description": "Scans declared dependencies for known vulnerabilities (CVEs, advisories).",
+      "mode": "computational",
+      "on": "pre-verify",
+      "run": "pnpm audit --audit-level critical",
+      "path": ".charter/sensors/vuln-scan.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "jira-spec-gate",
+      "description": "Gate feature/user-story/spec work behind a Jira issue code, fetched live via the Atlassian MCP server — never hand-typed or guessed.",
+      "triggers": [
+        "implement a feature",
+        "implement this feature",
+        "new feature",
+        "new user story",
+        "implement a user story",
+        "implement the spec",
+        "work on this ticket",
+        "start this story",
+        "build this feature"
+      ],
+      "path": ".charter/skills/jira-spec-gate/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:audit",
+      "description": "Full dual-flywheel audit — Learning (capture from review) + Pruning (remove dead rules). Periodic charter hygiene.",
+      "triggers": [
+        "keystone audit",
+        "keystone:audit",
+        "/keystone:audit",
+        "run audit",
+        "audit the charter",
+        "dual flywheel audit"
+      ],
+      "path": ".charter/skills/keystone-audit/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:bootstrap",
+      "description": "One-time initial charter scaffold — detect stack, seed state, scaffold idioms, classify sensors, build the globs index.",
+      "triggers": [
+        "keystone bootstrap",
+        "keystone:bootstrap",
+        "/keystone:bootstrap",
+        "run bootstrap",
+        "bootstrap the charter",
+        "bootstrap the keystone charter",
+        "first-time setup"
+      ],
+      "path": ".charter/skills/keystone-bootstrap/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:check-drift",
+      "description": "Run the drift sensor on the current diff — fast pre-verify check that loaded charter rules still match what the code is doing.",
+      "triggers": [
+        "keystone check-drift",
+        "keystone:check-drift",
+        "/keystone:check-drift",
+        "check drift",
+        "run drift sensor",
+        "drift check"
+      ],
+      "path": ".charter/skills/keystone-check-drift/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:debt-review",
+      "description": "Triage the code-debt ledger — review the debt sensor's findings and update corpus/state/code-debt.md.",
+      "triggers": [
+        "keystone debt-review",
+        "keystone:debt-review",
+        "/keystone:debt-review",
+        "review code debt",
+        "triage debt ledger",
+        "debt review"
+      ],
+      "path": ".charter/skills/keystone-debt-review/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:index",
+      "description": "Regenerate .charter/INDEX.json — the primitive descriptor index every agent reads at session start.",
+      "triggers": [
+        "keystone index",
+        "keystone:index",
+        "/keystone:index",
+        "refresh the keystone index",
+        "regenerate INDEX.json",
+        "reindex primitives"
+      ],
+      "path": ".charter/skills/keystone-index/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:learn",
+      "description": "Capture a learning candidate (surprise, incident, review finding) into .charter/learning/inbox/ for later synthesis.",
+      "triggers": [
+        "keystone learn",
+        "keystone:learn",
+        "/keystone:learn",
+        "run the learn action",
+        "capture a learning candidate",
+        "log a surprise"
+      ],
+      "path": ".charter/skills/keystone-learn/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:mode",
+      "description": "Switch the charter pacing mode (paired / solo / autopilot).",
+      "triggers": [
+        "keystone mode",
+        "keystone:mode",
+        "/keystone:mode",
+        "switch pacing mode",
+        "go autopilot",
+        "go solo",
+        "go paired"
+      ],
+      "path": ".charter/skills/keystone-mode/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-adapter",
+      "description": "Scaffold the per-agent adapter triple (lifecycle, sensors, activation) for a new host.",
+      "triggers": [
+        "keystone new adapter",
+        "keystone:new-adapter",
+        "/keystone:new-adapter",
+        "add a host adapter",
+        "scaffold a new agent target"
+      ],
+      "path": ".charter/skills/keystone-new-adapter/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-command",
+      "description": "Scaffold a new lifecycle action (atomic unit of work) at the canonical path.",
+      "triggers": [
+        "keystone new command",
+        "keystone:new-command",
+        "/keystone:new-command",
+        "add a new command",
+        "scaffold a lifecycle action"
+      ],
+      "path": ".charter/skills/keystone-new-command/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-corpus",
+      "description": "Scaffold a corpus reasoning entry (the *why*) at the canonical path.",
+      "triggers": [
+        "keystone new corpus",
+        "keystone:new-corpus",
+        "/keystone:new-corpus",
+        "add corpus reasoning",
+        "scaffold a corpus entry"
+      ],
+      "path": ".charter/skills/keystone-new-corpus/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-guide",
+      "description": "Scaffold a new rule guide + paired corpus stub at the canonical path.",
+      "triggers": [
+        "keystone new guide",
+        "keystone:new-guide",
+        "/keystone:new-guide",
+        "add a new guide",
+        "scaffold a rule guide",
+        "new keystone rule"
+      ],
+      "path": ".charter/skills/keystone-new-guide/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-playbook",
+      "description": "Scaffold a new playbook (ordered sequence of actions) at the canonical path.",
+      "triggers": [
+        "keystone new playbook",
+        "keystone:new-playbook",
+        "/keystone:new-playbook",
+        "add a new playbook",
+        "scaffold a workflow"
+      ],
+      "path": ".charter/skills/keystone-new-playbook/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-policy",
+      "description": "Scaffold a new policy repo skeleton outside the current project.",
+      "triggers": [
+        "keystone new policy",
+        "keystone:new-policy",
+        "/keystone:new-policy",
+        "bootstrap a policy repo",
+        "scaffold a keystone policy"
+      ],
+      "path": ".charter/skills/keystone-new-policy/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:new-sensor",
+      "description": "Scaffold a new sensor (automated check) at the canonical path.",
+      "triggers": [
+        "keystone new sensor",
+        "keystone:new-sensor",
+        "/keystone:new-sensor",
+        "add a sensor",
+        "scaffold a new check"
+      ],
+      "path": ".charter/skills/keystone-new-sensor/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:orient",
+      "description": "Enter the planning phase — load codebase state + matching idioms for the touched region, then sketch a plan.",
+      "triggers": [
+        "keystone orient",
+        "keystone:orient",
+        "/keystone:orient",
+        "enter planning phase",
+        "orient on this task",
+        "load idioms for the touched region"
+      ],
+      "path": ".charter/skills/keystone-orient/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:review",
+      "description": "Run the four review sensors on the current diff (functional, security, risk, deployment).",
+      "triggers": [
+        "keystone review",
+        "keystone:review",
+        "/keystone:review",
+        "review the diff",
+        "run review sensors",
+        "semantic review"
+      ],
+      "path": ".charter/skills/keystone-review/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:spec",
+      "description": "Capture intent + acceptance criteria for a unit of work. First action on any task.",
+      "triggers": [
+        "keystone spec",
+        "keystone:spec",
+        "/keystone:spec",
+        "capture acceptance criteria",
+        "spec this task",
+        "what are we building"
+      ],
+      "path": ".charter/skills/keystone-spec/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:synthesize",
+      "description": "Promote accepted learning-inbox candidates into the right corpus / guide / sensor layer, then refresh INDEX.json.",
+      "triggers": [
+        "keystone synthesize",
+        "keystone:synthesize",
+        "/keystone:synthesize",
+        "run synthesize",
+        "promote learning candidates",
+        "promote inbox to guides"
+      ],
+      "path": ".charter/skills/keystone-synthesize/SKILL.md",
+      "provenance": "project"
+    },
+    {
+      "kind": "skill",
+      "id": "keystone:verify",
+      "description": "Check vendored policies for drift and the strict cascade for project-layer violations.",
+      "triggers": [
+        "keystone verify",
+        "keystone:verify",
+        "/keystone:verify",
+        "verify the charter cascade",
+        "audit policy drift",
+        "check strict violations"
+      ],
+      "path": ".charter/skills/keystone-verify/SKILL.md",
+      "provenance": "project"
+    }
+  ],
+  "by_kind": {
+    "agent": [
+      "architect",
+      "auditor",
+      "bootstrap-scout",
+      "business-spec-writer",
+      "code-reviewer",
+      "debt-reviewer",
+      "drift-reviewer",
+      "functional-test-designer",
+      "learning-curator",
+      "mode-switcher",
+      "planner",
+      "security-reviewer",
+      "spec-author",
+      "synthesizer",
+      "verifier"
+    ],
+    "command": [
+      "audit",
+      "bootstrap",
+      "business-spec",
+      "check-drift",
+      "debt-review",
+      "learn",
+      "mode",
+      "orient",
+      "review",
+      "spec",
+      "synthesize",
+      "tech-spec",
+      "test-plan",
+      "verify"
+    ],
+    "corpus": [
+      "corpus/domain/product-shape",
+      "corpus/idioms/design-system/bsc-design-system",
+      "corpus/idioms/dotnet/backend",
+      "corpus/idioms/hexagonal-architecture",
+      "corpus/idioms/nx/monorepo-structure",
+      "corpus/idioms/react-native/mobile-app",
+      "corpus/idioms/react/nextjs-ssr",
+      "corpus/idioms/testing-policy",
+      "corpus/idioms/testing-stack",
+      "corpus/idioms/typescript",
+      "corpus/process/runtime-resolution",
+      "corpus/process/toolchain-preflight",
+      "corpus/state/CODEBASE_STATE",
+      "corpus/state/GLOBS_INDEX",
+      "corpus/state/INSTALL_PROFILE",
+      "corpus/state/charter-debt",
+      "corpus/state/code-debt",
+      "corpus/state/quality-radar",
+      "corpus/state/risk-fingerprints",
+      "corpus/state/traffic-topology"
+    ],
+    "guide": [
+      "computational/eslint",
+      "computational/prettier",
+      "computational/typescript",
+      "idioms/design-system/bsc-design-system",
+      "idioms/dotnet/backend",
+      "idioms/hexagonal-architecture",
+      "idioms/markdown-docs/spanish-process-docs",
+      "idioms/nx/monorepo-structure",
+      "idioms/openspec/change-lifecycle",
+      "idioms/powershell/fail-fast-automation",
+      "idioms/react-native/mobile-app",
+      "idioms/react/nextjs-ssr",
+      "idioms/testing-policy",
+      "idioms/testing-stack",
+      "idioms/typescript",
+      "process/business-spec",
+      "process/ci-failure",
+      "process/context-budget",
+      "process/dangerous-actions",
+      "process/escalation",
+      "process/grounding",
+      "process/implementation",
+      "process/modes",
+      "process/planning",
+      "process/pushback",
+      "process/release",
+      "process/review",
+      "process/runtime-resolution",
+      "process/scoping",
+      "process/self-validation",
+      "process/sensitive-files",
+      "process/spec",
+      "process/subagent-trust",
+      "process/surgical-edits",
+      "process/tech-spec",
+      "process/test-plan",
+      "process/toolchain-preflight",
+      "process/verification"
+    ],
+    "playbook": [
+      "sdd",
+      "task"
+    ],
+    "sensor": [
+      "ai-provenance",
+      "build",
+      "charter-debt",
+      "code-debt",
+      "commit-message",
+      "coverage",
+      "drift",
+      "lint",
+      "quality-radar",
+      "review-deployment",
+      "review-functional",
+      "review-risk",
+      "review-security",
+      "risk-fingerprint",
+      "rule-coverage",
+      "sast",
+      "secret-scan",
+      "spec-adherence",
+      "stack-drift",
+      "state-region",
+      "test",
+      "tracker-card-fetcher",
+      "traffic-topology",
+      "type-check",
+      "vuln-scan"
+    ],
+    "skill": [
+      "jira-spec-gate",
+      "keystone:audit",
+      "keystone:bootstrap",
+      "keystone:check-drift",
+      "keystone:debt-review",
+      "keystone:index",
+      "keystone:learn",
+      "keystone:mode",
+      "keystone:new-adapter",
+      "keystone:new-command",
+      "keystone:new-corpus",
+      "keystone:new-guide",
+      "keystone:new-playbook",
+      "keystone:new-policy",
+      "keystone:new-sensor",
+      "keystone:orient",
+      "keystone:review",
+      "keystone:spec",
+      "keystone:synthesize",
+      "keystone:verify"
+    ]
+  },
+  "by_glob": {
+    "**/*.e2e.*": [
+      "guide/idioms/testing-policy",
+      "guide/idioms/testing-stack"
+    ],
+    "**/*.feature": [
+      "guide/idioms/testing-policy"
+    ],
+    "**/*.spec.*": [
+      "guide/idioms/testing-policy",
+      "guide/idioms/testing-stack"
+    ],
+    "**/*.test.*": [
+      "guide/idioms/testing-policy",
+      "guide/idioms/testing-stack"
+    ],
+    "**/*.ts": [
+      "guide/computational/typescript",
+      "guide/idioms/typescript"
+    ],
+    "**/*.tsx": [
+      "guide/computational/typescript",
+      "guide/idioms/typescript"
+    ],
+    "**/application/**": [
+      "guide/idioms/hexagonal-architecture"
+    ],
+    "**/domain/**": [
+      "guide/idioms/hexagonal-architecture"
+    ],
+    "**/e2e/**": [
+      "guide/idioms/testing-policy",
+      "guide/idioms/testing-stack"
+    ],
+    "**/infrastructure/**": [
+      "guide/idioms/hexagonal-architecture"
+    ],
+    "**/presentation/**": [
+      "guide/idioms/hexagonal-architecture"
+    ],
+    "**/project.json": [
+      "guide/idioms/nx/monorepo-structure"
+    ],
+    "README.md": [
+      "guide/idioms/markdown-docs/spanish-process-docs"
+    ],
+    "apps/**/*.appium.config.*": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/**/*.csproj": [
+      "guide/idioms/dotnet/backend"
+    ],
+    "apps/**/*.sln": [
+      "guide/idioms/dotnet/backend"
+    ],
+    "apps/**/*.tsx": [
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "apps/**/Program.cs": [
+      "guide/idioms/dotnet/backend"
+    ],
+    "apps/**/metro.config.js": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/**/next-env.d.ts": [
+      "guide/idioms/react/nextjs-ssr"
+    ],
+    "apps/**/next.config.*": [
+      "guide/idioms/react/nextjs-ssr"
+    ],
+    "apps/**/react-native.config.js": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/*-e2e/**": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/*/android/**": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/*/ios/**": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/BSC.genesis.mobile.banking/**/*.js": [
+      "guide/computational/eslint"
+    ],
+    "apps/BSC.genesis.mobile.banking/**/*.ts": [
+      "guide/computational/eslint"
+    ],
+    "apps/BSC.genesis.mobile.banking/**/*.tsx": [
+      "guide/computational/eslint"
+    ],
+    "apps/BSC.genesis.mobile.banking/packages/**/src/**/*.ts": [
+      "guide/computational/prettier"
+    ],
+    "apps/BSC.genesis.mobile.banking/src/**": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "apps/BSC.genesis.mobile.banking/src/**/*.ts": [
+      "guide/computational/prettier"
+    ],
+    "apps/BSC.genesis.mobile.banking/src/**/*.tsx": [
+      "guide/computational/prettier"
+    ],
+    "docs/**/*.md": [
+      "guide/idioms/markdown-docs/spanish-process-docs"
+    ],
+    "libs/**/*.ts": [
+      "guide/computational/eslint"
+    ],
+    "libs/**/*.tsx": [
+      "guide/computational/eslint",
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "libs/shared-design-tokens/**": [
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "libs/shared-ui-native/**": [
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "libs/shared-ui-native/src/**": [
+      "guide/idioms/react-native/mobile-app"
+    ],
+    "nx.json": [
+      "guide/idioms/nx/monorepo-structure"
+    ],
+    "openspec/**": [
+      "guide/idioms/openspec/change-lifecycle"
+    ],
+    "openspec/changes/**/*.md": [
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "playwright.config.*": [
+      "guide/idioms/testing-stack"
+    ],
+    "scripts/**/*.ps1": [
+      "guide/idioms/powershell/fail-fast-automation"
+    ],
+    "tsconfig*.json": [
+      "guide/idioms/typescript"
+    ],
+    "vitest.config.*": [
+      "guide/idioms/testing-stack"
+    ]
+  }
+}

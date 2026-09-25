@@ -1,0 +1,9 @@
+{
+  "version": "2",
+  "policies": [],
+  "project": {
+    "mergeStrategy": "project-wins",
+    "preserveExplicitRules": true,
+    "doNotOverwriteOnInstall": true
+  }
+}

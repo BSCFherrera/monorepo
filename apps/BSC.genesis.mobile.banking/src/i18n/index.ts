@@ -9,7 +9,7 @@
  *
  * Hoy solo hay español. Para añadir inglés: `en` en `IDIOMAS` de `@bsc/i18n`,
  * los archivos en `src/locales/en/` y su entrada aquí. Ver
- * `packages/i18n/README.md`.
+ * `libs/shared-i18n/README.md`.
  */
 import { iniciarTraducciones, type Idioma, type Recursos } from '@bsc/i18n';
 
