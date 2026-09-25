@@ -19,7 +19,7 @@ The known debt this codebase carries. One row per item. The point of the ledger 
 | `DEBT-002` | `docs/migration-audit.md:111` | discovery | noisy | Genesis mobile team | next edit to that doc | Mentions the internal LAN dev IP of the retired Flutter app in a committed doc; the secret scanner flags it on a root-wide run. Redact to a placeholder. |
 | `DEBT-003` | `apps/BSC.genesis.mobile.banking/` | deliberate | load-bearing | Genesis mobile team | before pilot | App-wide coverage ~48% lines / 44% branches (Jest, 2026-09-25); only `@bsc/shared` enforces thresholds. |
 | `DEBT-004` | `apps/BSC.genesis.mobile.banking/.prettierrc.js` vs root `.prettierrc.json` | drift | noisy | Genesis mobile team | tooling alignment | Two Prettier majors (app 2.8.8, root 3.x) and two ESLint config styles (app `.eslintrc.js`, root flat config). |
-| `DEBT-005` | all `project.json` | deliberate | noisy | Genesis mobile team | when a second app lands | No Nx `tags` / `@nx/enforce-module-boundaries`; package boundaries are enforced by review only. |
+| `DEBT-005` | root `eslint.config.mjs`, app `.eslintrc.js` | deliberate | noisy | Genesis mobile team | Nx 22 upgrade (in progress on GEN-795) | Every project has scope/type tags; `@nx/enforce-module-boundaries` is not wired yet, so boundaries are enforced by review only. |
 | `DEBT-006` | repo root | discovery | load-bearing | Genesis mobile team | pipeline setup | No CI definition or SAST tool in the repo; sensors run locally only. |
 
 ## Categories

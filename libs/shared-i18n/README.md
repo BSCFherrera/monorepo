@@ -44,7 +44,7 @@ mano en el JSX es un **error de lint** (`i18next/no-literal-string`, en
 
 1. `en: { nombre: 'English' }` en `IDIOMAS` (`src/idiomas.ts`). El nombre va en
    su propio idioma: así lo reconoce quien no entiende el idioma actual.
-2. `packages/i18n/src/locales/en/common.json` y `instancia.ts` (`PROPIOS`).
+2. `libs/shared-i18n/src/locales/en/common.json` y `instancia.ts` (`PROPIOS`).
 3. `apps/BSC.genesis.mobile.banking/src/locales/en/*.json`, uno por archivo de `es`, y su
    entrada en `RECURSOS`.
 4. `traducciones.test.ts` comprueba que `en` tenga **las mismas claves y las

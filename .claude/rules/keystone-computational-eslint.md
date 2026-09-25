@@ -1,10 +1,10 @@
 ---
 kind: rule
 id: rules/keystone-computational-eslint
-description: "ESLint configs for packages (flat) and the RN app (legacy) — the lint sensor's source of truth."
+description: "ESLint configs for libs (flat) and the RN app (legacy) — the lint sensor's source of truth."
 globs:
-  - "packages/**/*.ts"
-  - "packages/**/*.tsx"
+  - "libs/**/*.ts"
+  - "libs/**/*.tsx"
   - "apps/BSC.genesis.mobile.banking/**/*.js"
   - "apps/BSC.genesis.mobile.banking/**/*.ts"
   - "apps/BSC.genesis.mobile.banking/**/*.tsx"

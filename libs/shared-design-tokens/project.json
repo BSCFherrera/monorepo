@@ -1,8 +1,9 @@
 {
   "name": "design-tokens",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/design-tokens/src",
+  "sourceRoot": "libs/shared-design-tokens/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -11,8 +12,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc -p packages/design-tokens/tsconfig.json --noEmit",
-          "tsc -p packages/design-tokens/tsconfig.spec.json"
+          "tsc -p libs/shared-design-tokens/tsconfig.json --noEmit",
+          "tsc -p libs/shared-design-tokens/tsconfig.spec.json"
         ],
         "parallel": false
       }
@@ -20,26 +21,26 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/design-tokens/jest.config.ts",
+        "jestConfig": "libs/shared-design-tokens/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p packages/design-tokens/tsconfig.json"
+        "command": "tsc -p libs/shared-design-tokens/tsconfig.json"
       }
     },
     "generate": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node packages/design-tokens/scripts/generate-from-figma.cjs"
+        "command": "node libs/shared-design-tokens/scripts/generate-from-figma.cjs"
       }
     },
     "check-generated": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node packages/design-tokens/scripts/generate-from-figma.cjs --check"
+        "command": "node libs/shared-design-tokens/scripts/generate-from-figma.cjs --check"
       }
     }
   }

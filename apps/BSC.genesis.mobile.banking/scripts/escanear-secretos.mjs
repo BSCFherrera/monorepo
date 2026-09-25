@@ -28,15 +28,15 @@ const RAIZ = process.cwd();
 /**
  * Qué se revisa: la app y los paquetes compartidos del monorepo que viajan
  * dentro de ella. El sistema de diseño vivía en `src/design-system` y se
- * revisaba con la app; al extraerlo a `packages/` tiene que seguir revisándose,
+ * revisaba con la app; al extraerlo a `libs/` tiene que seguir revisándose,
  * o un secreto escrito en un componente dejaría de detectarse sin aviso.
  */
 const RAICES = [
   RAIZ,
-  join(RAIZ, '../../packages/ui-native'),
-  join(RAIZ, '../../packages/design-tokens'),
-  join(RAIZ, '../../packages/contracts'),
-  join(RAIZ, '../../packages/utils'),
+  join(RAIZ, '../../libs/shared-ui-native'),
+  join(RAIZ, '../../libs/shared-design-tokens'),
+  join(RAIZ, '../../libs/shared-contracts'),
+  join(RAIZ, '../../libs/shared-utils'),
 ].filter(existsSync);
 
 /** Carpetas que no se miran: no son código nuestro o son resultado de compilar. */
@@ -153,7 +153,7 @@ const PERMITIDOS = [
       Los trazos vectoriales son series de números y alguna se lee como una
       dirección. No son texto escrito por nadie: salen de exportar el logotipo.
     */
-    coincide: ruta => ruta.includes('packages/ui-native/src/assets/'),
+    coincide: ruta => ruta.includes('libs/shared-ui-native/src/assets/'),
     motivo: 'datos de trazado vectorial, no texto escrito a mano',
   },
 ];

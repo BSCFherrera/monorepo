@@ -1,8 +1,9 @@
 {
   "name": "contracts",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/contracts/src",
+  "sourceRoot": "libs/shared-contracts/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -10,20 +11,20 @@
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p packages/contracts/tsconfig.json --noEmit"
+        "command": "tsc -p libs/shared-contracts/tsconfig.json --noEmit"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/contracts/jest.config.ts",
+        "jestConfig": "libs/shared-contracts/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p packages/contracts/tsconfig.json"
+        "command": "tsc -p libs/shared-contracts/tsconfig.json"
       }
     }
   }

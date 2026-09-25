@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/BSC.genesis.mobile.banking/src",
   "projectType": "application",
+  "tags": ["scope:mobile-banking", "type:app"],
   "targets": {
     "lint": {
       "executor": "nx:run-commands",

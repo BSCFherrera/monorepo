@@ -36,7 +36,7 @@ module.exports = {
               ],
             },
             message:
-              'Texto visible sin traducir: usa t() con una clave de src/locales (ver packages/i18n/README.md).',
+              'Texto visible sin traducir: usa t() con una clave de src/locales (ver libs/shared-i18n/README.md).',
           },
         ],
       },

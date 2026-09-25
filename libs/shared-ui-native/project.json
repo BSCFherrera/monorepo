@@ -1,13 +1,14 @@
 {
   "name": "ui-native",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/ui-native/src",
+  "sourceRoot": "libs/shared-ui-native/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:ui"],
   "targets": {
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/ui-native",
+        "cwd": "libs/shared-ui-native",
         "command": "eslint src --ext .ts,.tsx",
         "env": { "ESLINT_USE_FLAT_CONFIG": "false" }
       }
@@ -15,14 +16,14 @@
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/ui-native",
+        "cwd": "libs/shared-ui-native",
         "command": "tsc -p tsconfig.json --noEmit"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/ui-native/jest.config.js"
+        "jestConfig": "libs/shared-ui-native/jest.config.js"
       }
     }
   }

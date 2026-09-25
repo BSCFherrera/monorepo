@@ -4,8 +4,8 @@ id: idioms/design-system/bsc-design-system
 description: Every front-end (web or mobile) design and implementation follows the BSC Design System — semantic color tokens, Google Sans type scale, 4px spacing rhythm, elevation/blur styles, grids. Read before designing or coding any UI.
 globs:
   - "apps/**/*.tsx"
-  - "packages/ui-native/**"
-  - "packages/design-tokens/**"
+  - "libs/shared-ui-native/**"
+  - "libs/shared-design-tokens/**"
   - "libs/**/*.tsx"
   - "openspec/changes/**/*.md"
 ---

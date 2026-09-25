@@ -55,19 +55,19 @@ importers:
     dependencies:
       '@bsc/contracts':
         specifier: workspace:*
-        version: link:../../packages/contracts
+        version: link:../../libs/shared-contracts
       '@bsc/i18n':
         specifier: workspace:*
-        version: link:../../packages/i18n
+        version: link:../../libs/shared-i18n
       '@bsc/shared':
         specifier: workspace:*
         version: link:packages/bsc-shared
       '@bsc/ui-native':
         specifier: workspace:*
-        version: link:../../packages/ui-native
+        version: link:../../libs/shared-ui-native
       '@bsc/utils':
         specifier: workspace:*
-        version: link:../../packages/utils
+        version: link:../../libs/shared-utils
       '@react-navigation/bottom-tabs':
         specifier: ^7.19.1
         version: 7.19.2(@react-navigation/native@7.4.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native-safe-area-context@5.9.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native-screens@4.28.0(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
@@ -197,7 +197,7 @@ importers:
     dependencies:
       '@bsc/i18n':
         specifier: workspace:*
-        version: link:../../../../packages/i18n
+        version: link:../../../../libs/shared-i18n
     devDependencies:
       '@types/jest':
         specifier: ^29.5.14
@@ -212,9 +212,9 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
-  packages/contracts: {}
+  libs/shared-contracts: {}
 
-  packages/design-tokens:
+  libs/shared-design-tokens:
     devDependencies:
       '@types/jest':
         specifier: ^29.5.14
@@ -223,7 +223,7 @@ importers:
         specifier: ^22.20.3
         version: 22.20.3
 
-  packages/i18n:
+  libs/shared-i18n:
     dependencies:
       i18next:
         specifier: ^26.4.2
@@ -239,17 +239,17 @@ importers:
         specifier: ^29.5.14
         version: 29.5.14
 
-  packages/ui-native:
+  libs/shared-ui-native:
     dependencies:
       '@bsc/contracts':
         specifier: workspace:*
-        version: link:../contracts
+        version: link:../shared-contracts
       '@bsc/design-tokens':
         specifier: workspace:*
-        version: link:../design-tokens
+        version: link:../shared-design-tokens
       '@bsc/utils':
         specifier: workspace:*
-        version: link:../utils
+        version: link:../shared-utils
     devDependencies:
       '@babel/core':
         specifier: ^7.25.2
@@ -315,11 +315,11 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
-  packages/utils:
+  libs/shared-utils:
     dependencies:
       '@bsc/contracts':
         specifier: workspace:*
-        version: link:../contracts
+        version: link:../shared-contracts
     devDependencies:
       '@types/jest':
         specifier: ^29.5.14
@@ -6555,13 +6555,13 @@ snapshots:
       '@babel/core': 7.29.7
       '@babel/eslint-parser': 7.29.9(@babel/core@7.29.7)(eslint@8.57.1)
       '@react-native/eslint-plugin': 0.87.1
-      '@typescript-eslint/eslint-plugin': 8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.9.3)
       '@typescript-eslint/parser': 8.70.0(eslint@8.57.1)(typescript@5.9.3)
       eslint: 8.57.1
       eslint-config-prettier: 8.10.2(eslint@8.57.1)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.57.1)
       eslint-plugin-ft-flow: 2.0.3(@babel/eslint-parser@7.29.9(@babel/core@7.29.7)(eslint@8.57.1))(eslint@8.57.1)
-      eslint-plugin-jest: 29.16.6(@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(jest@29.7.0(@types/node@22.20.3)(ts-node@10.9.1(@types/node@22.20.3)(typescript@5.9.3)))(typescript@5.9.3)
+      eslint-plugin-jest: 29.16.6(@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(jest@29.7.0(@types/node@22.20.3)(ts-node@10.9.1(@types/node@22.20.3)(typescript@5.9.3)))(typescript@5.9.3)
       eslint-plugin-react: 7.37.5(eslint@8.57.1)
       eslint-plugin-react-hooks: 7.1.1(eslint@8.57.1)
       eslint-plugin-react-native: 5.0.0(eslint@8.57.1)
@@ -6885,10 +6885,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.70.0(eslint@8.57.1)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.70.0(eslint@8.57.1)(typescript@5.6.3)
       '@typescript-eslint/scope-manager': 8.70.0
       '@typescript-eslint/type-utils': 8.70.0(eslint@8.57.1)(typescript@5.9.3)
       '@typescript-eslint/utils': 8.70.0(eslint@8.57.1)(typescript@5.9.3)
@@ -7991,12 +7991,12 @@ snapshots:
     dependencies:
       requireindex: 1.1.0
 
-  eslint-plugin-jest@29.16.6(@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(jest@29.7.0(@types/node@22.20.3)(ts-node@10.9.1(@types/node@22.20.3)(typescript@5.9.3)))(typescript@5.9.3):
+  eslint-plugin-jest@29.16.6(@typescript-eslint/eslint-plugin@8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(jest@29.7.0(@types/node@22.20.3)(ts-node@10.9.1(@types/node@22.20.3)(typescript@5.9.3)))(typescript@5.9.3):
     dependencies:
       '@typescript-eslint/utils': 8.70.0(eslint@8.57.1)(typescript@5.9.3)
       eslint: 8.57.1
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.70.0(@typescript-eslint/parser@8.70.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3)
       jest: 29.7.0(@types/node@22.20.3)(ts-node@10.9.1(@types/node@22.20.3)(typescript@5.9.3))
       typescript: 5.9.3
     transitivePeerDependencies:

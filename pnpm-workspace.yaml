@@ -1,5 +1,5 @@
 packages:
   - "apps/*"
-  - "packages/*"
+  - "libs/*"
   # @bsc/shared lives inside the app (it is also consumed by the Nuxt portal)
   - "apps/BSC.genesis.mobile.banking/packages/*"

@@ -48,15 +48,14 @@ Guides without `globs:` are not listed here — they activate ambient per their 
 | `apps/BSC.genesis.mobile.banking/src/**/*.ts` | `charter/guides/computational/prettier.md` |
 | `apps/BSC.genesis.mobile.banking/src/**/*.tsx` | `charter/guides/computational/prettier.md` |
 | `docs/**/*.md` | `charter/guides/idioms/markdown-docs/spanish-process-docs.md` |
-| `libs/**/*.tsx` | `charter/guides/idioms/design-system/bsc-design-system.md` |
+| `libs/**/*.ts` | `charter/guides/computational/eslint.md` |
+| `libs/**/*.tsx` | `charter/guides/computational/eslint.md`, `charter/guides/idioms/design-system/bsc-design-system.md` |
+| `libs/shared-design-tokens/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
+| `libs/shared-ui-native/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
+| `libs/shared-ui-native/src/**` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `nx.json` | `charter/guides/idioms/nx/monorepo-structure.md` |
 | `openspec/**` | `charter/guides/idioms/openspec/change-lifecycle.md` |
 | `openspec/changes/**/*.md` | `charter/guides/idioms/design-system/bsc-design-system.md` |
-| `packages/**/*.ts` | `charter/guides/computational/eslint.md` |
-| `packages/**/*.tsx` | `charter/guides/computational/eslint.md` |
-| `packages/design-tokens/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
-| `packages/ui-native/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
-| `packages/ui-native/src/**` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `playwright.config.*` | `charter/guides/idioms/testing-stack.md` |
 | `scripts/**/*.ps1` | `charter/guides/idioms/powershell/fail-fast-automation.md` |
 | `tsconfig*.json` | `charter/guides/idioms/typescript.md` |

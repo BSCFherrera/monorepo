@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "generated": "2026-09-25T14:41:43Z",
+  "generated": "2026-09-25T15:11:04Z",
   "primitives": [
     {
       "kind": "agent",
@@ -449,10 +449,10 @@
     {
       "kind": "guide",
       "id": "computational/eslint",
-      "description": "ESLint configs for packages (flat) and the RN app (legacy) — the lint sensor's source of truth.",
+      "description": "ESLint configs for libs (flat) and the RN app (legacy) — the lint sensor's source of truth.",
       "globs": [
-        "packages/**/*.ts",
-        "packages/**/*.tsx",
+        "libs/**/*.ts",
+        "libs/**/*.tsx",
         "apps/BSC.genesis.mobile.banking/**/*.js",
         "apps/BSC.genesis.mobile.banking/**/*.ts",
         "apps/BSC.genesis.mobile.banking/**/*.tsx"
@@ -489,8 +489,8 @@
       "description": "Every front-end (web or mobile) design and implementation follows the BSC Design System — semantic color tokens, Google Sans type scale, 4px spacing rhythm, elevation/blur styles, grids. Read before designing or coding any UI.",
       "globs": [
         "apps/**/*.tsx",
-        "packages/ui-native/**",
-        "packages/design-tokens/**",
+        "libs/shared-ui-native/**",
+        "libs/shared-design-tokens/**",
         "libs/**/*.tsx",
         "openspec/changes/**/*.md"
       ],
@@ -580,7 +580,7 @@
         "apps/*/ios/**",
         "apps/*-e2e/**",
         "apps/BSC.genesis.mobile.banking/src/**",
-        "packages/ui-native/src/**"
+        "libs/shared-ui-native/src/**"
       ],
       "path": ".charter/guides/idioms/react-native/mobile-app.md",
       "provenance": "project"
@@ -1620,8 +1620,21 @@
     "docs/**/*.md": [
       "guide/idioms/markdown-docs/spanish-process-docs"
     ],
+    "libs/**/*.ts": [
+      "guide/computational/eslint"
+    ],
     "libs/**/*.tsx": [
+      "guide/computational/eslint",
       "guide/idioms/design-system/bsc-design-system"
+    ],
+    "libs/shared-design-tokens/**": [
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "libs/shared-ui-native/**": [
+      "guide/idioms/design-system/bsc-design-system"
+    ],
+    "libs/shared-ui-native/src/**": [
+      "guide/idioms/react-native/mobile-app"
     ],
     "nx.json": [
       "guide/idioms/nx/monorepo-structure"
@@ -1631,21 +1644,6 @@
     ],
     "openspec/changes/**/*.md": [
       "guide/idioms/design-system/bsc-design-system"
-    ],
-    "packages/**/*.ts": [
-      "guide/computational/eslint"
-    ],
-    "packages/**/*.tsx": [
-      "guide/computational/eslint"
-    ],
-    "packages/design-tokens/**": [
-      "guide/idioms/design-system/bsc-design-system"
-    ],
-    "packages/ui-native/**": [
-      "guide/idioms/design-system/bsc-design-system"
-    ],
-    "packages/ui-native/src/**": [
-      "guide/idioms/react-native/mobile-app"
     ],
     "playwright.config.*": [
       "guide/idioms/testing-stack"

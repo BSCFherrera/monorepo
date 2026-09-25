@@ -8,33 +8,33 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-Regular.ttf') format('truetype');
+  src: url('../../../libs/shared-ui-native/assets/fonts/GoogleSansFlex-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Google Sans Flex';
   font-style: normal;
   font-weight: 500;
   font-display: block;
-  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-Medium.ttf') format('truetype');
+  src: url('../../../libs/shared-ui-native/assets/fonts/GoogleSansFlex-Medium.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Google Sans Flex';
   font-style: normal;
   font-weight: 600;
   font-display: block;
-  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-SemiBold.ttf') format('truetype');
+  src: url('../../../libs/shared-ui-native/assets/fonts/GoogleSansFlex-SemiBold.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Google Sans Flex';
   font-style: normal;
   font-weight: 700;
   font-display: block;
-  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-Bold.ttf') format('truetype');
+  src: url('../../../libs/shared-ui-native/assets/fonts/GoogleSansFlex-Bold.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Google Sans Flex';
   font-style: normal;
   font-weight: 800;
   font-display: block;
-  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-ExtraBold.ttf') format('truetype');
+  src: url('../../../libs/shared-ui-native/assets/fonts/GoogleSansFlex-ExtraBold.ttf') format('truetype');
 }

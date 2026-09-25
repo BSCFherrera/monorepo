@@ -6,7 +6,7 @@
  * es una imagen: son tres capas vectoriales para Android 8 en adelante, diez
  * PNG por densidad para Android 7, uno para la ficha de la tienda y otro para
  * iOS. Todos tienen que salir del **mismo** dibujo, y ese dibujo es el isotipo
- * que vive dentro de `packages/ui-native/src/assets/logo-bsc.svg`. Con un generador,
+ * que vive dentro de `libs/shared-ui-native/src/assets/logo-bsc.svg`. Con un generador,
  * el día que el banco entregue una versión nueva del logotipo se sustituye ese
  * SVG, se ejecuta `npm run iconos` y las piezas vuelven a cuadrar entre sí. A
  * mano, alguna se quedaría atrás y nadie lo notaría hasta ver el teléfono.
@@ -832,7 +832,7 @@ const ZONA_SEGURA = 72;
 
 function main() {
   const svg = readFileSync(
-    join(raiz, '../../packages/ui-native/src/assets/logo-bsc.svg'),
+    join(raiz, '../../libs/shared-ui-native/src/assets/logo-bsc.svg'),
     'utf8',
   );
 
@@ -1079,7 +1079,7 @@ const CABECERA_FRENTE = `<!--
 
   **Generado.** No se edita a mano: sale de \`scripts/generar-iconos.mjs\`, que
   recorta el símbolo del logotipo de marca
-  (\`packages/ui-native/src/assets/logo-bsc.svg\`) y lo encaja en la zona segura. Si
+  (\`libs/shared-ui-native/src/assets/logo-bsc.svg\`) y lo encaja en la zona segura. Si
   el banco entrega un logotipo nuevo, se sustituye ese SVG y se ejecuta
   \`npm run iconos\`.
 

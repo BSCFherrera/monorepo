@@ -1,8 +1,9 @@
 {
   "name": "utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/utils/src",
+  "sourceRoot": "libs/shared-utils/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -11,8 +12,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc -p packages/utils/tsconfig.json --noEmit",
-          "tsc -p packages/utils/tsconfig.spec.json"
+          "tsc -p libs/shared-utils/tsconfig.json --noEmit",
+          "tsc -p libs/shared-utils/tsconfig.spec.json"
         ],
         "parallel": false
       }
@@ -20,14 +21,14 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/utils/jest.config.ts",
+        "jestConfig": "libs/shared-utils/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p packages/utils/tsconfig.json"
+        "command": "tsc -p libs/shared-utils/tsconfig.json"
       }
     }
   }

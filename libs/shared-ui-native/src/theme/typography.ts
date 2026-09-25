@@ -16,7 +16,7 @@ import {
  * plataforma: la app empaqueta cortes estáticos (400, 500, 600, 700 y 800)
  * registrados bajo la familia «Google Sans Flex», así que `fontFamily` más
  * `fontWeight` elige el corte correcto en iOS, en Android y en la vista previa
- * web. Ver `packages/ui-native/assets/fonts/README.md`.
+ * web. Ver `libs/shared-ui-native/assets/fonts/README.md`.
  */
 export const fontFamily = familiaDelToken;
 

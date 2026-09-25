@@ -3,7 +3,7 @@
  *
  * Font: Google Sans Flex, the Figma library's `family/primary`. It is not a
  * system font on either platform: the app bundles static cuts of it (see
- * `packages/ui-native/assets/fonts`).
+ * `libs/shared-ui-native/assets/fonts`).
  *
  * Every role points at one of the library's text styles, which fixes its size,
  * weight, line height and letter spacing. The library has no role names, so

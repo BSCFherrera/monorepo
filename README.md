@@ -10,13 +10,12 @@ apps/
 │   └── packages/
 │       └── bsc-shared/          @bsc/shared — pure business logic (formatters, validation)
 └── BSC.genesis.conversational/  (placeholder)
-packages/
-├── design-tokens/  @bsc/design-tokens — tokens generated from the Figma library (primitives → semantic → component, light + dark)
-├── ui-native/      @bsc/ui-native — shared React Native components (Bsc*) and the Google Sans Flex font
-├── contracts/      @bsc/contracts — framework-neutral prop and data contracts
-├── utils/          @bsc/utils — framework-neutral pure utilities
-└── i18n/           @bsc/i18n — translation system (i18next); Spanish today, language selector ready
 libs/
+├── shared-design-tokens/  @bsc/design-tokens — tokens generated from the Figma library (primitives → semantic → component, light + dark)
+├── shared-ui-native/      @bsc/ui-native — shared React Native components (Bsc*) and the Google Sans Flex font
+├── shared-contracts/      @bsc/contracts — framework-neutral prop and data contracts
+├── shared-utils/          @bsc/utils — framework-neutral pure utilities
+├── shared-i18n/           @bsc/i18n — translation system (i18next); Spanish today, language selector ready
 └── BSC.genesis.design.system/   (placeholder from the original scaffold)
 docs/
 ```
@@ -53,9 +52,9 @@ pnpm nx run design-tokens:generate                # regenerate tokens from the F
 
 ## Where things are documented
 
-- Design tokens and the Figma snapshot: `packages/design-tokens/figma/README.md`
-- Translations (adding text, adding a language, the selector): `packages/i18n/README.md`
-- Font: `packages/ui-native/assets/fonts/README.md`
+- Design tokens and the Figma snapshot: `libs/shared-design-tokens/figma/README.md`
+- Translations (adding text, adding a language, the selector): `libs/shared-i18n/README.md`
+- Font: `libs/shared-ui-native/assets/fonts/README.md`
 - App migration history, security model and open questions: `apps/BSC.genesis.mobile.banking/docs/migration/`
 
 ## Known caveats

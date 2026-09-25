@@ -1,8 +1,9 @@
 {
   "name": "i18n",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/i18n/src",
+  "sourceRoot": "libs/shared-i18n/src",
   "projectType": "library",
+  "tags": ["scope:shared", "type:util"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -11,8 +12,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "tsc -p packages/i18n/tsconfig.json --noEmit",
-          "tsc -p packages/i18n/tsconfig.spec.json"
+          "tsc -p libs/shared-i18n/tsconfig.json --noEmit",
+          "tsc -p libs/shared-i18n/tsconfig.spec.json"
         ],
         "parallel": false
       }
@@ -20,14 +21,14 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/i18n/jest.config.ts",
+        "jestConfig": "libs/shared-i18n/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p packages/i18n/tsconfig.json"
+        "command": "tsc -p libs/shared-i18n/tsconfig.json"
       }
     }
   }

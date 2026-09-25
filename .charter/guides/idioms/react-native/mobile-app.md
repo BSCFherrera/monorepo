@@ -10,7 +10,7 @@ globs:
   - "apps/*/ios/**"
   - "apps/*-e2e/**"
   - "apps/BSC.genesis.mobile.banking/src/**"
-  - "packages/ui-native/src/**"
+  - "libs/shared-ui-native/src/**"
 ---
 # React Native mobile apps — rules
 
