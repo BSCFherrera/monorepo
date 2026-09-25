@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   displayName: 'contracts',
   preset: 'ts-jest',
   testEnvironment: 'node',

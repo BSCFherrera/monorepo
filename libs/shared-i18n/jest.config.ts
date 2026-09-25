@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   displayName: 'i18n',
   preset: 'ts-jest',
   testEnvironment: 'node',

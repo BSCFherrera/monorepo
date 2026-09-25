@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   displayName: 'utils',
   preset: 'ts-jest',
   testEnvironment: 'node',

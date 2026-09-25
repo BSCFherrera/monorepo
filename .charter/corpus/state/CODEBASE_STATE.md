@@ -8,7 +8,7 @@ last_reconciled: 2026-09-25
 
 Empirical map of this codebase. Updated by the **verify**, **learn**, and **audit** actions.
 
-`BSC.genesis.monorepo` is the **Nx 20 + pnpm 9 workspace** for Banco Santa Cruz's Genesis apps. Today it holds one real app — the React Native banking app `apps/BSC.genesis.mobile.banking` (migrated from a retired Flutter app) — plus the shared design system and framework-neutral packages it builds on. Every language in the workspace is TypeScript (strict, `noUncheckedIndexedAccess`). The IA-SDLC framework (Keystone charter + OpenSpec) is installed at the root.
+`BSC.genesis.monorepo` is the **Nx 22 + pnpm 9 workspace** for Banco Santa Cruz's Genesis apps. Today it holds one real app — the React Native banking app `apps/BSC.genesis.mobile.banking` (migrated from a retired Flutter app) — plus the shared design system and framework-neutral packages it builds on. Every language in the workspace is TypeScript (strict, `noUncheckedIndexedAccess`). The IA-SDLC framework (Keystone charter + OpenSpec) is installed at the root.
 
 ## Tool commands
 
@@ -35,7 +35,7 @@ Severity thresholds (used by vuln-scan and sast):
 
 | Tool | Fail at or above |
 |---|---|
-| vuln_scan | critical — set at bootstrap because `pnpm audit` currently reports 3 high + 1 moderate (see `code-debt.md`); tighten to `high` once those are resolved |
+| vuln_scan | critical — `pnpm audit` reports 2 high in Nx's own pinned dependencies (see `code-debt.md` `DEBT-001`); tighten to `high` once those are resolved |
 | sast | n/a — sensor not wired |
 
 ## Sensors
@@ -107,9 +107,9 @@ Guides shipped by the framework for stacks **not present** here (`dotnet`, `reac
 
 | Name | Version | Role | Region(s) |
 |---|---|---|---|
-| `nx` | 20.3.0 | task runner / project graph | root |
+| `nx` | 22.7.12 | task runner / project graph | root |
 | `pnpm` | 9.15.0 | package manager (workspaces: `apps/*`, `libs/*`, `apps/BSC.genesis.mobile.banking/packages/*`) | root |
-| `typescript` | ~5.6 root, ^5.9 app | language | all |
+| `typescript` | 5.9.3 root, ^5.9 app | language | all |
 | `react-native` | 0.87.1 (new architecture, Hermes) | mobile UI | app, `libs/shared-ui-native` |
 | `react` | 19.2.3 | UI | app |
 | `react-native-web` + `vite` | 0.21 / 7 | browser preview of the app (`:web` target) | app `web/`, `vite.config.mts` |

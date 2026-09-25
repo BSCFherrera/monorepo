@@ -15,7 +15,7 @@ The known debt this codebase carries. One row per item. The point of the ledger 
 
 | ID | Location | Category | Severity | Owner | Trigger to revisit | Notes |
 |---|---|---|---|---|---|---|
-| `DEBT-001` | root `package.json` → `@nx/eslint@20.3.0` → `@nx/devkit` | discovery | load-bearing | Genesis mobile team | Nx upgrade, or before tightening vuln-scan to `high` | `pnpm audit`: 3 high (`minimatch@9.0.3`, needs ≥9.0.7) + 1 moderate (`nx@20.3.0`, needs ≥22.7.2), all dev-tooling only. vuln-scan runs at `critical` until fixed. |
+| `DEBT-001` | root `package.json` → `nx@22.7.12` | discovery | noisy | Genesis mobile team | next Nx 22.x patch or Nx 23 (needs ESLint 9) | `pnpm audit`: 2 high, dev-tooling only — `brace-expansion@5.0.8` (needs ≥5.0.9) and `smol-toml@1.6.1` (needs ≥1.7.1), both pinned exactly by `nx`. Fixable with `pnpm.overrides`. The Nx 20 advisories (`minimatch`, `nx`) were fixed by the Nx 22 upgrade. vuln-scan stays at `critical` until these clear. |
 | `DEBT-002` | `docs/migration-audit.md:111` | discovery | noisy | Genesis mobile team | next edit to that doc | Mentions the internal LAN dev IP of the retired Flutter app in a committed doc; the secret scanner flags it on a root-wide run. Redact to a placeholder. |
 | `DEBT-003` | `apps/BSC.genesis.mobile.banking/` | deliberate | load-bearing | Genesis mobile team | before pilot | App-wide coverage ~48% lines / 44% branches (Jest, 2026-09-25); only `@bsc/shared` enforces thresholds. |
 | `DEBT-004` | `apps/BSC.genesis.mobile.banking/.prettierrc.js` vs root `.prettierrc.json` | drift | noisy | Genesis mobile team | tooling alignment | Two Prettier majors (app 2.8.8, root 3.x) and two ESLint config styles (app `.eslintrc.js`, root flat config). |

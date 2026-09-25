@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   displayName: 'design-tokens',
   preset: 'ts-jest',
   testEnvironment: 'node',
