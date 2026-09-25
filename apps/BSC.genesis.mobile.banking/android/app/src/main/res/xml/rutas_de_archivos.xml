@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Lo único que esta aplicación comparte con otras aplicaciones.
+
+  Se declara **un solo subdirectorio de la caché**, y no la caché entera ni los
+  archivos de la aplicación: un FileProvider con una ruta amplia deja expuesto
+  cualquier archivo que caiga dentro, y aquí dentro caen documentos del banco.
+-->
+<paths>
+    <cache-path name="estados" path="estados/" />
+</paths>

@@ -1,0 +1,14 @@
+# Shell scripts must keep LF line endings: a CRLF shebang (`#!/bin/sh\r`)
+# fails on macOS and Linux. Windows batch files keep CRLF.
+gradlew        text eol=lf
+*.sh           text eol=lf
+.xcode.env*    text eol=lf
+*.bat          text eol=crlf
+*.cmd          text eol=crlf
+
+# Binary files: never touch their bytes.
+*.jar          binary
+*.keystore     binary
+*.png          binary
+*.jpg          binary
+*.ttf          binary

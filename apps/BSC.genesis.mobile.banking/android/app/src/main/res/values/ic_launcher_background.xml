@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  El color de fondo del icono adaptativo.
+
+  Es **blanco**, y no el azul institucional, porque el isotipo lleva el azul y
+  el verde de la marca: sobre el azul corporativo la mitad del símbolo
+  desaparecería. Es además el fondo sobre el que el banco entregó el asset.
+
+  Está aquí como recurso propio y no escrito dentro del XML del icono para que
+  el banco pueda cambiarlo sin tocar la composición de las capas.
+-->
+<resources>
+    <color name="ic_launcher_background">#FFFFFF</color>
+</resources>

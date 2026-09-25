@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Política de red **solo para la compilación de depuración**.
+
+  Este archivo sustituye al de `src/main` cuando se compila `debug`, y no
+  entra en el paquete de release. Esa separación es deliberada: la excepción de
+  tráfico en claro que hace falta para desarrollar no puede llegar a producción
+  por un descuido, y aquí la imposibilidad es del sistema de compilación, no de
+  una convención que alguien tenga que recordar.
+
+  ⚠️ **No usar `<domain-config>` dentro de `<debug-overrides>`.** Android no lo
+  admite y la aplicación **no arranca**: falla al instanciar `MainApplication`
+  con «Nested domain-config not allowed in debug-overrides». Gradle compila el
+  XML sin quejarse, así que el defecto solo aparece al abrir la app en un
+  teléfono. Pasó, y por eso está escrito aquí.
+
+  La base sigue prohibiendo el tráfico en claro: la excepción es del bucle
+  local y de nadie más. El teléfono alcanza el backend de la laptop por
+  `adb reverse`, que lo presenta como `localhost` sin TLS.
+
+  **Ninguna dirección del rango privado entra en este archivo**, ni siquiera el
+  alias del emulador: la app Flutter traía una dirección interna del banco
+  escrita en el código (T-10) y una aquí sería la misma fuga, habilitada además
+  en claro.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">127.0.0.1</domain>
+    </domain-config>
+
+    <!--
+      Los certificados que el cliente instaló a mano, para poder inspeccionar
+      el tráfico con un proxy al diagnosticar. `debug-overrides` solo admite
+      `trust-anchors`, y aun así este archivo no se compila en release.
+    -->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+</network-security-config>

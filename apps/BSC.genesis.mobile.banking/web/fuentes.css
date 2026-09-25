@@ -1,0 +1,40 @@
+/*
+ * Google Sans Flex para la vista previa: los mismos cortes estáticos que
+ * empaquetan iOS y Android, bajo la misma familia, para que `fontFamily` +
+ * `fontWeight` elijan el mismo corte que en el teléfono.
+ */
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 800;
+  font-display: block;
+  src: url('../../../packages/ui-native/assets/fonts/GoogleSansFlex-ExtraBold.ttf') format('truetype');
+}

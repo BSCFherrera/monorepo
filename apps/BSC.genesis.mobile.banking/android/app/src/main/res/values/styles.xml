@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+    </style>
+
+    <!--
+      El tema con el que se abre la ventana.
+
+      Android pinta el fondo de la ventana en cuanto la actividad se lanza, antes
+      de que exista nada de React Native. Con este tema ese fondo es el logotipo
+      del banco sobre el degradado de marca en vez del blanco por defecto, de
+      modo que el arranque en frío se vea como una pantalla del producto y no
+      como una aplicación que tarda.
+
+      La actividad lo declara en el manifiesto y **vuelve a `AppTheme` en cuanto
+      se crea** (ver `MainActivity.onCreate`). Si se quedara con este tema, el
+      dibujo seguiría detrás de toda la aplicación: no se vería —las pantallas lo
+      tapan— pero Android lo redibujaría en cada cambio de tamaño y en cada
+      transición, y además cualquier superficie con fondo transparente lo dejaría
+      asomar.
+    -->
+    <style name="AppTheme.Arranque" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/fondo_de_arranque</item>
+    </style>
+
+</resources>

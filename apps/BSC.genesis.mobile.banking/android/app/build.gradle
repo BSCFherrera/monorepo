@@ -1,0 +1,255 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+apply plugin: "com.facebook.react"
+
+import groovy.json.JsonSlurper
+
+/**
+ * La versión sale de `package.json`, que es la única fuente.
+ *
+ * Antes estaba escrita a mano aquí —«1.0»— mientras el pie del perfil leía
+ * `package.json` —«0.1.0»—, así que la aplicación se contradecía a sí misma:
+ * el cliente veía una versión y la tienda registraba otra. Al reportar un
+ * fallo, soporte no podía saber qué compilación tenía delante.
+ *
+ * `versionCode` se deriva del mismo número, que es lo que exige la tienda:
+ * mayor × 10000 + menor × 100 + parche. Con eso, 0.1.0 es 100 y 1.2.3 es
+ * 10203, y el orden nunca se invierte al subir una versión.
+ */
+static def leerVersionDelPaquete(File raiz) {
+    def json = new JsonSlurper().parse(new File(raiz, "../package.json"))
+    return (json.version ?: "0.0.0").toString()
+}
+
+static def codigoDeVersion(String nombre) {
+    def partes = nombre.split("[.-]")
+    def mayor = partes.length > 0 ? (partes[0] as Integer) : 0
+    def menor = partes.length > 1 ? (partes[1] as Integer) : 0
+    def parche = partes.length > 2 ? (partes[2] as Integer) : 0
+    return mayor * 10000 + menor * 100 + parche
+}
+
+def versionDeLaApp = leerVersionDelPaquete(rootDir)
+
+/**
+ * This is the configuration block to customize your React Native Android app.
+ * By default you don't need to apply any configuration, just uncomment the lines you need.
+ */
+react {
+    /* Folders */
+    //   The root of your project, i.e. where "package.json" lives. Default is '../..'
+    // root = file("../../")
+    //   The folder where the react-native NPM package is. Default is ../../node_modules/react-native
+    // reactNativeDir = file("../../node_modules/react-native")
+    //   The folder where the react-native Codegen package is. Default is ../../node_modules/@react-native/codegen
+    // codegenDir = file("../../node_modules/@react-native/codegen")
+    //   The cli.js file which is the React Native CLI entrypoint. Default is ../../node_modules/react-native/cli.js
+    // cliFile = file("../../node_modules/react-native/cli.js")
+
+    /* Variants */
+    //   The list of variants to that are debuggable. For those we're going to
+    //   skip the bundling of the JS bundle and the assets. Default is "debug", "debugOptimized".
+    //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
+    // debuggableVariants = ["liteDebug", "liteDebugOptimized", "prodDebug", "prodDebugOptimized"]
+
+    /* Bundling */
+    //   A list containing the node command and its flags. Default is just 'node'.
+    // nodeExecutableAndArgs = ["node"]
+    //
+    //   The command to run when bundling. By default is 'bundle'
+    // bundleCommand = "ram-bundle"
+    //
+    //   The path to the CLI configuration file. Default is empty.
+    // bundleConfig = file(../rn-cli.config.js)
+    //
+    //   The name of the generated asset file containing your JS bundle
+    // bundleAssetName = "MyApplication.android.bundle"
+    //
+    //   The entry file for bundle generation. Default is 'index.android.js' or 'index.js'
+    // entryFile = file("../js/MyApplication.android.js")
+    //
+    //   A list of extra flags to pass to the 'bundle' commands.
+    //   See https://github.com/react-native-community/cli/blob/main/docs/commands.md#bundle
+    // extraPackagerArgs = []
+
+    /* Hermes Commands */
+    //   The hermes compiler command to run. By default it is 'hermesc'
+    // hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
+    //
+    //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
+    // hermesFlags = ["-O", "-output-source-map"]
+
+    /* Autolinking */
+    autolinkLibrariesWithApp()
+}
+
+/**
+ * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
+ */
+/**
+ * R8 encendido en release (T-07).
+ *
+ * Reduce y ofusca el código Java/Kotlin, que es lo que encarece leer el APK con
+ * un descompilador. El paquete de JavaScript lo cubre Hermes, que lo compila a
+ * bytecode. Las reglas están en `proguard-rules.pro`, y cada `keep` de ahí
+ * existe porque sin él algo deja de funcionar **solo en release**.
+ *
+ * ⚠️ Una compilación de release hay que probarla entera antes de publicar: los
+ * fallos que R8 introduce no aparecen en depuración.
+ */
+def enableProguardInReleaseBuilds = true
+
+/**
+ * The preferred build flavor of JavaScriptCore (JSC)
+ *
+ * For example, to use the international variant, you can use:
+ * `def jscFlavor = io.github.react-native-community:jsc-android-intl:2026004.+`
+ *
+ * The international variant includes ICU i18n library and necessary data
+ * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * give correct results when using with locales other than en-US. Note that
+ * this variant is about 6MiB larger per architecture than default.
+ */
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace "com.bsc.mobile"
+    defaultConfig {
+        // Limita cuántos ficheros C++ se compilan a la vez.
+        //
+        // Sin esto, la compilación nativa lanza un proceso por núcleo y en esta
+        // laptop agota la memoria: clang muere por señal y el error que se ve
+        // —«clang frontend command failed due to signal»— no dice nada de la
+        // causa. Dos a la vez compila más lento pero termina.
+        externalNativeBuild {
+            cmake {
+                arguments "-DCMAKE_JOB_POOLS:STRING=compile=2",
+                          "-DCMAKE_JOB_POOL_COMPILE:STRING=compile"
+            }
+        }
+
+        applicationId "com.bsc.mobile"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode codigoDeVersion(versionDeLaApp)
+        versionName versionDeLaApp
+
+        /*
+          La URL del backend, inyectada en la compilación (D-18).
+
+          **Sin valor por defecto de producción, a propósito.** La app Flutter
+          traía una dirección interna del banco escrita en el código como
+          respaldo, y eso significaba que una compilación mal configurada
+          apuntaba en silencio a un servidor de desarrollo en vez de fallar
+          (T-10). Aquí una release sin URL arranca y falla al primer servicio,
+          que es ruidoso y por tanto correcto.
+
+          Se da por la línea de órdenes o por variable de entorno:
+
+              ./gradlew assembleRelease -PbscBaseUrl=https://…
+              BSC_BASE_URL=https://…  ./gradlew assembleRelease
+
+          En depuración no hace falta: `config.ts` cae a `localhost:5000`, que
+          el túnel de `adb reverse` reenvía a la laptop.
+        */
+        buildConfigField "String", "BSC_BASE_URL",
+            "\"" + (project.findProperty("bscBaseUrl")
+                    ?: System.getenv("BSC_BASE_URL") ?: "") + "\""
+    }
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+
+        /*
+          Firma de release (T-11).
+
+          El almacén de claves **no entra en el repositorio**. Sus datos se leen
+          de `android/keystore.properties`, que está en `.gitignore`, o de
+          variables de entorno para un agente de compilación:
+
+              BSC_KEYSTORE_FILE, BSC_KEYSTORE_PASSWORD,
+              BSC_KEY_ALIAS, BSC_KEY_PASSWORD
+
+          Esto resuelve el mecanismo; lo que sigue pendiente es **quién custodia
+          el almacén y quién puede firmar** (D-03), que es decisión del banco.
+
+          Mientras no haya almacén, la configuración queda sin definir y el
+          release cae a la llave de depuración —para poder seguir probando R8—,
+          pero `npm run verify` lo reporta como hallazgo. Una llave de
+          depuración es pública: cualquiera puede publicar una aplicación que
+          parezca la del banco.
+        */
+        release {
+            def propiedades = new Properties()
+            def archivo = rootProject.file('keystore.properties')
+            if (archivo.exists()) {
+                archivo.withInputStream { propiedades.load(it) }
+            }
+
+            def almacen = propiedades.getProperty('storeFile') ?: System.getenv('BSC_KEYSTORE_FILE')
+
+            if (almacen != null && file(almacen).exists()) {
+                storeFile file(almacen)
+                storePassword propiedades.getProperty('storePassword') ?: System.getenv('BSC_KEYSTORE_PASSWORD')
+                keyAlias propiedades.getProperty('keyAlias') ?: System.getenv('BSC_KEY_ALIAS')
+                keyPassword propiedades.getProperty('keyPassword') ?: System.getenv('BSC_KEY_PASSWORD')
+            }
+        }
+    }
+
+    /** Si la firma de release quedó configurada de verdad. */
+    def hayFirmaDeRelease = signingConfigs.release.storeFile != null
+
+    buildFeatures {
+        // `buildConfigField` no genera nada sin esto desde AGP 8.
+        buildConfig true
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // Con almacén configurado se firma con él; sin él se cae a la de
+            // depuración para poder seguir probando, y el verificador lo grita.
+            signingConfig hayFirmaDeRelease ? signingConfigs.release : signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+dependencies {
+    // The version of react-native is set by the React Native Gradle Plugin
+    implementation("com.facebook.react:react-android")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+
+    // Diálogo biométrico del sistema, necesario para firmar con la llave del
+    // hardware. No es una comodidad: Android exige que la firma se haga con un
+    // objeto criptográfico ya autenticado por BiometricPrompt, y sin esto el
+    // Keystore rechaza la operación con «Key user not authenticated».
+    //
+    // Es de AndroidX, mantenida por Google, y la impone la plataforma. No
+    // contradice la regla de no usar dependencias de terceros en la ruta de la
+    // firma (T-15): la llave privada nunca sale del Keystore y esta librería
+    // solo presenta el diálogo del sistema.
+    implementation("androidx.biometric:biometric:1.1.0")
+
+    // Almacenamiento cifrado en reposo para tokens y secretos de segundo factor.
+    // Es la misma garantía que daba flutter_secure_storage en la app Flutter,
+    // que usaba EncryptedSharedPreferences por debajo.
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+}

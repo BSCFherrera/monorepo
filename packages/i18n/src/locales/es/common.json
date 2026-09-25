@@ -1,0 +1,40 @@
+{
+  "calendario": {
+    "mesesCortos": [
+      "ene",
+      "feb",
+      "mar",
+      "abr",
+      "may",
+      "jun",
+      "jul",
+      "ago",
+      "sep",
+      "oct",
+      "nov",
+      "dic"
+    ],
+    "meses": [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    "meridiano": {
+      "am": "a. m.",
+      "pm": "p. m."
+    }
+  },
+  "biometria": {
+    "titulo": "Verifica tu identidad",
+    "cancelar": "Cancelar"
+  }
+}

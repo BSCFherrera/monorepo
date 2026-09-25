@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BSC Móvil — vista previa</title>
+    <style>
+      html,
+      body,
+      #raiz {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background: #eef1f6;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="raiz"></div>
+    <!--
+      Los fallos de arranque se escriben en la propia página además de en la
+      consola. La vista previa se revisa a menudo con el navegador en modo
+      headless, donde una pantalla en blanco no dice nada y la consola no se ve.
+    -->
+    <pre id="fallo" style="display: none; margin: 0; padding: 16px; color: #b91c1c; font: 12px/1.5 ui-monospace, monospace; white-space: pre-wrap"></pre>
+    <script>
+      function mostrarFallo(detalle) {
+        var caja = document.getElementById('fallo');
+        if (caja === null) return;
+        caja.style.display = 'block';
+        caja.textContent += detalle + '\n';
+      }
+      window.addEventListener('error', function (e) {
+        mostrarFallo('Error: ' + (e.error && e.error.stack ? e.error.stack : e.message));
+      });
+      window.addEventListener('unhandledrejection', function (e) {
+        mostrarFallo('Promesa rechazada: ' + e.reason);
+      });
+    </script>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

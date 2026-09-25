@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Icono adaptativo de Android 8 en adelante.
+
+  Android compone el icono con dos capas y les aplica la máscara que el
+  fabricante elija —círculo, cuadrado redondeado, trébol—, así que el dibujo
+  tiene que sobrevivir a que le recorten los bordes. De los 108 dp de cada
+  capa **solo los 72 dp centrales están garantizados**: el resto es zona de
+  recorte y de parallax.
+
+  Hoy la capa de frente es un marcador de posición. Ver
+  `docs/migration/18-icono-de-la-aplicacion.md` (D-25).
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <monochrome android:drawable="@drawable/ic_launcher_monochrome" />
+</adaptive-icon>

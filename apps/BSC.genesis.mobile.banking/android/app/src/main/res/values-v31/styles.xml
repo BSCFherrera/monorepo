@@ -1,0 +1,19 @@
+<resources>
+
+    <!--
+      Android 12 en adelante: el arranque lo dibuja siempre el sistema (la API
+      SplashScreen), con el icono de la app sobre un color liso, y **no admite
+      una imagen a pantalla completa**. Es una regla de la plataforma, no una
+      elección.
+
+      Lo que sí se decide es el color: el promedio de la foto de la pantalla de
+      acceso con su velo, para que al terminar el arranque del sistema no haya
+      un destello claro antes de que aparezca la foto en la pantalla de arranque
+      de React Native.
+    -->
+    <style name="AppTheme.Arranque" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/fondo_de_arranque</item>
+        <item name="android:windowSplashScreenBackground">#1A1718</item>
+    </style>
+
+</resources>

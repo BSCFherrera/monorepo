@@ -1,0 +1,97 @@
+{
+  "aplicacion": "bsc-unified-exp",
+  "version": "0.1.0",
+  "nota": "Solo dependencias de producción. El detalle transitivo está en pnpm-lock.yaml.",
+  "componentes": [
+    {
+      "nombre": "@bsc/contracts",
+      "rango": "workspace:*",
+      "version": "0.0.0",
+      "licencia": null
+    },
+    {
+      "nombre": "@bsc/shared",
+      "rango": "workspace:*",
+      "version": "0.1.0",
+      "licencia": "UNLICENSED"
+    },
+    {
+      "nombre": "@bsc/ui-native",
+      "rango": "workspace:*",
+      "version": "0.0.0",
+      "licencia": "UNLICENSED"
+    },
+    {
+      "nombre": "@bsc/utils",
+      "rango": "workspace:*",
+      "version": "0.0.0",
+      "licencia": null
+    },
+    {
+      "nombre": "@react-navigation/bottom-tabs",
+      "rango": "^7.19.1",
+      "version": "7.19.2",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-navigation/native",
+      "rango": "^7.4.1",
+      "version": "7.4.1",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-navigation/native-stack",
+      "rango": "^7.19.1",
+      "version": "7.19.1",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "axios",
+      "rango": "^1.20.0",
+      "version": "1.20.0",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react",
+      "rango": "19.2.3",
+      "version": "19.2.3",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native",
+      "rango": "0.87.1",
+      "version": "0.87.1",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-linear-gradient",
+      "rango": "^2.8.3",
+      "version": "2.8.3",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-safe-area-context",
+      "rango": "^5.5.2",
+      "version": "5.9.1",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-screens",
+      "rango": "^4.28.0",
+      "version": "4.28.0",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-svg",
+      "rango": "^15.15.5",
+      "version": "15.15.5",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "zustand",
+      "rango": "^5.0.15",
+      "version": "5.0.15",
+      "licencia": "MIT"
+    }
+  ]
+}

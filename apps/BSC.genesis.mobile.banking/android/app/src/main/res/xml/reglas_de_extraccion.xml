@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Qué sale de este teléfono cuando el cliente cambia de equipo (T-12).
+
+  `allowBackup="false"` ya apaga la copia en la nube, pero **no cubre la
+  transferencia directa entre dispositivos** que Android 12 introdujo: ahí el
+  sistema mira estas reglas, y sin ellas se lleva todo el directorio de la
+  aplicación al teléfono nuevo.
+
+  Lo que hay que impedir que viaje es el `deviceInstallId` y la marca de
+  enrolamiento. La llave privada no puede salir —vive en el Keystore, fuera del
+  alcance de cualquier copia—, así que un teléfono nuevo que heredara esos dos
+  datos creería estar enrolado y no podría firmar: `estado()` respondería
+  «listo», el cliente vería el diálogo de huella y cada operación terminaría en
+  un rechazo que no sabría interpretar. Es exactamente el estado encerrado que
+  `reEnrolar` existe para deshacer, y es mejor no llegar a él.
+
+  Por eso no se excluye nada: **no se transfiere nada**. El cliente vuelve a
+  enrolar su teléfono nuevo, que es lo correcto —el banco tiene que enterarse de
+  que hay un equipo distinto y avisarle.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" />
+        <exclude domain="file" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+    </cloud-backup>
+
+    <device-transfer>
+        <exclude domain="root" />
+        <exclude domain="file" />
+        <exclude domain="database" />
+        <exclude domain="sharedpref" />
+        <exclude domain="external" />
+    </device-transfer>
+</data-extraction-rules>

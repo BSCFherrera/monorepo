@@ -1,0 +1,19 @@
+<resources>
+    <!--
+      El nombre que el cliente lee debajo del icono y el que encuentra al
+      escribir en el buscador del cajón de aplicaciones (D-29).
+
+      Es la marca, no el nombre del proyecto: hasta el 2026-09-18 decía
+      `BSCMobileAppRN`, que es el identificador con el que React Native registra
+      la aplicación y que nunca debió llegar a la pantalla de inicio. Se eligió
+      «Banco Santa Cruz» y no «BSC en Línea» porque este último es el nombre del
+      portal web y en un teléfono se lee como un producto distinto.
+
+      ⚠️ **No confundir con el nombre técnico.** El que React Native usa para
+      encontrar el componente raíz es el `name` de `app.json`, que
+      `MainActivity.getMainComponentName()` repite: ese sigue siendo
+      `BSCMobileAppRN` y cambiarlo deja la aplicación con una pantalla roja al
+      arrancar. Este de aquí solo es texto.
+    -->
+    <string name="app_name">Banco Santa Cruz</string>
+</resources>

@@ -1,0 +1,67 @@
+{
+  "name": "BSC.genesis.mobile.banking",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/BSC.genesis.mobile.banking/src",
+  "projectType": "application",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/BSC.genesis.mobile.banking",
+        "command": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "env": { "ESLINT_USE_FLAT_CONFIG": "false" }
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/BSC.genesis.mobile.banking",
+        "command": "tsc -p tsconfig.json --noEmit"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/BSC.genesis.mobile.banking/jest.config.js"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "cwd": "apps/BSC.genesis.mobile.banking",
+        "parallel": false,
+        "commands": [
+          "mkdir -p dist/assets/android dist/assets/ios",
+          "react-native bundle --platform android --dev false --entry-file index.js --bundle-output dist/index.android.bundle --assets-dest dist/assets/android",
+          "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output dist/index.ios.bundle --assets-dest dist/assets/ios"
+        ]
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "react-native start" }
+    },
+    "android": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "react-native run-android" }
+    },
+    "ios": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "react-native run-ios" }
+    },
+    "web": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "vite" }
+    },
+    "web-build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/web/dist"],
+      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "vite build" }
+    },
+    "verify": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "node scripts/verify.mjs" }
+    }
+  }
+}
