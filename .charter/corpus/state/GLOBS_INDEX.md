@@ -40,6 +40,7 @@ Guides without `globs:` are not listed here — they activate ambient per their 
 | `apps/*-e2e/**` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `apps/*/android/**` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `apps/*/ios/**` | `charter/guides/idioms/react-native/mobile-app.md` |
+| `apps/*/package.json` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `apps/BSC.genesis.mobile.banking/**/*.js` | `charter/guides/computational/eslint.md` |
 | `apps/BSC.genesis.mobile.banking/**/*.ts` | `charter/guides/computational/eslint.md` |
 | `apps/BSC.genesis.mobile.banking/**/*.tsx` | `charter/guides/computational/eslint.md` |
@@ -50,6 +51,7 @@ Guides without `globs:` are not listed here — they activate ambient per their 
 | `docs/**/*.md` | `charter/guides/idioms/markdown-docs/spanish-process-docs.md` |
 | `libs/**/*.ts` | `charter/guides/computational/eslint.md` |
 | `libs/**/*.tsx` | `charter/guides/computational/eslint.md`, `charter/guides/idioms/design-system/bsc-design-system.md` |
+| `libs/*/package.json` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `libs/shared-design-tokens/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
 | `libs/shared-ui-native/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
 | `libs/shared-ui-native/src/**` | `charter/guides/idioms/react-native/mobile-app.md` |
@@ -57,6 +59,7 @@ Guides without `globs:` are not listed here — they activate ambient per their 
 | `openspec/**` | `charter/guides/idioms/openspec/change-lifecycle.md` |
 | `openspec/changes/**/*.md` | `charter/guides/idioms/design-system/bsc-design-system.md` |
 | `playwright.config.*` | `charter/guides/idioms/testing-stack.md` |
+| `pnpm-workspace.yaml` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `scripts/**/*.ps1` | `charter/guides/idioms/powershell/fail-fast-automation.md` |
 | `tsconfig*.json` | `charter/guides/idioms/typescript.md` |
 | `vitest.config.*` | `charter/guides/idioms/testing-stack.md` |
