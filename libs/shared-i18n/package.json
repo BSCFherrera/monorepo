@@ -7,14 +7,14 @@
   "types": "src/index.ts",
   "sideEffects": false,
   "dependencies": {
-    "i18next": "^26.4.2",
-    "react-i18next": "^17.0.15"
+    "i18next": "catalog:",
+    "react-i18next": "catalog:"
   },
   "peerDependencies": {
-    "react": "19.2.3"
+    "react": "catalog:"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14"
+    "@types/jest": "catalog:"
   },
   "exports": {
     ".": "./src/index.ts",

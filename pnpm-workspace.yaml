@@ -3,3 +3,78 @@ packages:
   - "libs/*"
   # @bsc/shared lives inside the app (it is also consumed by the Nuxt portal)
   - "apps/BSC.genesis.mobile.banking/packages/*"
+
+# Single source of truth for every third-party version used by the mobile apps
+# and the libs they consume. Packages reference an entry with `"<name>": "catalog:"`
+# instead of a version, so pnpm resolves exactly one version per entry for the
+# whole workspace — two apps can never ship different React / React Native /
+# native-module versions.
+#
+# Every app keeps its own package.json on purpose: the React Native CLI autolinks
+# only the app's *direct* dependencies, Gradle and CocoaPods resolve react-native
+# from the app's own node_modules, and versionCode/CFBundleVersion come from the
+# app's `version`. What is shared is the version of each dependency, here.
+#
+# Rules (enforced by `pnpm deps:check`, see docs/mobile/dependencias-compartidas.md):
+#   - apps/** and libs/** never write a version: third-party deps use `catalog:`.
+#   - every React Native app declares the same set of third-party dependencies.
+#   - the root package.json (Nx / workspace tooling) is out of the catalog.
+#
+# Native entries (react, react-native, @react-native/*, the CLI, hermes-compiler,
+# react-native-* modules) move together: bump them as one change, re-run
+# `pod install`, and build both apps on Android and iOS before merging.
+catalog:
+  # React / React Native core
+  "react": "19.2.3"
+  "react-native": "0.87.1"
+  "hermes-compiler": "250829098.0.17"
+
+  # Native modules (autolinked — must be declared by every app)
+  "react-native-linear-gradient": "^2.8.3"
+  "react-native-safe-area-context": "^5.5.2"
+  "react-native-screens": "^4.28.0"
+  "react-native-svg": "^15.15.5"
+
+  # Navigation, state, networking, i18n
+  "@react-navigation/bottom-tabs": "^7.19.1"
+  "@react-navigation/native": "^7.4.1"
+  "@react-navigation/native-stack": "^7.19.1"
+  "axios": "^1.20.0"
+  "zustand": "^5.0.15"
+  "i18next": "^26.4.2"
+  "react-i18next": "^17.0.15"
+
+  # React Native toolchain
+  "@react-native-community/cli": "20.2.0"
+  "@react-native-community/cli-platform-android": "20.2.0"
+  "@react-native-community/cli-platform-ios": "20.2.0"
+  "@react-native/assets-registry": "^0.87.1"
+  "@react-native/babel-preset": "0.87.1"
+  "@react-native/codegen": "0.87.1"
+  "@react-native/eslint-config": "0.87.1"
+  "@react-native/gradle-plugin": "0.87.1"
+  "@react-native/jest-preset": "0.87.1"
+  "@react-native/metro-config": "0.87.1"
+  "@react-native/typescript-config": "0.87.1"
+  "@babel/core": "^7.25.2"
+  "@babel/preset-env": "^7.25.3"
+  "@babel/runtime": "^7.25.0"
+
+  # Types, tests, lint, format
+  "@types/jest": "^29.5.14"
+  "@types/node": "^22.20.3"
+  "@types/react": "^19.2.0"
+  "@types/react-test-renderer": "^19.1.0"
+  "eslint": "^8.19.0"
+  "jest": "^29.7.0"
+  "prettier": "2.8.8"
+  "react-test-renderer": "19.2.3"
+  "ts-jest": "^29.2.5"
+  "typescript": "^5.9.2"
+
+  # Browser preview (development only)
+  "@vitejs/plugin-react": "^5.2.0"
+  "react-dom": "19.2.3"
+  "react-native-web": "^0.21.2"
+  "react-native-web-linear-gradient": "^1.1.2"
+  "vite": "^7.3.6"

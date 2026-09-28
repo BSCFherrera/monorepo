@@ -30,10 +30,18 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import process from 'node:process';
 
+import { leerWorkspace, raizDelWorkspace, rangoReal } from '../../../tools/scripts/pnpm-catalog.mjs';
+
 const RAIZ = process.cwd();
 const SALIDA = join(RAIZ, 'docs', 'sbom.json');
 
 const paquete = JSON.parse(readFileSync(join(RAIZ, 'package.json'), 'utf8'));
+/**
+ * Las versiones de terceros viven en el catálogo de `pnpm-workspace.yaml`, que
+ * comparten todas las apps móviles; `package.json` solo dice `catalog:`. El
+ * inventario guarda el rango real, que es lo que una persona necesita leer.
+ */
+const { catalogo } = leerWorkspace(raizDelWorkspace(RAIZ));
 /**
  * El manifiesto del paquete tal como quedó instalado. Se lee de `node_modules`
  * y no del archivo de bloqueo: dentro del monorepo el bloqueo es el
@@ -65,9 +73,9 @@ function licencia(nombre) {
 }
 
 const componentes = Object.entries(paquete.dependencies ?? {})
-  .map(([nombre, rango]) => ({
+  .map(([nombre, especificador]) => ({
     nombre,
-    rango,
+    rango: rangoReal(nombre, especificador, catalogo),
     version: versionInstalada(nombre),
     licencia: licencia(nombre),
   }))

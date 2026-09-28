@@ -18,7 +18,15 @@ libs/
 ├── shared-i18n/           @bsc/i18n — translation system (i18next); Spanish today, language selector ready
 └── BSC.genesis.design.system/   (placeholder from the original scaffold)
 docs/
+tools/scripts/                   workspace scripts (shared mobile dependencies check)
 ```
+
+## Shared dependencies
+
+Every React Native app shares the same third-party dependencies at the same version.
+Versions live once, in the pnpm catalog of `pnpm-workspace.yaml`; packages under `apps/` and
+`libs/` declare `"<name>": "catalog:"` instead of a version. `pnpm deps:check` enforces it (also
+part of the app's `verify`). See `docs/mobile/dependencias-compartidas.md`.
 
 ## Requirements
 
@@ -41,6 +49,8 @@ Open the iOS project through `BSCMobileAppRN.xcworkspace`, not the `.xcodeproj`.
 pnpm lint         # nx run-many -t lint
 pnpm typecheck    # nx run-many -t typecheck
 pnpm test         # nx run-many -t test
+pnpm deps:check   # shared mobile dependencies: catalog only, same set in every RN app
+pnpm deps:sync    # fix what can be fixed automatically, then run pnpm install
 
 pnpm nx run BSC.genesis.mobile.banking:start      # Metro
 pnpm nx run BSC.genesis.mobile.banking:android    # or :ios
@@ -53,6 +63,7 @@ pnpm nx run design-tokens:generate                # regenerate tokens from the F
 ## Where things are documented
 
 - Design tokens and the Figma snapshot: `libs/shared-design-tokens/figma/README.md`
+- Shared dependencies (catalog, adding a dependency, adding the second app): `docs/mobile/dependencias-compartidas.md`
 - Translations (adding text, adding a language, the selector): `libs/shared-i18n/README.md`
 - Font: `libs/shared-ui-native/assets/fonts/README.md`
 - App migration history, security model and open questions: `apps/BSC.genesis.mobile.banking/docs/migration/`

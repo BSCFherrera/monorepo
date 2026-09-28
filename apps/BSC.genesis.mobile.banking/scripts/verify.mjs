@@ -92,6 +92,16 @@ const PASOS = [
     comando: 'node',
     args: ['scripts/generar-sbom.mjs', '--verificar'],
   },
+  {
+    /*
+      Las apps móviles del monorepo comparten dependencias y versiones (catálogo
+      de pnpm-workspace.yaml). Una versión escrita a mano, o un módulo nativo
+      que una app declara y otra no, se detecta aquí y no en el teléfono.
+    */
+    nombre: 'Dependencias compartidas entre apps móviles',
+    comando: 'node',
+    args: ['../../tools/scripts/check-mobile-deps.mjs'],
+  },
 
   {
     nombre: 'Compilación limpia de Android',
