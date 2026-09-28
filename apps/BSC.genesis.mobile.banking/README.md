@@ -23,10 +23,23 @@ Ya está resuelto en `android/gradle.properties` mediante `-Djavax.net.ssl.trust
 
 ## Arranque
 
+Desde la raíz del monorepo:
+
 ```bash
-npm install                 # instala raíz y workspaces
-npm run start               # Metro
-npm run android             # compila e instala en el dispositivo conectado
+pnpm install                                     # dependencias compartidas de todo el monorepo
+pnpm nx run BSC.genesis.mobile.banking:start     # terminal 1: Metro
+pnpm nx run BSC.genesis.mobile.banking:android   # terminal 2: compila e instala
+```
+
+El target `android` corre `react-native run-android --no-packager --active-arch-only`:
+
+- `--no-packager`: no busca ni arranca Metro. En Windows la CLI cree que el puerto 8081 está ocupado aunque sea nuestro Metro (compara la ruta del proyecto con `/` contra `\`) y la pregunta que hace se congela dentro de Nx. Por eso Metro se arranca siempre antes, en su propia terminal.
+- `--active-arch-only`: compila solo para la arquitectura del dispositivo conectado (arm64 en un teléfono, x86_64 en el emulador). `gradle.properties` fija arm64-v8a para no agotar la memoria; sin este flag, el APK no arranca en un emulador x86_64 (`couldn't find DSO to load: libreactnative.so`).
+
+Si Metro falla con `EADDRINUSE :::8081`, quedó un Metro huérfano de una sesión anterior:
+
+```powershell
+Get-NetTCPConnection -LocalPort 8081 -State Listen | ForEach-Object { Stop-Process -Id $_.OwningProcess }
 ```
 
 Para probar contra el backend local desde un teléfono por USB, el teléfono no alcanza la laptop por la red interna: hay que tunelizar por el cable.
@@ -34,6 +47,22 @@ Para probar contra el backend local desde un teléfono por USB, el teléfono no 
 ```bash
 adb reverse tcp:5000 tcp:5000
 ```
+
+### Emulador de Android
+
+En un emulador, React Native busca Metro en `10.0.2.2:8081`, y la política de red de depuración (`android/app/src/debug/res/xml/configuracion_de_red.xml`) solo permite tráfico sin cifrar hacia `localhost`: **a propósito no incluye ninguna dirección privada** (T-10). El síntoma es la pantalla roja «Unable to load script» y, en `adb logcat`, `CLEARTEXT communication to 10.0.2.2 not permitted`.
+
+La solución es apuntar la app a `localhost`, que llega a la laptop por `adb reverse`, sin tocar la política:
+
+1. Con la app abierta, `Ctrl+M` → **Change Bundle Location** → `localhost:8081` → recargar.
+2. Túneles de Metro y del backend (`run-android` crea el de Metro, pero no está de más):
+
+   ```bash
+   adb reverse tcp:8081 tcp:8081
+   adb reverse tcp:5000 tcp:5000
+   ```
+
+El ajuste se guarda en la app: sobrevive a reinicios y reinstalaciones con `:android`, pero se pierde al desinstalar, borrar los datos o cambiar de emulador. Los túneles de `adb reverse` se pierden al reiniciar el emulador.
 
 ### Apuntar a otro backend (QA)
 
