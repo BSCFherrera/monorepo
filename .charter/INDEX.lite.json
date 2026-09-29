@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "generated": "2026-09-25T15:16:37Z",
+  "generated": "2026-09-30T14:17:01Z",
   "primitives": [
     {
       "kind": "agent",
@@ -155,7 +155,7 @@
     {
       "kind": "corpus",
       "id": "corpus/idioms/design-system/bsc-design-system",
-      "description": "Why front-ends follow the BSC Design System, plus the full token values (color, type, spacing, effects, grids) transcribed from the Figma foundations pages."
+      "description": "Why front-ends follow the BSC Design System and why all UI lives in one lib (libs/BSC.genesis.design.system); the rules and token values themselves live in that lib's DESIGN-RULES.md."
     },
     {
       "kind": "corpus",
@@ -265,7 +265,7 @@
     {
       "kind": "guide",
       "id": "idioms/design-system/bsc-design-system",
-      "description": "Every front-end (web or mobile) design and implementation follows the BSC Design System — semantic color tokens, Google Sans type scale, 4px spacing rhythm, elevation/blur styles, grids. Read before designing or coding any UI."
+      "description": "Every UI component comes from the design-system lib libs/BSC.genesis.design.system (@bsc/design-system), which holds all design rules, tokens and components; apps never create UI components. Read before designing or coding any UI."
     },
     {
       "kind": "guide",

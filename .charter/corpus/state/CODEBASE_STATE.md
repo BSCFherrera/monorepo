@@ -2,23 +2,23 @@
 kind: corpus
 id: corpus/state/CODEBASE_STATE
 description: 'Empirical map of this codebase.'
-last_reconciled: 2026-09-25
+last_reconciled: 2026-09-29
 ---
 # Codebase State
 
 Empirical map of this codebase. Updated by the **verify**, **learn**, and **audit** actions.
 
-`BSC.genesis.monorepo` is the **Nx 22 + pnpm 9 workspace** for Banco Santa Cruz's Genesis apps. Today it holds one real app — the React Native banking app `apps/BSC.genesis.mobile.banking` (migrated from a retired Flutter app) — plus the shared design system and framework-neutral packages it builds on. Every language in the workspace is TypeScript (strict, `noUncheckedIndexedAccess`). The IA-SDLC framework (Keystone charter + OpenSpec) is installed at the root.
+`BSC.genesis.monorepo` is the **Nx 22 + pnpm 9 workspace** for Banco Santa Cruz's Genesis apps. Today it holds one real app — the React Native banking app `apps/BSC.genesis.mobile.banking` (migrated from a retired Flutter app) — plus the design-system lib `libs/BSC.genesis.design.system` (all design rules, tokens and UI components) and the framework-neutral packages it builds on. Every language in the workspace is TypeScript (strict, `noUncheckedIndexedAccess`). The IA-SDLC framework (Keystone charter + OpenSpec) is installed at the root.
 
 ## Tool commands
 
-All commands run from the repo root. Nx fans each target out to every project that defines it (7 projects: the app, `@bsc/shared`, and the five `libs/shared-*`).
+All commands run from the repo root. Nx fans each target out to every project that defines it (6 projects: the app, `@bsc/shared`, `design-system`, and the three `libs/shared-*`).
 
 | Tool | Command |
 |---|---|
-| lint | `pnpm nx run-many -t lint` (ESLint 8; root flat config `eslint.config.mjs` for `libs/shared-*`, `@react-native/eslint-config` via `.eslintrc.js` for the app) |
+| lint | `pnpm nx run-many -t lint` (ESLint 8; root flat config `eslint.config.mjs` for `libs/shared-*`, `@react-native/eslint-config` via `.eslintrc.js` for the app and `libs/BSC.genesis.design.system`) |
 | type_check | `pnpm nx run-many -t typecheck` (`tsc --noEmit` per project) |
-| test | `pnpm nx run-many -t test` (Jest 29; `@react-native/jest-preset` for the app, `ts-jest` for packages) |
+| test | `pnpm nx run-many -t test` (Jest 29; `@react-native/jest-preset` for the app and `design-system`, `ts-jest` for the other packages) |
 | build | `pnpm nx run-many -t build` (`tsc` for `libs/shared-*`; the app bundles Android + iOS JS with `react-native bundle` into `dist/`) |
 | coverage | `pnpm nx run-many -t test --coverage` (thresholds live in each project's `jest.config.js`; `@bsc/shared` enforces its own) |
 | secret_scan | `pnpm --dir apps/BSC.genesis.mobile.banking run scan:secrets` (in-house scanner `scripts/escanear-secretos.mjs`, app-scoped) |
@@ -84,7 +84,7 @@ Inferential guides (markdown rules) are activated by directory — see `charter/
 | Tool | Kind | What it covers | Activation |
 |---|---|---|---|
 | TypeScript | type checker / LSP | types for every `.ts`/`.tsx` | `tsconfig.base.json` (strict) + per-project `tsconfig.json`; `typecheck` target — `guides/computational/typescript.md` |
-| ESLint | linter | lint for `libs/shared-*` (flat config) and the app (`.eslintrc.js`) | `lint` target — `guides/computational/eslint.md` |
+| ESLint | linter | lint for `libs/shared-*` (flat config), the app and `libs/BSC.genesis.design.system` (`.eslintrc.js`) | `lint` target — `guides/computational/eslint.md` |
 | Prettier | formatter | formatting | root `.prettierrc.json` (Prettier 3) and app `.prettierrc.js` (Prettier 2.8.8) — `guides/computational/prettier.md` |
 
 No `.editorconfig`, pre-commit hook (husky/lefthook), or committed editor settings.
@@ -96,7 +96,7 @@ No `.editorconfig`, pre-commit hook (husky/lefthook), or committed editor settin
 | typescript | `charter/guides/idioms/typescript.md` | `**/*.ts`, `**/*.tsx` |
 | nx | `charter/corpus/idioms/nx/` (+ `charter/guides/idioms/nx/`) | `nx.json`, `**/project.json` |
 | react-native | `charter/corpus/idioms/react-native/` (+ `charter/guides/idioms/react-native/`) | `apps/BSC.genesis.mobile.banking/**` |
-| design-system | `charter/corpus/idioms/design-system/` (+ `charter/guides/idioms/design-system/`) | `libs/shared-design-tokens/**`, `libs/shared-ui-native/**`, app `*.tsx` |
+| design-system | `charter/corpus/idioms/design-system/` (+ `charter/guides/idioms/design-system/`; rules in `libs/BSC.genesis.design.system/DESIGN-RULES.md`) | `libs/BSC.genesis.design.system/**`, app `*.tsx` |
 | testing | `charter/guides/idioms/testing-policy.md`, `testing-stack.md` | `**/*.test.*`, `**/__tests__/**` |
 | openspec | `charter/corpus/idioms/openspec/` (+ `charter/guides/idioms/openspec/`) | `openspec/**` |
 | markdown-docs | `charter/corpus/idioms/markdown-docs/` (+ `charter/guides/idioms/markdown-docs/`) | `docs/**/*.md`, `README.md` |
@@ -110,7 +110,7 @@ Guides shipped by the framework for stacks **not present** here (`dotnet`, `reac
 | `nx` | 22.7.12 | task runner / project graph | root |
 | `pnpm` | 9.15.0 | package manager (workspaces: `apps/*`, `libs/*`, `apps/BSC.genesis.mobile.banking/packages/*`) | root |
 | `typescript` | 5.9.3 root, ^5.9 app | language | all |
-| `react-native` | 0.87.1 (new architecture, Hermes) | mobile UI | app, `libs/shared-ui-native` |
+| `react-native` | 0.87.1 (new architecture, Hermes) | mobile UI | app, `libs/BSC.genesis.design.system` |
 | `react` | 19.2.3 | UI | app |
 | `react-native-web` + `vite` | 0.21 / 7 | browser preview of the app (`:web` target) | app `web/`, `vite.config.mts` |
 | `@react-navigation/*` | 7.x | navigation | app `src/app/navigation` |
@@ -128,17 +128,17 @@ Every project declares a scope and a type in its `project.json`:
 |---|---|
 | `BSC.genesis.mobile.banking` | `scope:mobile-banking`, `type:app` |
 | `bsc-shared` (`@bsc/shared`) | `scope:mobile-banking`, `type:util` |
-| `ui-native` | `scope:shared`, `type:ui` |
-| `design-tokens`, `contracts`, `utils`, `i18n` | `scope:shared`, `type:util` |
+| `design-system` (`@bsc/design-system`) | `scope:shared`, `type:ui` |
+| `contracts`, `utils`, `i18n` | `scope:shared`, `type:util` |
 
-Boundaries are enforced by `@nx/enforce-module-boundaries` (`@nx/eslint-plugin` 22.7.12) as part of the **lint** sensor. The rule lives in one file, `eslint.module-boundaries.cjs`, loaded by the root flat config and by the legacy `.eslintrc.js` of the app and `libs/shared-ui-native`:
+Boundaries are enforced by `@nx/enforce-module-boundaries` (`@nx/eslint-plugin` 22.7.12) as part of the **lint** sensor. The rule lives in one file, `eslint.module-boundaries.cjs`, loaded by the root flat config and by the legacy `.eslintrc.js` of the app and `libs/BSC.genesis.design.system`:
 
 - `scope:shared` → only `scope:shared`; `scope:mobile-banking` → `scope:shared` + `scope:mobile-banking`
 - `type:app` → `type:ui`, `type:util`; `type:ui` → `type:ui`, `type:util`; `type:util` → `type:util`
 
 `bsc-shared` has no `lint` target of its own; its files are linted, with its own tags, by the app's `eslint .` run.
 
-Nx project names are unchanged by the move to `libs/shared-*` (e.g. `pnpm nx run design-tokens:generate`); only the folders moved.
+Nx project names of `libs/shared-*` are unchanged by the move to `libs/`; only the folders moved. On 2026-09-29 `design-tokens` and `ui-native` were merged into the single project `design-system` (`pnpm nx run design-system:generate`).
 
 ## Regions
 
@@ -158,26 +158,19 @@ A "region" is a directory or set of directories with shared conventions.
 - **Active migrations:** none
 - Notes: pure logic — formatters, operation risk / fingerprint, SHA-256, TOTP. Also consumed by the Nuxt portal (outside this repo).
 
-### `apps/BSC.genesis.conversational/`, `libs/BSC.genesis.design.system/`
+### `apps/BSC.genesis.conversational/`
 - **Idioms:** none
 - **Coverage:** n/a
 - **Last reconciled:** 2026-09-25
 - **Active migrations:** none
-- Notes: placeholders (README only) from the original scaffold.
+- Notes: placeholder (README only) from the original scaffold.
 
-### `libs/shared-design-tokens/` (`@bsc/design-tokens`)
-- **Idioms:** `design-system`, `typescript`
-- **Coverage:** Jest
-- **Last reconciled:** 2026-09-25
-- **Active migrations:** none
-- Notes: generated from a committed Figma snapshot (`generate` / `check-generated` targets). Figma is the read-only source of truth; a test fails if generated code drifts from the snapshot — never hand-edit generated output.
-
-### `libs/shared-ui-native/` (`@bsc/ui-native`)
+### `libs/BSC.genesis.design.system/` (`@bsc/design-system`)
 - **Idioms:** `design-system`, `react-native`, `typescript`
-- **Coverage:** Jest
-- **Last reconciled:** 2026-09-25
-- **Active migrations:** none
-- Notes: shared `Bsc*` components, theme, component tokens, Google Sans Flex font. No `build` target (consumed as source).
+- **Coverage:** Jest (`@react-native/jest-preset`)
+- **Last reconciled:** 2026-09-29
+- **Active migrations:** app-side UI components moving into the lib (`code-debt.md` `DEBT-007`)
+- Notes: the single design-system lib — `DESIGN-RULES.md` (all design rules + token reference, source of truth), `src/tokens` (platform-neutral tokens; `src/tokens/generated/figma.ts` generated from the read-only Figma snapshot in `figma/` by the `generate` / `check-generated` targets — a test fails on drift, never hand-edit), `src/theme` (RN adapters), `src/components` (`Bsc*`), `assets/fonts` (Google Sans Flex). No `build` target (consumed as source). Merged on 2026-09-29 from `libs/shared-design-tokens` + `libs/shared-ui-native` (`git mv`, history kept). Only the lib's own files import `src/tokens`, via relative paths.
 
 ### `libs/shared-contracts/`, `libs/shared-utils/`, `libs/shared-i18n/`
 - **Idioms:** `typescript`
@@ -200,7 +193,9 @@ The framework's org-level guides were written for greenfield projects. Where thi
 - **`@bsc/shared` stays inside the app** (`apps/BSC.genesis.mobile.banking/packages/bsc-shared`): within this repo only one app consumes it (the Nuxt portal that also uses it lives elsewhere), so the `libs/` rule for code shared by two or more apps does not apply yet. Move it to `libs/` when a second app in this repo needs it.
 - **Business logic partly client-side.** `@bsc/shared` (operation risk, TOTP, formatters) runs in the app; there is no backend app in this monorepo (the API is external). The mobile guide's "all business logic in a backend app" rule is the direction, not the current state.
 - **No Appium e2e suite** exists yet.
-- **Fonts:** Google Sans Flex is bundled in `libs/shared-ui-native/assets/fonts`, not `@expo-google-fonts` (no Expo).
+- **Fonts:** Google Sans Flex is bundled in `libs/BSC.genesis.design.system/assets/fonts`, not `@expo-google-fonts` (no Expo).
+- **Design-system lib name.** `idioms/nx/monorepo-structure` names shared libs `libs/<scope>-<name>`; the design system is `libs/BSC.genesis.design.system` by the team's explicit choice (2026-09-29), keeping the name from the original Genesis scaffold. Tags are still `scope:shared`, `type:ui`. Don't rename it to `libs/shared-*`.
+- **App-side UI components.** The design-system guide's iron law says apps define only screens and navigation and take every UI component from `@bsc/design-system`. The banking app still has ~30 components of its own outside screens (e.g. `dashboard/ui/BalanceSummaryCard.tsx`, `BscBottomNav.tsx`, `QuickActions.tsx`, `productDetail/ui/*Sections.tsx`, `*Sheet.tsx`, `app/navigation/QuickActionsSheet.tsx`) and its screens style themselves with `StyleSheet`. Recorded as `code-debt.md` `DEBT-007`: new UI goes to the lib; an existing one moves into the lib when a change touches it.
 - **Coverage below the 85% floor** of `idioms/testing-policy` for the app (~48% lines) — see `code-debt.md` `DEBT-003`. New code still follows TDD and the floor applies to what a change touches.
 
 ## Jira MCP integration
