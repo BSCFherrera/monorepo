@@ -66,6 +66,32 @@ Las comprueba `pnpm deps:check` (también corre dentro de
 El `package.json` de la raíz (Nx, ESLint y Prettier del workspace) queda fuera
 del catálogo: es herramienta del monorepo, no de las apps.
 
+### Módulos nativos que una app no usa: declarados, no enlazados
+
+Declarar una dependencia no mete nada en el teléfono, pero el autolinking de
+React Native compila en la app **todo** módulo nativo declarado, con su código
+y los permisos de su manifiesto. Por eso cada app lista en su
+`react-native.config.js` los módulos nativos que declara pero no usa, con
+`platforms: { android: null, ios: null }`: quedan instalados, en la misma
+versión, y fuera del binario.
+
+Hoy mobile banking desactiva así los 13 módulos nativos de la app
+conversacional (voz, TTS, biometría, passkey, llavero, PDF…); ver
+`apps/BSC.genesis.mobile.banking/react-native.config.js`. Para empezar a usar
+uno en una app: quitarlo de esa lista, revisar permisos y reglas de R8,
+`pod install` y probar la compilación de release.
+
+Se comprueba con `npx react-native config` dentro de la carpeta de la app: solo
+aparecen los módulos que se enlazan.
+
+### Parches
+
+Los parches a paquetes de terceros van en `patches/` de la raíz y se registran
+en `pnpm.patchedDependencies` del `package.json` raíz. Solo aplican a la versión
+exacta del nombre (`react-native-tts@4.1.1`), así que esas entradas del catálogo
+van fijadas sin `^`. Para crear o editar uno: `pnpm patch <paquete>@<versión>`
+y `pnpm patch-commit <carpeta>`.
+
 ## Tareas habituales
 
 ### Instalar
@@ -81,8 +107,9 @@ pnpm install
 2. Declárala con `"catalog:"` en la app (o lib) que la usa.
 3. `pnpm deps:sync` la copia a las demás apps móviles.
 4. `pnpm install` actualiza `pnpm-lock.yaml`.
-5. Si es un módulo nativo: `pod install` en el `ios/` de **cada** app y
-   compila Android e iOS de todas las apps.
+5. Si es un módulo nativo: añádelo a la lista de no enlazados del
+   `react-native.config.js` de cada app que no lo use (ver arriba), `pod install`
+   en el `ios/` de **cada** app y compila Android e iOS de todas las apps.
 6. Si va en `dependencies` de mobile banking: `node scripts/generar-sbom.mjs`
    desde la carpeta de la app para regenerar `docs/sbom.json`.
 
@@ -93,7 +120,7 @@ React Native (`react`, `react-native`, `@react-native/*`, la CLI,
 `hermes-compiler`) y los módulos `react-native-*` se suben **juntas**, en un solo
 cambio, con `pod install` y compilación de todas las apps antes de integrar.
 
-### Agregar la segunda app React Native
+### Agregar otra app React Native
 
 1. Genera el proyecto nativo con la plantilla oficial de React Native
    `0.87.1` en `apps/<nombre>` (ver la guía `idioms/react-native/mobile-app`

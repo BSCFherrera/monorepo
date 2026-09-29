@@ -9,7 +9,7 @@ apps/
 ├── BSC.genesis.mobile.banking/  React Native banking app (Android/iOS + web preview via Vite)
 │   └── packages/
 │       └── bsc-shared/          @bsc/shared — pure business logic (formatters, validation)
-└── BSC.genesis.conversational/  (placeholder)
+└── BSC.genesis.conversational/  React Native conversational app (AI chat over WebSocket, onboarding, access recovery)
 libs/
 ├── shared-design-tokens/  @bsc/design-tokens — tokens generated from the Figma library (primitives → semantic → component, light + dark)
 ├── shared-ui-native/      @bsc/ui-native — shared React Native components (Bsc*) and the Google Sans Flex font
@@ -39,7 +39,11 @@ part of the app's `verify`). See `docs/mobile/dependencias-compartidas.md`.
 ```bash
 pnpm install
 cd apps/BSC.genesis.mobile.banking/ios && pod install   # iOS only
+cd apps/BSC.genesis.conversational/ios && pod install   # iOS only
 ```
+
+The conversational app also needs two untracked env files, copied by hand: `.env` and
+`android/.env` (see its README).
 
 Open the iOS project through `BSCMobileAppRN.xcworkspace`, not the `.xcodeproj`.
 
@@ -57,6 +61,9 @@ pnpm banking:android                              # or banking:ios (terminal 2)
 pnpm nx run BSC.genesis.mobile.banking:web        # browser preview (Vite)
 pnpm nx run BSC.genesis.mobile.banking:verify     # the app's full verification script
 
+pnpm conversational:start                         # Metro (terminal 1) — same port as banking
+pnpm conversational:android                       # or conversational:ios (terminal 2)
+
 pnpm nx run design-tokens:generate                # regenerate tokens from the Figma snapshot
 ```
 
@@ -68,7 +75,7 @@ when a new app joins the monorepo. `pnpm nx show project <project>` lists every 
 ## Where things are documented
 
 - Design tokens and the Figma snapshot: `libs/shared-design-tokens/figma/README.md`
-- Shared dependencies (catalog, adding a dependency, adding the second app): `docs/mobile/dependencias-compartidas.md`
+- Shared dependencies (catalog, adding a dependency, unlinked native modules, adding an app): `docs/mobile/dependencias-compartidas.md`
 - Translations (adding text, adding a language, the selector): `libs/shared-i18n/README.md`
 - Font: `libs/shared-ui-native/assets/fonts/README.md`
 - App migration history, security model and open questions: `apps/BSC.genesis.mobile.banking/docs/migration/`
