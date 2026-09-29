@@ -10,6 +10,12 @@
       "licencia": null
     },
     {
+      "nombre": "@bsc/i18n",
+      "rango": "workspace:*",
+      "version": "0.0.0",
+      "licencia": null
+    },
+    {
       "nombre": "@bsc/shared",
       "rango": "workspace:*",
       "version": "0.1.0",
@@ -26,6 +32,42 @@
       "rango": "workspace:*",
       "version": "0.0.0",
       "licencia": null
+    },
+    {
+      "nombre": "@react-native-async-storage/async-storage",
+      "rango": "1.23.0",
+      "version": "1.23.0",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-native-clipboard/clipboard",
+      "rango": "1.16.3",
+      "version": "1.16.3",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-native-vector-icons/common",
+      "rango": "13.0.1",
+      "version": "13.0.1",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-native-vector-icons/feather",
+      "rango": "13.1.2",
+      "version": "13.1.2",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-native-voice/voice",
+      "rango": "3.2.4",
+      "version": "3.2.4",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "@react-native/new-app-screen",
+      "rango": "0.87.1",
+      "version": "0.87.1",
+      "licencia": "MIT"
     },
     {
       "nombre": "@react-navigation/bottom-tabs",
@@ -52,9 +94,33 @@
       "licencia": "MIT"
     },
     {
+      "nombre": "crypto-js",
+      "rango": "^4.2.0",
+      "version": "4.2.0",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "i18next",
+      "rango": "^26.4.2",
+      "version": "26.4.2",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "jwt-decode",
+      "rango": "^4.0.0",
+      "version": "4.0.0",
+      "licencia": "MIT"
+    },
+    {
       "nombre": "react",
       "rango": "19.2.3",
       "version": "19.2.3",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-i18next",
+      "rango": "^17.0.15",
+      "version": "17.0.15",
       "licencia": "MIT"
     },
     {
@@ -64,9 +130,51 @@
       "licencia": "MIT"
     },
     {
+      "nombre": "react-native-biometrics",
+      "rango": "3.0.1",
+      "version": "3.0.1",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-blob-util",
+      "rango": "0.24.10",
+      "version": "0.24.10",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-config",
+      "rango": "1.5.3",
+      "version": "1.5.3",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-device-info",
+      "rango": "15.0.2",
+      "version": "15.0.2",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-keychain",
+      "rango": "10.0.0",
+      "version": "10.0.0",
+      "licencia": "MIT"
+    },
+    {
       "nombre": "react-native-linear-gradient",
       "rango": "^2.8.3",
       "version": "2.8.3",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-passkey",
+      "rango": "3.5.0",
+      "version": "3.5.0",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-pdf",
+      "rango": "7.0.4",
+      "version": "7.0.4",
       "licencia": "MIT"
     },
     {
@@ -85,6 +193,12 @@
       "nombre": "react-native-svg",
       "rango": "^15.15.5",
       "version": "15.15.5",
+      "licencia": "MIT"
+    },
+    {
+      "nombre": "react-native-tts",
+      "rango": "4.1.1",
+      "version": "4.1.1",
       "licencia": "MIT"
     },
     {

@@ -34,6 +34,21 @@ catalog:
   "react-native-safe-area-context": "^5.5.2"
   "react-native-screens": "^4.28.0"
   "react-native-svg": "^15.15.5"
+  # Pinned to the versions the conversational app was validated with. voice and tts
+  # also carry pnpm patches (patches/), which only apply to these exact versions.
+  "@react-native-async-storage/async-storage": "1.23.0"
+  "@react-native-clipboard/clipboard": "1.16.3"
+  "@react-native-vector-icons/common": "13.0.1"
+  "@react-native-vector-icons/feather": "13.1.2"
+  "@react-native-voice/voice": "3.2.4"
+  "react-native-biometrics": "3.0.1"
+  "react-native-blob-util": "0.24.10"
+  "react-native-config": "1.5.3"
+  "react-native-device-info": "15.0.2"
+  "react-native-keychain": "10.0.0"
+  "react-native-passkey": "3.5.0"
+  "react-native-pdf": "7.0.4"
+  "react-native-tts": "4.1.1"
 
   # Navigation, state, networking, i18n
   "@react-navigation/bottom-tabs": "^7.19.1"
@@ -43,6 +58,8 @@ catalog:
   "zustand": "^5.0.15"
   "i18next": "^26.4.2"
   "react-i18next": "^17.0.15"
+  "crypto-js": "^4.2.0"
+  "jwt-decode": "^4.0.0"
 
   # React Native toolchain
   "@react-native-community/cli": "20.2.0"
@@ -55,16 +72,22 @@ catalog:
   "@react-native/gradle-plugin": "0.87.1"
   "@react-native/jest-preset": "0.87.1"
   "@react-native/metro-config": "0.87.1"
+  "@react-native/new-app-screen": "0.87.1"
   "@react-native/typescript-config": "0.87.1"
   "@babel/core": "^7.25.2"
   "@babel/preset-env": "^7.25.3"
   "@babel/runtime": "^7.25.0"
 
   # Types, tests, lint, format
+  "@types/crypto-js": "^4.2.2"
   "@types/jest": "^29.5.14"
   "@types/node": "^22.20.3"
   "@types/react": "^19.2.0"
   "@types/react-test-renderer": "^19.1.0"
+  "@typescript-eslint/eslint-plugin": "^8.19.0"
+  "@typescript-eslint/parser": "^8.19.0"
+  "babel-jest": "^29.7.0"
+  "babel-plugin-module-resolver": "^5.0.2"
   "eslint": "^8.19.0"
   "jest": "^29.7.0"
   "prettier": "2.8.8"

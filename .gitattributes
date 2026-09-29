@@ -9,6 +9,9 @@ gradlew        text eol=lf
 # Generated code is compared byte for byte against its generator, which writes LF.
 libs/shared-design-tokens/src/generated/** text eol=lf
 
+# pnpm applies these to package files published with LF; CRLF hunks would not match.
+*.patch        text eol=lf
+
 # Binary files: never touch their bytes.
 *.jar          binary
 *.keystore     binary
