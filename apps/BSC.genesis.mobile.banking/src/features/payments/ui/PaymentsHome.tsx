@@ -15,7 +15,7 @@ import {
   BscGradients,
   BscGradientSurface,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   nombreDeCategoria,
   type Producto,

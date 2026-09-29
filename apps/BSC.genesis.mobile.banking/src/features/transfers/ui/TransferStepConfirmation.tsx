@@ -10,7 +10,7 @@ import {
   withAlpha,
   type BscIconName,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { usaBeneficiario } from '../data/transferContracts';
 import {
   bancoDelDestino,

@@ -31,7 +31,7 @@ import {
   withAlpha,
   FOOTNOTE_TEXT_STYLE,
   buttonTokens,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 
 import { useAuthStore } from '../authStore';
 import fondoDeAcceso from '../assets/fondo-de-acceso.jpg';

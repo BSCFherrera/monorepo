@@ -1,5 +1,5 @@
-import { BscSpacing } from '@bsc/ui-native';
-import { BscTypography } from '@bsc/ui-native';
+import { BscSpacing } from '@bsc/design-system';
+import { BscTypography } from '@bsc/design-system';
 
 /**
  * Las medidas y decisiones de composición de las ocho pantallas que quedaban

@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "@bsc/contracts": "workspace:*",
+    "@bsc/design-system": "workspace:*",
     "@bsc/i18n": "workspace:*",
     "@bsc/shared": "workspace:*",
-    "@bsc/ui-native": "workspace:*",
     "@bsc/utils": "workspace:*",
     "@react-native-async-storage/async-storage": "catalog:",
     "@react-native-clipboard/clipboard": "catalog:",

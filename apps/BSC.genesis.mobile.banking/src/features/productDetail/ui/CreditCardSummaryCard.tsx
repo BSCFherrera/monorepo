@@ -12,7 +12,7 @@ import {
   BscSpacing,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   avisoDePago,
   ultimosCuatroDigitos,

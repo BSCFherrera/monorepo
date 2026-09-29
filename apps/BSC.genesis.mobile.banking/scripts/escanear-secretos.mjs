@@ -33,8 +33,7 @@ const RAIZ = process.cwd();
  */
 const RAICES = [
   RAIZ,
-  join(RAIZ, '../../libs/shared-ui-native'),
-  join(RAIZ, '../../libs/shared-design-tokens'),
+  join(RAIZ, '../../libs/BSC.genesis.design.system'),
   join(RAIZ, '../../libs/shared-contracts'),
   join(RAIZ, '../../libs/shared-utils'),
 ].filter(existsSync);
@@ -153,7 +152,8 @@ const PERMITIDOS = [
       Los trazos vectoriales son series de números y alguna se lee como una
       dirección. No son texto escrito por nadie: salen de exportar el logotipo.
     */
-    coincide: ruta => ruta.includes('libs/shared-ui-native/src/assets/'),
+    coincide: ruta =>
+      ruta.includes('libs/BSC.genesis.design.system/src/assets/'),
     motivo: 'datos de trazado vectorial, no texto escrito a mano',
   },
 ];

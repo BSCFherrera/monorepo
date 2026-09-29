@@ -15,7 +15,7 @@ import {
   BscSpinner,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { TEXTO_DE_LA_HOJA } from '../../../app/medidasDeLasOchoPantallas';
 import NativeBiometric from '../../../specs/NativeBiometric';
 import type { DeviceKeySecurity } from '../../../core/security/deviceKey';

@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native';
 
-import { BscColors, BscLogo, BscSpacing, BscSpinner } from '@bsc/ui-native';
+import { BscColors, BscLogo, BscSpacing, BscSpinner } from '@bsc/design-system';
 
 import fondoDeAcceso from '../features/auth/assets/fondo-de-acceso.jpg';
 

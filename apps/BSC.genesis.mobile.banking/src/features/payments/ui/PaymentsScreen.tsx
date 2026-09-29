@@ -8,7 +8,7 @@ import {
   BscSpacing,
   BscSpinner,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { clasificarRiesgo } from '../../../core/security/operationRisk';
 import {
   autorizarOperacion,

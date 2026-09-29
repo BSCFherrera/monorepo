@@ -7,7 +7,7 @@ import { BscRadius, BscSpacing } from '../theme/spacing';
 
 import { BscGradientSurface } from './BscGradientBackdrop';
 import { BscIcon } from './BscIcon';
-import { text } from '@bsc/design-tokens';
+import { text } from '../tokens';
 import type { PageHeaderProps } from '@bsc/contracts';
 import { BscTextStyles } from '../theme/typography';
 

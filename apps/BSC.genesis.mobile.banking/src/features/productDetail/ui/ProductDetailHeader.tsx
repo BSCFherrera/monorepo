@@ -12,8 +12,8 @@ import {
   withAlpha,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
-import type { BscGradient } from '@bsc/ui-native';
+} from '@bsc/design-system';
+import type { BscGradient } from '@bsc/design-system';
 
 /**
  * Cabecera con degradado del detalle de producto.

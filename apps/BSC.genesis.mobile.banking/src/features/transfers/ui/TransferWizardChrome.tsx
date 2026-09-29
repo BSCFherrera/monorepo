@@ -10,7 +10,7 @@ import {
   BscSecondaryButton,
   BscSpinner,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { PIE_DEL_ASISTENTE } from './medidasDeLosAsistentes';
 
 /**
