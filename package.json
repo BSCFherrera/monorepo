@@ -20,7 +20,8 @@
     "banking:ios": "nx run BSC.genesis.mobile.banking:ios",
     "conversational:start": "nx run BSC.genesis.conversational:start",
     "conversational:android": "nx run BSC.genesis.conversational:android",
-    "conversational:ios": "nx run BSC.genesis.conversational:ios"
+    "conversational:ios": "nx run BSC.genesis.conversational:ios",
+    "feature:start": "node tools/scripts/start-feature.mjs"
   },
   "devDependencies": {
     "@nx/eslint": "22.7.12",

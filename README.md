@@ -65,6 +65,8 @@ pnpm conversational:start                         # Metro (terminal 1) — same 
 pnpm conversational:android                       # or conversational:ios (terminal 2)
 
 pnpm nx run design-tokens:generate                # regenerate tokens from the Figma snapshot
+
+pnpm feature:start GEN-123 story "Title"          # new OpenSpec change + branch, then Claude Code `run sdd on GEN-123`
 ```
 
 The `<app>:start|android|ios` scripts in this package.json are shortcuts for
