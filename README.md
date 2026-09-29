@@ -52,13 +52,18 @@ pnpm test         # nx run-many -t test
 pnpm deps:check   # shared mobile dependencies: catalog only, same set in every RN app
 pnpm deps:sync    # fix what can be fixed automatically, then run pnpm install
 
-pnpm nx run BSC.genesis.mobile.banking:start      # Metro
-pnpm nx run BSC.genesis.mobile.banking:android    # or :ios
+pnpm banking:start                                # Metro (terminal 1)
+pnpm banking:android                              # or banking:ios (terminal 2)
 pnpm nx run BSC.genesis.mobile.banking:web        # browser preview (Vite)
 pnpm nx run BSC.genesis.mobile.banking:verify     # the app's full verification script
 
 pnpm nx run design-tokens:generate                # regenerate tokens from the Figma snapshot
 ```
+
+The `<app>:start|android|ios` scripts in this package.json are shortcuts for
+`nx run <project>:<target>`. The commands themselves are defined once, in each app's
+`project.json` (`apps/<app>/project.json` → `targets`); add the same three shortcuts
+when a new app joins the monorepo. `pnpm nx show project <project>` lists every target.
 
 ## Where things are documented
 

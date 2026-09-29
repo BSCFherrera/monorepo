@@ -26,10 +26,12 @@ Ya está resuelto en `android/gradle.properties` mediante `-Djavax.net.ssl.trust
 Desde la raíz del monorepo:
 
 ```bash
-pnpm install                                     # dependencias compartidas de todo el monorepo
-pnpm nx run BSC.genesis.mobile.banking:start     # terminal 1: Metro
-pnpm nx run BSC.genesis.mobile.banking:android   # terminal 2: compila e instala
+pnpm install            # dependencias compartidas de todo el monorepo
+pnpm banking:start      # terminal 1: Metro
+pnpm banking:android    # terminal 2: compila e instala (o pnpm banking:ios)
 ```
+
+Los comandos están definidos una sola vez, en los `targets` de [`project.json`](project.json). `pnpm banking:*` (en el `package.json` de la raíz) y `pnpm start|android|ios` (dentro de esta carpeta) son atajos a `pnpm nx run BSC.genesis.mobile.banking:<target>`: para cambiar un comando se edita `project.json`, nunca un `package.json`.
 
 El target `android` corre `react-native run-android --no-packager --active-arch-only`:
 
@@ -70,8 +72,8 @@ La URL del backend **no está escrita en el repositorio** (D-18, T-10): se inyec
 
 ```bash
 # Depurar contra QA, desde la raíz del monorepo
-BSC_BASE_URL=<url de QA> pnpm nx run BSC.genesis.mobile.banking:ios
-BSC_BASE_URL=<url de QA> pnpm nx run BSC.genesis.mobile.banking:android
+BSC_BASE_URL=<url de QA> pnpm banking:ios
+BSC_BASE_URL=<url de QA> pnpm banking:android
 ```
 
 - La URL queda dentro de la compilación nativa (`Info.plist` en iOS, `BuildConfig` en Android): **cambiarla exige recompilar**, recargar Metro no basta.

@@ -5,9 +5,9 @@
   "description": "Banca móvil de Banco Santa Cruz — React Native",
   "license": "UNLICENSED",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "android": "nx run BSC.genesis.mobile.banking:android",
+    "ios": "nx run BSC.genesis.mobile.banking:ios",
+    "start": "nx run BSC.genesis.mobile.banking:start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"packages/**/src/**/*.ts\"",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"packages/**/src/**/*.ts\"",

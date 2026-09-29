@@ -14,7 +14,10 @@
     "test": "nx run-many -t test",
     "build": "nx run-many -t build",
     "deps:check": "node tools/scripts/check-mobile-deps.mjs",
-    "deps:sync": "node tools/scripts/check-mobile-deps.mjs --fix"
+    "deps:sync": "node tools/scripts/check-mobile-deps.mjs --fix",
+    "banking:start": "nx run BSC.genesis.mobile.banking:start",
+    "banking:android": "nx run BSC.genesis.mobile.banking:android",
+    "banking:ios": "nx run BSC.genesis.mobile.banking:ios"
   },
   "devDependencies": {
     "@nx/eslint": "22.7.12",

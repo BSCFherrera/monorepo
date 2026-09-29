@@ -113,6 +113,10 @@ cambio, con `pod install` y compilación de todas las apps antes de integrar.
    - `project.json`: los targets `start`, `android`, `ios`, `lint`,
      `typecheck`, `test` y sus `tags` (una etiqueta `scope:` nueva se registra en
      `eslint.module-boundaries.cjs`).
+   - Los atajos en el `package.json` de la raíz (`<app>:start`, `<app>:android`,
+     `<app>:ios` → `nx run <proyecto>:<target>`) y, en el `package.json` de la
+     app, `start`/`android`/`ios` apuntando a esos mismos targets. Los comandos
+     se definen solo en `project.json`.
 6. `codegenConfig` es propio de cada app: no copies el de mobile banking salvo
    que la app nueva incluya esos mismos módulos nativos.
 7. Para correr las dos apps a la vez, cada Metro necesita su propio puerto
