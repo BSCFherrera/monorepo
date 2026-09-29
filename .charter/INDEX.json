@@ -580,7 +580,10 @@
         "apps/*/ios/**",
         "apps/*-e2e/**",
         "apps/BSC.genesis.mobile.banking/src/**",
-        "libs/shared-ui-native/src/**"
+        "libs/shared-ui-native/src/**",
+        "apps/*/package.json",
+        "libs/*/package.json",
+        "pnpm-workspace.yaml"
       ],
       "path": ".charter/guides/idioms/react-native/mobile-app.md",
       "provenance": "project"
@@ -1596,6 +1599,9 @@
     "apps/*/ios/**": [
       "guide/idioms/react-native/mobile-app"
     ],
+    "apps/*/package.json": [
+      "guide/idioms/react-native/mobile-app"
+    ],
     "apps/BSC.genesis.mobile.banking/**/*.js": [
       "guide/computational/eslint"
     ],
@@ -1627,6 +1633,9 @@
       "guide/computational/eslint",
       "guide/idioms/design-system/bsc-design-system"
     ],
+    "libs/*/package.json": [
+      "guide/idioms/react-native/mobile-app"
+    ],
     "libs/shared-design-tokens/**": [
       "guide/idioms/design-system/bsc-design-system"
     ],
@@ -1647,6 +1656,9 @@
     ],
     "playwright.config.*": [
       "guide/idioms/testing-stack"
+    ],
+    "pnpm-workspace.yaml": [
+      "guide/idioms/react-native/mobile-app"
     ],
     "scripts/**/*.ps1": [
       "guide/idioms/powershell/fail-fast-automation"

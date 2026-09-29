@@ -1,0 +1,88 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        buildToolsVersion = "37.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 37
+        targetSdkVersion = 36
+        ndkVersion = "27.1.12297006"
+        kotlinVersion = "2.2.0"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            // Si el timeout corrompió la caché local, esto obliga a Gradle a revisar repositorios estables
+            cacheDynamicVersionsFor 0, 'seconds'
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.6.0")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
+
+// Credenciales del Maven privado (S3) de Autentikar, leídas desde android/.env.
+// Viven aparte del .env de la raíz del proyecto (que sí se expone como BuildConfig vía
+// react-native-config/dotenv.gradle en :app) para que ACCESS_KEY/SECRET_KEY se usen solo
+// en tiempo de build y nunca terminen embebidas en el APK compilado.
+ext.autentikarEnv = [:]
+File autentikarEnvFile = file("${rootDir}/.env")
+if (autentikarEnvFile.exists()) {
+    autentikarEnvFile.eachLine { line ->
+        def matcher = (line =~ /^\s*(?:export\s+|)([\w.\-]+)\s*=\s*['"]?(.*?)['"]?\s*$/)
+        if (matcher.matches()) {
+            ext.autentikarEnv[matcher.group(1)] = matcher.group(2)
+        }
+    }
+}
+
+allprojects {
+    repositories {
+        google() // Primero Google para que jale AAPT2 directo de ahí
+        mavenCentral()
+
+        // Bloqueamos por completo que Sonatype intente meterse en la resolución
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+            metadataSources { artifact() }
+            content {
+                excludeGroup "com.android.tools.build"
+                excludeGroup "androidx.activity"
+                excludeGroup "androidx.annotation"
+            }
+        }
+
+        // SDK de Autentikar (verificación de identidad: cédula + rostro)
+        maven {
+            url "s3://maven.autentikar.s3.amazonaws.com"
+            credentials(AwsCredentials) {
+                accessKey rootProject.ext.autentikarEnv.AUTENTIKAR_ACCESS_KEY
+                secretKey rootProject.ext.autentikarEnv.AUTENTIKAR_SECRET_KEY
+            }
+        }
+    }
+
+    // `react-native-passkey` declara `kotlinx-coroutines-core/android:1.10.2`, que arrastra por
+    // transitividad un `kotlin-stdlib` con metadata 2.1.0 — ilegible para el compilador Kotlin de
+    // este proyecto (1.9.25, fijo porque el gradle-plugin de React Native 0.76 todavía no soporta
+    // Kotlin Gradle Plugin 2.x). Se fuerza la resolución de vuelta a versiones compiladas con
+    // Kotlin 1.9.x en TODO el build (no solo en `:app`) para que ese conflicto no reaparezca en
+    // ningún módulo nativo que dependa de coroutines.
+    configurations.all {
+        resolutionStrategy {
+            force "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+            force "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion"
+            force "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
+            force "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Confianza adicional para el CA interno de BSC (bsc.com.do), usado en los
+  gateways de dev/test detrás de la inspección TLS corporativa. El emulador
+  de Android no trae este CA en su almacén de confianza del sistema (a
+  diferencia de Windows, donde se instala vía Group Policy), por lo que las
+  peticiones HTTPS a *.bsc.com.do fallan con SSLHandshakeException sin esto.
+-->
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">bsc.com.do</domain>
+        <trust-anchors>
+            <certificates src="@raw/bsc_root_ca" />
+            <certificates src="@raw/bsc_issuing_ca" />
+            <certificates src="@raw/bsc_issuing_ca_orn" />
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

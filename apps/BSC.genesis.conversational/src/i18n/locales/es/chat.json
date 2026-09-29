@@ -1,0 +1,36 @@
+{
+  "screen": {
+    "title": "Banca conversacional",
+    "placeholder": "Escribe tu mensaje...",
+    "greeting": "Hola, {{name}}",
+    "defaultCustomer": "Cliente",
+    "heroSubtitle": "Estoy listo para ayudarte hoy.",
+    "connectedStatus": "Conectado al asistente",
+    "demoStatus": "Modo demostracion",
+    "showNotificationsMessage": "Mostrar mis notificaciones recientes.",
+    "openHistoryMessage": "Abrir historial: {{title}}"
+  },
+  "quickActions": {
+    "transfer": "Quiero transferir dinero",
+    "transactions": "Mostrar mis transacciones recientes",
+    "products": "Que productos puedo solicitar",
+    "profile": "Necesito ayuda con mi perfil"
+  },
+  "externalLinkModal": {
+    "title": "Vas a salir de la aplicación",
+    "message": "Estás a punto de visitar un sitio web externo. Ten precaución antes de continuar.",
+    "confirmButton": "Continuar",
+    "cancelButton": "Cancelar"
+  },
+  "voice": {
+    "permissionTitle": "Permiso de microfono",
+    "permissionMessage": "Necesitamos acceso al microfono para transcribir tu voz a texto.",
+    "permissionPositive": "Permitir",
+    "permissionNegative": "Cancelar",
+    "permissionDeniedTitle": "Microfono no habilitado",
+    "permissionDeniedMessage": "Sin permiso de microfono no es posible dictar mensajes.",
+    "errorTitle": "No se pudo transcribir",
+    "errorMessage": "Intenta nuevamente y habla despues de presionar el boton del microfono.",
+    "listening": "Escuchando..."
+  }
+}

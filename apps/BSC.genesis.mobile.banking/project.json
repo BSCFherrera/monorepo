@@ -45,7 +45,10 @@
     },
     "android": {
       "executor": "nx:run-commands",
-      "options": { "cwd": "apps/BSC.genesis.mobile.banking", "command": "react-native run-android" }
+      "options": {
+        "cwd": "apps/BSC.genesis.mobile.banking",
+        "command": "react-native run-android --no-packager --active-arch-only"
+      }
     },
     "ios": {
       "executor": "nx:run-commands",

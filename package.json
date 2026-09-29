@@ -12,7 +12,15 @@
     "lint": "nx run-many -t lint",
     "typecheck": "nx run-many -t typecheck",
     "test": "nx run-many -t test",
-    "build": "nx run-many -t build"
+    "build": "nx run-many -t build",
+    "deps:check": "node tools/scripts/check-mobile-deps.mjs",
+    "deps:sync": "node tools/scripts/check-mobile-deps.mjs --fix",
+    "banking:start": "nx run BSC.genesis.mobile.banking:start",
+    "banking:android": "nx run BSC.genesis.mobile.banking:android",
+    "banking:ios": "nx run BSC.genesis.mobile.banking:ios",
+    "conversational:start": "nx run BSC.genesis.conversational:start",
+    "conversational:android": "nx run BSC.genesis.conversational:android",
+    "conversational:ios": "nx run BSC.genesis.conversational:ios"
   },
   "devDependencies": {
     "@nx/eslint": "22.7.12",
@@ -30,5 +38,11 @@
     "prettier": "^3.4.2",
     "ts-jest": "^29.2.5",
     "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@react-native-voice/voice@3.2.4": "patches/@react-native-voice__voice@3.2.4.patch",
+      "react-native-tts@4.1.1": "patches/react-native-tts@4.1.1.patch"
+    }
   }
 }

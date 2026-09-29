@@ -9,6 +9,6 @@
     "@bsc/contracts": "workspace:*"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14"
+    "@types/jest": "catalog:"
   }
 }

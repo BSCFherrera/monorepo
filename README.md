@@ -9,7 +9,7 @@ apps/
 ├── BSC.genesis.mobile.banking/  React Native banking app (Android/iOS + web preview via Vite)
 │   └── packages/
 │       └── bsc-shared/          @bsc/shared — pure business logic (formatters, validation)
-└── BSC.genesis.conversational/  (placeholder)
+└── BSC.genesis.conversational/  React Native conversational app (AI chat over WebSocket, onboarding, access recovery)
 libs/
 ├── shared-design-tokens/  @bsc/design-tokens — tokens generated from the Figma library (primitives → semantic → component, light + dark)
 ├── shared-ui-native/      @bsc/ui-native — shared React Native components (Bsc*) and the Google Sans Flex font
@@ -18,7 +18,15 @@ libs/
 ├── shared-i18n/           @bsc/i18n — translation system (i18next); Spanish today, language selector ready
 └── BSC.genesis.design.system/   (placeholder from the original scaffold)
 docs/
+tools/scripts/                   workspace scripts (shared mobile dependencies check)
 ```
+
+## Shared dependencies
+
+Every React Native app shares the same third-party dependencies at the same version.
+Versions live once, in the pnpm catalog of `pnpm-workspace.yaml`; packages under `apps/` and
+`libs/` declare `"<name>": "catalog:"` instead of a version. `pnpm deps:check` enforces it (also
+part of the app's `verify`). See `docs/mobile/dependencias-compartidas.md`.
 
 ## Requirements
 
@@ -31,7 +39,11 @@ docs/
 ```bash
 pnpm install
 cd apps/BSC.genesis.mobile.banking/ios && pod install   # iOS only
+cd apps/BSC.genesis.conversational/ios && pod install   # iOS only
 ```
+
+The conversational app also needs two untracked env files, copied by hand: `.env` and
+`android/.env` (see its README).
 
 Open the iOS project through `BSCMobileAppRN.xcworkspace`, not the `.xcodeproj`.
 
@@ -41,18 +53,29 @@ Open the iOS project through `BSCMobileAppRN.xcworkspace`, not the `.xcodeproj`.
 pnpm lint         # nx run-many -t lint
 pnpm typecheck    # nx run-many -t typecheck
 pnpm test         # nx run-many -t test
+pnpm deps:check   # shared mobile dependencies: catalog only, same set in every RN app
+pnpm deps:sync    # fix what can be fixed automatically, then run pnpm install
 
-pnpm nx run BSC.genesis.mobile.banking:start      # Metro
-pnpm nx run BSC.genesis.mobile.banking:android    # or :ios
+pnpm banking:start                                # Metro (terminal 1)
+pnpm banking:android                              # or banking:ios (terminal 2)
 pnpm nx run BSC.genesis.mobile.banking:web        # browser preview (Vite)
 pnpm nx run BSC.genesis.mobile.banking:verify     # the app's full verification script
+
+pnpm conversational:start                         # Metro (terminal 1) — same port as banking
+pnpm conversational:android                       # or conversational:ios (terminal 2)
 
 pnpm nx run design-tokens:generate                # regenerate tokens from the Figma snapshot
 ```
 
+The `<app>:start|android|ios` scripts in this package.json are shortcuts for
+`nx run <project>:<target>`. The commands themselves are defined once, in each app's
+`project.json` (`apps/<app>/project.json` → `targets`); add the same three shortcuts
+when a new app joins the monorepo. `pnpm nx show project <project>` lists every target.
+
 ## Where things are documented
 
 - Design tokens and the Figma snapshot: `libs/shared-design-tokens/figma/README.md`
+- Shared dependencies (catalog, adding a dependency, unlinked native modules, adding an app): `docs/mobile/dependencias-compartidas.md`
 - Translations (adding text, adding a language, the selector): `libs/shared-i18n/README.md`
 - Font: `libs/shared-ui-native/assets/fonts/README.md`
 - App migration history, security model and open questions: `apps/BSC.genesis.mobile.banking/docs/migration/`
