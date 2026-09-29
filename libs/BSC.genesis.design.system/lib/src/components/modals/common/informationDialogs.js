@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotValidatedClientModal = exports.MaximumIntentsModal = exports.ErrorUserWithoutData = exports.ErrorServiceGeneral = exports.ErrorGeneral = exports.ErrorGeneric = void 0;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const ui_native_1 = require("@bsc/ui-native");
+const compatibility_1 = require("./compatibility");
+const dialogParts_1 = require("./dialogParts");
+const styles_1 = require("./styles");
+const InformationDialog = (0, react_1.forwardRef)(function InformationDialog({ warningMessage, secondaryLabel, onSecondary, ...rawProps }, ref) {
+    const props = (0, dialogParts_1.resolveCommonDialogProps)(rawProps);
+    return (0, jsx_runtime_1.jsxs)(compatibility_1.ModalCommon, { visible: props.visible, defaultVisible: props.defaultVisible, onOpenChange: props.onOpenChange, onClose: props.onClose, bottomInset: props.bottomInset, closeOnBackdropPress: props.canDismiss, actions: props.actions, ref: ref, children: [(0, jsx_runtime_1.jsx)(dialogParts_1.Illustration, { ...props, name: props.iconName, color: props.iconColor, size: props.iconSize }), (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: styles_1.styles.title, children: props.title }), warningMessage != null && (0, jsx_runtime_1.jsx)(dialogParts_1.Panel, { warning: true, children: warningMessage }), props.message != null && (0, jsx_runtime_1.jsx)(dialogParts_1.Panel, { children: props.message }), props.children, onSecondary && props.showSecondary !== false ? (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: { gap: 8, marginBottom: 8 }, children: [(0, jsx_runtime_1.jsx)(dialogParts_1.Confirm, { props: props, pill: true }), (0, jsx_runtime_1.jsx)(ui_native_1.BscPrimaryButton, { label: secondaryLabel ?? 'Go back', onPress: onSecondary, style: { width: '100%' } })] }) : (0, jsx_runtime_1.jsx)(dialogParts_1.Confirm, { props: props, pill: !!onSecondary })] });
+});
+exports.ErrorGeneric = (0, react_1.forwardRef)(function ErrorGeneric(props, ref) { return (0, jsx_runtime_1.jsx)(InformationDialog, { ...props, ref: ref }); });
+exports.ErrorGeneral = (0, react_1.forwardRef)(function ErrorGeneral(props, ref) { return (0, jsx_runtime_1.jsx)(InformationDialog, { ...props, ref: ref }); });
+exports.ErrorServiceGeneral = (0, react_1.forwardRef)(function ErrorServiceGeneral(props, ref) { return (0, jsx_runtime_1.jsx)(InformationDialog, { ...props, ref: ref }); });
+exports.ErrorUserWithoutData = (0, react_1.forwardRef)(function ErrorUserWithoutData(props, ref) { return (0, jsx_runtime_1.jsx)(InformationDialog, { ...props, ref: ref }); });
+exports.MaximumIntentsModal = (0, react_1.forwardRef)(function MaximumIntentsModal(props, ref) { return (0, jsx_runtime_1.jsx)(InformationDialog, { ...props, ref: ref }); });
+exports.NotValidatedClientModal = (0, react_1.forwardRef)(function NotValidatedClientModal(props, ref) { return (0, jsx_runtime_1.jsx)(InformationDialog, { ...props, ref: ref }); });
