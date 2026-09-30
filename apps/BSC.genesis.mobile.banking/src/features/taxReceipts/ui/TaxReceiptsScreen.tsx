@@ -21,7 +21,7 @@ import {
   BscSpinner,
   buttonTokens,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { type DateRange } from '@bsc/contracts';
 import { ENCABEZADO_DE_SECCION } from '../../../app/medidasDeLasOchoPantallas';
 import type { Producto } from '../../dashboard/data/productContracts';

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generates `src/generated/figma.ts` from the DTCG snapshot in `figma/`.
+ * Generates `src/tokens/generated/figma.ts` from the DTCG snapshot in `figma/`.
  *
  *   node scripts/generate-from-figma.cjs          write the file
  *   node scripts/generate-from-figma.cjs --check  exit 1 if the file is stale
@@ -12,14 +12,14 @@
  * references to `figmaPalette`, dimensions become plain numbers.
  *
  * No dependencies on purpose: it runs anywhere Node runs, including the
- * design-tokens test suite, which uses `generate()` as the drift check.
+ * design-system token tests, which uses `generate()` as the drift check.
  */
 const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..');
 const FIGMA_DIR = path.join(ROOT, 'figma');
-const OUT_FILE = path.join(ROOT, 'src', 'generated', 'figma.ts');
+const OUT_FILE = path.join(ROOT, 'src', 'tokens', 'generated', 'figma.ts');
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 
@@ -212,13 +212,13 @@ function layout(dir) {
 
 // ─── Entry points ──────────────────────────────────────────────────────────
 
-/** The full contents of `src/generated/figma.ts` for the snapshot in `dir`. */
+/** The full contents of `src/tokens/generated/figma.ts` for the snapshot in `dir`. */
 function generate(dir = FIGMA_DIR) {
   const { prim, src: paletteSrc } = palette(dir);
   return [
     '/**',
     ' * GENERATED from `figma/*.json` by `scripts/generate-from-figma.cjs`.',
-    ' * Do not edit: change the snapshot and run `pnpm nx run design-tokens:generate`.',
+    ' * Do not edit: change the snapshot and run `pnpm nx run design-system:generate`.',
     ' *',
     ' * Mirrors the Figma library one-to-one. Nothing outside this package should',
     ' * import it directly; `primitives.ts` and the semantic files map it onto the',
@@ -260,12 +260,12 @@ if (require.main === module) {
     const current = fs.existsSync(OUT_FILE) ? fs.readFileSync(OUT_FILE, 'utf8') : '';
     if (current !== next) {
       console.error(
-        'src/generated/figma.ts is out of date with figma/*.json.\n' +
-          'Run: pnpm nx run design-tokens:generate',
+        'src/tokens/generated/figma.ts is out of date with figma/*.json.\n' +
+          'Run: pnpm nx run design-system:generate',
       );
       process.exit(1);
     }
-    console.log('src/generated/figma.ts is up to date.');
+    console.log('src/tokens/generated/figma.ts is up to date.');
   } else {
     fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
     fs.writeFileSync(OUT_FILE, next);

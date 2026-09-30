@@ -1,7 +1,7 @@
 # Figma snapshot
 
 The variables of the **BSC Design System** Figma library, as DTCG JSON. This
-is the source for `src/generated/figma.ts`; Figma wins over code wherever both
+is the source for `src/tokens/generated/figma.ts`; Figma wins over code wherever both
 define a value.
 
 - File: `PTm8YggQ9F9SejUmxqnqxe` (BSC-Design-System)
@@ -38,8 +38,8 @@ font weight `SemiBold` etc. is stored as its number, with Figma's value under
    `use_figma` script (`getLocalVariableCollectionsAsync`,
    `getLocalVariablesAsync`, `getLocalTextStylesAsync`).
 2. Update the JSON files here.
-3. `pnpm nx run design-tokens:generate`, then `pnpm test`.
+3. `pnpm nx run design-system:generate`, then `pnpm test`.
 
-`src/__tests__/tokens.test.ts` fails when `src/generated/figma.ts` doesn't
-match these files, and `pnpm nx run design-tokens:check-generated` does the
+`src/tokens/__tests__/tokens.test.ts` fails when `src/tokens/generated/figma.ts` doesn't
+match these files, and `pnpm nx run design-system:check-generated` does the
 same from the command line.

@@ -25,7 +25,7 @@ import {
   BscTextButton,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { TEXTO_DE_LA_HOJA } from '../../../app/medidasDeLasOchoPantallas';
 import {
   estaActivo,

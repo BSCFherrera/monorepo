@@ -5,7 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TestRenderer, { act } from 'react-test-renderer';
 
 import { PieDelAsistente } from '../TransferWizardChrome';
-import { buttonTokens } from '@bsc/ui-native';
+import { buttonTokens } from '@bsc/design-system';
 import { PIE_DEL_ASISTENTE as F } from '../medidasDeLosAsistentes';
 
 // ─── 2. Lo que el porte dibuja de verdad ────────────────────────────────────

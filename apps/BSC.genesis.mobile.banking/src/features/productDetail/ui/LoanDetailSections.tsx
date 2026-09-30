@@ -8,7 +8,7 @@ import {
   BscDetailSection,
   BscRadius,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   avanceDelPrestamo,
   estaCancelado,

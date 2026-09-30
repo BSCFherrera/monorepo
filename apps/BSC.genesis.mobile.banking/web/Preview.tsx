@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { BscDateRangeSheet } from '@bsc/ui-native';
+import { BscDateRangeSheet } from '@bsc/design-system';
 import { lastDaysRange } from '@bsc/utils';
 import { type DateRange } from '@bsc/contracts';
 import { AccountOfficerScreen } from '../src/features/accountOfficer/ui/AccountOfficerScreen';

@@ -1,6 +1,6 @@
 /**
  * GENERATED from `figma/*.json` by `scripts/generate-from-figma.cjs`.
- * Do not edit: change the snapshot and run `pnpm nx run design-tokens:generate`.
+ * Do not edit: change the snapshot and run `pnpm nx run design-system:generate`.
  *
  * Mirrors the Figma library one-to-one. Nothing outside this package should
  * import it directly; `primitives.ts` and the semantic files map it onto the

@@ -10,6 +10,12 @@
       "licencia": null
     },
     {
+      "nombre": "@bsc/design-system",
+      "rango": "workspace:*",
+      "version": "0.0.0",
+      "licencia": "UNLICENSED"
+    },
+    {
       "nombre": "@bsc/i18n",
       "rango": "workspace:*",
       "version": "0.0.0",
@@ -19,12 +25,6 @@
       "nombre": "@bsc/shared",
       "rango": "workspace:*",
       "version": "0.1.0",
-      "licencia": "UNLICENSED"
-    },
-    {
-      "nombre": "@bsc/ui-native",
-      "rango": "workspace:*",
-      "version": "0.0.0",
       "licencia": "UNLICENSED"
     },
     {

@@ -12,7 +12,7 @@ import {
   BscSpinner,
   withAlpha,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   entregaDePdf,
   hayEntregaDePdf,

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, View } from 'react-native';
 
-import { BscColors, BscRadius, BscSpacing } from '@bsc/ui-native';
+import { BscColors, BscRadius, BscSpacing } from '@bsc/design-system';
 
 /**
  * El marcador de posición del dashboard mientras cargan los productos.

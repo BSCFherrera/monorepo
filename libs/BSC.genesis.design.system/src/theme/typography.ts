@@ -6,17 +6,17 @@ import {
   type TextStyleName,
   type TextStyleScaleName,
   type TextStyleToken,
-} from '@bsc/design-tokens';
+} from '../tokens';
 
 /**
  * Sistema de diseño BSC — escala tipográfica, en la forma que usan los
- * componentes. Los valores viven en `@bsc/design-tokens`.
+ * componentes. Los valores viven en `src/tokens`.
  *
  * **Sobre la fuente.** Google Sans Flex no es fuente del sistema en ninguna
  * plataforma: la app empaqueta cortes estáticos (400, 500, 600, 700 y 800)
  * registrados bajo la familia «Google Sans Flex», así que `fontFamily` más
  * `fontWeight` elige el corte correcto en iOS, en Android y en la vista previa
- * web. Ver `libs/shared-ui-native/assets/fonts/README.md`.
+ * web. Ver `libs/BSC.genesis.design.system/assets/fonts/README.md`.
  */
 export const fontFamily = familiaDelToken;
 

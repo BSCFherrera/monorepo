@@ -2,7 +2,7 @@
 <!--
   Google Sans Flex, one static cut per weight. Registered in MainApplication
   under the family name "Google Sans Flex", so React Native picks the cut from
-  fontFamily + fontWeight. Source and license: libs/shared-ui-native/assets/fonts.
+  fontFamily + fontWeight. Source and license: libs/BSC.genesis.design.system/assets/fonts.
 -->
 <font-family xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">

@@ -1,4 +1,4 @@
-import { BscSpacing } from '@bsc/ui-native';
+import { BscSpacing } from '@bsc/design-system';
 
 /**
  * Las medidas literales de los asistentes de transferencia y de pago.

@@ -1,15 +1,14 @@
 {
-  "name": "@bsc/ui-native",
+  "name": "@bsc/design-system",
   "version": "0.0.0",
   "private": true,
-  "description": "Componentes React Native del sistema de diseño BSC, compartidos entre apps.",
+  "description": "Sistema de diseño BSC: reglas, tokens y componentes React Native. Toda la UI de las apps sale de aquí.",
   "license": "UNLICENSED",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "sideEffects": false,
   "dependencies": {
     "@bsc/contracts": "workspace:*",
-    "@bsc/design-tokens": "workspace:*",
     "@bsc/utils": "workspace:*"
   },
   "peerDependencies": {

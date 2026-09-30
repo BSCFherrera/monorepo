@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 
-import { BscColors } from '@bsc/ui-native';
-import { BscSpacing, BscBorderRadius } from '@bsc/ui-native';
-import { BscTypography } from '@bsc/ui-native';
+import { BscColors } from '@bsc/design-system';
+import { BscSpacing, BscBorderRadius } from '@bsc/design-system';
+import { BscTypography } from '@bsc/design-system';
 import {
   DeviceKey,
   isStrongBox,

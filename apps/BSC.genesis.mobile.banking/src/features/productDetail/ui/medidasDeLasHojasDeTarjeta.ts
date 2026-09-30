@@ -1,4 +1,4 @@
-import { BscSpacing } from '@bsc/ui-native';
+import { BscSpacing } from '@bsc/design-system';
 
 /**
  * Las separaciones que el original escribe a mano dentro de las hojas del

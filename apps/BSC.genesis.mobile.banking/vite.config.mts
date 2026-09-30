@@ -49,7 +49,7 @@ export default defineConfig({
       // El degradado es la excepción: `react-native-linear-gradient` es un
       // módulo nativo y no tiene implementación web propia.
       // Ruta absoluta y no el nombre suelto: los componentes viven ahora en
-      // `@bsc/ui-native`, y un nombre suelto se resuelve desde el archivo que
+      // `@bsc/design-system`, y un nombre suelto se resuelve desde el archivo que
       // lo importa, donde esta dependencia (solo de desarrollo, de la app) no
       // está instalada.
       {

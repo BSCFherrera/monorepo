@@ -9,7 +9,7 @@ import {
   withAlpha,
   type BscIconName,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 
 /**
  * La barra y las acciones que el detalle de un producto pone alrededor de su

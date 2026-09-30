@@ -7,7 +7,7 @@
  *
  * Two sources, kept apart on purpose:
  *   - `palette`, `space`, the Figma half of `radiusScale` and `fontWeight`
- *     come from the Figma library (`src/generated/figma.ts`). Figma is the
+ *     come from the Figma library (`src/tokens/generated/figma.ts`). Figma is the
  *     source of truth: change them there, re-read the snapshot, regenerate.
  *   - `codeOnlyPalette` and the steps marked "code only" have no Figma
  *     counterpart yet. They keep the values the app shipped before Figma was

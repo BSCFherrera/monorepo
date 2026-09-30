@@ -1,4 +1,4 @@
-import { sheet } from '@bsc/design-tokens';
+import { sheet } from './tokens';
 
 /**
  * Hasta dónde puede crecer una hoja, con el teclado abierto y sin él.

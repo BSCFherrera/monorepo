@@ -16,7 +16,7 @@ import {
   BscSpacing,
   BscTypography,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import type {
   DetalleDeTarjeta,
   MontosDeLaTarjeta,

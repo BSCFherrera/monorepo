@@ -1,10 +1,10 @@
 /**
- * @bsc/ui-native — componentes React Native del sistema de diseño BSC.
+ * @bsc/design-system — sistema de diseño BSC: tokens y componentes React Native.
  *
  * Los valores (colores, tipografía, espaciado, medidas de controles) viven en
- * `@bsc/design-tokens`; este paquete los traduce a estilos de React Native y
- * los usa en los componentes. Las props públicas están en inglés; los textos
- * que ve el cliente los pasa cada app.
+ * `./tokens`; `./theme` los traduce a estilos de React Native y los componentes
+ * los usan. Las reglas están en `DESIGN-RULES.md`. Las props públicas están en
+ * inglés; los textos que ve el cliente los pasa cada app.
  */
 
 export {

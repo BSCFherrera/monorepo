@@ -52,9 +52,8 @@ Guides without `globs:` are not listed here — they activate ambient per their 
 | `libs/**/*.ts` | `charter/guides/computational/eslint.md` |
 | `libs/**/*.tsx` | `charter/guides/computational/eslint.md`, `charter/guides/idioms/design-system/bsc-design-system.md` |
 | `libs/*/package.json` | `charter/guides/idioms/react-native/mobile-app.md` |
-| `libs/shared-design-tokens/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
-| `libs/shared-ui-native/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
-| `libs/shared-ui-native/src/**` | `charter/guides/idioms/react-native/mobile-app.md` |
+| `libs/BSC.genesis.design.system/**` | `charter/guides/idioms/design-system/bsc-design-system.md` |
+| `libs/BSC.genesis.design.system/src/**` | `charter/guides/idioms/react-native/mobile-app.md` |
 | `nx.json` | `charter/guides/idioms/nx/monorepo-structure.md` |
 | `openspec/**` | `charter/guides/idioms/openspec/change-lifecycle.md` |
 | `openspec/changes/**/*.md` | `charter/guides/idioms/design-system/bsc-design-system.md` |

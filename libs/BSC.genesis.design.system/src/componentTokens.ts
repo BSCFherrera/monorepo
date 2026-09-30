@@ -1,7 +1,7 @@
 /**
  * Medidas de los controles reutilizables.
  *
- * Los valores viven en `@bsc/design-tokens` (capa de componentes); aquí solo se
+ * Los valores viven en `src/tokens` (capa de componentes); aquí solo se
  * reexportan con el nombre con el que los usan los componentes y las pantallas.
  * Cambiar una medida es cambiar el token, nunca este archivo.
  */
@@ -12,7 +12,7 @@ import {
   separator,
   spinner,
   textField,
-} from '@bsc/design-tokens';
+} from './tokens';
 
 /** Botones: 54 de alto, 46 en un estado vacío, 48 en «Consultar». */
 export const buttonTokens = button;

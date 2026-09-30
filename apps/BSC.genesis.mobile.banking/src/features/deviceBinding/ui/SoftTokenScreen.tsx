@@ -15,7 +15,7 @@ import {
   BscSecondaryButton,
   BscSpacing,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import type { SecureStorage } from '../../../core/security/secureStorage';
 import { t } from '@bsc/i18n';
 
