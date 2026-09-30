@@ -18,6 +18,13 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscOtpInput value="12" onChangeText={() => {}} />`,
+      },
+    },
+  },
 };
 
 export const WithError: Story = {

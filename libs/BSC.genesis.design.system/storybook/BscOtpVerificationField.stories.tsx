@@ -39,6 +39,24 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscOtpVerificationField
+  options={OPTIONS}
+  selectedValue="sms"
+  onSelect={() => {}}
+  codeSent={false}
+  onSend={() => {}}
+  otp=""
+  onChange={() => {}}
+  onResend={() => {}}
+  timer={{ finished: true, label: '' }}
+  sentText="Enviamos un código a tu destino"
+/>`,
+      },
+    },
+  },
 };
 
 export const Verified: Story = {

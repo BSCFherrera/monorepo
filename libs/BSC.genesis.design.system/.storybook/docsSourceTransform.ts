@@ -8,7 +8,7 @@
  * own args (e.g. extra internal-only state) set `parameters.docs.source.code`
  * explicitly instead, which bypasses this transform entirely.
  */
-const DEMO_WRAPPER_NAME = /^<(Controlled\w+|Example)\b/;
+const DEMO_WRAPPER_NAME = /<(Controlled\w*|Example)\b/;
 
 export interface DocsSourceStoryContext {
   component?: { displayName?: string; name?: string };

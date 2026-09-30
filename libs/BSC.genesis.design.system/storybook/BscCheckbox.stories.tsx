@@ -18,6 +18,13 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscCheckbox label="Acepto los términos y condiciones" checked={false} onChange={() => {}} />`,
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {

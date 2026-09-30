@@ -25,6 +25,16 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Copiar número de cuenta" onPress={() => {}} />
+  <BscToast message="Número copiado" onHide={() => {}} />
+</>`,
+      },
+    },
+  },
 };
 
 function ControlledLongMessage(): React.JSX.Element {
@@ -36,4 +46,15 @@ function ControlledLongMessage(): React.JSX.Element {
 
 export const LongMessage: Story = {
   render: () => <ControlledLongMessage />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscToast
+  message="No pudimos completar la transferencia. Verifica tu conexión e inténtalo de nuevo."
+  onHide={() => {}}
+  durationMs={8000}
+/>`,
+      },
+    },
+  },
 };

@@ -33,6 +33,19 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscSelect
+  title="Selecciona una cuenta"
+  placeholder="Elige una cuenta"
+  options={OPTIONS}
+  selectedKey={null}
+  onSelect={() => {}}
+/>`,
+      },
+    },
+  },
 };
 
 export const WithError: Story = {

@@ -48,6 +48,26 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Abrir menú" onPress={() => {}} />
+  <BscDrawerMenu
+    visible
+    onClose={() => {}}
+    groups={GROUPS}
+    selectedId="chat"
+    onLogout={() => {}}
+    history={[
+      { id: 'h1', title: 'Transferencia a contacto', preview: 'Consulta de límite', onPress: () => {} },
+      { id: 'h2', title: 'Solicitud de tarjeta', preview: 'Documentos para tarjeta', onPress: () => {} },
+    ]}
+  />
+</>`,
+      },
+    },
+  },
 };
 
 function ControlledNoHistory(): React.JSX.Element {
@@ -69,4 +89,21 @@ function ControlledNoHistory(): React.JSX.Element {
 
 export const NoHistory: Story = {
   render: () => <ControlledNoHistory />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Abrir menú" onPress={() => {}} />
+  <BscDrawerMenu
+    visible
+    onClose={() => {}}
+    groups={GROUPS}
+    selectedId="transactions"
+    onLogout={() => {}}
+    history={[]}
+  />
+</>`,
+      },
+    },
+  },
 };

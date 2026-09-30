@@ -20,6 +20,13 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscSegmented labels={['Pesos', 'Dólares']} selectedIndex={0} onChange={() => {}} />`,
+      },
+    },
+  },
 };
 
 function ControlledThreeOptions(): React.JSX.Element {
@@ -35,4 +42,11 @@ function ControlledThreeOptions(): React.JSX.Element {
 
 export const ThreeOptions: Story = {
   render: () => <ControlledThreeOptions />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscSegmented labels={['Día', 'Semana', 'Mes']} selectedIndex={1} onChange={() => {}} />`,
+      },
+    },
+  },
 };

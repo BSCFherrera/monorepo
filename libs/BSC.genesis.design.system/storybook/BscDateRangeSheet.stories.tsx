@@ -39,6 +39,21 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Elegir período" onPress={() => {}} />
+  <BscDateRangeSheet
+    visible
+    initialRange={{ from: new Date(), to: new Date() }}
+    onApply={() => {}}
+    onClose={() => {}}
+  />
+</>`,
+      },
+    },
+  },
 };
 
 function ControlledWithBounds(): React.JSX.Element {
@@ -68,4 +83,22 @@ function ControlledWithBounds(): React.JSX.Element {
 
 export const WithBounds: Story = {
   render: () => <ControlledWithBounds />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Elegir período (últimos 2 meses)" onPress={() => {}} />
+  <BscDateRangeSheet
+    visible
+    initialRange={{ from: today, to: today }}
+    minDate={new Date(today.getFullYear(), today.getMonth() - 2, 1)}
+    maxDate={today}
+    title="Consulta de estado de cuenta"
+    onApply={() => {}}
+    onClose={() => {}}
+  />
+</>`,
+      },
+    },
+  },
 };

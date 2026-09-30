@@ -25,6 +25,17 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<View style={{ flexDirection: 'row', gap: 8 }}>
+  <BscOptionCard title="Mínimo" selected onPress={() => {}} />
+  <BscOptionCard title="Al corte" selected={false} onPress={() => {}} />
+  <BscOptionCard title="Otro" selected={false} onPress={() => {}} />
+</View>`,
+      },
+    },
+  },
 };
 
 export const WithSubtitle: Story = {

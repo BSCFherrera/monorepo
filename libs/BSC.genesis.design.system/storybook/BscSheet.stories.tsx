@@ -33,6 +33,23 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Abrir hoja" onPress={() => {}} />
+  <BscSheet
+    visible
+    title="¿Qué deseas hacer?"
+    onClose={() => {}}
+    footnote="Puedes cambiar esto luego en Ajustes."
+  >
+    <Text>Contenido de la hoja modal.</Text>
+  </BscSheet>
+</>`,
+      },
+    },
+  },
 };
 
 function ControlledWithFooter(): React.JSX.Element {
@@ -60,4 +77,27 @@ function ControlledWithFooter(): React.JSX.Element {
 
 export const WithFooter: Story = {
   render: () => <ControlledWithFooter />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <BscPrimaryButton label="Abrir hoja" onPress={() => {}} />
+  <BscSheet
+    visible
+    title="Cerrar cuenta"
+    onClose={() => {}}
+    canDismiss={false}
+    footer={
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <BscSecondaryButton label="Cancelar" onPress={() => {}} style={{ flex: 1 }} />
+        <BscPrimaryButton label="Confirmar" onPress={() => {}} style={{ flex: 1 }} />
+      </View>
+    }
+  >
+    <Text>Esta acción no se puede deshacer. ¿Deseas continuar?</Text>
+  </BscSheet>
+</>`,
+      },
+    },
+  },
 };

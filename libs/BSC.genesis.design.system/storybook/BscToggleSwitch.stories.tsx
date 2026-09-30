@@ -18,6 +18,13 @@ function Controlled(): React.JSX.Element {
 
 export const Default: Story = {
   render: () => <Controlled />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<BscToggleSwitch label="Notificaciones push" value={true} onValueChange={() => {}} />`,
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
