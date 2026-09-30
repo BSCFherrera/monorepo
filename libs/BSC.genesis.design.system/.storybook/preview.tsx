@@ -3,6 +3,8 @@ import type { Preview } from '@storybook/react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { FeatherIconProvider } from '../storybook/iconAdapter';
+import { toRealComponentSource } from './docsSourceTransform';
+import './fonts.css';
 
 const styles = StyleSheet.create({
   fullscreen: {
@@ -39,6 +41,11 @@ const preview: Preview = {
         { name: 'neutral', value: '#F3F4F6' },
         { name: 'white', value: '#FFFFFF' },
       ],
+    },
+    docs: {
+      source: {
+        transform: toRealComponentSource,
+      },
     },
   },
   decorators: [
