@@ -9,6 +9,8 @@ import * as bscMeterBarStories from './BscMeterBar.stories';
 import * as bscSelectStories from './BscSelect.stories';
 import * as bscSegmentedStories from './BscSegmented.stories';
 import * as bscOtpInputStories from './BscOtpInput.stories';
+import * as bscScreenHeaderStories from './BscScreenHeader.stories';
+import * as bscPageHeaderStories from './BscPageHeader.stories';
 import * as otpVerificationFieldStories from './OtpVerificationField.stories';
 import * as infoCardStories from './InfoCard.stories';
 import * as actionCardStories from './ActionCard.stories';
@@ -16,9 +18,6 @@ import * as stepsStories from './Steps.stories';
 import * as loadingOverlayStories from './LoadingOverlay.stories';
 import * as messageBubbleStories from './MessageBubble.stories';
 import * as typingIndicatorStories from './TypingIndicator.stories';
-import * as headerStories from './Header.stories';
-import * as appHeaderStories from './AppHeader.stories';
-import * as brandHeaderStories from './BrandHeader.stories';
 import * as drawerMenuStories from './DrawerMenu.stories';
 import * as centeredModalStories from './CenteredModal.stories';
 import * as bottomSheetModalStories from './BottomSheetModal.stories';
@@ -96,9 +95,8 @@ const modules: Record<string, unknown> = {
   './LoadingOverlay.stories': loadingOverlayStories,
   './MessageBubble.stories': messageBubbleStories,
   './TypingIndicator.stories': typingIndicatorStories,
-  './Header.stories': headerStories,
-  './AppHeader.stories': appHeaderStories,
-  './BrandHeader.stories': brandHeaderStories,
+  './BscScreenHeader.stories': bscScreenHeaderStories,
+  './BscPageHeader.stories': bscPageHeaderStories,
   './DrawerMenu.stories': drawerMenuStories,
   './CenteredModal.stories': centeredModalStories,
   './BottomSheetModal.stories': bottomSheetModalStories,

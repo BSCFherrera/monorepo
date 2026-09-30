@@ -123,6 +123,36 @@ declare module '@bsc/ui-native' {
 
   export function BscMeterBar(props: BscMeterBarProps): React.JSX.Element;
 
+  export interface BscScreenHeaderProps {
+    title: string;
+    onBack?: () => void;
+    children?: ReactNode;
+    testID?: string;
+  }
+
+  export function BscScreenHeader(props: BscScreenHeaderProps): React.JSX.Element;
+
+  export interface BscPageHeaderProps {
+    title: string;
+    subtitle?: string;
+    onBack?: () => void;
+    trailing?: ReactNode;
+    bottom?: ReactNode;
+    testID?: string;
+  }
+
+  export function BscPageHeader(props: BscPageHeaderProps): React.JSX.Element;
+
+  export interface BscPillProps {
+    label: string;
+    color?: string;
+    background?: string;
+    icon?: string;
+    style?: ViewStyle;
+  }
+
+  export function BscPill(props: BscPillProps): React.JSX.Element;
+
   export interface BscOtpInputProps {
     length?: number;
     value: string;
