@@ -1,5 +1,10 @@
-export { InfoCard } from './InfoCard';
-export { ActionCard } from './ActionCard';
-export { Steps } from './Steps';
-export { LoadingOverlay } from './LoadingOverlay';
-export type { InfoCardProps, ActionCardProps, StepsProps, LoadingOverlayProps } from './types';
+export {
+  BscActionCard as ActionCard,
+  BscInfoCard as InfoCard,
+  BscLoadingOverlay as LoadingOverlay,
+  BscSteps as Steps,
+  type BscActionCardProps as ActionCardProps,
+  type BscInfoCardProps as InfoCardProps,
+  type BscLoadingOverlayProps as LoadingOverlayProps,
+  type BscStepsProps as StepsProps,
+} from '@bsc/ui-native';

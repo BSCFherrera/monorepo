@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { createElement, type ComponentType, type ReactElement } from 'react';
-import { BscPrimaryButton, BscSecondaryButton, BscTextButton } from '@bsc/ui-native';
-import { Card } from '../src';
+import { BscCard, BscPrimaryButton, BscSecondaryButton, BscTextButton } from '@bsc/ui-native';
 import * as bscButtonStories from '../storybook/BscButton.stories';
 import * as cardStories from '../storybook/Card.stories';
 import { storyEntries } from '../storybook/catalog';
@@ -24,7 +23,7 @@ test('Storybook 8.6 indexes every statically registered story', () => {
   expect(Object.keys(index.entries)).toEqual(expect.arrayContaining([
     'actions-bscbutton--primary', 'actions-bscbutton--secondary',
     'actions-bscbutton--disabled', 'actions-bscbutton--loading',
-    'cards-card--default',
+    'cards-bsccard--default',
   ]));
   const req = storyEntries[0].req;
   const count = req.keys().reduce((total: number, key: string) => total + Object.keys(req(key)).filter(name => name !== 'default').length, 0);
@@ -42,7 +41,7 @@ test('catalog contains the actual exported components and all story modules', ()
   expect(req('./BscButton.stories')).toBe(bscButtonStories);
   expect(req('./Card.stories')).toBe(cardStories);
   expect(bscButtonStories.default.component).toBe(BscPrimaryButton);
-  expect(cardStories.default.component).toBe(Card);
+  expect(cardStories.default.component).toBe(BscCard);
   expect(Object.keys(bscButtonStories).filter(key => key !== 'default').sort())
     .toEqual(['Disabled', 'Large', 'Loading', 'Primary', 'Secondary', 'Small', 'Text']);
   expect(Object.keys(cardStories).filter(key => key !== 'default')).toEqual(['Default']);
@@ -82,7 +81,7 @@ test.each([
 });
 
 test('Card story renders its native content', () => {
-  render(<Card {...cardStories.default.args} />);
+  render(<BscCard {...cardStories.default.args} />);
   expect(screen.getByText('A reusable card with native content.')).toBeTruthy();
 });
 

@@ -22,7 +22,7 @@ export const ModalCentered = forwardRef<ModalHandle, ModalCommonProps>(function 
 });
 
 export function TouchableCard(props: Omit<ActionCardProps, 'variant'>) { return <ActionCard {...props} variant="standard" />; }
-export function RegisterPromptCard(props: Omit<ActionCardProps, 'variant'>) { return <ActionCard iconName="user-plus" {...props} variant="registration" />; }
+export function RegisterPromptCard(props: Omit<ActionCardProps, 'variant'>) { return <ActionCard iconName="person" {...props} variant="registration" />; }
 export function Loader(props: LoadingOverlayProps) { return <LoadingOverlay {...props} />; }
 
 export type TouchableCardProps = Omit<ActionCardProps, 'variant'>;

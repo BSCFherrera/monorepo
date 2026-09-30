@@ -19,8 +19,11 @@ const catalogMappings = [
   ['Navigation/BscScreenHeader', bsc.BscScreenHeader],
   ['Navigation/BscPageHeader', bsc.BscPageHeader],
   ['Verification/BscOtpVerificationField', bsc.BscOtpVerificationField],
-  ['Verification/Steps', 'Steps'],
-  ['Cards/InfoCard', 'InfoCard'],
+  ['Cards/BscCard', bsc.BscCard],
+  ['Cards/BscActionCard', bsc.BscActionCard],
+  ['Cards/BscInfoCard', bsc.BscInfoCard],
+  ['Verification/BscSteps', bsc.BscSteps],
+  ['Feedback/BscLoadingOverlay', bsc.BscLoadingOverlay],
   ['Feedback/Loader', 'Loader'],
   ['Modals/Compatibility/ModalCommon', 'ModalCommon'],
   ['Modals/Compatibility/ModalCentered', 'ModalCentered'],
@@ -46,12 +49,13 @@ test.each(catalogMappings)('%s has metadata wired to its actual public export', 
   expect(Object.keys(matches[0]).filter(key => key !== 'default').length).toBeGreaterThan(0);
 });
 
-test('ActionCard stories include compatibility card variants without removing public exports', () => {
-  const actionCardStories = storyEntries[0].req('./ActionCard.stories') as Record<string, unknown>;
+test('card compatibility aliases remain public without being the documented Storybook target', () => {
   expect(components.TouchableCard).toBeDefined();
   expect(components.RegisterPromptCard).toBeDefined();
-  expect(actionCardStories).toHaveProperty('TouchableCardVariant');
-  expect(actionCardStories).toHaveProperty('RegisterPromptCardVariant');
+  const actionCardStories = storyEntries[0].req('./ActionCard.stories') as Record<string, unknown>;
+  expect(actionCardStories.default).toMatchObject({ title: 'Cards/BscActionCard', component: bsc.BscActionCard });
+  expect(actionCardStories).not.toHaveProperty('TouchableCardVariant');
+  expect(actionCardStories).not.toHaveProperty('RegisterPromptCardVariant');
 });
 
 const dialogProps = { visible: true, onClose: jest.fn(), title: 'Review', message: 'Demo message' };

@@ -69,10 +69,14 @@ export {
 } from './components/BscIcon';
 
 export {
+  BscActionCard,
   BscCard,
+  BscInfoCard,
   BscSectionHeader,
   BscPlaceholder,
+  type BscActionCardProps,
   type BscCardProps,
+  type BscInfoCardProps,
 } from './components/BscCard';
 
 export {

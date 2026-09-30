@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InfoCard } from '../src';
+import { BscInfoCard } from '@bsc/ui-native';
 
 const meta = {
-  title: 'Cards/InfoCard',
-  component: InfoCard,
+  title: 'Cards/BscInfoCard',
+  component: BscInfoCard,
   args: { title: 'Account summary', subtitle: 'View your latest transactions' },
-} satisfies Meta<typeof InfoCard>;
+} satisfies Meta<typeof BscInfoCard>;
 
 export default meta;
 export const Default: StoryObj<typeof meta> = {};

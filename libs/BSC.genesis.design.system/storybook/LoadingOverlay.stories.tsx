@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
-import { LoadingOverlay } from '../src';
+import { BscLoadingOverlay } from '@bsc/ui-native';
 
 const meta = {
-  title: 'Feedback/LoadingOverlay',
-  component: LoadingOverlay,
+  title: 'Feedback/BscLoadingOverlay',
+  component: BscLoadingOverlay,
   args: { visible: true, label: 'Loading...' },
-} satisfies Meta<typeof LoadingOverlay>;
+} satisfies Meta<typeof BscLoadingOverlay>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -14,14 +14,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => (
     <View style={{ height: 300, width: '100%', position: 'relative' }}>
-      <LoadingOverlay {...args} />
+      <BscLoadingOverlay {...args} />
     </View>
   ),
 };
 export const Static: Story = {
   render: (args) => (
     <View style={{ height: 300, width: '100%', position: 'relative' }}>
-      <LoadingOverlay {...args} animated={false} />
+      <BscLoadingOverlay {...args} animated={false} />
     </View>
   ),
 };

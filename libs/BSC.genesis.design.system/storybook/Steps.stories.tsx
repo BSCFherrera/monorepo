@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Steps } from '../src';
+import { BscSteps } from '@bsc/ui-native';
 
 const meta = {
-  title: 'Verification/Steps',
-  component: Steps,
+  title: 'Verification/BscSteps',
+  component: BscSteps,
   args: { totalSteps: 4, current: 1 },
-} satisfies Meta<typeof Steps>;
+} satisfies Meta<typeof BscSteps>;
 
 export default meta;
 export const Default: StoryObj<typeof meta> = {};

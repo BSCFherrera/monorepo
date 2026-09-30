@@ -80,6 +80,40 @@ declare module '@bsc/ui-native' {
 
   export function BscTextField(props: BscTextFieldProps): React.JSX.Element;
 
+  export interface BscCardProps {
+    children: ReactNode;
+    onPress?: () => void;
+    style?: ViewStyle;
+    testID?: string;
+  }
+
+  export interface BscInfoCardProps {
+    title: string;
+    subtitle?: string;
+    icon?: ReactNode;
+    iconName?: string;
+    iconBackgroundColor?: string;
+    children?: ReactNode;
+    testID?: string;
+    style?: ViewStyle;
+  }
+
+  export interface BscActionCardProps {
+    title: string;
+    subtitle?: string;
+    icon?: ReactNode;
+    iconName?: string;
+    variant?: 'standard' | 'registration';
+    onPress: () => void;
+    disabled?: boolean;
+    actionLabel?: string;
+    testID?: string;
+  }
+
+  export function BscCard(props: BscCardProps): React.JSX.Element;
+  export function BscInfoCard(props: BscInfoCardProps): React.JSX.Element;
+  export function BscActionCard(props: BscActionCardProps): React.JSX.Element;
+
   export interface BscSelectOption<T> {
     key: string;
     label: string;
