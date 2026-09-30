@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Text } from 'react-native';
 import { fn } from '@storybook/test';
 
 import { BscDrawerMenu, type BscDrawerMenuGroup } from '../src/components/BscDrawerMenu';
@@ -51,6 +50,23 @@ export const Default: Story = {
   render: () => <Controlled />,
 };
 
-export const Empty: Story = {
-  render: () => <Text>Ver historia "Default" — la hoja se controla con estado local.</Text>,
+function ControlledNoHistory(): React.JSX.Element {
+  const [visible, setVisible] = useState(true);
+  return (
+    <>
+      <BscPrimaryButton label="Abrir menú" onPress={() => setVisible(true)} />
+      <BscDrawerMenu
+        visible={visible}
+        onClose={() => setVisible(false)}
+        groups={GROUPS}
+        selectedId="transactions"
+        onLogout={fn()}
+        history={[]}
+      />
+    </>
+  );
+}
+
+export const NoHistory: Story = {
+  render: () => <ControlledNoHistory />,
 };

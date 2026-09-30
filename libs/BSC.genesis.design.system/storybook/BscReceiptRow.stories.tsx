@@ -18,3 +18,23 @@ export default meta;
 type Story = StoryObj<typeof BscReceiptRow>;
 
 export const Default: Story = {};
+
+export const Payment: Story = {
+  args: {
+    icon: 'payments',
+    title: 'Pago de tarjeta de crédito',
+    subtitle: 'Tarjeta ****9012',
+    trailing: 'RD$ 8,240.50',
+    trailingLabel: 'Pagado',
+  },
+};
+
+export const LongTitle: Story = {
+  args: {
+    icon: 'bank',
+    title: 'Transferencia interbancaria a Constructora Rivas y Asociados SRL',
+    subtitle: 'Banco de Reservas ****4321',
+    trailing: 'RD$ 125,000.00',
+    trailingLabel: 'Monto',
+  },
+};

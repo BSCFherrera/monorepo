@@ -40,3 +40,32 @@ function Controlled(): React.JSX.Element {
 export const Default: Story = {
   render: () => <Controlled />,
 };
+
+function ControlledWithBounds(): React.JSX.Element {
+  const [visible, setVisible] = useState(true);
+  const today = new Date();
+  const [range, setRange] = useState<DateRange>({ from: today, to: today });
+  const minDate = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+
+  return (
+    <>
+      <BscPrimaryButton label="Elegir período (últimos 2 meses)" onPress={() => setVisible(true)} />
+      <BscDateRangeSheet
+        visible={visible}
+        initialRange={range}
+        minDate={minDate}
+        maxDate={today}
+        title="Consulta de estado de cuenta"
+        onApply={nextRange => {
+          setRange(nextRange);
+          setVisible(false);
+        }}
+        onClose={() => setVisible(false)}
+      />
+    </>
+  );
+}
+
+export const WithBounds: Story = {
+  render: () => <ControlledWithBounds />,
+};

@@ -21,3 +21,18 @@ function Controlled(): React.JSX.Element {
 export const Default: Story = {
   render: () => <Controlled />,
 };
+
+function ControlledThreeOptions(): React.JSX.Element {
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  return (
+    <BscSegmented
+      labels={['Día', 'Semana', 'Mes']}
+      selectedIndex={selectedIndex}
+      onChange={setSelectedIndex}
+    />
+  );
+}
+
+export const ThreeOptions: Story = {
+  render: () => <ControlledThreeOptions />,
+};
