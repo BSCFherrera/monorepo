@@ -62,6 +62,9 @@ pnpm nx run BSC.genesis.mobile.banking:verify     # the app's full verification 
 pnpm conversational:start                         # Metro (terminal 1) — same port as banking
 pnpm conversational:android                       # or conversational:ios (terminal 2)
 
+pnpm nx run design-tokens:generate                # regenerate tokens from the Figma snapshot
+
+pnpm feature:start GEN-123 story "Title"          # new OpenSpec change + branch, then Claude Code `run sdd on GEN-123`
 pnpm nx run design-system:generate                # regenerate tokens from the Figma snapshot
 ```
 
