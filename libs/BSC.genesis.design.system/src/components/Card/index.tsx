@@ -1,5 +1,5 @@
 import { StyleSheet, View, type ViewProps } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors, BscRadius, BscSpacing } from '@bsc/ui-native';
 
 export type CardProps = ViewProps;
 
@@ -9,11 +9,11 @@ export function Card({ children, style, ...props }: CardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: tokens.colors.surface,
-    borderColor: tokens.colors.border,
+    backgroundColor: BscColors.surface,
+    borderColor: BscColors.border,
     borderWidth: 1,
-    borderRadius: tokens.radius,
-    padding: tokens.spacing.md,
-    gap: tokens.spacing.md,
+    borderRadius: BscRadius.xs,
+    padding: BscSpacing.md,
+    gap: BscSpacing.md,
   },
 });

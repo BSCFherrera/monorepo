@@ -1,5 +1,5 @@
 import { Pressable, Text, View } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { styles } from './styles';
 import type { SelectPillProps } from './types';
@@ -24,7 +24,7 @@ export function SelectPill({ options, value, onSelect, label, containerStyle }: 
                 (renderFeatherIcon({
                   name: option.iconName,
                   size: 16,
-                  color: isSelected ? '#FFFFFF' : tokens.colors.text,
+                  color: isSelected ? BscColors.textOnDark : BscColors.textPrimary,
                 }) ?? null)}
               <Text
                 style={[

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors, BscRadius, BscSpacing, BscTextStyles } from '@bsc/ui-native';
 import { ButtonOutlinedFlat } from '../commonButtons';
 import { ErrorText } from '../forms';
 import { Select, type SelectOption } from '../selection';
@@ -28,7 +28,7 @@ export function OtpInput({ value = '', onChange, onChangeCode, onComplete, lengt
   return <View style={[styles.row, containerStyle]}>
     <View pointerEvents="none" accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={styles.cells}>
       {Array.from({ length: count }, (_, index) => <View key={index} style={[styles.cell, focused && index === Math.min(code.length, count - 1) && styles.focused, error && styles.error, disabled && styles.disabled, success && styles.success]}>
-        <Text style={[styles.digit, disabled && !success && { color: tokens.colors.textDisabled }]}>{code[index] ?? ''}</Text>
+        <Text style={[styles.digit, disabled && !success && { color: BscColors.textTertiary }]}>{code[index] ?? ''}</Text>
       </View>)}
     </View>
     <TextInput accessibilityLabel={accessibilityLabel} accessibilityState={{ disabled }} value={code} editable={!disabled}
@@ -102,15 +102,15 @@ export function OtpVerificationField({ otp, value, onChange, onChangeCode, onOtp
 const styles = StyleSheet.create({
   row: { position: 'relative' },
   cells: { flexDirection: 'row', justifyContent: 'space-between' },
-  cell: { width: 44, height: 48, borderWidth: 1, borderColor: tokens.colors.border, borderRadius: 12, backgroundColor: '#FFFFFF', alignItems: 'center', justifyContent: 'center' },
-  digit: { fontSize: 18, fontWeight: '700', color: tokens.colors.text },
-  focused: { borderColor: tokens.colors.primary, borderWidth: 2 },
-  error: { borderColor: tokens.colors.error },
-  success: { borderColor: tokens.colors.success, backgroundColor: '#FFFFFF' },
-  disabled: { backgroundColor: tokens.colors.backgroundDark },
+  cell: { width: 44, height: 48, borderWidth: 1, borderColor: BscColors.border, borderRadius: BscRadius.sm, backgroundColor: BscColors.surface, alignItems: 'center', justifyContent: 'center' },
+  digit: { ...BscTextStyles['Body L/18 Bold'], color: BscColors.textPrimary },
+  focused: { borderColor: BscColors.primary, borderWidth: 2 },
+  error: { borderColor: BscColors.error },
+  success: { borderColor: BscColors.success, backgroundColor: BscColors.surface },
+  disabled: { backgroundColor: BscColors.background },
   input: { ...StyleSheet.absoluteFill, color: 'transparent', backgroundColor: 'transparent', fontSize: 18, padding: 0 },
-  sent: { color: tokens.colors.secondary, fontSize: 12, fontWeight: '700' },
-  selectRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  timer: { fontSize: 12, color: tokens.colors.textSecondary },
-  label: { fontSize: 12, color: tokens.colors.text },
+  sent: { ...BscTextStyles['Caption/12 Bold'], color: BscColors.secondary },
+  selectRow: { flexDirection: 'row', alignItems: 'center', gap: BscSpacing.xs },
+  timer: { ...BscTextStyles['Caption/12 Regular'], color: BscColors.textSecondary },
+  label: { ...BscTextStyles['Caption/12 Regular'], color: BscColors.textPrimary },
 });

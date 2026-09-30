@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { type ImageSourcePropType } from 'react-native';
 import { type ClientVerifiedModalProps, type CommonDialogProps } from '../common';
 import type { ModalControlProps, ModalHandle } from '../surfaces';
@@ -9,19 +9,19 @@ export interface WelcomeModalProps extends Omit<CommonDialogProps, 'onConfirm'> 
 /**
  * @deprecated Compatibility onboarding recipe kept for existing consumers. Prefer composing ModalCommon or FeedbackModal for new flows.
  */
-export declare const WelcomeModal: import("react").ForwardRefExoticComponent<WelcomeModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const WelcomeModal: React.ForwardRefExoticComponent<WelcomeModalProps & React.RefAttributes<ModalHandle>>;
 export type ModalErrorUserBlockedLoginProps = CommonDialogProps;
 /**
  * @deprecated Compatibility onboarding recipe kept for existing consumers. Prefer the blockedLogin FeedbackModal variant for new flows.
  */
-export declare const ModalErrorUserBlockedLogin: import("react").ForwardRefExoticComponent<CommonDialogProps & import("react").RefAttributes<ModalHandle>>;
+export declare const ModalErrorUserBlockedLogin: React.ForwardRefExoticComponent<CommonDialogProps & React.RefAttributes<ModalHandle>>;
 export interface ProofOfLifeSuccessModalProps extends Omit<CommonDialogProps, 'onClose' | 'onConfirm'> {
     onContinue: () => void;
 }
 /**
  * @deprecated Compatibility onboarding recipe kept for existing consumers. Prefer SuccessModal for the shared success layout.
  */
-export declare const ProofOfLifeSuccessModal: import("react").ForwardRefExoticComponent<ProofOfLifeSuccessModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const ProofOfLifeSuccessModal: React.ForwardRefExoticComponent<ProofOfLifeSuccessModalProps & React.RefAttributes<ModalHandle>>;
 export interface OnboardingClientVerifiedModalProps extends ClientVerifiedModalProps {
     /** Host-controlled service result; never invokes a registration service itself. */
     serviceError?: CommonDialogProps;
@@ -29,13 +29,13 @@ export interface OnboardingClientVerifiedModalProps extends ClientVerifiedModalP
 /**
  * @deprecated Compatibility onboarding recipe kept for existing consumers. Prefer ClientVerifiedModal for new client-verification flows.
  */
-export declare const OnboardingClientVerifiedModal: import("react").ForwardRefExoticComponent<OnboardingClientVerifiedModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const OnboardingClientVerifiedModal: React.ForwardRefExoticComponent<OnboardingClientVerifiedModalProps & React.RefAttributes<ModalHandle>>;
 /**
  * @deprecated Typo compatibility alias. Prefer TimeoutErrorModal for new code.
  */
-export declare const TimoutErrorModal: import("react").ForwardRefExoticComponent<CommonDialogProps & {
+export declare const TimoutErrorModal: React.ForwardRefExoticComponent<CommonDialogProps & {
     onGoToHome?: () => void;
-} & import("react").RefAttributes<ModalHandle>>;
+} & React.RefAttributes<ModalHandle>>;
 /** @deprecated Typo compatibility alias. Prefer TimeoutErrorModalProps for new code. */
 export type TimoutErrorModalProps = CommonDialogProps;
 export interface TermsAndConditionsModalProps extends Omit<ModalControlProps, 'visible'> {
@@ -51,7 +51,7 @@ export interface TermsAndConditionsModalProps extends Omit<ModalControlProps, 'v
     actions?: ReactNode;
     showAccept?: boolean;
 }
-export declare const TermsAndConditionsModal: import("react").ForwardRefExoticComponent<TermsAndConditionsModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const TermsAndConditionsModal: React.ForwardRefExoticComponent<TermsAndConditionsModalProps & React.RefAttributes<ModalHandle>>;
 export interface DisclaimerModalProps extends Omit<ModalControlProps, 'visible'> {
     visible?: boolean;
     onClose: () => void;
@@ -75,4 +75,4 @@ export interface DisclaimerModalProps extends Omit<ModalControlProps, 'visible'>
     actions?: ReactNode;
     showContinue?: boolean;
 }
-export declare const DisclaimerModal: import("react").ForwardRefExoticComponent<DisclaimerModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const DisclaimerModal: React.ForwardRefExoticComponent<DisclaimerModalProps & React.RefAttributes<ModalHandle>>;

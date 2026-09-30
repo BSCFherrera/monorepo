@@ -1,76 +1,70 @@
 export declare const styles: Readonly<{
     infoCard: {
-        marginVertical: 8;
+        marginVertical: number;
         flexDirection: "row";
         alignItems: "center";
-        backgroundColor: "#F5F5F6";
-        borderRadius: 16;
-        paddingVertical: 16;
-        paddingHorizontal: 16;
+        backgroundColor: string;
+        borderRadius: number;
+        paddingVertical: number;
+        paddingHorizontal: number;
     };
     infoCardIconCircle: {
         width: number;
         height: number;
-        borderRadius: 999;
+        borderRadius: number;
         justifyContent: "center";
         alignItems: "center";
-        marginRight: 16;
+        marginRight: number;
     };
     infoCardTextContainer: {
         flex: number;
     };
     infoCardTitle: {
-        fontSize: 14;
-        fontWeight: "700";
-        color: "#1A1A1A";
+        color: string;
     };
     infoCardSubtitle: {
-        fontSize: 12;
-        color: "#666666";
+        color: string;
         marginTop: number;
     };
     actionCard: {
         flexDirection: "row";
         alignItems: "center";
-        borderRadius: 16;
-        paddingVertical: 16;
-        paddingHorizontal: 24;
+        borderRadius: number;
+        paddingVertical: number;
+        paddingHorizontal: number;
     };
     actionCardStandard: {
-        marginVertical: 8;
+        marginVertical: number;
     };
     actionCardRegistration: {};
     actionCardIconCircle: {
         width: number;
         height: number;
-        borderRadius: 999;
+        borderRadius: number;
         backgroundColor: string;
         justifyContent: "center";
         alignItems: "center";
-        marginRight: 16;
+        marginRight: number;
     };
     actionCardTextContainer: {
         flex: number;
     };
     actionCardTitle: {
-        fontSize: 14;
-        fontWeight: "700";
-        color: "#1A1A1A";
+        color: string;
     };
     actionCardSubtitle: {
-        fontSize: 12;
-        color: "#666666";
+        color: string;
         marginTop: number;
     };
     stepsContainer: {
         flexDirection: "row";
         alignItems: "center";
-        gap: 4;
+        gap: number;
     };
     stepBar: {
         flex: number;
         height: number;
-        borderRadius: 999;
+        borderRadius: number;
     };
     loadingOverlay: {
         justifyContent: "center";
@@ -78,7 +72,7 @@ export declare const styles: Readonly<{
         backgroundColor: string;
         zIndex: number;
         elevation: number;
-        gap: 8;
+        gap: number;
         position: "absolute";
         left: 0;
         right: 0;
@@ -86,8 +80,6 @@ export declare const styles: Readonly<{
         bottom: 0;
     };
     loadingLabel: {
-        fontSize: 12;
         color: string;
-        fontWeight: "500";
     };
 }>;

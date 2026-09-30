@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { styles } from './styles';
 import type { InputProps } from './types';
@@ -70,12 +70,12 @@ export function Input({
             disabled={disabled}
             onPress={disabled ? undefined : () => (onCopyRequest ?? onCopy)?.(String(value ?? ''))}
           >
-            {renderFeatherIcon({ name: 'copy', size: 20, color: tokens.colors.border })}
+            {renderFeatherIcon({ name: 'copy', size: 20, color: BscColors.border })}
           </Pressable>
         )}
       </View>
       {error ? (
-        <Text accessibilityRole="alert" style={[styles.helperText, { color: tokens.colors.error }]}>{error}</Text>
+        <Text accessibilityRole="alert" style={[styles.helperText, { color: BscColors.error }]}>{error}</Text>
       ) : helperText ? (
         <Text style={styles.helperText}>{helperText}</Text>
       ) : null}

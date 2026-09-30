@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { CenteredModal, Button, type ModalHandle } from '../src';
+import { BscPrimaryButton } from '@bsc/ui-native';
+import { CenteredModal, type ModalHandle } from '../src';
 
 const meta = {
   title: 'Modals/Surfaces/CenteredModal',
@@ -20,7 +21,7 @@ function CenteredExample() {
   const [visible, setVisible] = useState(false);
   return (
     <View style={{ gap: 16 }}>
-      <Button label="Open centered modal" onPress={() => setVisible(true)} />
+      <BscPrimaryButton label="Open centered modal" onPress={() => setVisible(true)} />
       <CenteredModal visible={visible} onDismiss={() => setVisible(false)} title="Example Dialog">
         <Text>Centered content supplied by the host.</Text>
       </CenteredModal>
@@ -35,7 +36,7 @@ export const Default: Story = {
         code: `const [visible, setVisible] = useState(false);
 
 <>
-  <Button label="Open centered modal" onPress={() => setVisible(true)} />
+  <BscPrimaryButton label="Open centered modal" onPress={() => setVisible(true)} />
   <CenteredModal
     visible={visible}
     onDismiss={() => setVisible(false)}
@@ -56,8 +57,8 @@ export const ImperativeRef: Story = {
         code: `const modalRef = useRef<ModalHandle>(null);
 
 <>
-  <Button label="Open with ref" onPress={() => modalRef.current?.open()} />
-  <Button label="Close with ref" onPress={() => modalRef.current?.close()} />
+  <BscPrimaryButton label="Open with ref" onPress={() => modalRef.current?.open()} />
+  <BscPrimaryButton label="Close with ref" onPress={() => modalRef.current?.close()} />
   <CenteredModal
     ref={modalRef}
     title="Imperative Dialog"
@@ -73,8 +74,8 @@ export const ImperativeRef: Story = {
     const modalRef = useRef<ModalHandle>(null);
     return (
       <View style={{ gap: 16 }}>
-        <Button label="Open with ref" onPress={() => modalRef.current?.open()} />
-        <Button label="Close with ref" onPress={() => modalRef.current?.close()} />
+        <BscPrimaryButton label="Open with ref" onPress={() => modalRef.current?.open()} />
+        <BscPrimaryButton label="Close with ref" onPress={() => modalRef.current?.close()} />
         <CenteredModal ref={modalRef} title="Imperative Dialog" onDismiss={() => modalRef.current?.close()}>
           <Text>The host uses ModalHandle.open() and ModalHandle.close() instead of storing `visible` state.</Text>
         </CenteredModal>
@@ -93,7 +94,7 @@ export const NonDismissable: Story = {
   title="Confirm action"
 >
   <Text>This modal cannot be dismissed by tapping outside.</Text>
-  <Button label="Close" onPress={handleClose} />
+  <BscPrimaryButton label="Close" onPress={handleClose} />
 </CenteredModal>`,
       },
     },
@@ -102,10 +103,10 @@ export const NonDismissable: Story = {
     const [visible, setVisible] = useState(false);
     return (
       <View style={{ gap: 16 }}>
-        <Button label="Open non-dismissable" onPress={() => setVisible(true)} />
+        <BscPrimaryButton label="Open non-dismissable" onPress={() => setVisible(true)} />
         <CenteredModal visible={visible} onDismiss={() => setVisible(false)} canDismiss={false} title="Confirm action">
           <Text>This modal cannot be dismissed by tapping outside.</Text>
-          <Button label="Close" onPress={() => setVisible(false)} />
+          <BscPrimaryButton label="Close" onPress={() => setVisible(false)} />
         </CenteredModal>
       </View>
     );

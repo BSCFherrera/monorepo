@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
 import { View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { FeedbackModal, Button, type FeedbackVariant, type ModalHandle } from '../src';
+import { BscPrimaryButton } from '@bsc/ui-native';
+import { FeedbackModal, type FeedbackVariant, type ModalHandle } from '../src';
 import { BrandPlaceholder } from './BrandPlaceholder';
 
 const meta = {
@@ -21,7 +22,7 @@ function FeedbackExample({ variant, initiallyOpen = false }: { variant: Feedback
   const [visible, setVisible] = useState(initiallyOpen);
   return (
     <View style={{ gap: 16 }}>
-      <Button label={`Open ${variant}`} onPress={() => setVisible(true)} />
+      <BscPrimaryButton label={`Open ${variant}`} onPress={() => setVisible(true)} />
       <FeedbackModal
         visible={visible}
         onDismiss={() => setVisible(false)}
@@ -67,8 +68,8 @@ export const ImperativeRef: Story = {
         code: `const modalRef = useRef<ModalHandle>(null);
 
 <>
-  <Button label="Open feedback with ref" onPress={() => modalRef.current?.open()} />
-  <Button label="Close feedback with ref" onPress={() => modalRef.current?.close()} />
+  <BscPrimaryButton label="Open feedback with ref" onPress={() => modalRef.current?.open()} />
+  <BscPrimaryButton label="Close feedback with ref" onPress={() => modalRef.current?.close()} />
   <FeedbackModal
     ref={modalRef}
     variant="success"
@@ -85,8 +86,8 @@ export const ImperativeRef: Story = {
     const modalRef = useRef<ModalHandle>(null);
     return (
       <View style={{ gap: 16 }}>
-        <Button label="Open feedback with ref" onPress={() => modalRef.current?.open()} />
-        <Button label="Close feedback with ref" onPress={() => modalRef.current?.close()} />
+        <BscPrimaryButton label="Open feedback with ref" onPress={() => modalRef.current?.open()} />
+        <BscPrimaryButton label="Close feedback with ref" onPress={() => modalRef.current?.close()} />
         <FeedbackModal
           ref={modalRef}
           variant="success"

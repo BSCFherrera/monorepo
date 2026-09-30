@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { HamburgerMenu as DrawerMenu, Button } from '../src';
+import { BscPrimaryButton } from '@bsc/ui-native';
+import { HamburgerMenu as DrawerMenu } from '../src';
 
 const meta = {
   title: 'Navigation/DrawerMenu',
@@ -18,7 +19,7 @@ function DrawerExample() {
   const [selected, setSelected] = useState('main');
   return (
     <View style={{ gap: 16 }}>
-      <Button label="Open drawer" onPress={() => setVisible(true)} />
+      <BscPrimaryButton label="Open drawer" onPress={() => setVisible(true)} />
       <Text>Selected: {selected}</Text>
       <DrawerMenu
         visible={visible}

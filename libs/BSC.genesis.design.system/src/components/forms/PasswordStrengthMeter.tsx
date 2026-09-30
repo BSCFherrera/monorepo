@@ -1,13 +1,13 @@
 import { Text, View } from 'react-native';
 
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { styles } from './styles';
 import type { PasswordStrengthMeterProps } from './types';
 
 export function PasswordStrengthMeter({ level, label }: PasswordStrengthMeterProps) {
   // THREE segments: level 1 = weak (1 bar), 2 = medium (2 bars), 3+ = strong (3 bars)
   const segments = level === 0 ? 0 : level <= 1 ? 1 : level <= 2 ? 2 : 3;
-  const color = level === 0 ? tokens.colors.borderDark : level <= 1 ? tokens.colors.error : level <= 2 ? tokens.colors.warning : tokens.colors.success;
+  const color = level === 0 ? BscColors.border : level <= 1 ? BscColors.error : level <= 2 ? BscColors.warning : BscColors.success;
 
   if (level === 0) return null;
 
@@ -19,7 +19,7 @@ export function PasswordStrengthMeter({ level, label }: PasswordStrengthMeterPro
             key={i}
             style={[
               styles.meterSegment,
-              { backgroundColor: i < segments ? color : tokens.colors.borderDark },
+              { backgroundColor: i < segments ? color : BscColors.border },
             ]}
           />
         ))}

@@ -1,6 +1,6 @@
 import { Pressable, TextInput, View } from 'react-native';
 
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { styles } from './styles';
 import type { TextFieldProps } from './types';
@@ -15,7 +15,7 @@ export function TextField({
   onCopyRequest,
   iconName,
   iconPosition = 'left',
-  iconColor = tokens.colors.borderDark,
+  iconColor,
   textColor,
   onIconPress,
   rightElement,
@@ -29,10 +29,11 @@ export function TextField({
   onChangeText,
   ...props
 }: TextFieldProps) {
+  const resolvedIconColor = iconColor ?? BscColors.textTertiary;
   const blocked = disabled || readOnly || editable === false;
   const copyHandler = onCopyRequest ?? onCopy;
   const legacyIcon = iconName
-    ? renderFeatherIcon({ name: iconName, size: 20, color: disabled ? tokens.colors.textDisabled : iconColor })
+    ? renderFeatherIcon({ name: iconName, size: 20, color: disabled ? BscColors.textTertiary : resolvedIconColor })
     : null;
   const maybePressableIcon = legacyIcon && onIconPress ? (
     <Pressable accessibilityRole="button" accessibilityLabel={iconName} disabled={disabled} onPress={disabled ? undefined : onIconPress}>
@@ -63,7 +64,7 @@ export function TextField({
           styles.textFieldInput,
           align ? { textAlign: align } : undefined,
           textColor ? { color: textColor } : undefined,
-          disabled && { color: tokens.colors.textDisabled },
+          disabled && { color: BscColors.textTertiary },
           style,
         ]}
         onChangeText={text => { if (!blocked) onChangeText?.(text); }}
@@ -76,7 +77,7 @@ export function TextField({
           disabled={disabled}
           onPress={disabled ? undefined : () => copyHandler?.(String(value ?? ''))}
         >
-          {renderFeatherIcon({ name: 'copy', size: 20, color: tokens.colors.borderDark })}
+          {renderFeatherIcon({ name: 'copy', size: 20, color: BscColors.textTertiary })}
         </Pressable>
       )}
     </View>

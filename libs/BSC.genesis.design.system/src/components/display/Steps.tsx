@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { styles } from './styles';
 import type { StepsProps } from './types';
 
@@ -12,7 +12,7 @@ export function Steps({ labels, current, totalSteps }: StepsProps) {
           key={i}
           style={[
             styles.stepBar,
-            { backgroundColor: i <= current ? tokens.colors.primary : tokens.colors.border },
+            { backgroundColor: i <= current ? BscColors.primary : BscColors.border },
           ]}
         />
       ))}

@@ -1,15 +1,14 @@
 import type { start } from '@storybook/react-native';
-import * as buttonStories from './Button.stories';
+import * as bscButtonStories from './BscButton.stories';
 import * as cardStories from './Card.stories';
-import * as inputStories from './Input.stories';
-import * as textFieldStories from './TextField.stories';
-import * as errorTextStories from './ErrorText.stories';
-import * as checkboxStories from './Checkbox.stories';
-import * as toggleSwitchStories from './ToggleSwitch.stories';
-import * as passwordStrengthMeterStories from './PasswordStrengthMeter.stories';
-import * as selectStories from './Select.stories';
-import * as selectPillStories from './SelectPill.stories';
-import * as otpInputStories from './OtpInput.stories';
+import * as bscTextFieldStories from './BscTextField.stories';
+import * as bscErrorTextStories from './BscErrorText.stories';
+import * as bscCheckboxStories from './BscCheckbox.stories';
+import * as bscToggleSwitchStories from './BscToggleSwitch.stories';
+import * as bscMeterBarStories from './BscMeterBar.stories';
+import * as bscSelectStories from './BscSelect.stories';
+import * as bscSegmentedStories from './BscSegmented.stories';
+import * as bscOtpInputStories from './BscOtpInput.stories';
 import * as otpVerificationFieldStories from './OtpVerificationField.stories';
 import * as infoCardStories from './InfoCard.stories';
 import * as actionCardStories from './ActionCard.stories';
@@ -25,8 +24,6 @@ import * as centeredModalStories from './CenteredModal.stories';
 import * as bottomSheetModalStories from './BottomSheetModal.stories';
 import * as contentModalStories from './ContentModal.stories';
 import * as feedbackModalStories from './FeedbackModal.stories';
-import * as buttonPill from './ButtonPill.stories';
-import * as buttonOutlinedFlat from './ButtonOutlinedFlat.stories';
 import * as loader from './Loader.stories';
 import * as modalCommon from './ModalCommon.stories';
 import * as modalCentered from './ModalCentered.stories';
@@ -68,8 +65,6 @@ const modules: Record<string, unknown> = {
   './TimoutErrorModal.stories': timoutErrorModal,
   './TermsAndConditionsModal.stories': termsAndConditionsModal,
   './DisclaimerModal.stories': disclaimerModal,
-  './ButtonPill.stories': buttonPill,
-  './ButtonOutlinedFlat.stories': buttonOutlinedFlat,
   './Loader.stories': loader,
   './ModalCommon.stories': modalCommon,
   './ModalCentered.stories': modalCentered,
@@ -84,17 +79,16 @@ const modules: Record<string, unknown> = {
   './WarningSessionModal.stories': warningSessionModal,
   './SessionExpiredModal.stories': sessionExpiredModal,
   './ClientVerifiedModal.stories': clientVerifiedModal,
-  './Button.stories': buttonStories,
+  './BscButton.stories': bscButtonStories,
   './Card.stories': cardStories,
-  './Input.stories': inputStories,
-  './TextField.stories': textFieldStories,
-  './ErrorText.stories': errorTextStories,
-  './Checkbox.stories': checkboxStories,
-  './ToggleSwitch.stories': toggleSwitchStories,
-  './PasswordStrengthMeter.stories': passwordStrengthMeterStories,
-  './Select.stories': selectStories,
-  './SelectPill.stories': selectPillStories,
-  './OtpInput.stories': otpInputStories,
+  './BscTextField.stories': bscTextFieldStories,
+  './BscErrorText.stories': bscErrorTextStories,
+  './BscCheckbox.stories': bscCheckboxStories,
+  './BscToggleSwitch.stories': bscToggleSwitchStories,
+  './BscMeterBar.stories': bscMeterBarStories,
+  './BscSelect.stories': bscSelectStories,
+  './BscSegmented.stories': bscSegmentedStories,
+  './BscOtpInput.stories': bscOtpInputStories,
   './OtpVerificationField.stories': otpVerificationFieldStories,
   './InfoCard.stories': infoCardStories,
   './ActionCard.stories': actionCardStories,

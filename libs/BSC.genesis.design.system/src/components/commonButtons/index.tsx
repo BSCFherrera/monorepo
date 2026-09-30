@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { ActivityIndicator, Pressable, Text, type DimensionValue, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 
 export interface ButtonPillProps {
   children: ReactNode;
@@ -22,8 +22,8 @@ export function ButtonPill({ children, onPress, backgroundColor = '#007AFF', tex
   </Pressable>;
 }
 export interface ButtonOutlinedFlatProps extends Omit<ButtonPillProps, 'backgroundColor' | 'textColor'> { color?: string }
-export function ButtonOutlinedFlat({ color = tokens.colors.primary, disabled, containerStyle, textStyle, ...props }: ButtonOutlinedFlatProps) {
-  const tint = disabled ? tokens.colors.textDisabled : color;
+export function ButtonOutlinedFlat({ color = BscColors.primary, disabled, containerStyle, textStyle, ...props }: ButtonOutlinedFlatProps) {
+  const tint = disabled ? BscColors.textTertiary : color;
   return <ButtonPill {...props} disabled={disabled} backgroundColor="transparent" textColor={tint}
     containerStyle={[{ paddingVertical: 10, borderWidth: 1.5, borderColor: tint, opacity: 1 }, containerStyle]}
     textStyle={[{ fontSize: 15 }, textStyle]} />;

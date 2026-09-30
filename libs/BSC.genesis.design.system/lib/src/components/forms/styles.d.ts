@@ -2,111 +2,101 @@ export declare const styles: Readonly<{
     errorContainer: {
         flexDirection: "row";
         alignItems: "center";
-        marginTop: 4;
-        gap: 4;
+        marginTop: number;
+        gap: number;
     };
     errorText: {
-        fontSize: 12;
-        color: "#F44336";
+        color: string;
         flex: number;
     };
     inputContainer: {
-        marginBottom: 16;
+        marginBottom: number;
     };
     inputLabel: {
-        fontSize: 12;
-        fontWeight: "500";
-        color: "#1A1A1A";
-        marginBottom: 4;
+        color: string;
+        marginBottom: number;
     };
     inputField: {
         flexDirection: "row";
         alignItems: "center";
-        height: 48;
+        height: number;
         borderWidth: number;
-        borderColor: "#E0E0E0";
-        borderRadius: 12;
-        backgroundColor: "#FFFFFF";
-        paddingHorizontal: 16;
-        gap: 8;
+        borderColor: string;
+        borderRadius: number;
+        backgroundColor: string;
+        paddingHorizontal: number;
+        gap: number;
     };
     inputFieldFocused: {
-        borderColor: "#002d80";
+        borderColor: string;
         borderWidth: number;
     };
     inputFieldError: {
-        borderColor: "#F44336";
+        borderColor: string;
     };
     inputFieldDisabled: {
-        backgroundColor: "#E8EBF0";
+        backgroundColor: string;
     };
     inputInput: {
+        color: string;
         flex: number;
-        fontSize: 14;
-        color: "#1A1A1A";
-        fontWeight: "400";
     };
     copyLabel: {
-        fontSize: 12;
-        color: "#002d80";
-        fontWeight: "500";
+        color: string;
     };
     helperText: {
-        fontSize: 10;
-        color: "#666666";
-        marginTop: 4;
+        fontSize: number;
+        color: string;
+        marginTop: number;
     };
     textFieldContainer: {
         flexDirection: "row";
         alignItems: "center";
-        height: 48;
+        height: number;
         borderWidth: number;
-        borderColor: "#E0E0E0";
-        borderRadius: 12;
-        backgroundColor: "#FFFFFF";
-        paddingHorizontal: 16;
-        gap: 8;
+        borderColor: string;
+        borderRadius: number;
+        backgroundColor: string;
+        paddingHorizontal: number;
+        gap: number;
     };
     textFieldInput: {
-        flex: number;
-        fontSize: 14;
-        color: "#1A1A1A";
+        color: string;
         paddingVertical: number;
+        flex: number;
     };
     checkboxContainer: {
         flexDirection: "row";
         alignItems: "flex-start";
     };
     checkboxBox: {
-        width: 24;
-        height: 24;
+        width: number;
+        height: number;
         borderWidth: number;
-        borderColor: "#E0E0E0";
-        borderRadius: 8;
+        borderColor: string;
+        borderRadius: number;
         justifyContent: "center";
         alignItems: "center";
     };
     checkboxBoxChecked: {
-        borderColor: "#002d80";
-        backgroundColor: "#002d80";
+        borderColor: string;
+        backgroundColor: string;
     };
     checkboxLabel: {
-        marginLeft: 8;
-        fontSize: 14;
-        color: "#1A1A1A";
+        color: string;
+        marginLeft: number;
     };
     checkboxLabelContainer: {
-        marginLeft: 8;
+        marginLeft: number;
         flex: number;
     };
     toggleContainer: {
         flexDirection: "row";
         alignItems: "center";
-        gap: 8;
+        gap: number;
     };
     toggleLabel: {
-        fontSize: 14;
-        color: "#1A1A1A";
+        color: string;
         flex: number;
     };
     toggleTrack: {
@@ -117,10 +107,10 @@ export declare const styles: Readonly<{
         justifyContent: "center";
     };
     toggleTrackOn: {
-        backgroundColor: "#002d80";
+        backgroundColor: string;
     };
     toggleTrackOff: {
-        backgroundColor: "#E0E0E0";
+        backgroundColor: string;
     };
     toggleKnob: {
         width: number;
@@ -143,11 +133,11 @@ export declare const styles: Readonly<{
         alignSelf: "flex-start";
     };
     meterContainer: {
-        marginTop: 8;
+        marginTop: number;
     };
     meterRow: {
         flexDirection: "row";
-        gap: 4;
+        gap: number;
     };
     meterSegment: {
         flex: number;
@@ -155,9 +145,9 @@ export declare const styles: Readonly<{
         borderRadius: number;
     };
     meterLabel: {
-        fontSize: 10;
+        fontSize: number;
         fontWeight: "700";
-        marginTop: 4;
+        marginTop: number;
         textTransform: "uppercase";
     };
 }>;

@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import type { ImageSourcePropType } from 'react-native';
 import { type CommonDialogProps, type ClientVerifiedModalProps } from '../common';
 import { type DisclaimerModalProps } from '../onboarding';
@@ -26,7 +26,7 @@ export interface ContentModalProps extends Omit<ModalControlProps, 'visible'> {
 /**
  * @deprecated Compatibility adapter. Prefer TermsAndConditionsModal or DisclaimerModal for named content flows.
  */
-export declare const ContentModal: import("react").ForwardRefExoticComponent<ContentModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const ContentModal: React.ForwardRefExoticComponent<ContentModalProps & React.RefAttributes<ModalHandle>>;
 export type FeedbackVariant = 'info' | 'service' | 'contact' | 'userData' | 'maxAttempts' | 'unvalidatedClient' | 'timeout' | 'success' | 'sessionExpired' | 'sessionWarning' | 'blockedLogin' | 'welcome' | 'clientVerified';
 export interface FeedbackModalProps extends Omit<ModalControlProps, 'visible'> {
     visible?: boolean;
@@ -58,4 +58,4 @@ export interface FeedbackModalProps extends Omit<ModalControlProps, 'visible'> {
     closeLabel?: string;
 }
 /** Preserve generic callbacks and slots without keeping a second visual implementation. */
-export declare const FeedbackModal: import("react").ForwardRefExoticComponent<FeedbackModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const FeedbackModal: React.ForwardRefExoticComponent<FeedbackModalProps & React.RefAttributes<ModalHandle>>;

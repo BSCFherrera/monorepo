@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Pressable, Text, View, useWindowDimensions } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { SelectDropdown } from './SelectDropdown';
 import { styles } from './styles';
@@ -157,7 +157,7 @@ export function Select({
           style={[
             styles.selectText,
             !selectedOption ? styles.selectPlaceholder : undefined,
-            disabled ? { color: tokens.colors.textDisabled } : undefined,
+            disabled ? { color: BscColors.textTertiary } : undefined,
             align ? { textAlign: align } : undefined,
           ]}
           numberOfLines={1}
@@ -167,7 +167,7 @@ export function Select({
         {renderFeatherIcon({
           name: 'chevron-down',
           size: 20,
-          color: disabled ? tokens.colors.textDisabled : tokens.colors.text,
+          color: disabled ? BscColors.textTertiary : BscColors.textPrimary,
         }) ?? <Text style={styles.selectChevron}>▾</Text>}
       </Pressable>
 

@@ -1,6 +1,6 @@
 import { Pressable, Text, View } from 'react-native';
 
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { styles } from './styles';
 import type { CheckboxProps } from './types';
@@ -21,7 +21,7 @@ export function Checkbox({ label, checked, onChange, disabled = false, children 
           checked ? styles.checkboxBoxChecked : undefined,
         ]}
       >
-        {checked && renderFeatherIcon({ name: 'check', size: 16, color: '#FFFFFF' })}
+        {checked && renderFeatherIcon({ name: 'check', size: 16, color: BscColors.textOnDark })}
       </View>
       {children ? (
         <View style={styles.checkboxLabelContainer}>
@@ -32,7 +32,7 @@ export function Checkbox({ label, checked, onChange, disabled = false, children 
           )}
         </View>
       ) : (
-        label && <Text style={[styles.checkboxLabel, disabled && { color: tokens.colors.textDisabled }]}>{label}</Text>
+        label && <Text style={[styles.checkboxLabel, disabled && { color: BscColors.textTertiary }]}>{label}</Text>
       )}
     </Pressable>
   );

@@ -1,49 +1,46 @@
 export declare const styles: Readonly<{
     selectWrapper: {};
     selectLabel: {
-        fontSize: 12;
-        fontWeight: "500";
-        color: "#1A1A1A";
-        marginBottom: 4;
+        color: string;
+        marginBottom: number;
     };
     selectTrigger: {
         flexDirection: "row";
         alignItems: "center";
-        height: 48;
+        height: number;
         borderWidth: number;
-        borderRadius: 12;
-        borderColor: "#E0E0E0";
-        paddingHorizontal: 16;
-        backgroundColor: "#FFFFFF";
+        borderRadius: number;
+        borderColor: string;
+        paddingHorizontal: number;
+        backgroundColor: string;
     };
     selectTriggerError: {
-        borderColor: "#F44336";
+        borderColor: string;
     };
     selectTriggerDisabled: {
-        backgroundColor: "#E8EBF0";
+        backgroundColor: string;
     };
     selectText: {
+        color: string;
+        marginRight: number;
         flex: number;
-        fontSize: 14;
-        color: "#1A1A1A";
-        marginRight: 8;
     };
     selectPlaceholder: {
-        color: "#666666";
+        color: string;
     };
     selectChevron: {
         fontSize: number;
-        color: "#1A1A1A";
+        color: string;
     };
     selectModalOverlay: {
         flex: number;
     };
     selectDropdown: {
         position: "absolute";
-        backgroundColor: "#FFFFFF";
+        backgroundColor: string;
         borderWidth: number;
-        borderColor: "#E0E0E0";
-        borderRadius: 8;
+        borderColor: string;
+        borderRadius: number;
         shadowColor: string;
         shadowOffset: {
             width: number;
@@ -55,25 +52,24 @@ export declare const styles: Readonly<{
         overflow: "hidden";
     };
     selectOption: {
-        paddingVertical: 16;
-        paddingHorizontal: 16;
+        paddingVertical: number;
+        paddingHorizontal: number;
     };
     selectOptionSelected: {
-        backgroundColor: "#E8EBF0";
+        backgroundColor: string;
     };
     selectOptionText: {
-        fontSize: 14;
-        color: "#1A1A1A";
+        color: string;
     };
     selectOptionTextSelected: {};
     pillContainer: {
         flexDirection: "row";
         borderWidth: number;
-        borderColor: "#E0E0E0";
-        borderRadius: 999;
-        backgroundColor: "#FFFFFF";
+        borderColor: string;
+        borderRadius: number;
+        backgroundColor: string;
         padding: number;
-        gap: 8;
+        gap: number;
     };
     pill: {
         flex: number;
@@ -81,23 +77,20 @@ export declare const styles: Readonly<{
         alignItems: "center";
         justifyContent: "center";
         height: number;
-        borderRadius: 999;
-        gap: 8;
+        borderRadius: number;
+        gap: number;
     };
     pillSelected: {
-        backgroundColor: "#002d80";
+        backgroundColor: string;
     };
     pillUnselected: {
         backgroundColor: string;
     };
-    pillLabel: {
-        fontSize: 14;
-        fontWeight: "600";
-    };
+    pillLabel: {};
     pillLabelSelected: {
         color: string;
     };
     pillLabelUnselected: {
-        color: "#1A1A1A";
+        color: string;
     };
 }>;

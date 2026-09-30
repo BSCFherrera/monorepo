@@ -1,22 +1,25 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { createRef } from 'react';
 import { ActivityIndicator, Modal, StyleSheet, Text, View, type MeasureInWindowOnSuccessCallback, type StyleProp, type ViewStyle } from 'react-native';
+import * as bsc from '@bsc/ui-native';
 import * as components from '../src';
+import { ButtonOutlinedFlat, ButtonPill } from '../src/components/commonButtons';
+import { Select } from '../src/components/selection/Select';
+import { SelectPill } from '../src/components/selection/SelectPill';
 import type { ModalHandle } from '../src';
 import { storyEntries } from '../storybook/catalog';
 jest.mock('@storybook/addon-actions', () => ({ action: jest.fn(() => jest.fn()) }));
 
 const catalogMappings = [
-  ['Actions/ButtonPill', 'ButtonPill'],
-  ['Actions/ButtonOutlinedFlat', 'ButtonOutlinedFlat'],
-  ['Forms/TextField', 'TextField'],
-  ['Forms/ErrorText', 'ErrorText'],
-  ['Forms/Checkbox', 'Checkbox'],
-  ['Forms/ToggleSwitch', 'ToggleSwitch'],
-  ['Selection/SelectPill', 'SelectPill'],
-  ['Selection/Select', 'Select'],
-  ['Verification/OtpInput', 'OtpInput'],
-  ['Verification/OtpVerificationField', 'OtpVerificationField'],
+  ['Actions/BscButton', bsc.BscPrimaryButton],
+  ['Forms/BscTextField', bsc.BscTextField],
+  ['Forms/BscErrorText', bsc.BscErrorText],
+  ['Forms/BscCheckbox', bsc.BscCheckbox],
+  ['Forms/BscToggleSwitch', bsc.BscToggleSwitch],
+  ['Selection/BscSegmented', bsc.BscSegmented],
+  ['Selection/BscSelect', bsc.BscSelect],
+  ['Verification/BscOtpInput', bsc.BscOtpInput],
+  ['Verification/OtpVerificationField', components.OtpVerificationField],
   ['Verification/Steps', 'Steps'],
   ['Cards/InfoCard', 'InfoCard'],
   ['Feedback/Loader', 'Loader'],
@@ -35,12 +38,13 @@ const catalogMappings = [
   ['Modals/Dialog Recipes/Client Verification/ClientVerifiedModal', 'ClientVerifiedModal'],
 ] as const;
 
-test.each(catalogMappings)('%s has metadata wired to its actual public export', (title, name) => {
+test.each(catalogMappings)('%s has metadata wired to its actual public export', (title, expectedComponent) => {
   const req = storyEntries[0].req;
+  const publicComponents = components as Record<string, unknown>;
   const matches = req.keys().map((key: string) => req(key)).filter((module: { default: { title: string } }) => module.default.title === title);
   expect(matches).toHaveLength(1);
-  expect(matches[0].default.component).toBe(components[name]);
-  expect(Object.keys(matches[0])).toContain('Default');
+  expect(matches[0].default.component).toBe(typeof expectedComponent === 'string' ? publicComponents[expectedComponent] : expectedComponent);
+  expect(Object.keys(matches[0]).filter(key => key !== 'default').length).toBeGreaterThan(0);
 });
 
 test('ActionCard stories include compatibility card variants without removing public exports', () => {
@@ -53,11 +57,11 @@ test('ActionCard stories include compatibility card variants without removing pu
 
 test('pill and flat outline retain distinct source dimensions and disabled behavior', () => {
   const press = jest.fn();
-  const view = render(<components.ButtonPill onPress={press}>Continue</components.ButtonPill>);
+  const view = render(<ButtonPill onPress={press}>Continue</ButtonPill>);
   expect(StyleSheet.flatten(screen.getByRole('button').props.style)).toMatchObject({ borderRadius: 999, paddingVertical: 16, paddingHorizontal: 24, backgroundColor: '#007AFF' });
   expect(StyleSheet.flatten(screen.getByText('Continue').props.style)).toMatchObject({ fontSize: 16, fontWeight: '700' });
   view.unmount();
-  render(<components.ButtonOutlinedFlat onPress={press} disabled>Send</components.ButtonOutlinedFlat>);
+  render(<ButtonOutlinedFlat onPress={press} disabled>Send</ButtonOutlinedFlat>);
   expect(StyleSheet.flatten(screen.getByRole('button').props.style)).toMatchObject({ borderWidth: 1.5, paddingVertical: 10, backgroundColor: 'transparent' });
   fireEvent.press(screen.getByRole('button'));
   expect(press).not.toHaveBeenCalled();
@@ -147,7 +151,7 @@ test('loader remains an overlay and default check/chevrons render without an ada
 });
 test('segmented select emits the selected value and retains equal-height segments', () => {
   const select = jest.fn();
-  render(<components.SelectPill value="one" onSelect={select} options={[{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }]} />);
+  render(<SelectPill value="one" onSelect={select} options={[{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }]} />);
   const two = screen.getByRole('button', { name: 'Two' });
   expect(styleOf(two)).toMatchObject({ flex: 1, height: 40 });
   fireEvent.press(two);
@@ -157,18 +161,18 @@ test('anchored select closes when read-only changes and rejects late measurement
   let measureCallback: MeasureInWindowOnSuccessCallback | undefined;
   const measure = jest.spyOn(View.prototype, 'measureInWindow').mockImplementation(callback => { measureCallback = callback as MeasureInWindowOnSuccessCallback; });
   const props = { options: [{ label: 'Zero', value: 0 }], onChange: jest.fn() };
-  const view = render(<components.Select {...props} />);
+  const view = render(<Select {...props} />);
   fireEvent.press(screen.getByRole('button'));
-  view.rerender(<components.Select {...props} readOnly />);
+  view.rerender(<Select {...props} readOnly />);
   act(() => measureCallback?.(10, 30, 280, 48));
   expect(screen.queryByRole('radio')).toBeNull();
-  view.rerender(<components.Select {...props} />);
+  view.rerender(<Select {...props} />);
   fireEvent.press(screen.getByRole('button'));
   act(() => measureCallback?.(10, 30, 280, 48));
   expect(screen.getByRole('radio', { name: 'Zero' })).toBeTruthy();
   const dropdown = view.UNSAFE_getAllByType(View).map(styleOf).find(style => style.top === 82);
   expect(dropdown).toMatchObject({ left: 10, width: 280 });
-  view.rerender(<components.Select {...props} readOnly />);
+  view.rerender(<Select {...props} readOnly />);
   expect(screen.queryByRole('radio')).toBeNull();
   measure.mockRestore();
 });

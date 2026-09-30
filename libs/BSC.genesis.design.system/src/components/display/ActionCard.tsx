@@ -1,5 +1,5 @@
 import { Pressable, Text, View } from 'react-native';
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { styles } from './styles';
 import type { ActionCardProps } from './types';
@@ -15,9 +15,9 @@ export function ActionCard({
   actionLabel,
 }: ActionCardProps) {
   const isRegistration = variant === 'registration';
-  const iconColor = isRegistration ? tokens.colors.secondary : tokens.colors.primaryLight;
-  const chevronColor = isRegistration ? tokens.colors.secondary : tokens.colors.primaryLight;
-  const bg = isRegistration ? tokens.colors.registrationCard : tokens.colors.cardBg;
+  const iconColor = isRegistration ? BscColors.secondary : BscColors.primaryLight;
+  const chevronColor = isRegistration ? BscColors.secondary : BscColors.primaryLight;
+  const bg = isRegistration ? BscColors.secondarySoft : BscColors.surfaceMuted;
 
   const iconContent =
     icon ?? (iconName ? renderFeatherIcon({ name: iconName, size: 24, color: iconColor }) : null);

@@ -5,7 +5,7 @@ exports.OtpVerificationField = OtpVerificationField;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const react_native_1 = require("react-native");
-const tokens_1 = require("../../tokens");
+const ui_native_1 = require("@bsc/ui-native");
 const commonButtons_1 = require("../commonButtons");
 const forms_1 = require("../forms");
 const selection_1 = require("../selection");
@@ -15,7 +15,7 @@ function OtpInput({ value = '', onChange, onChangeCode, onComplete, length, disa
     const [focused, setFocused] = (0, react_1.useState)(false);
     const code = value.replace(/\D/g, '').slice(0, count);
     const handleChange = onChange ?? onChangeCode ?? (() => { });
-    return (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [styles.row, containerStyle], children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { pointerEvents: "none", accessible: false, accessibilityElementsHidden: true, importantForAccessibility: "no-hide-descendants", style: styles.cells, children: Array.from({ length: count }, (_, index) => (0, jsx_runtime_1.jsx)(react_native_1.View, { style: [styles.cell, focused && index === Math.min(code.length, count - 1) && styles.focused, error && styles.error, disabled && styles.disabled, success && styles.success], children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: [styles.digit, disabled && !success && { color: tokens_1.tokens.colors.textDisabled }], children: code[index] ?? '' }) }, index)) }), (0, jsx_runtime_1.jsx)(react_native_1.TextInput, { accessibilityLabel: accessibilityLabel, accessibilityState: { disabled }, value: code, editable: !disabled, keyboardType: "number-pad", textContentType: "oneTimeCode", autoComplete: "one-time-code", autoFocus: autoFocus, caretHidden: true, selectionColor: "transparent", style: styles.input, onFocus: () => setFocused(true), onBlur: () => setFocused(false), onChangeText: text => {
+    return (0, jsx_runtime_1.jsxs)(react_native_1.View, { style: [styles.row, containerStyle], children: [(0, jsx_runtime_1.jsx)(react_native_1.View, { pointerEvents: "none", accessible: false, accessibilityElementsHidden: true, importantForAccessibility: "no-hide-descendants", style: styles.cells, children: Array.from({ length: count }, (_, index) => (0, jsx_runtime_1.jsx)(react_native_1.View, { style: [styles.cell, focused && index === Math.min(code.length, count - 1) && styles.focused, error && styles.error, disabled && styles.disabled, success && styles.success], children: (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: [styles.digit, disabled && !success && { color: ui_native_1.BscColors.textTertiary }], children: code[index] ?? '' }) }, index)) }), (0, jsx_runtime_1.jsx)(react_native_1.TextInput, { accessibilityLabel: accessibilityLabel, accessibilityState: { disabled }, value: code, editable: !disabled, keyboardType: "number-pad", textContentType: "oneTimeCode", autoComplete: "one-time-code", autoFocus: autoFocus, caretHidden: true, selectionColor: "transparent", style: styles.input, onFocus: () => setFocused(true), onBlur: () => setFocused(false), onChangeText: text => {
                     if (disabled)
                         return;
                     const next = text.replace(/\D/g, '').slice(0, count);
@@ -44,15 +44,15 @@ function OtpVerificationField({ otp, value, onChange, onChangeCode, onOtpChange,
 const styles = react_native_1.StyleSheet.create({
     row: { position: 'relative' },
     cells: { flexDirection: 'row', justifyContent: 'space-between' },
-    cell: { width: 44, height: 48, borderWidth: 1, borderColor: tokens_1.tokens.colors.border, borderRadius: 12, backgroundColor: '#FFFFFF', alignItems: 'center', justifyContent: 'center' },
-    digit: { fontSize: 18, fontWeight: '700', color: tokens_1.tokens.colors.text },
-    focused: { borderColor: tokens_1.tokens.colors.primary, borderWidth: 2 },
-    error: { borderColor: tokens_1.tokens.colors.error },
-    success: { borderColor: tokens_1.tokens.colors.success, backgroundColor: '#FFFFFF' },
-    disabled: { backgroundColor: tokens_1.tokens.colors.backgroundDark },
+    cell: { width: 44, height: 48, borderWidth: 1, borderColor: ui_native_1.BscColors.border, borderRadius: ui_native_1.BscRadius.sm, backgroundColor: ui_native_1.BscColors.surface, alignItems: 'center', justifyContent: 'center' },
+    digit: { ...ui_native_1.BscTextStyles['Body L/18 Bold'], color: ui_native_1.BscColors.textPrimary },
+    focused: { borderColor: ui_native_1.BscColors.primary, borderWidth: 2 },
+    error: { borderColor: ui_native_1.BscColors.error },
+    success: { borderColor: ui_native_1.BscColors.success, backgroundColor: ui_native_1.BscColors.surface },
+    disabled: { backgroundColor: ui_native_1.BscColors.background },
     input: { ...react_native_1.StyleSheet.absoluteFill, color: 'transparent', backgroundColor: 'transparent', fontSize: 18, padding: 0 },
-    sent: { color: tokens_1.tokens.colors.secondary, fontSize: 12, fontWeight: '700' },
-    selectRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-    timer: { fontSize: 12, color: tokens_1.tokens.colors.textSecondary },
-    label: { fontSize: 12, color: tokens_1.tokens.colors.text },
+    sent: { ...ui_native_1.BscTextStyles['Caption/12 Bold'], color: ui_native_1.BscColors.secondary },
+    selectRow: { flexDirection: 'row', alignItems: 'center', gap: ui_native_1.BscSpacing.xs },
+    timer: { ...ui_native_1.BscTextStyles['Caption/12 Regular'], color: ui_native_1.BscColors.textSecondary },
+    label: { ...ui_native_1.BscTextStyles['Caption/12 Regular'], color: ui_native_1.BscColors.textPrimary },
 });

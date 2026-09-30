@@ -1,80 +1,77 @@
 import { StyleSheet } from 'react-native';
 
-import { tokens } from '../../tokens';
+import { BscColors, BscRadius, BscSpacing, BscTextStyles } from '@bsc/ui-native';
 
 export const styles = StyleSheet.create({
   errorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: tokens.spacing.xs,
-    gap: tokens.spacing.xs,
+    marginTop: BscSpacing.xxs,
+    gap: BscSpacing.xxs,
   },
   errorText: {
-    fontSize: tokens.fontSizes.sm,
-    color: tokens.colors.error,
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.error,
     flex: 1,
   },
   inputContainer: {
-    marginBottom: tokens.spacing.md,
+    marginBottom: BscSpacing.md,
   },
   inputLabel: {
-    fontSize: tokens.fontSizes.sm,
-    fontWeight: tokens.fontWeights.medium,
-    color: tokens.colors.text,
-    marginBottom: tokens.spacing.xs,
+    ...BscTextStyles['Caption/12 Medium'],
+    color: BscColors.textPrimary,
+    marginBottom: BscSpacing.xxs,
   },
   inputField: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: tokens.dimensions.inputHeight,
+    height: 48,
     borderWidth: 1,
-    borderColor: tokens.colors.border,
-    borderRadius: tokens.radii.md,
-    backgroundColor: tokens.colors.surface,
-    paddingHorizontal: tokens.spacing.md,
-    gap: tokens.spacing.sm,
+    borderColor: BscColors.border,
+    borderRadius: BscRadius.md,
+    backgroundColor: BscColors.surface,
+    paddingHorizontal: BscSpacing.md,
+    gap: BscSpacing.xs,
   },
   inputFieldFocused: {
-    borderColor: tokens.colors.primary,
+    borderColor: BscColors.primary,
     borderWidth: 2,
   },
   inputFieldError: {
-    borderColor: tokens.colors.error,
+    borderColor: BscColors.error,
   },
   inputFieldDisabled: {
-    backgroundColor: tokens.colors.backgroundDark,
+    backgroundColor: BscColors.background,
   },
   inputInput: {
     flex: 1,
-    fontSize: tokens.fontSizes.md,
-    color: tokens.colors.text,
-    fontWeight: tokens.fontWeights.regular,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textPrimary,
   },
   copyLabel: {
-    fontSize: tokens.fontSizes.sm,
-    color: tokens.colors.primary,
-    fontWeight: tokens.fontWeights.medium,
+    ...BscTextStyles['Caption/12 Medium'],
+    color: BscColors.primary,
   },
   helperText: {
-    fontSize: tokens.fontSizes.xs,
-    color: tokens.colors.textSecondary,
-    marginTop: tokens.spacing.xs,
+    fontSize: 10,
+    color: BscColors.textSecondary,
+    marginTop: BscSpacing.xxs,
   },
   textFieldContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: tokens.dimensions.inputHeight,
+    height: 48,
     borderWidth: 1,
-    borderColor: tokens.colors.border,
-    borderRadius: tokens.radii.md,
-    backgroundColor: tokens.colors.surface,
-    paddingHorizontal: tokens.spacing.md,
-    gap: tokens.spacing.sm,
+    borderColor: BscColors.border,
+    borderRadius: BscRadius.md,
+    backgroundColor: BscColors.surface,
+    paddingHorizontal: BscSpacing.md,
+    gap: BscSpacing.xs,
   },
   textFieldInput: {
     flex: 1,
-    fontSize: tokens.fontSizes.md,
-    color: tokens.colors.text,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textPrimary,
     paddingVertical: 0,
   },
   checkboxContainer: {
@@ -82,35 +79,35 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   checkboxBox: {
-    width: tokens.dimensions.iconSize.md,
-    height: tokens.dimensions.iconSize.md,
+    width: 24,
+    height: 24,
     borderWidth: 2,
-    borderColor: tokens.colors.border,
-    borderRadius: tokens.radii.sm,
+    borderColor: BscColors.border,
+    borderRadius: BscRadius.sm,
     justifyContent: 'center',
     alignItems: 'center',
   },
   checkboxBoxChecked: {
-    borderColor: tokens.colors.primary,
-    backgroundColor: tokens.colors.primary,
+    borderColor: BscColors.primary,
+    backgroundColor: BscColors.primary,
   },
   checkboxLabel: {
-    marginLeft: tokens.spacing.sm,
-    fontSize: tokens.fontSizes.md,
-    color: tokens.colors.text,
+    marginLeft: BscSpacing.xs,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textPrimary,
   },
   checkboxLabelContainer: {
-    marginLeft: tokens.spacing.sm,
+    marginLeft: BscSpacing.xs,
     flex: 1,
   },
   toggleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: tokens.spacing.sm,
+    gap: BscSpacing.xs,
   },
   toggleLabel: {
-    fontSize: tokens.fontSizes.md,
-    color: tokens.colors.text,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textPrimary,
     flex: 1,
   },
   toggleTrack: {
@@ -121,10 +118,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   toggleTrackOn: {
-    backgroundColor: tokens.colors.primary,
+    backgroundColor: BscColors.primary,
   },
   toggleTrackOff: {
-    backgroundColor: tokens.colors.border,
+    backgroundColor: BscColors.border,
   },
   toggleKnob: {
     width: 20,
@@ -144,11 +141,11 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   meterContainer: {
-    marginTop: tokens.spacing.sm,
+    marginTop: BscSpacing.xs,
   },
   meterRow: {
     flexDirection: 'row',
-    gap: tokens.spacing.xs,
+    gap: BscSpacing.xxs,
   },
   meterSegment: {
     flex: 1,
@@ -156,9 +153,9 @@ export const styles = StyleSheet.create({
     borderRadius: 2,
   },
   meterLabel: {
-    fontSize: tokens.fontSizes.xs,
-    fontWeight: tokens.fontWeights.bold,
-    marginTop: tokens.spacing.xs,
+    fontSize: 10,
+    fontWeight: '700',
+    marginTop: BscSpacing.xxs,
     textTransform: 'uppercase',
   },
 });

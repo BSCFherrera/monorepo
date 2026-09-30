@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { createElement, type ComponentType, type ReactElement } from 'react';
-import { Button, Card } from '../src';
-import * as buttonStories from '../storybook/Button.stories';
+import { BscPrimaryButton, BscSecondaryButton, BscTextButton } from '@bsc/ui-native';
+import { Card } from '../src';
+import * as bscButtonStories from '../storybook/BscButton.stories';
 import * as cardStories from '../storybook/Card.stories';
 import { storyEntries } from '../storybook/catalog';
 import { prepareStories } from '@storybook/react-native';
@@ -21,8 +22,8 @@ const path = require('path') as { resolve(...segments: string[]): string; basena
 test('Storybook 8.6 indexes every statically registered story', () => {
   const { index, importMap } = prepareStories({ storyEntries });
   expect(Object.keys(index.entries)).toEqual(expect.arrayContaining([
-    'actions-button--primary', 'actions-button--secondary',
-    'actions-button--disabled', 'actions-button--loading',
+    'actions-bscbutton--primary', 'actions-bscbutton--secondary',
+    'actions-bscbutton--disabled', 'actions-bscbutton--loading',
     'cards-card--default',
   ]));
   const req = storyEntries[0].req;
@@ -33,17 +34,17 @@ test('Storybook 8.6 indexes every statically registered story', () => {
 
 test('catalog contains the actual exported components and all story modules', () => {
   const req = storyEntries[0].req;
-  expect(req.keys()).toContain('./Button.stories');
+  expect(req.keys()).toContain('./BscButton.stories');
   expect(req.keys()).toContain('./Card.stories');
-  expect(req.keys()).toContain('./Input.stories');
-  expect(req.keys()).toContain('./Select.stories');
+  expect(req.keys()).toContain('./BscTextField.stories');
+  expect(req.keys()).toContain('./BscSelect.stories');
   expect(req.keys()).toContain('./FeedbackModal.stories');
-  expect(req('./Button.stories')).toBe(buttonStories);
+  expect(req('./BscButton.stories')).toBe(bscButtonStories);
   expect(req('./Card.stories')).toBe(cardStories);
-  expect(buttonStories.default.component).toBe(Button);
+  expect(bscButtonStories.default.component).toBe(BscPrimaryButton);
   expect(cardStories.default.component).toBe(Card);
-  expect(Object.keys(buttonStories).filter(key => key !== 'default').sort())
-    .toEqual(['Disabled', 'Large', 'Loading', 'Pill', 'Primary', 'Secondary', 'Small', 'TextVariant']);
+  expect(Object.keys(bscButtonStories).filter(key => key !== 'default').sort())
+    .toEqual(['Disabled', 'Large', 'Loading', 'Primary', 'Secondary', 'Small', 'Text']);
   expect(Object.keys(cardStories).filter(key => key !== 'default')).toEqual(['Default']);
   expect(() => req('./Missing.stories')).toThrow('Unknown story module');
 });
@@ -59,12 +60,25 @@ test('catalog registers every Storybook story file', () => {
   expect(registeredStories).toEqual(storyFiles);
 });
 
-test.each(['Primary', 'Secondary', 'Disabled', 'Loading'] as const)('%s uses its real button args', name => {
+test.each([
+  ['Primary', BscPrimaryButton, 1],
+  ['Secondary', BscSecondaryButton, 1],
+  ['Text', BscTextButton, 1],
+] as const)('%s uses its real button args', (name, Component, expectedPresses) => {
   const onPress = jest.fn();
-  const args = { ...buttonStories.default.args, ...buttonStories[name].args, onPress };
-  render(<Button {...args} />);
-  fireEvent.press(screen.getByRole('button', { name: 'Save' }));
-  expect(onPress).toHaveBeenCalledTimes(name === 'Primary' || name === 'Secondary' ? 1 : 0);
+  const args = { ...bscButtonStories.default.args, ...bscButtonStories[name].args, onPress };
+  render(<Component {...args} />);
+  fireEvent.press(screen.getByRole('button', { name: args.label }));
+  expect(onPress).toHaveBeenCalledTimes(expectedPresses);
+});
+
+test.each([
+  ['Disabled', { disabled: true }],
+  ['Loading', { disabled: true, busy: true }],
+] as const)('%s exposes inactive accessibility state', (name, expectedState) => {
+  const args = { ...bscButtonStories.default.args, ...bscButtonStories[name].args, onPress: jest.fn() };
+  render(<BscPrimaryButton {...args} />);
+  expect(screen.getByRole('button', { name: args.label }).props.accessibilityState).toMatchObject(expectedState);
 });
 
 test('Card story renders its native content', () => {
@@ -73,7 +87,7 @@ test('Card story renders its native content', () => {
 });
 
 const sharedExamples: [string, { render: () => ReactElement }][] = storyEntries[0].req.keys()
-  .filter((key: string) => key !== './Button.stories' && key !== './Card.stories')
+  .filter((key: string) => key !== './BscButton.stories' && key !== './Card.stories')
   .flatMap((key: string) => Object.entries(storyEntries[0].req(key))
     .filter(([name]) => name !== 'default')
     .filter(([, story]) => typeof story === 'object' && story !== null && 'render' in story)

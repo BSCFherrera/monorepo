@@ -1,11 +1,11 @@
 import { Text, View } from 'react-native';
 
-import { tokens } from '../../tokens';
+import { BscColors } from '@bsc/ui-native';
 import { renderFeatherIcon } from '../icons';
 import { styles } from './styles';
 import type { ErrorTextProps } from './types';
 
-export function ErrorText({ children, text, color = tokens.colors.error, iconName = 'info', containerStyle }: ErrorTextProps) {
+export function ErrorText({ children, text, color = BscColors.error, iconName = 'info', containerStyle }: ErrorTextProps) {
   const content = children ?? text;
   if (!content) return null;
   return (

@@ -1,3 +1,4 @@
+import React from 'react';
 import { type ActionCardProps, type LoadingOverlayProps } from '../../display';
 import { type BottomSheetModalProps, type ModalHandle } from '../surfaces';
 export interface ModalCommonProps extends Omit<BottomSheetModalProps, 'onDismiss' | 'canDismiss'> {
@@ -7,14 +8,14 @@ export interface ModalCommonProps extends Omit<BottomSheetModalProps, 'onDismiss
 /**
  * @deprecated Compatibility wrapper kept for existing consumers. Prefer BottomSheetModal for new bottom-aligned surfaces.
  */
-export declare const ModalCommon: import("react").ForwardRefExoticComponent<ModalCommonProps & import("react").RefAttributes<ModalHandle>>;
+export declare const ModalCommon: React.ForwardRefExoticComponent<ModalCommonProps & React.RefAttributes<ModalHandle>>;
 /**
  * @deprecated Compatibility wrapper kept for existing consumers. Prefer CenteredModal for new centered surfaces.
  */
-export declare const ModalCentered: import("react").ForwardRefExoticComponent<ModalCommonProps & import("react").RefAttributes<ModalHandle>>;
-export declare function TouchableCard(props: Omit<ActionCardProps, 'variant'>): import("react").JSX.Element;
-export declare function RegisterPromptCard(props: Omit<ActionCardProps, 'variant'>): import("react").JSX.Element;
-export declare function Loader(props: LoadingOverlayProps): import("react").JSX.Element;
+export declare const ModalCentered: React.ForwardRefExoticComponent<ModalCommonProps & React.RefAttributes<ModalHandle>>;
+export declare function TouchableCard(props: Omit<ActionCardProps, 'variant'>): React.JSX.Element;
+export declare function RegisterPromptCard(props: Omit<ActionCardProps, 'variant'>): React.JSX.Element;
+export declare function Loader(props: LoadingOverlayProps): React.JSX.Element;
 export type TouchableCardProps = Omit<ActionCardProps, 'variant'>;
 export type RegisterPromptCardProps = Omit<ActionCardProps, 'variant'>;
 export type LoaderProps = LoadingOverlayProps;

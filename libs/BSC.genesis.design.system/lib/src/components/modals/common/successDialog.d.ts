@@ -1,5 +1,6 @@
+import React from 'react';
 import type { CommonDialogProps } from './types';
 import type { ModalHandle } from '../surfaces';
-export declare const SuccessModal: import("react").ForwardRefExoticComponent<CommonDialogProps & {
+export declare const SuccessModal: React.ForwardRefExoticComponent<CommonDialogProps & {
     onContinue?: () => void;
-} & import("react").RefAttributes<ModalHandle>>;
+} & React.RefAttributes<ModalHandle>>;

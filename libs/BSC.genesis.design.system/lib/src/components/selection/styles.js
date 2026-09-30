@@ -2,53 +2,52 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.styles = void 0;
 const react_native_1 = require("react-native");
-const tokens_1 = require("../../tokens");
+const ui_native_1 = require("@bsc/ui-native");
 exports.styles = react_native_1.StyleSheet.create({
     selectWrapper: {},
     selectLabel: {
-        fontSize: tokens_1.tokens.fontSizes.sm,
-        fontWeight: tokens_1.tokens.fontWeights.medium,
-        color: tokens_1.tokens.colors.text,
-        marginBottom: tokens_1.tokens.spacing.xs,
+        ...ui_native_1.BscTextStyles['Caption/12 Medium'],
+        color: ui_native_1.BscColors.textPrimary,
+        marginBottom: ui_native_1.BscSpacing.xxs,
     },
     selectTrigger: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: tokens_1.tokens.dimensions.inputHeight,
+        height: 48,
         borderWidth: 1,
-        borderRadius: tokens_1.tokens.radii.md,
-        borderColor: tokens_1.tokens.colors.border,
-        paddingHorizontal: tokens_1.tokens.spacing.md,
-        backgroundColor: tokens_1.tokens.colors.surface,
+        borderRadius: ui_native_1.BscRadius.md,
+        borderColor: ui_native_1.BscColors.border,
+        paddingHorizontal: ui_native_1.BscSpacing.md,
+        backgroundColor: ui_native_1.BscColors.surface,
     },
     selectTriggerError: {
-        borderColor: tokens_1.tokens.colors.error,
+        borderColor: ui_native_1.BscColors.error,
     },
     selectTriggerDisabled: {
-        backgroundColor: tokens_1.tokens.colors.backgroundDark,
+        backgroundColor: ui_native_1.BscColors.background,
     },
     selectText: {
         flex: 1,
-        fontSize: tokens_1.tokens.fontSizes.md,
-        color: tokens_1.tokens.colors.text,
-        marginRight: tokens_1.tokens.spacing.sm,
+        ...ui_native_1.BscTextStyles['Body S/14 Regular'],
+        color: ui_native_1.BscColors.textPrimary,
+        marginRight: ui_native_1.BscSpacing.xs,
     },
     selectPlaceholder: {
-        color: tokens_1.tokens.colors.textSecondary,
+        color: ui_native_1.BscColors.textSecondary,
     },
     selectChevron: {
         fontSize: 20,
-        color: tokens_1.tokens.colors.text,
+        color: ui_native_1.BscColors.textPrimary,
     },
     selectModalOverlay: {
         flex: 1,
     },
     selectDropdown: {
         position: 'absolute',
-        backgroundColor: tokens_1.tokens.colors.surface,
+        backgroundColor: ui_native_1.BscColors.surface,
         borderWidth: 1,
-        borderColor: tokens_1.tokens.colors.border,
-        borderRadius: tokens_1.tokens.radii.sm,
+        borderColor: ui_native_1.BscColors.border,
+        borderRadius: ui_native_1.BscRadius.sm,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -57,49 +56,48 @@ exports.styles = react_native_1.StyleSheet.create({
         overflow: 'hidden',
     },
     selectOption: {
-        paddingVertical: tokens_1.tokens.spacing.md,
-        paddingHorizontal: tokens_1.tokens.spacing.md,
+        paddingVertical: ui_native_1.BscSpacing.md,
+        paddingHorizontal: ui_native_1.BscSpacing.md,
     },
     selectOptionSelected: {
-        backgroundColor: tokens_1.tokens.colors.selectedOption,
+        backgroundColor: ui_native_1.BscColors.background,
     },
     selectOptionText: {
-        fontSize: tokens_1.tokens.fontSizes.md,
-        color: tokens_1.tokens.colors.text,
+        ...ui_native_1.BscTextStyles['Body S/14 Regular'],
+        color: ui_native_1.BscColors.textPrimary,
     },
     selectOptionTextSelected: {},
     pillContainer: {
         flexDirection: 'row',
         borderWidth: 1,
-        borderColor: tokens_1.tokens.colors.border,
-        borderRadius: tokens_1.tokens.radii.pill,
-        backgroundColor: tokens_1.tokens.colors.surface,
+        borderColor: ui_native_1.BscColors.border,
+        borderRadius: ui_native_1.BscRadius.pill,
+        backgroundColor: ui_native_1.BscColors.surface,
         padding: 4,
-        gap: tokens_1.tokens.spacing.sm,
+        gap: ui_native_1.BscSpacing.xs,
     },
     pill: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: tokens_1.tokens.dimensions.inputHeight - 8,
-        borderRadius: tokens_1.tokens.radii.pill,
-        gap: tokens_1.tokens.spacing.sm,
+        height: 40,
+        borderRadius: ui_native_1.BscRadius.pill,
+        gap: ui_native_1.BscSpacing.xs,
     },
     pillSelected: {
-        backgroundColor: tokens_1.tokens.colors.primary,
+        backgroundColor: ui_native_1.BscColors.primary,
     },
     pillUnselected: {
         backgroundColor: 'transparent',
     },
     pillLabel: {
-        fontSize: tokens_1.tokens.fontSizes.md,
-        fontWeight: tokens_1.tokens.fontWeights.semibold,
+        ...ui_native_1.BscTextStyles['Body S/14 SemiBold'],
     },
     pillLabelSelected: {
-        color: '#FFFFFF',
+        color: ui_native_1.BscColors.textOnDark,
     },
     pillLabelUnselected: {
-        color: tokens_1.tokens.colors.text,
+        color: ui_native_1.BscColors.textPrimary,
     },
 });

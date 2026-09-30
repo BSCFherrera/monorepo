@@ -1,6 +1,9 @@
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { AccessibilityInfo, Animated, Modal, StyleSheet, Text, View, type MeasureInWindowOnSuccessCallback } from 'react-native';
-import { Input, TextField, ErrorText, Checkbox, Select, OtpInput, OtpVerificationField, FeedbackModal, ErrorGeneric, Header, DrawerMenu, HamburgerMenu, TypingIndicator, ActionCard, MessageBubble } from '../src';
+import { Input, TextField, ErrorText, Checkbox } from '../src/components/forms';
+import { Select } from '../src/components/selection';
+import { OtpInput } from '../src/components/otp';
+import { OtpVerificationField, FeedbackModal, ErrorGeneric, Header, DrawerMenu, HamburgerMenu, TypingIndicator, ActionCard, MessageBubble } from '../src';
 
 test('Input composes focus callbacks and enforces read-only and disabled behavior', () => {
   const change = jest.fn();

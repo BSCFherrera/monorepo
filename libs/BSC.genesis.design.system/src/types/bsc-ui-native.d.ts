@@ -5,7 +5,10 @@ declare module '@bsc/ui-native' {
   export const BscColors: {
     primary: string;
     primaryDeep: string;
+    primaryLight: string;
     secondary: string;
+    secondarySoft: string;
+    success: string;
     error: string;
     warning: string;
     warningSoft: string;
@@ -20,8 +23,11 @@ declare module '@bsc/ui-native' {
   };
 
   export const BscRadius: {
+    xs: number;
+    sm: number;
     md: number;
     sheet: number;
+    pill: number;
   };
 
   export const BscSpacing: {
@@ -93,6 +99,29 @@ declare module '@bsc/ui-native' {
   }
 
   export function BscSelect<T = unknown>(props: BscSelectProps<T>): React.JSX.Element;
+
+  export interface BscSegmentedProps {
+    labels: readonly string[];
+    selectedIndex: number;
+    onChange: (index: number) => void;
+    background?: string;
+    selectedColor?: string;
+    selectedTextColor?: string;
+    textColor?: string;
+    testID?: string;
+  }
+
+  export function BscSegmented(props: BscSegmentedProps): React.JSX.Element;
+
+  export interface BscMeterBarProps {
+    label: string;
+    value: number;
+    valueLabel: string;
+    color?: string;
+    testID?: string;
+  }
+
+  export function BscMeterBar(props: BscMeterBarProps): React.JSX.Element;
 
   export interface BscOtpInputProps {
     length?: number;

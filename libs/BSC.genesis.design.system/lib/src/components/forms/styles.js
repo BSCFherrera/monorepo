@@ -2,80 +2,77 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.styles = void 0;
 const react_native_1 = require("react-native");
-const tokens_1 = require("../../tokens");
+const ui_native_1 = require("@bsc/ui-native");
 exports.styles = react_native_1.StyleSheet.create({
     errorContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: tokens_1.tokens.spacing.xs,
-        gap: tokens_1.tokens.spacing.xs,
+        marginTop: ui_native_1.BscSpacing.xxs,
+        gap: ui_native_1.BscSpacing.xxs,
     },
     errorText: {
-        fontSize: tokens_1.tokens.fontSizes.sm,
-        color: tokens_1.tokens.colors.error,
+        ...ui_native_1.BscTextStyles['Caption/12 Regular'],
+        color: ui_native_1.BscColors.error,
         flex: 1,
     },
     inputContainer: {
-        marginBottom: tokens_1.tokens.spacing.md,
+        marginBottom: ui_native_1.BscSpacing.md,
     },
     inputLabel: {
-        fontSize: tokens_1.tokens.fontSizes.sm,
-        fontWeight: tokens_1.tokens.fontWeights.medium,
-        color: tokens_1.tokens.colors.text,
-        marginBottom: tokens_1.tokens.spacing.xs,
+        ...ui_native_1.BscTextStyles['Caption/12 Medium'],
+        color: ui_native_1.BscColors.textPrimary,
+        marginBottom: ui_native_1.BscSpacing.xxs,
     },
     inputField: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: tokens_1.tokens.dimensions.inputHeight,
+        height: 48,
         borderWidth: 1,
-        borderColor: tokens_1.tokens.colors.border,
-        borderRadius: tokens_1.tokens.radii.md,
-        backgroundColor: tokens_1.tokens.colors.surface,
-        paddingHorizontal: tokens_1.tokens.spacing.md,
-        gap: tokens_1.tokens.spacing.sm,
+        borderColor: ui_native_1.BscColors.border,
+        borderRadius: ui_native_1.BscRadius.md,
+        backgroundColor: ui_native_1.BscColors.surface,
+        paddingHorizontal: ui_native_1.BscSpacing.md,
+        gap: ui_native_1.BscSpacing.xs,
     },
     inputFieldFocused: {
-        borderColor: tokens_1.tokens.colors.primary,
+        borderColor: ui_native_1.BscColors.primary,
         borderWidth: 2,
     },
     inputFieldError: {
-        borderColor: tokens_1.tokens.colors.error,
+        borderColor: ui_native_1.BscColors.error,
     },
     inputFieldDisabled: {
-        backgroundColor: tokens_1.tokens.colors.backgroundDark,
+        backgroundColor: ui_native_1.BscColors.background,
     },
     inputInput: {
         flex: 1,
-        fontSize: tokens_1.tokens.fontSizes.md,
-        color: tokens_1.tokens.colors.text,
-        fontWeight: tokens_1.tokens.fontWeights.regular,
+        ...ui_native_1.BscTextStyles['Body S/14 Regular'],
+        color: ui_native_1.BscColors.textPrimary,
     },
     copyLabel: {
-        fontSize: tokens_1.tokens.fontSizes.sm,
-        color: tokens_1.tokens.colors.primary,
-        fontWeight: tokens_1.tokens.fontWeights.medium,
+        ...ui_native_1.BscTextStyles['Caption/12 Medium'],
+        color: ui_native_1.BscColors.primary,
     },
     helperText: {
-        fontSize: tokens_1.tokens.fontSizes.xs,
-        color: tokens_1.tokens.colors.textSecondary,
-        marginTop: tokens_1.tokens.spacing.xs,
+        fontSize: 10,
+        color: ui_native_1.BscColors.textSecondary,
+        marginTop: ui_native_1.BscSpacing.xxs,
     },
     textFieldContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: tokens_1.tokens.dimensions.inputHeight,
+        height: 48,
         borderWidth: 1,
-        borderColor: tokens_1.tokens.colors.border,
-        borderRadius: tokens_1.tokens.radii.md,
-        backgroundColor: tokens_1.tokens.colors.surface,
-        paddingHorizontal: tokens_1.tokens.spacing.md,
-        gap: tokens_1.tokens.spacing.sm,
+        borderColor: ui_native_1.BscColors.border,
+        borderRadius: ui_native_1.BscRadius.md,
+        backgroundColor: ui_native_1.BscColors.surface,
+        paddingHorizontal: ui_native_1.BscSpacing.md,
+        gap: ui_native_1.BscSpacing.xs,
     },
     textFieldInput: {
         flex: 1,
-        fontSize: tokens_1.tokens.fontSizes.md,
-        color: tokens_1.tokens.colors.text,
+        ...ui_native_1.BscTextStyles['Body S/14 Regular'],
+        color: ui_native_1.BscColors.textPrimary,
         paddingVertical: 0,
     },
     checkboxContainer: {
@@ -83,35 +80,35 @@ exports.styles = react_native_1.StyleSheet.create({
         alignItems: 'flex-start',
     },
     checkboxBox: {
-        width: tokens_1.tokens.dimensions.iconSize.md,
-        height: tokens_1.tokens.dimensions.iconSize.md,
+        width: 24,
+        height: 24,
         borderWidth: 2,
-        borderColor: tokens_1.tokens.colors.border,
-        borderRadius: tokens_1.tokens.radii.sm,
+        borderColor: ui_native_1.BscColors.border,
+        borderRadius: ui_native_1.BscRadius.sm,
         justifyContent: 'center',
         alignItems: 'center',
     },
     checkboxBoxChecked: {
-        borderColor: tokens_1.tokens.colors.primary,
-        backgroundColor: tokens_1.tokens.colors.primary,
+        borderColor: ui_native_1.BscColors.primary,
+        backgroundColor: ui_native_1.BscColors.primary,
     },
     checkboxLabel: {
-        marginLeft: tokens_1.tokens.spacing.sm,
-        fontSize: tokens_1.tokens.fontSizes.md,
-        color: tokens_1.tokens.colors.text,
+        marginLeft: ui_native_1.BscSpacing.xs,
+        ...ui_native_1.BscTextStyles['Body S/14 Regular'],
+        color: ui_native_1.BscColors.textPrimary,
     },
     checkboxLabelContainer: {
-        marginLeft: tokens_1.tokens.spacing.sm,
+        marginLeft: ui_native_1.BscSpacing.xs,
         flex: 1,
     },
     toggleContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: tokens_1.tokens.spacing.sm,
+        gap: ui_native_1.BscSpacing.xs,
     },
     toggleLabel: {
-        fontSize: tokens_1.tokens.fontSizes.md,
-        color: tokens_1.tokens.colors.text,
+        ...ui_native_1.BscTextStyles['Body S/14 Regular'],
+        color: ui_native_1.BscColors.textPrimary,
         flex: 1,
     },
     toggleTrack: {
@@ -122,10 +119,10 @@ exports.styles = react_native_1.StyleSheet.create({
         justifyContent: 'center',
     },
     toggleTrackOn: {
-        backgroundColor: tokens_1.tokens.colors.primary,
+        backgroundColor: ui_native_1.BscColors.primary,
     },
     toggleTrackOff: {
-        backgroundColor: tokens_1.tokens.colors.border,
+        backgroundColor: ui_native_1.BscColors.border,
     },
     toggleKnob: {
         width: 20,
@@ -145,11 +142,11 @@ exports.styles = react_native_1.StyleSheet.create({
         alignSelf: 'flex-start',
     },
     meterContainer: {
-        marginTop: tokens_1.tokens.spacing.sm,
+        marginTop: ui_native_1.BscSpacing.xs,
     },
     meterRow: {
         flexDirection: 'row',
-        gap: tokens_1.tokens.spacing.xs,
+        gap: ui_native_1.BscSpacing.xxs,
     },
     meterSegment: {
         flex: 1,
@@ -157,9 +154,9 @@ exports.styles = react_native_1.StyleSheet.create({
         borderRadius: 2,
     },
     meterLabel: {
-        fontSize: tokens_1.tokens.fontSizes.xs,
-        fontWeight: tokens_1.tokens.fontWeights.bold,
-        marginTop: tokens_1.tokens.spacing.xs,
+        fontSize: 10,
+        fontWeight: '700',
+        marginTop: ui_native_1.BscSpacing.xxs,
         textTransform: 'uppercase',
     },
 });

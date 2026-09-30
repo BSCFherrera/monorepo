@@ -181,5 +181,5 @@ test.each(['terms', 'disclaimer'] as const)('ContentModal %s uses its named layo
 test('unused theme customization is not part of the public API', () => {
   expect(components).not.toHaveProperty('ThemeProvider');
   expect(components).not.toHaveProperty('useTheme');
-  expect(components.tokens.colors.primary).toBe('#002d80');
+  expect(components).not.toHaveProperty('tokens');
 });

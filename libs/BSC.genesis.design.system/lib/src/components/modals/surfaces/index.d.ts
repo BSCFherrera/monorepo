@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { type StyleProp, type ViewStyle } from 'react-native';
 export interface ModalHandle {
     open(): void;
@@ -27,5 +27,5 @@ export interface BottomSheetModalProps extends CenteredModalProps {
     maxHeightFactor?: number;
     testID?: string;
 }
-export declare const CenteredModal: import("react").ForwardRefExoticComponent<CenteredModalProps & import("react").RefAttributes<ModalHandle>>;
-export declare const BottomSheetModal: import("react").ForwardRefExoticComponent<BottomSheetModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const CenteredModal: React.ForwardRefExoticComponent<CenteredModalProps & React.RefAttributes<ModalHandle>>;
+export declare const BottomSheetModal: React.ForwardRefExoticComponent<BottomSheetModalProps & React.RefAttributes<ModalHandle>>;
