@@ -1,9 +1,9 @@
 import type { StoryObj } from '@storybook/react';
 declare const meta: {
     title: string;
-    component: import("react").ForwardRefExoticComponent<import("libs/BSC.genesis.design.system/src/components/modals/common/types").CommonDialogProps & {
+    component: import("react").ForwardRefExoticComponent<import("../src").CommonDialogProps & {
         onContinue?: () => void;
-    } & import("react").RefAttributes<import("libs/BSC.genesis.design.system/src/components/modals/surfaces").ModalHandle>>;
+    } & import("react").RefAttributes<import("../src").ModalHandle>>;
     args: {
         title: string;
         message: string;

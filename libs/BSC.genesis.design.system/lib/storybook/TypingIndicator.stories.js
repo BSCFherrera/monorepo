@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Static = exports.Animated = void 0;
-const ui_native_1 = require("@bsc/ui-native");
+const src_1 = require("../src");
 const meta = {
     title: 'Conversation/TypingIndicator',
-    component: ui_native_1.BscTypingIndicator,
+    component: src_1.TypingIndicator,
     args: { animated: true },
 };
 exports.default = meta;

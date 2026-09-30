@@ -1,0 +1,4 @@
+{
+  "main": "../lib/storybook/index.js",
+  "types": "../lib/storybook/index.d.ts"
+}

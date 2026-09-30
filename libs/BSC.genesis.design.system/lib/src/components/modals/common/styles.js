@@ -2,22 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.styles = void 0;
 const react_native_1 = require("react-native");
-const tokens_1 = require("../../../tokens");
+const ui_native_1 = require("@bsc/ui-native");
 exports.styles = react_native_1.StyleSheet.create({
-    illustration: { alignItems: 'center', marginTop: 16, marginBottom: 24 },
-    title: { fontSize: 18, fontWeight: '700', color: tokens_1.tokens.colors.text, textAlign: 'center', marginBottom: 24 },
-    insetTitle: { paddingHorizontal: 48 },
-    body: { fontSize: 14, color: tokens_1.tokens.colors.textSecondary, lineHeight: 20, textAlign: 'center' },
-    bodySpacing: { marginBottom: 24 },
-    panel: { backgroundColor: '#F6FBFF', borderWidth: 1, borderColor: '#dbeafe', borderRadius: 16, padding: 16, marginBottom: 24 },
-    warning: { backgroundColor: '#FDECEC', borderColor: '#f8caca', marginBottom: 16 },
-    sessionCircle: { alignSelf: 'center', width: 64, height: 64, borderRadius: 32, backgroundColor: '#FFF3E0', justifyContent: 'center' },
-    cancel: { marginTop: 8, marginBottom: 8, borderWidth: 1, borderColor: tokens_1.tokens.colors.primary },
-    back: { width: 40, height: 40, borderRadius: 20, backgroundColor: tokens_1.tokens.colors.backgroundDark, justifyContent: 'center', alignItems: 'center', marginTop: 8 },
-    logo: { width: 120, height: 60, alignSelf: 'center', marginBottom: 16 },
-    clientTitle: { fontSize: 24, fontWeight: '700', color: tokens_1.tokens.colors.text, textAlign: 'center' },
-    details: { backgroundColor: tokens_1.tokens.colors.background, borderWidth: 1, borderColor: tokens_1.tokens.colors.border, borderRadius: 16, padding: 16, marginBottom: 24, gap: 8 },
-    detailLabel: { fontSize: 10, fontWeight: '700', color: tokens_1.tokens.colors.textSecondary, marginBottom: 4 },
-    detailValue: { fontSize: 16, fontWeight: '700', color: tokens_1.tokens.colors.text },
-    secondary: { fontSize: 16, fontWeight: '700', textAlign: 'center', color: tokens_1.tokens.colors.textSecondary, paddingVertical: 16 },
+    illustration: { alignItems: 'center', marginTop: ui_native_1.BscSpacing.md, marginBottom: ui_native_1.BscSpacing.xl },
+    title: { ...ui_native_1.BscTextStyles['Body L/18 Bold'], color: ui_native_1.BscColors.textPrimary, textAlign: 'center', marginBottom: ui_native_1.BscSpacing.xl },
+    insetTitle: { paddingHorizontal: ui_native_1.BscSpacing.xxl },
+    body: { ...ui_native_1.BscTextStyles['Body S/14 Regular'], color: ui_native_1.BscColors.textSecondary, textAlign: 'center' },
+    bodySpacing: { marginBottom: ui_native_1.BscSpacing.xl },
+    panel: { backgroundColor: '#F6FBFF', borderWidth: 1, borderColor: '#dbeafe', borderRadius: ui_native_1.BscRadius.md, padding: ui_native_1.BscSpacing.md, marginBottom: ui_native_1.BscSpacing.xl },
+    warning: { backgroundColor: '#FDECEC', borderColor: '#f8caca', marginBottom: ui_native_1.BscSpacing.md },
+    sessionCircle: { alignSelf: 'center', width: 64, height: 64, borderRadius: 32, backgroundColor: ui_native_1.BscColors.warningSoft, justifyContent: 'center' },
+    cancel: { marginTop: ui_native_1.BscSpacing.sm, marginBottom: ui_native_1.BscSpacing.sm, borderWidth: 1, borderColor: ui_native_1.BscColors.primary },
+    back: { width: 40, height: 40, borderRadius: 20, backgroundColor: ui_native_1.BscColors.surfaceMuted, justifyContent: 'center', alignItems: 'center', marginTop: ui_native_1.BscSpacing.sm },
+    logo: { width: 120, height: 60, alignSelf: 'center', marginBottom: ui_native_1.BscSpacing.md },
+    clientTitle: { ...ui_native_1.BscTextStyles['Heading M/24 Bold'], color: ui_native_1.BscColors.textPrimary, textAlign: 'center' },
+    details: { backgroundColor: ui_native_1.BscColors.background, borderWidth: 1, borderColor: ui_native_1.BscColors.border, borderRadius: ui_native_1.BscRadius.md, padding: ui_native_1.BscSpacing.md, marginBottom: ui_native_1.BscSpacing.xl, gap: ui_native_1.BscSpacing.xs },
+    detailLabel: { ...ui_native_1.BscTextStyles['Caption/10 Bold'], color: ui_native_1.BscColors.textSecondary, marginBottom: ui_native_1.BscSpacing.xs },
+    detailValue: { ...ui_native_1.BscTextStyles['Body M/16 Bold'], color: ui_native_1.BscColors.textPrimary },
+    secondary: { ...ui_native_1.BscTextStyles['Body M/16 Bold'], textAlign: 'center', color: ui_native_1.BscColors.textSecondary, paddingVertical: ui_native_1.BscSpacing.md },
 });

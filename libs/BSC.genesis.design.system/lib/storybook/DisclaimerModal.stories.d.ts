@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 declare const meta: {
     title: string;
-    component: import("react").ForwardRefExoticComponent<import("libs/BSC.genesis.design.system/src/components/modals/onboarding").DisclaimerModalProps & import("react").RefAttributes<import("libs/BSC.genesis.design.system/src/components/modals/surfaces").ModalHandle>>;
+    component: import("react").ForwardRefExoticComponent<import("../src").DisclaimerModalProps & import("react").RefAttributes<import("../src").ModalHandle>>;
     args: {
         visible: true;
         onClose: () => void;

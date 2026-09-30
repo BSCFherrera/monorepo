@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WithLabels = exports.LastStep = exports.FirstStep = exports.Default = void 0;
-const ui_native_1 = require("@bsc/ui-native");
+const src_1 = require("../src");
 const meta = {
     title: 'Verification/Steps',
-    component: ui_native_1.BscSteps,
+    component: src_1.Steps,
     args: { totalSteps: 4, current: 1 },
 };
 exports.default = meta;

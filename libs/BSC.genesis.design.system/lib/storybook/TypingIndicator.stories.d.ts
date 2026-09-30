@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { BscTypingIndicator as TypingIndicator } from '@bsc/ui-native';
+import { TypingIndicator } from '../src';
 declare const meta: {
     title: string;
     component: typeof TypingIndicator;

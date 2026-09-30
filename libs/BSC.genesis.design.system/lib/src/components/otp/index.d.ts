@@ -1,9 +1,5 @@
 import { type StyleProp, type ViewStyle } from 'react-native';
-export interface OtpDestinationOption {
-    label: string;
-    value: string | number;
-    disabled?: boolean;
-}
+import { type SelectOption } from '../selection';
 export interface OtpInputProps {
     value?: string;
     onChange?: (value: string) => void;
@@ -17,9 +13,10 @@ export interface OtpInputProps {
     accessibilityLabel?: string;
     containerStyle?: StyleProp<ViewStyle>;
 }
+export declare function OtpInput({ value, onChange, onChangeCode, onComplete, length, disabled, error, success, autoFocus, accessibilityLabel, containerStyle }: OtpInputProps): import("react").JSX.Element;
 export interface OtpVerificationFieldProps extends OtpInputProps {
     otp?: string;
-    options?: readonly OtpDestinationOption[];
+    options?: readonly SelectOption[];
     selectedValue?: string | number;
     onSelect?: (value: string | number) => void;
     codeSent?: boolean;

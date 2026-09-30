@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 declare const meta: {
     title: string;
-    component: import("react").ForwardRefExoticComponent<import("libs/BSC.genesis.design.system/src/components/modals/common/informationDialogs").MaximumIntentsModalProps & import("react").RefAttributes<import("libs/BSC.genesis.design.system/src/components/modals/surfaces").ModalHandle>>;
+    component: import("react").ForwardRefExoticComponent<import("../src").MaximumIntentsModalProps & import("react").RefAttributes<import("../src").ModalHandle>>;
     args: {
         title: string;
         warningMessage: string;

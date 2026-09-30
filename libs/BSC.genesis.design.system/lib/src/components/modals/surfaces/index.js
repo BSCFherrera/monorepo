@@ -4,8 +4,8 @@ exports.BottomSheetModal = exports.CenteredModal = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const react_native_1 = require("react-native");
+const ui_native_1 = require("@bsc/ui-native");
 const useKeyboardOffset_1 = require("../../../hooks/useKeyboardOffset");
-const tokens_1 = require("../../../tokens");
 function useModalVisibility({ visible, defaultVisible = false, onOpenChange, onDismiss }) {
     const [internalVisible, setInternalVisible] = (0, react_1.useState)(defaultVisible);
     const isControlled = visible !== undefined;
@@ -36,14 +36,23 @@ const ModalSurface = (0, react_1.forwardRef)(function ModalSurface({ centered, v
     return (0, jsx_runtime_1.jsx)(react_native_1.Modal, { visible: visible, transparent: true, animationType: animationType ?? (centered ? 'fade' : 'slide'), onRequestClose: dismiss, statusBarTranslucent: true, children: (0, jsx_runtime_1.jsx)(react_native_1.Pressable, { testID: "modal-backdrop", style: [styles.backdrop, centered ? styles.centeredBackdrop : styles.sheetBackdrop], onPress: e => { e?.stopPropagation?.(); dismiss(); }, children: (0, jsx_runtime_1.jsx)(react_native_1.Animated.View, { style: [styles.keyboardAvoiding, centered && styles.centeredKeyboardAvoiding, { paddingBottom: keyboardOffset }], children: (0, jsx_runtime_1.jsxs)(react_native_1.Pressable, { style: [centered ? styles.centeredContent : styles.sheetContent, { paddingBottom: (centered ? 20 : 16) + bottomInset }, contentStyle], onPress: e => e?.stopPropagation?.(), children: [title && (0, jsx_runtime_1.jsx)(react_native_1.Text, { style: styles.title, children: title }), children, actions] }) }) }) });
 });
 exports.CenteredModal = (0, react_1.forwardRef)(function CenteredModal(props, ref) { return (0, jsx_runtime_1.jsx)(ModalSurface, { ...props, centered: true, ref: ref }); });
-exports.BottomSheetModal = (0, react_1.forwardRef)(function BottomSheetModal(props, ref) { return (0, jsx_runtime_1.jsx)(ModalSurface, { ...props, centered: false, ref: ref }); });
+exports.BottomSheetModal = (0, react_1.forwardRef)(function BottomSheetModal({ visible, defaultVisible, onOpenChange, onDismiss, canDismiss = true, title = '', children, actions, footer, footnote, maxHeightFactor, testID }, ref) {
+    const sheetRef = (0, react_1.useRef)(null);
+    (0, react_1.useImperativeHandle)(ref, () => ({
+        open: () => sheetRef.current?.open(),
+        close: () => sheetRef.current?.close(),
+        toggle: nextVisible => sheetRef.current?.toggle(nextVisible),
+        isOpen: () => sheetRef.current?.isOpen() ?? false,
+    }), []);
+    return (0, jsx_runtime_1.jsxs)(ui_native_1.BscSheet, { ref: sheetRef, visible: visible, defaultVisible: defaultVisible, onOpenChange: onOpenChange, onClose: onDismiss, canDismiss: canDismiss, title: title, footnote: footnote, footer: footer, maxHeightFactor: maxHeightFactor, testID: testID, children: [children, actions] });
+});
 const styles = react_native_1.StyleSheet.create({
-    backdrop: { flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' },
-    centeredBackdrop: { justifyContent: 'center', alignItems: 'center', padding: 20 },
+    backdrop: { flex: 1, backgroundColor: (0, ui_native_1.withAlpha)(ui_native_1.BscColors.primaryDeep, 0.45) },
+    centeredBackdrop: { justifyContent: 'center', alignItems: 'center', padding: ui_native_1.BscSpacing.lg },
     sheetBackdrop: { justifyContent: 'flex-end' },
     keyboardAvoiding: { width: '100%' },
     centeredKeyboardAvoiding: { alignItems: 'center' },
-    centeredContent: { backgroundColor: '#FFFFFF', borderRadius: 24, padding: 20, maxWidth: '100%' },
-    sheetContent: { backgroundColor: '#FFFFFF', borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20, paddingTop: 8, width: '100%' },
-    title: { fontSize: 16, fontWeight: '700', color: tokens_1.tokens.colors.text },
+    centeredContent: { backgroundColor: ui_native_1.BscColors.surface, borderRadius: ui_native_1.BscRadius.sheet, padding: ui_native_1.BscSpacing.lg, maxWidth: '100%' },
+    sheetContent: { backgroundColor: ui_native_1.BscColors.surface, borderTopLeftRadius: ui_native_1.BscRadius.sheet, borderTopRightRadius: ui_native_1.BscRadius.sheet, paddingHorizontal: ui_native_1.BscSpacing.lg, paddingTop: ui_native_1.BscSpacing.sm, width: '100%' },
+    title: { ...ui_native_1.BscTextStyles['Body M/16 Bold'], color: ui_native_1.BscColors.textPrimary },
 });

@@ -24,16 +24,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.storyEntries = void 0;
-const bscButtonStories = __importStar(require("./BscButton.stories"));
+const buttonStories = __importStar(require("./Button.stories"));
 const cardStories = __importStar(require("./Card.stories"));
-const bscTextFieldStories = __importStar(require("./BscTextField.stories"));
+const inputStories = __importStar(require("./Input.stories"));
+const textFieldStories = __importStar(require("./TextField.stories"));
 const errorTextStories = __importStar(require("./ErrorText.stories"));
 const checkboxStories = __importStar(require("./Checkbox.stories"));
 const toggleSwitchStories = __importStar(require("./ToggleSwitch.stories"));
 const passwordStrengthMeterStories = __importStar(require("./PasswordStrengthMeter.stories"));
-const bscSelectStories = __importStar(require("./BscSelect.stories"));
+const selectStories = __importStar(require("./Select.stories"));
 const selectPillStories = __importStar(require("./SelectPill.stories"));
-const bscOtpInputStories = __importStar(require("./BscOtpInput.stories"));
+const otpInputStories = __importStar(require("./OtpInput.stories"));
 const otpVerificationFieldStories = __importStar(require("./OtpVerificationField.stories"));
 const infoCardStories = __importStar(require("./InfoCard.stories"));
 const actionCardStories = __importStar(require("./ActionCard.stories"));
@@ -49,6 +50,8 @@ const centeredModalStories = __importStar(require("./CenteredModal.stories"));
 const bottomSheetModalStories = __importStar(require("./BottomSheetModal.stories"));
 const contentModalStories = __importStar(require("./ContentModal.stories"));
 const feedbackModalStories = __importStar(require("./FeedbackModal.stories"));
+const buttonPill = __importStar(require("./ButtonPill.stories"));
+const buttonOutlinedFlat = __importStar(require("./ButtonOutlinedFlat.stories"));
 const loader = __importStar(require("./Loader.stories"));
 const modalCommon = __importStar(require("./ModalCommon.stories"));
 const modalCentered = __importStar(require("./ModalCentered.stories"));
@@ -89,6 +92,8 @@ const modules = {
     './TimoutErrorModal.stories': timoutErrorModal,
     './TermsAndConditionsModal.stories': termsAndConditionsModal,
     './DisclaimerModal.stories': disclaimerModal,
+    './ButtonPill.stories': buttonPill,
+    './ButtonOutlinedFlat.stories': buttonOutlinedFlat,
     './Loader.stories': loader,
     './ModalCommon.stories': modalCommon,
     './ModalCentered.stories': modalCentered,
@@ -103,16 +108,17 @@ const modules = {
     './WarningSessionModal.stories': warningSessionModal,
     './SessionExpiredModal.stories': sessionExpiredModal,
     './ClientVerifiedModal.stories': clientVerifiedModal,
-    './BscButton.stories': bscButtonStories,
+    './Button.stories': buttonStories,
     './Card.stories': cardStories,
-    './BscTextField.stories': bscTextFieldStories,
+    './Input.stories': inputStories,
+    './TextField.stories': textFieldStories,
     './ErrorText.stories': errorTextStories,
     './Checkbox.stories': checkboxStories,
     './ToggleSwitch.stories': toggleSwitchStories,
     './PasswordStrengthMeter.stories': passwordStrengthMeterStories,
-    './BscSelect.stories': bscSelectStories,
+    './Select.stories': selectStories,
     './SelectPill.stories': selectPillStories,
-    './BscOtpInput.stories': bscOtpInputStories,
+    './OtpInput.stories': otpInputStories,
     './OtpVerificationField.stories': otpVerificationFieldStories,
     './InfoCard.stories': infoCardStories,
     './ActionCard.stories': actionCardStories,

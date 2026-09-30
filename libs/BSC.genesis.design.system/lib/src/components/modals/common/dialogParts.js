@@ -8,9 +8,8 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_native_1 = require("react-native");
 const ui_native_1 = require("@bsc/ui-native");
 const icons_1 = require("../../icons");
-const tokens_1 = require("../../../tokens");
 const styles_1 = require("./styles");
-function Illustration({ illustration, illustrationSource, size = 40, name = 'info', color = tokens_1.tokens.colors.primary }) {
+function Illustration({ illustration, illustrationSource, size = 40, name = 'info', color = ui_native_1.BscColors.primary }) {
     return (0, jsx_runtime_1.jsx)(react_native_1.View, { style: styles_1.styles.illustration, children: (0, jsx_runtime_1.jsx)(react_native_1.View, { style: { width: size, height: size, alignItems: 'center', justifyContent: 'center' }, children: illustration ?? (illustrationSource ? (0, jsx_runtime_1.jsx)(react_native_1.Image, { source: illustrationSource, style: { width: size, height: size }, resizeMode: "contain" }) : (0, icons_1.renderFeatherIcon)({ name, size, color })) }) });
 }
 function resolveCommonDialogProps(props) {

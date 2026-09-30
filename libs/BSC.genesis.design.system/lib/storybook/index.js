@@ -14,5 +14,5 @@ exports.default = view.getStorybookUI({
     onDeviceUI: true,
     enableWebsockets: false,
     shouldPersistSelection: false,
-    initialSelection: 'actions-bscbutton--primary',
+    initialSelection: 'components-button--primary',
 });

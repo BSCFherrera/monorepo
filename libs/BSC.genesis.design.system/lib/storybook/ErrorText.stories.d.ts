@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { BscErrorText as ErrorText } from '@bsc/ui-native';
+import { ErrorText } from '../src';
 declare const meta: {
     title: string;
     component: typeof ErrorText;

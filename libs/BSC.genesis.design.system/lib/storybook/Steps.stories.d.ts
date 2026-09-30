@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { BscSteps as Steps } from '@bsc/ui-native';
+import { Steps } from '../src';
 declare const meta: {
     title: string;
     component: typeof Steps;

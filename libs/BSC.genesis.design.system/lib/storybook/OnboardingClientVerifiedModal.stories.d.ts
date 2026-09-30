@@ -2,7 +2,7 @@ import type { StoryObj } from '@storybook/react';
 import { type OnboardingClientVerifiedModalProps } from '../src';
 declare const meta: {
     title: string;
-    component: import("react").ForwardRefExoticComponent<OnboardingClientVerifiedModalProps & import("react").RefAttributes<import("libs/BSC.genesis.design.system/src/components/modals/surfaces").ModalHandle>>;
+    component: import("react").ForwardRefExoticComponent<OnboardingClientVerifiedModalProps & import("react").RefAttributes<import("../src").ModalHandle>>;
     tags: string[];
     parameters: {
         layout: string;

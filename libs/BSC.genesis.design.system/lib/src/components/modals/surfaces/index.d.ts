@@ -21,6 +21,11 @@ export interface CenteredModalProps extends ModalControlProps {
     title?: string;
     bottomInset?: number;
 }
-export type BottomSheetModalProps = CenteredModalProps;
+export interface BottomSheetModalProps extends CenteredModalProps {
+    footer?: ReactNode;
+    footnote?: string;
+    maxHeightFactor?: number;
+    testID?: string;
+}
 export declare const CenteredModal: import("react").ForwardRefExoticComponent<CenteredModalProps & import("react").RefAttributes<ModalHandle>>;
-export declare const BottomSheetModal: import("react").ForwardRefExoticComponent<CenteredModalProps & import("react").RefAttributes<ModalHandle>>;
+export declare const BottomSheetModal: import("react").ForwardRefExoticComponent<BottomSheetModalProps & import("react").RefAttributes<ModalHandle>>;

@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { BscCheckbox as Checkbox } from '@bsc/ui-native';
+import { Checkbox } from '../src';
 declare const meta: {
     title: string;
     component: typeof Checkbox;

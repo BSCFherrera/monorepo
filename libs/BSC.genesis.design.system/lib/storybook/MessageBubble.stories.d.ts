@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { BscMessageBubble as MessageBubble } from '@bsc/ui-native';
+import { MessageBubble } from '../src';
 declare const meta: {
     title: string;
     component: typeof MessageBubble;

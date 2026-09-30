@@ -1,0 +1,55 @@
+{
+  "name": "BSC.genesis.design.system",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/BSC.genesis.design.system/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:ui"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/BSC.genesis.design.system/src/**/*.{ts,tsx}",
+          "libs/BSC.genesis.design.system/storybook/**/*.{ts,tsx}",
+          "libs/BSC.genesis.design.system/tests/**/*.{ts,tsx}",
+          "libs/BSC.genesis.design.system/example/**/*.{ts,tsx}"
+        ]
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run typecheck"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run test"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run build"
+      }
+    },
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run storybook"
+      }
+    },
+    "build-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run build-storybook"
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@ declare const meta: {
     parameters: {
         layout: string;
     };
-    component: typeof import("libs/BSC.genesis.design.system/src/components/navigation/BrandHeader").BrandHeader;
+    component: typeof import("../src").BrandHeader;
     args: {
         title: string;
         showMenu: true;

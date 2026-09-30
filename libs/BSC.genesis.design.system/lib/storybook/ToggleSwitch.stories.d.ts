@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { BscToggleSwitch as ToggleSwitch } from '@bsc/ui-native';
+import { ToggleSwitch } from '../src';
 declare const meta: {
     title: string;
     component: typeof ToggleSwitch;

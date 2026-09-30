@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 declare const meta: {
     title: string;
-    component: typeof import("libs/BSC.genesis.design.system/src/components/navigation/DrawerMenu").DrawerMenu;
+    component: typeof import("../src").DrawerMenu;
     args: {
         visible: false;
         onDismiss: () => void;

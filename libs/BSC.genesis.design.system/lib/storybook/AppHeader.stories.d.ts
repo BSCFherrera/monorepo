@@ -4,7 +4,7 @@ declare const meta: {
     parameters: {
         layout: string;
     };
-    component: typeof import("libs/BSC.genesis.design.system/src/components/navigation/AppHeader").AppHeader;
+    component: typeof import("../src").AppHeader;
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

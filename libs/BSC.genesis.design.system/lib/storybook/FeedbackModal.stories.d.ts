@@ -2,7 +2,7 @@ import type { StoryObj } from '@storybook/react';
 import { type ModalHandle } from '../src';
 declare const meta: {
     title: string;
-    component: import("react").ForwardRefExoticComponent<import("libs/BSC.genesis.design.system/src/components/modals/generic").FeedbackModalProps & import("react").RefAttributes<ModalHandle>>;
+    component: import("react").ForwardRefExoticComponent<import("../src").FeedbackModalProps & import("react").RefAttributes<ModalHandle>>;
     args: {
         visible: false;
         onDismiss: () => void;

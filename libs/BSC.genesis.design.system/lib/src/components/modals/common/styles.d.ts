@@ -5,9 +5,7 @@ export declare const styles: Readonly<{
         marginBottom: number;
     };
     title: {
-        fontSize: number;
-        fontWeight: "700";
-        color: "#1A1A1A";
+        color: string;
         textAlign: "center";
         marginBottom: number;
     };
@@ -15,9 +13,7 @@ export declare const styles: Readonly<{
         paddingHorizontal: number;
     };
     body: {
-        fontSize: number;
-        color: "#666666";
-        lineHeight: number;
+        color: string;
         textAlign: "center";
     };
     bodySpacing: {
@@ -48,13 +44,13 @@ export declare const styles: Readonly<{
         marginTop: number;
         marginBottom: number;
         borderWidth: number;
-        borderColor: "#002d80";
+        borderColor: string;
     };
     back: {
         width: number;
         height: number;
         borderRadius: number;
-        backgroundColor: "#E8EBF0";
+        backgroundColor: string;
         justifyContent: "center";
         alignItems: "center";
         marginTop: number;
@@ -66,36 +62,28 @@ export declare const styles: Readonly<{
         marginBottom: number;
     };
     clientTitle: {
-        fontSize: number;
-        fontWeight: "700";
-        color: "#1A1A1A";
+        color: string;
         textAlign: "center";
     };
     details: {
-        backgroundColor: "#F5F7FA";
+        backgroundColor: string;
         borderWidth: number;
-        borderColor: "#E0E0E0";
+        borderColor: string;
         borderRadius: number;
         padding: number;
         marginBottom: number;
         gap: number;
     };
     detailLabel: {
-        fontSize: number;
-        fontWeight: "700";
-        color: "#666666";
+        color: string;
         marginBottom: number;
     };
     detailValue: {
-        fontSize: number;
-        fontWeight: "700";
-        color: "#1A1A1A";
+        color: string;
     };
     secondary: {
-        fontSize: number;
-        fontWeight: "700";
         textAlign: "center";
-        color: "#666666";
+        color: string;
         paddingVertical: number;
     };
 }>;
