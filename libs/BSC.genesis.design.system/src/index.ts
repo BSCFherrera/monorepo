@@ -69,10 +69,14 @@ export {
 } from './components/BscIcon';
 
 export {
+  BscActionCard,
   BscCard,
+  BscInfoCard,
   BscSectionHeader,
   BscPlaceholder,
+  type BscActionCardProps,
   type BscCardProps,
+  type BscInfoCardProps,
 } from './components/BscCard';
 
 export {
@@ -103,6 +107,48 @@ export {
 export { BscRadio, type BscRadioProps } from './components/BscRadio';
 
 export {
+  BscCheckbox,
+  type BscCheckboxProps,
+} from './components/BscCheckbox';
+
+export {
+  BscToggleSwitch,
+  type BscToggleSwitchProps,
+} from './components/BscToggleSwitch';
+
+export {
+  BscErrorText,
+  type BscErrorTextProps,
+} from './components/BscErrorText';
+
+export {
+  BscMessageBubble,
+  type BscMessageBubbleProps,
+} from './components/BscMessageBubble';
+
+export {
+  BscTypingIndicator,
+  startTypingIndicatorAnimations,
+  useReducedMotionEnabled,
+  type BscTypingIndicatorProps,
+} from './components/BscTypingIndicator';
+
+export {
+  BscDrawerMenu,
+  type BscDrawerMenuGroup,
+  type BscDrawerMenuHistoryItem,
+  type BscDrawerMenuItem,
+  type BscDrawerMenuLegacyHistoryItem,
+  type BscDrawerMenuProps,
+  type BscDrawerMenuRoute,
+} from './components/BscDrawerMenu';
+
+export {
+  BscSteps,
+  type BscStepsProps,
+} from './components/BscSteps';
+
+export {
   BscSelect,
   type BscSelectProps,
 } from './components/BscSelect';
@@ -110,8 +156,15 @@ export {
 export { BscOtpInput, type BscOtpInputProps } from './components/BscOtpInput';
 
 export {
+  BscOtpVerificationField,
+  type BscOtpVerificationFieldProps,
+  type BscOtpVerificationOption,
+} from './components/BscOtpVerificationField';
+
+export {
   BscSheet,
   FOOTNOTE_TEXT_STYLE,
+  type BscSheetHandle,
   type BscSheetProps,
 } from './components/BscSheet';
 
@@ -160,6 +213,14 @@ export {
 } from './components/BscReceiptRow';
 
 export { BscSpinner } from './components/BscSpinner';
+
+export {
+  BscLoaderProvider,
+  BscLoadingOverlay,
+  useBscLoader,
+  type BscLoaderContextValue,
+  type BscLoadingOverlayProps,
+} from './components/BscLoadingOverlay';
 
 export {
   buttonTokens,

@@ -1,5 +1,11 @@
-import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import React, { type ReactNode } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import {
   Keyboard,
   Modal,
@@ -45,7 +51,19 @@ import type { SheetProps } from '@bsc/contracts';
  *    borde de lo que hay detrás y se entienda que es una capa, no otra pantalla.
  */
 
-export interface BscSheetProps extends SheetProps {
+export interface BscSheetHandle {
+  open(): void;
+  close(): void;
+  toggle(nextVisible?: boolean): void;
+  isOpen(): boolean;
+}
+
+export interface BscSheetProps extends Omit<SheetProps, 'visible' | 'onClose'> {
+  visible?: boolean;
+  defaultVisible?: boolean;
+  onOpenChange?: (visible: boolean) => void;
+  onClose?: () => void;
+  canDismiss?: boolean;
   children: ReactNode;
   /** Barra fija al pie, separada por una línea: botones de acción. */
   footer?: ReactNode;
@@ -65,20 +83,58 @@ export const FOOTNOTE_TEXT_STYLE = {
   marginTop: BscSpacing.xs,
 } as const;
 
-export function BscSheet({
+export const BscSheet = forwardRef<BscSheetHandle, BscSheetProps>(function BscSheetComponent({
   visible,
+  defaultVisible = false,
   title,
   onClose,
+  onOpenChange,
+  canDismiss = true,
   children,
   footer,
   footnote,
   maxHeightFactor = SHEET_MAX_HEIGHT_FACTOR,
   testID,
-}: BscSheetProps): React.JSX.Element {
+}: BscSheetProps, ref): React.JSX.Element {
+  const [internalVisible, setInternalVisible] = useState(defaultVisible);
+  const isControlled = visible !== undefined;
+  const currentVisible = isControlled ? visible : internalVisible;
   const insets = useSafeAreaInsets();
   const { height: altoDeLaVentana } = useWindowDimensions();
-  const altoDelTeclado = useAltoDelTeclado();
+  const altoDelTeclado = useAltoDelTeclado(currentVisible);
   const conPie = footer !== undefined || footnote !== undefined;
+
+  const setSheetVisible = useCallback(
+    (nextVisible: boolean, notifyClose = false) => {
+      if (!isControlled) setInternalVisible(nextVisible);
+      if (currentVisible !== nextVisible) onOpenChange?.(nextVisible);
+      if (notifyClose && currentVisible) onClose?.();
+    },
+    [currentVisible, isControlled, onClose, onOpenChange],
+  );
+
+  const close = useCallback(() => {
+    setSheetVisible(false, true);
+  }, [setSheetVisible]);
+
+  const dismiss = useCallback(() => {
+    if (canDismiss) close();
+  }, [canDismiss, close]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      open: () => setSheetVisible(true),
+      close,
+      toggle: nextVisible =>
+        setSheetVisible(
+          nextVisible ?? !currentVisible,
+          nextVisible === false || (nextVisible === undefined && currentVisible),
+        ),
+      isOpen: () => currentVisible,
+    }),
+    [close, currentVisible, setSheetVisible],
+  );
 
   // Lo que de verdad tapa el teclado, que es más de lo que React Native
   // reporta: ver `altoDeLaHoja.ts`.
@@ -95,18 +151,19 @@ export function BscSheet({
 
   return (
     <Modal
-      visible={visible}
+      visible={currentVisible}
       transparent
       animationType="slide"
-      onRequestClose={onClose}
+      onRequestClose={dismiss}
       statusBarTranslucent
     >
       <View style={styles.velo}>
         <Pressable
+          testID="modal-backdrop"
           style={styles.zonaCierre}
           accessibilityRole="button"
           accessibilityLabel="Cerrar"
-          onPress={onClose}
+          onPress={dismiss}
         />
 
         {/*
@@ -138,7 +195,7 @@ export function BscSheet({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Cerrar"
-                onPress={onClose}
+                onPress={dismiss}
                 hitSlop={10}
                 testID={testID === undefined ? undefined : `${testID}-cerrar`}
               >
@@ -193,7 +250,7 @@ export function BscSheet({
       </View>
     </Modal>
   );
-}
+});
 
 /**
  * El alto del teclado, medido.
@@ -203,10 +260,15 @@ export function BscSheet({
  * márgenes del teclado aunque el manifiesto declare `adjustResize`. Se
  * descubrió en la hoja de acceso, probando en el Pixel, y vale para todas.
  */
-function useAltoDelTeclado(): number {
+function useAltoDelTeclado(enabled: boolean): number {
   const [alto, setAlto] = useState(0);
 
   useEffect(() => {
+    if (!enabled) {
+      setAlto(0);
+      return undefined;
+    }
+
     const alAbrir = Keyboard.addListener('keyboardDidShow', evento => {
       setAlto(evento.endCoordinates.height);
     });
@@ -218,7 +280,7 @@ function useAltoDelTeclado(): number {
       alAbrir.remove();
       alCerrar.remove();
     };
-  }, []);
+  }, [enabled]);
 
   return alto;
 }

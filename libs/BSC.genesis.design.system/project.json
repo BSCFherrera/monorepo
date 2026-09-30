@@ -37,6 +37,20 @@
       "options": {
         "command": "node libs/BSC.genesis.design.system/scripts/generate-from-figma.cjs --check"
       }
+    },
+    "storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run storybook"
+      }
+    },
+    "build-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "pnpm run build-storybook"
+      }
     }
   }
 }

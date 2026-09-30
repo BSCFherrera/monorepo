@@ -10,6 +10,7 @@ import {
 import { BscColors } from '../theme/colors';
 import { BscBorderRadius, BscShadows, BscSpacing } from '../theme/spacing';
 import { BscTypography, BscTextStyles } from '../theme/typography';
+import { BscIcon, type BscIconName } from './BscIcon';
 import type { CardProps } from '@bsc/contracts';
 
 /**
@@ -21,6 +22,29 @@ import type { CardProps } from '@bsc/contracts';
 export interface BscCardProps extends CardProps {
   children: ReactNode;
   style?: ViewStyle;
+}
+
+export interface BscInfoCardProps {
+  title: string;
+  subtitle?: string;
+  icon?: ReactNode;
+  iconName?: BscIconName;
+  iconBackgroundColor?: string;
+  children?: ReactNode;
+  testID?: string;
+  style?: ViewStyle;
+}
+
+export interface BscActionCardProps {
+  title: string;
+  subtitle?: string;
+  icon?: ReactNode;
+  iconName?: BscIconName;
+  variant?: 'standard' | 'registration';
+  onPress: () => void;
+  disabled?: boolean;
+  actionLabel?: string;
+  testID?: string;
 }
 
 export function BscCard({
@@ -49,6 +73,77 @@ export function BscCard({
       ]}
     >
       {children}
+    </Pressable>
+  );
+}
+
+export function BscInfoCard({
+  title,
+  subtitle,
+  icon,
+  iconName,
+  iconBackgroundColor,
+  children,
+  testID,
+  style,
+}: BscInfoCardProps): React.JSX.Element {
+  const iconContent = icon ?? (iconName !== undefined ? <BscIcon name={iconName} size={24} color={BscColors.primary} /> : null);
+
+  return (
+    <View testID={testID} style={[styles.infoCard, style]}>
+      {iconContent !== null ? (
+        <View style={[styles.infoCardIconCircle, { backgroundColor: iconBackgroundColor ?? BscColors.surface }]}>
+          {iconContent}
+        </View>
+      ) : null}
+      <View style={styles.infoCardTextContainer}>
+        <Text style={styles.infoCardTitle}>{title}</Text>
+        {subtitle !== undefined ? <Text style={styles.infoCardSubtitle}>{subtitle}</Text> : null}
+        {children}
+      </View>
+    </View>
+  );
+}
+
+export function BscActionCard({
+  title,
+  subtitle,
+  icon,
+  iconName,
+  variant = 'standard',
+  onPress,
+  disabled = false,
+  actionLabel,
+  testID,
+}: BscActionCardProps): React.JSX.Element {
+  const isRegistration = variant === 'registration';
+  const iconColor = isRegistration ? BscColors.secondary : BscColors.primaryLight;
+  const chevronColor = isRegistration ? BscColors.secondary : BscColors.primaryLight;
+  const backgroundColor = isRegistration ? BscColors.secondarySoft : BscColors.surfaceMuted;
+  const iconContent = icon ?? (iconName !== undefined ? <BscIcon name={iconName} size={24} color={iconColor} /> : null);
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={actionLabel ?? title}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
+      onPress={disabled ? undefined : onPress}
+      style={({ pressed }) => [
+        styles.actionCard,
+        { backgroundColor },
+        isRegistration ? styles.actionCardRegistration : styles.actionCardStandard,
+        pressed && !disabled ? styles.actionCardPressed : null,
+        disabled ? styles.actionCardDisabled : null,
+      ]}
+      testID={testID}
+    >
+      {iconContent !== null ? <View style={styles.actionCardIconCircle}>{iconContent}</View> : null}
+      <View style={styles.actionCardTextContainer}>
+        <Text style={styles.actionCardTitle}>{title}</Text>
+        {subtitle !== undefined ? <Text style={styles.actionCardSubtitle}>{subtitle}</Text> : null}
+      </View>
+      <BscIcon name="chevron-right" size={24} color={chevronColor} />
     </Pressable>
   );
 }
@@ -171,5 +266,72 @@ const styles = StyleSheet.create({
   placeholderMensaje: {
     ...BscTypography.bodyMedium,
     textAlign: 'center',
+  },
+  infoCard: {
+    marginVertical: BscSpacing.xs,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: BscColors.surfaceMuted,
+    borderRadius: BscBorderRadius.card,
+    paddingVertical: BscSpacing.md,
+    paddingHorizontal: BscSpacing.md,
+  },
+  infoCardIconCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: BscSpacing.md,
+  },
+  infoCardTextContainer: {
+    flex: 1,
+  },
+  infoCardTitle: {
+    ...BscTextStyles['Body S/14 Bold'],
+    color: BscColors.textPrimary,
+  },
+  infoCardSubtitle: {
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
+    marginTop: 2,
+  },
+  actionCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: BscBorderRadius.card,
+    paddingVertical: BscSpacing.md,
+    paddingHorizontal: BscSpacing.xl,
+  },
+  actionCardStandard: {
+    marginVertical: BscSpacing.xs,
+  },
+  actionCardRegistration: {},
+  actionCardPressed: {
+    opacity: 0.85,
+  },
+  actionCardDisabled: {
+    opacity: 0.5,
+  },
+  actionCardIconCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: BscColors.surface,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: BscSpacing.md,
+  },
+  actionCardTextContainer: {
+    flex: 1,
+  },
+  actionCardTitle: {
+    ...BscTextStyles['Body S/14 Bold'],
+    color: BscColors.textPrimary,
+  },
+  actionCardSubtitle: {
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
+    marginTop: 2,
   },
 });
