@@ -1,10 +1,11 @@
-import { AccessibilityInfo, Animated } from 'react-native';
+import { AccessibilityInfo, Animated, StyleSheet } from 'react-native';
 import TestRenderer from 'react-test-renderer';
 
 import {
   BscTypingIndicator,
   startTypingIndicatorAnimations,
 } from '../components/BscTypingIndicator';
+import { BscColors } from '../theme/colors';
 
 const mounted: TestRenderer.ReactTestRenderer[] = [];
 
@@ -102,6 +103,26 @@ describe('BscTypingIndicator', () => {
     });
 
     expect(remove).toHaveBeenCalledTimes(1);
+  });
+
+  it('wraps the dots in an incoming message bubble with the bubble variant', async () => {
+    const tree = await render(<BscTypingIndicator variant="bubble" />);
+    const style = StyleSheet.flatten(
+      tree.root.findByProps({ accessibilityRole: 'progressbar' }).props.style,
+    );
+
+    expect(style.backgroundColor).toBe(BscColors.surface);
+    expect(style.borderColor).toBe(BscColors.border);
+    expect(style.alignSelf).toBe('flex-start');
+  });
+
+  it('keeps the bare dots by default', async () => {
+    const tree = await render(<BscTypingIndicator />);
+    const style = StyleSheet.flatten(
+      tree.root.findByProps({ accessibilityRole: 'progressbar' }).props.style,
+    );
+
+    expect(style.backgroundColor).toBeUndefined();
   });
 
   it('starts one looping animation per dot and stops them all on cleanup', () => {
