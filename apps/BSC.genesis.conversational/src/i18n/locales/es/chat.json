@@ -8,7 +8,15 @@
     "connectedStatus": "Conectado al asistente",
     "demoStatus": "Modo demostracion",
     "showNotificationsMessage": "Mostrar mis notificaciones recientes.",
-    "openHistoryMessage": "Abrir historial: {{title}}"
+    "openHistoryMessage": "Abrir historial: {{title}}",
+    "typingAccessibilityLabel": "Tu asistente está escribiendo"
+  },
+  "connection": {
+    "reconnectingTitle": "Reconectando…",
+    "reconnectingMessage": "Estamos recuperando la conexión con tu asistente.",
+    "offlineTitle": "No pudimos conectar con tu asistente",
+    "offlineMessage": "Revisa tu conexión a internet e inténtalo de nuevo.",
+    "retry": "Reintentar"
   },
   "quickActions": {
     "transfer": "Quiero transferir dinero",

@@ -158,7 +158,6 @@ AppConversacionalBSC/
 │   │   ├── Button.tsx
 │   │   ├── Input.tsx
 │   │   ├── MessageBubble.tsx
-│   │   ├── TypingIndicator.tsx
 │   │   ├── Header.tsx
 │   │   └── index.ts
 │   ├── screens/             # Pantallas de la aplicación

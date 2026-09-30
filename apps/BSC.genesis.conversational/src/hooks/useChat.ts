@@ -1,6 +1,13 @@
 import {useEffect, useState, useRef, useCallback} from 'react';
 import {SessionService, WebSocketService} from '@services/index';
-import {ChatOption, Clarification, Message, WebSocketMessage} from '@/types/index';
+import {
+  ChatOption,
+  Clarification,
+  ConnectionStatus,
+  Message,
+  WebSocketErrorKind,
+  WebSocketMessage,
+} from '@/types/index';
 import {WS_ACTIONS} from '@constants/config';
 
 const createInitialMessages = (): Message[] => [];
@@ -60,6 +67,9 @@ const normalizeClarifications = (rawClarifications: unknown): Clarification[] =>
 export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>(createInitialMessages());
   const [isConnected, setIsConnected] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(() =>
+    WebSocketService.getStatus(),
+  );
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const conversationIdRef = useRef(createConversationId(SessionService.getClientId()));
@@ -113,11 +123,28 @@ export const useChat = () => {
       setIsConnected(connected);
     };
 
-    const handleError = (err: Error) => {
-      console.error('WebSocket error:', err);
+    const handleStatusChange = (status: ConnectionStatus) => {
+      setConnectionStatus(status);
+
+      // Sin conexión la respuesta pendiente ya no va a llegar por este socket: se quita el
+      // "escribiendo" y la pantalla muestra el aviso de reconexión en su lugar.
+      if (status === 'reconnecting' || status === 'failed') {
+        setIsTyping(false);
+      }
+    };
+
+    const handleError = (err: Error & {kind?: WebSocketErrorKind}) => {
       setError(err.message);
+
+      // Los problemas de conectividad (caídas, reintentos, envíos fallidos que quedan en
+      // cola) se comunican con `connectionStatus`, fuera del historial: escribirlos como
+      // burbuja alteraría la conversación. El servicio ya los registra en su log.
+      if (err.kind !== 'parse') {
+        return;
+      }
+
+      console.error('WebSocket error:', err);
       setIsTyping(false);
-      setIsConnected(false);
       setMessages(prev => [
         ...prev,
         {
@@ -134,11 +161,13 @@ export const useChat = () => {
     const unsubscribeMessage = WebSocketService.onMessage(handleMessage);
     const unsubscribeConnection = WebSocketService.onConnectionChange(handleConnectionChange);
     const unsubscribeError = WebSocketService.onError(handleError);
+    const unsubscribeStatus = WebSocketService.onStatusChange(handleStatusChange);
 
     return () => {
       unsubscribeMessage();
       unsubscribeConnection();
       unsubscribeError();
+      unsubscribeStatus();
       WebSocketService.disconnect();
     };
   }, []);
@@ -214,13 +243,22 @@ export const useChat = () => {
     setError(null);
   }, []);
 
+  /**
+   * Reintentar la conexión a pedido del usuario (tras agotarse los reintentos automáticos)
+   */
+  const retryConnection = useCallback(() => {
+    WebSocketService.retry();
+  }, []);
+
   return {
     messages,
     isConnected,
+    connectionStatus,
     isTyping,
     error,
     sendMessage,
     clearMessages,
     clearError,
+    retryConnection,
   };
 };
