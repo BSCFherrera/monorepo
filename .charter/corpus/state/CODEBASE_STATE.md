@@ -127,6 +127,7 @@ Every project declares a scope and a type in its `project.json`:
 | Project | Tags |
 |---|---|
 | `BSC.genesis.mobile.banking` | `scope:mobile-banking`, `type:app` |
+| `BSC.genesis.conversational` | `scope:conversational`, `type:app` |
 | `bsc-shared` (`@bsc/shared`) | `scope:mobile-banking`, `type:util` |
 | `design-system` (`@bsc/design-system`) | `scope:shared`, `type:ui` |
 | `contracts`, `utils`, `i18n` | `scope:shared`, `type:util` |
@@ -159,11 +160,11 @@ A "region" is a directory or set of directories with shared conventions.
 - Notes: pure logic — formatters, operation risk / fingerprint, SHA-256, TOTP. Also consumed by the Nuxt portal (outside this repo).
 
 ### `apps/BSC.genesis.conversational/`
-- **Idioms:** none
-- **Coverage:** n/a
-- **Last reconciled:** 2026-09-25
-- **Active migrations:** none
-- Notes: placeholder (README only) from the original scaffold.
+- **Idioms:** `react-native`, `typescript`, `design-system`, `testing`
+- **Coverage:** not measured yet
+- **Last reconciled:** 2026-09-30
+- **Active migrations:** its own UI moving into `@bsc/design-system` (`code-debt.md` `DEBT-008`)
+- Notes: React Native conversational app (AI chat over WebSocket, onboarding, access recovery), integrated on `develop` in PR 17523. Tags `scope:conversational`, `type:app`. It imports no `@bsc/*` package yet: its ~55 components in `src/components/` and its screens style themselves with `StyleSheet`.
 
 ### `libs/BSC.genesis.design.system/` (`@bsc/design-system`)
 - **Idioms:** `design-system`, `react-native`, `typescript`
@@ -194,6 +195,7 @@ The framework's org-level guides were written for greenfield projects. Where thi
 - **Business logic partly client-side.** `@bsc/shared` (operation risk, TOTP, formatters) runs in the app; there is no backend app in this monorepo (the API is external). The mobile guide's "all business logic in a backend app" rule is the direction, not the current state.
 - **No Appium e2e suite** exists yet.
 - **Fonts:** Google Sans Flex is bundled in `libs/BSC.genesis.design.system/assets/fonts`, not `@expo-google-fonts` (no Expo).
+- **Conversational app UI.** Same iron law, same deviation as the banking app, but total: the conversational app defines all its UI itself (~55 components in `src/components/`, e.g. `Button.tsx`, `Input.tsx`, `Header.tsx`, `MessageBubble.tsx`) and uses no design-system component or token. Recorded as `code-debt.md` `DEBT-008`.
 - **Design-system lib name.** `idioms/nx/monorepo-structure` names shared libs `libs/<scope>-<name>`; the design system is `libs/BSC.genesis.design.system` by the team's explicit choice (2026-09-29), keeping the name from the original Genesis scaffold. Tags are still `scope:shared`, `type:ui`. Don't rename it to `libs/shared-*`.
 - **App-side UI components.** The design-system guide's iron law says apps define only screens and navigation and take every UI component from `@bsc/design-system`. The banking app still has ~30 components of its own outside screens (e.g. `dashboard/ui/BalanceSummaryCard.tsx`, `BscBottomNav.tsx`, `QuickActions.tsx`, `productDetail/ui/*Sections.tsx`, `*Sheet.tsx`, `app/navigation/QuickActionsSheet.tsx`) and its screens style themselves with `StyleSheet`. Recorded as `code-debt.md` `DEBT-007`: new UI goes to the lib; an existing one moves into the lib when a change touches it.
 - **Coverage below the 85% floor** of `idioms/testing-policy` for the app (~48% lines) — see `code-debt.md` `DEBT-003`. New code still follows TDD and the floor applies to what a change touches.

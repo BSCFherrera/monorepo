@@ -47,6 +47,6 @@ No design or implementation uses a color, font, font size, line height, spacing 
 - A component's Figma component-page Specs (anatomy, sizes, hierarchy, states) are authoritative for that component. Component specs are **not yet transcribed** into `DESIGN-RULES.md`; when one is needed, read that component's page in Figma or ask the owner — do not guess its variants or dimensions.
 - Prefer dark-mode-safe implementation from the start: no color literal, no image or shadow that only works on Light.
 - If a requested design conflicts with a rule here (off-palette color, non-scale spacing, non-brand font), surface the conflict and propose the closest token rather than silently complying or silently correcting.
-- Existing app-side components and screen styling that predate this rule are debt (`corpus/state/code-debt.md`, `DEBT-007`), not a pattern to copy: a change that modifies one's UI or behavior moves it into the lib first (import-only or rename edits don't trigger the move).
+- Existing app-side components and screen styling that predate this rule are debt (`corpus/state/code-debt.md`: `DEBT-007` banking, `DEBT-008` conversational), not a pattern to copy: a change that modifies one's UI or behavior moves it into the lib first (import-only or rename edits don't trigger the move).
 
 For reasoning, see [`corpus/idioms/design-system/bsc-design-system.md`](corpus/idioms/design-system/bsc-design-system.md). For the full rules and token values, see `libs/BSC.genesis.design.system/DESIGN-RULES.md`.
