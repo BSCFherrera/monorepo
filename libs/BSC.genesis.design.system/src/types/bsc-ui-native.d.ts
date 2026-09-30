@@ -161,11 +161,67 @@ declare module '@bsc/ui-native' {
     hasError?: boolean;
     errorMessage?: string;
     enabled?: boolean;
+    autoFocus?: boolean;
     clearOn?: number;
     testID?: string;
   }
 
   export function BscOtpInput(props: BscOtpInputProps): React.JSX.Element;
+
+  export interface BscOtpVerificationOption {
+    label: string;
+    value: string | number;
+    detail?: string;
+    disabled?: boolean;
+  }
+
+  export interface BscOtpVerificationFieldProps {
+    value?: string;
+    otp?: string;
+    onChange?: (value: string) => void;
+    onChangeCode?: (value: string) => void;
+    onChangeText?: (value: string) => void;
+    onOtpChange?: (value: string) => void;
+    onCompleted?: (value: string) => void;
+    onComplete?: (value: string) => void;
+    onOtpComplete?: (value: string) => void;
+    onVerify?: (value: string) => void;
+    onSend?: () => void;
+    onResend?: () => void;
+    length?: number;
+    autoFocus?: boolean;
+    clearOn?: number;
+    options?: readonly BscOtpVerificationOption[];
+    selectedValue?: string | number | null;
+    onSelect?: (value: string | number) => void;
+    selectTitle?: string;
+    selectPlaceholder?: string;
+    codeSent?: boolean;
+    timer?: { finished: boolean; label: string };
+    verified?: boolean;
+    label?: string;
+    otpLabel?: string;
+    sentText?: string;
+    error?: boolean;
+    hasError?: boolean;
+    errorText?: string;
+    errorMessage?: string;
+    otpError?: boolean | string;
+    disabled?: boolean;
+    enabled?: boolean;
+    verifying?: boolean;
+    isSending?: boolean;
+    resendDisabled?: boolean;
+    sendLabel?: string;
+    sendButtonText?: string;
+    verifyLabel?: string;
+    resendLabel?: string;
+    resendButtonText?: string;
+    containerStyle?: StyleProp<ViewStyle>;
+    testID?: string;
+  }
+
+  export function BscOtpVerificationField(props: BscOtpVerificationFieldProps): React.JSX.Element;
 
   export interface BscErrorTextProps {
     children?: ReactNode;

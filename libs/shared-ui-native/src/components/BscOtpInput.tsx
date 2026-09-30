@@ -48,6 +48,7 @@ export function BscOtpInput({
   hasError = false,
   errorMessage,
   enabled = true,
+  autoFocus = false,
   clearOn = 0,
   testID,
 }: BscOtpInputProps): React.JSX.Element {
@@ -126,6 +127,7 @@ export function BscOtpInput({
           onFocus={() => setEnfocado(true)}
           onBlur={() => setEnfocado(false)}
           editable={enabled}
+          autoFocus={autoFocus}
           keyboardType="number-pad"
           returnKeyType="done"
           maxLength={length}

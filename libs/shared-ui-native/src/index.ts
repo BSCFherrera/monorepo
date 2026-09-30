@@ -142,6 +142,12 @@ export {
 export { BscOtpInput, type BscOtpInputProps } from './components/BscOtpInput';
 
 export {
+  BscOtpVerificationField,
+  type BscOtpVerificationFieldProps,
+  type BscOtpVerificationOption,
+} from './components/BscOtpVerificationField';
+
+export {
   BscSheet,
   FOOTNOTE_TEXT_STYLE,
   type BscSheetHandle,

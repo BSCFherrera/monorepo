@@ -168,6 +168,7 @@ export interface OtpInputProps {
   hasError?: boolean;
   errorMessage?: string | undefined;
   enabled?: boolean;
+  autoFocus?: boolean;
   /**
    * Cambiar este número borra lo escrito y devuelve el foco al inicio.
    *

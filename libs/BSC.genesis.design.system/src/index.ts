@@ -2,7 +2,7 @@ export { Card, type CardProps } from './components/Card';
 export { renderFeatherIcon, setFeatherIconRenderer, type FeatherIconSpec } from './components/icons';
 export { parseBoldText, type TextSegment } from './utils/parseBoldText';
 export { useKeyboardOffset } from './hooks/useKeyboardOffset';
-export { OtpVerificationField, type OtpVerificationFieldProps } from './components/otp';
+export { BscOtpVerificationField, OtpVerificationField, type BscOtpVerificationFieldProps, type OtpVerificationFieldProps } from './components/otp';
 export * from './components/display';
 export * from './components/navigation';
 export * from './components/conversation';

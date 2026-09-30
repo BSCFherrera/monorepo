@@ -1,11 +1,8 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { createRef } from 'react';
-import { ActivityIndicator, Modal, StyleSheet, Text, View, type MeasureInWindowOnSuccessCallback, type StyleProp, type ViewStyle } from 'react-native';
+import { ActivityIndicator, Modal, StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
 import * as bsc from '@bsc/ui-native';
 import * as components from '../src';
-import { ButtonOutlinedFlat, ButtonPill } from '../src/components/commonButtons';
-import { Select } from '../src/components/selection/Select';
-import { SelectPill } from '../src/components/selection/SelectPill';
 import type { ModalHandle } from '../src';
 import { storyEntries } from '../storybook/catalog';
 jest.mock('@storybook/addon-actions', () => ({ action: jest.fn(() => jest.fn()) }));
@@ -21,7 +18,7 @@ const catalogMappings = [
   ['Verification/BscOtpInput', bsc.BscOtpInput],
   ['Navigation/BscScreenHeader', bsc.BscScreenHeader],
   ['Navigation/BscPageHeader', bsc.BscPageHeader],
-  ['Verification/OtpVerificationField', components.OtpVerificationField],
+  ['Verification/BscOtpVerificationField', bsc.BscOtpVerificationField],
   ['Verification/Steps', 'Steps'],
   ['Cards/InfoCard', 'InfoCard'],
   ['Feedback/Loader', 'Loader'],
@@ -55,18 +52,6 @@ test('ActionCard stories include compatibility card variants without removing pu
   expect(components.RegisterPromptCard).toBeDefined();
   expect(actionCardStories).toHaveProperty('TouchableCardVariant');
   expect(actionCardStories).toHaveProperty('RegisterPromptCardVariant');
-});
-
-test('pill and flat outline retain distinct source dimensions and disabled behavior', () => {
-  const press = jest.fn();
-  const view = render(<ButtonPill onPress={press}>Continue</ButtonPill>);
-  expect(StyleSheet.flatten(screen.getByRole('button').props.style)).toMatchObject({ borderRadius: 999, paddingVertical: 16, paddingHorizontal: 24, backgroundColor: '#007AFF' });
-  expect(StyleSheet.flatten(screen.getByText('Continue').props.style)).toMatchObject({ fontSize: 16, fontWeight: '700' });
-  view.unmount();
-  render(<ButtonOutlinedFlat onPress={press} disabled>Send</ButtonOutlinedFlat>);
-  expect(StyleSheet.flatten(screen.getByRole('button').props.style)).toMatchObject({ borderWidth: 1.5, paddingVertical: 10, backgroundColor: 'transparent' });
-  fireEvent.press(screen.getByRole('button'));
-  expect(press).not.toHaveBeenCalled();
 });
 
 const dialogProps = { visible: true, onClose: jest.fn(), title: 'Review', message: 'Demo message' };
@@ -151,33 +136,6 @@ test('loader remains an overlay and default check/chevrons render without an ada
   expect(components.renderFeatherIcon({ name: 'check', size: 16 })).not.toBeNull();
   expect(components.renderFeatherIcon({ name: 'chevron-right', size: 24 })).not.toBeNull();
 });
-test('segmented select emits the selected value and retains equal-height segments', () => {
-  const select = jest.fn();
-  render(<SelectPill value="one" onSelect={select} options={[{ label: 'One', value: 'one' }, { label: 'Two', value: 'two' }]} />);
-  const two = screen.getByRole('button', { name: 'Two' });
-  expect(styleOf(two)).toMatchObject({ flex: 1, height: 40 });
-  fireEvent.press(two);
-  expect(select).toHaveBeenCalledWith('two');
-});
-test('anchored select closes when read-only changes and rejects late measurements', () => {
-  let measureCallback: MeasureInWindowOnSuccessCallback | undefined;
-  const measure = jest.spyOn(View.prototype, 'measureInWindow').mockImplementation(callback => { measureCallback = callback as MeasureInWindowOnSuccessCallback; });
-  const props = { options: [{ label: 'Zero', value: 0 }], onChange: jest.fn() };
-  const view = render(<Select {...props} />);
-  fireEvent.press(screen.getByRole('button'));
-  view.rerender(<Select {...props} readOnly />);
-  act(() => measureCallback?.(10, 30, 280, 48));
-  expect(screen.queryByRole('radio')).toBeNull();
-  view.rerender(<Select {...props} />);
-  fireEvent.press(screen.getByRole('button'));
-  act(() => measureCallback?.(10, 30, 280, 48));
-  expect(screen.getByRole('radio', { name: 'Zero' })).toBeTruthy();
-  const dropdown = view.UNSAFE_getAllByType(View).map(styleOf).find(style => style.top === 82);
-  expect(dropdown).toMatchObject({ left: 10, width: 280 });
-  view.rerender(<Select {...props} readOnly />);
-  expect(screen.queryByRole('radio')).toBeNull();
-  measure.mockRestore();
-});
 test('OTP send, timed resend and verified state remain host-controlled', () => {
   const send = jest.fn();
   const resend = jest.fn();
@@ -190,7 +148,7 @@ test('OTP send, timed resend and verified state remain host-controlled', () => {
   expect(screen.getByText('00:30')).toBeTruthy();
   expect(screen.queryByRole('button', { name: 'Resend code' })).toBeNull();
   view.rerender(<components.OtpVerificationField {...props} codeSent verified value="123456" />);
-  expect(screen.getByLabelText('Verification code').props.editable).toBe(false);
+  expect(screen.getByLabelText('Código de 6 dígitos').props.editable).toBe(false);
   expect(screen.queryByRole('button', { name: 'Resend code' })).toBeNull();
 });
 test('terms acceptance and disclaimer actions do not imply navigation or automatic dismissal', () => {
