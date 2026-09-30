@@ -20,7 +20,7 @@ import {
   withAlpha,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { BarraInferior } from '../../transfers/ui/TransferWizardChrome';
 import {
   tituloDeConfirmacion,

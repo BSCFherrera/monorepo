@@ -5,7 +5,7 @@ const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, '../..');
 
 /**
- * Paquetes que deben existir **una sola vez** en el bundle. `@bsc/ui-native`
+ * Paquetes que deben existir **una sola vez** en el bundle. `@bsc/design-system`
  * los declara como peerDependencies y los instala también para sus pruebas;
  * si algún día su versión se separa de la de la app, pnpm crearía una segunda
  * copia y Metro empaquetaría dos Reacts (hooks rotos) o dos React Natives.

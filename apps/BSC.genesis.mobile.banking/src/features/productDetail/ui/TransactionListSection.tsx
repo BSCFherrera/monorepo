@@ -18,7 +18,7 @@ import {
   BscSpacing,
   BscSpinner,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { type PresetDays, type DateRange } from '@bsc/contracts';
 import type { Movimiento } from '../data/transactionContracts';
 

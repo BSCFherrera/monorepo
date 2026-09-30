@@ -9,7 +9,7 @@ import {
   BscSheet,
   BscSpacing,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { exigeVerificacionPresencial } from '../data/deviceContracts';
 import type { DeviceBindingService } from '../domain/deviceBindingService';
 

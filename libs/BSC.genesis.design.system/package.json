@@ -1,85 +1,44 @@
 {
-  "name": "@bsc/genesis-design-system",
-  "version": "0.1.0",
-  "description": "Reusable React Native UI primitives with web and native Storybook catalogs.",
-  "main": "lib/src/index.js",
-  "types": "lib/src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./lib/src/index.d.ts",
-      "default": "./lib/src/index.js"
-    },
-    "./example": {
-      "types": "./lib/example/DemoScreen.d.ts",
-      "default": "./lib/example/DemoScreen.js"
-    },
-    "./storybook": {
-      "types": "./lib/storybook/index.d.ts",
-      "default": "./lib/storybook/index.js"
-    },
-    "./storybook/metro": "./storybook/metro.js"
-  },
-  "files": [
-    "lib",
-    "PROVENANCE.md",
-    "THIRD_PARTY_NOTICES.md",
-    "example/package.json",
-    "example/DemoScreen.tsx",
-    "storybook/package.json",
-    "storybook/metro.js"
-  ],
-  "scripts": {
-    "storybook": "storybook dev -p 6006 --host 127.0.0.1 --no-open --disable-telemetry",
-    "build-storybook": "storybook build --disable-telemetry",
-    "typecheck": "tsc --noEmit",
-    "test": "jest --runInBand",
-    "test:storybook": "jest --runInBand tests/Storybook.test.tsx",
-    "check:metro": "pnpm run build && node scripts/check-metro.js",
-    "build": "node scripts/build.js",
-    "prepack": "pnpm run build"
+  "name": "@bsc/design-system",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Sistema de diseño BSC: reglas, tokens y componentes React Native. Toda la UI de las apps sale de aquí.",
+  "license": "UNLICENSED",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "sideEffects": false,
+  "dependencies": {
+    "@bsc/contracts": "workspace:*",
+    "@bsc/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "catalog:",
-    "react-native": "catalog:"
-  },
-  "dependencies": {
-    "@bsc/ui-native": "workspace:*",
-    "@bsc/utils": "workspace:*"
+    "react-native": "catalog:",
+    "react-native-svg": "catalog:",
+    "react-native-linear-gradient": "catalog:",
+    "react-native-safe-area-context": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@gorhom/bottom-sheet": "5.2.14",
+    "@babel/preset-env": "catalog:",
+    "@babel/runtime": "catalog:",
     "@react-native/babel-preset": "catalog:",
+    "@react-native/eslint-config": "catalog:",
     "@react-native/jest-preset": "catalog:",
-    "@react-native/metro-config": "catalog:",
-    "@storybook/addon-actions": "8.6.14",
-    "@storybook/addon-essentials": "8.6.14",
-    "@storybook/addon-ondevice-actions": "8.6.4",
-    "@storybook/core": "8.6.14",
-    "@storybook/react": "8.6.14",
-    "@storybook/react-native": "8.6.4",
-    "@storybook/react-native-ui": "8.6.4",
-    "@storybook/react-vite": "8.6.14",
-    "@storybook/test": "8.6.14",
-    "@testing-library/react-native": "13.3.3",
+    "@react-native/typescript-config": "catalog:",
     "@types/jest": "catalog:",
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-test-renderer": "catalog:",
-    "babel-jest": "catalog:",
+    "eslint": "catalog:",
     "jest": "catalog:",
+    "prettier": "catalog:",
     "react": "catalog:",
-    "react-dom": "catalog:",
     "react-native": "catalog:",
-    "react-native-gesture-handler": "3.3.0",
-    "react-native-reanimated": "4.7.0",
+    "react-native-linear-gradient": "catalog:",
     "react-native-safe-area-context": "catalog:",
     "react-native-svg": "catalog:",
-    "react-native-web": "catalog:",
-    "react-native-worklets": "0.13.0",
     "react-test-renderer": "catalog:",
-    "storybook": "8.6.14",
-    "ts-dedent": "2.2.0",
-    "typescript": "catalog:",
-    "vite": "catalog:"
+    "typescript": "catalog:"
   }
 }

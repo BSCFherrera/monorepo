@@ -12,7 +12,7 @@ import {
   BscSpacing,
   BscSpinner,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   esCredito,
   simboloDelComprobante,

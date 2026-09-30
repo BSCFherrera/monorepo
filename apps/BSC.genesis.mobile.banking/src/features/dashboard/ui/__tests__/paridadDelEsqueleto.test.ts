@@ -2,7 +2,7 @@
 
 import { StyleSheet } from 'react-native';
 
-import { BscSpacing } from '@bsc/ui-native';
+import { BscSpacing } from '@bsc/design-system';
 
 import {
   estilosDelEsqueleto,

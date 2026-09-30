@@ -14,9 +14,9 @@ import {
   BscTextField,
   withAlpha,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { type SelectOption } from '@bsc/contracts';
-import { buttonTokens } from '@bsc/ui-native';
+import { buttonTokens } from '@bsc/design-system';
 import type { Producto } from '../../dashboard/data/productContracts';
 import { PieDelAsistente } from '../../transfers/ui/TransferWizardChrome';
 import {

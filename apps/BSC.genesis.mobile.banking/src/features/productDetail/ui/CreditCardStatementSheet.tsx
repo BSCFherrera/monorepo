@@ -23,7 +23,7 @@ import {
   BscTextButton,
   BscTypography,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   estaEnAtraso,
   tieneActividadDelCiclo,

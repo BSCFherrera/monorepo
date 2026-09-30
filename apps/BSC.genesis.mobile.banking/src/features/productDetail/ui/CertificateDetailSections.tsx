@@ -10,7 +10,7 @@ import {
   BscRadius,
   withAlpha,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import {
   avanceDelPlazo,
   estaVigente,

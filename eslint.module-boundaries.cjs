@@ -1,10 +1,10 @@
 /**
  * Nx module boundaries, shared by the root flat config (`eslint.config.mjs`)
- * and the legacy `.eslintrc.js` files of the app and `libs/shared-ui-native`,
+ * and the legacy `.eslintrc.js` files of the app and `libs/BSC.genesis.design.system`,
  * so every project lints against the same rules.
  *
  * Tags live in each `project.json`:
- *   scope:shared          libs/shared-*
+ *   scope:shared          libs/shared-* and libs/BSC.genesis.design.system
  *   scope:mobile-banking  the app and its @bsc/shared
  *   scope:conversational  the conversational app
  *   type:app | type:ui | type:util

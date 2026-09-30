@@ -21,7 +21,7 @@ import {
   BscSpacing,
   BscTextButton,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { Endpoints } from '../../../core/network/endpoints';
 import { useAuthStore } from '../../auth/authStore';
 import {

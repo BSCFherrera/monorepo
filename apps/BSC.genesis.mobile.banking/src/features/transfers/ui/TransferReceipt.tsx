@@ -20,7 +20,7 @@ import {
   withAlpha,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { TIPOS, usaBeneficiario } from '../data/transferContracts';
 import type { ResultadoDeTransferencia } from '../data/transferContracts';
 import {

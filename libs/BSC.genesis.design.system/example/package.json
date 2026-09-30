@@ -1,4 +1,0 @@
-{
-  "main": "../lib/example/DemoScreen.js",
-  "types": "../lib/example/DemoScreen.d.ts"
-}

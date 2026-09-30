@@ -2,7 +2,7 @@
  * Contratos de los componentes del sistema de diseño BSC.
  *
  * La parte de las props de cada componente que no depende de ningún framework:
- * textos, números, estados y callbacks. Cada kit de UI (hoy `@bsc/ui-native`)
+ * textos, números, estados y callbacks. Cada kit de UI (hoy `@bsc/design-system`)
  * extiende estas interfaces y añade solo lo propio de su plataforma —hijos,
  * estilos, tipos de teclado—.
  *

@@ -1,6 +1,0 @@
-export {
-  BscMessageBubble as MessageBubble,
-  BscTypingIndicator as TypingIndicator,
-  type BscMessageBubbleProps as MessageBubbleProps,
-  type BscTypingIndicatorProps as TypingIndicatorProps,
-} from '@bsc/ui-native';

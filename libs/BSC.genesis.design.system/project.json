@@ -1,54 +1,41 @@
 {
-  "name": "BSC.genesis.design.system",
+  "name": "design-system",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/BSC.genesis.design.system/src",
   "projectType": "library",
   "tags": ["scope:shared", "type:ui"],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
+      "executor": "nx:run-commands",
       "options": {
-        "lintFilePatterns": [
-          "libs/BSC.genesis.design.system/src/**/*.{ts,tsx}",
-          "libs/BSC.genesis.design.system/storybook/**/*.{ts,tsx}",
-          "libs/BSC.genesis.design.system/tests/**/*.{ts,tsx}",
-          "libs/BSC.genesis.design.system/example/**/*.{ts,tsx}"
-        ]
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "eslint src --ext .ts,.tsx",
+        "env": { "ESLINT_USE_FLAT_CONFIG": "false" }
       }
     },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/BSC.genesis.design.system",
-        "command": "pnpm run typecheck"
+        "command": "tsc -p tsconfig.json --noEmit"
       }
     },
     "test": {
-      "executor": "nx:run-commands",
+      "executor": "@nx/jest:jest",
       "options": {
-        "cwd": "libs/BSC.genesis.design.system",
-        "command": "pnpm run test"
+        "jestConfig": "libs/BSC.genesis.design.system/jest.config.js"
       }
     },
-    "build": {
+    "generate": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "libs/BSC.genesis.design.system",
-        "command": "pnpm run build"
+        "command": "node libs/BSC.genesis.design.system/scripts/generate-from-figma.cjs"
       }
     },
-    "storybook": {
+    "check-generated": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "libs/BSC.genesis.design.system",
-        "command": "pnpm run storybook"
-      }
-    },
-    "build-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "libs/BSC.genesis.design.system",
-        "command": "pnpm run build-storybook"
+        "command": "node libs/BSC.genesis.design.system/scripts/generate-from-figma.cjs --check"
       }
     }
   }

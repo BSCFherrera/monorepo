@@ -1,241 +1,31 @@
-# Basic React Native components
+# BSC.genesis.design.system — `@bsc/design-system`
 
-A source-derived React Native library with **all 28 Common component names represented individually**, plus forms, headers, conversation and onboarding surfaces. Normal imports need only React and React Native. See [the exact mapping, fidelity limits and rights restrictions](PROVENANCE.md) before redistribution. Source styles have been restored in code; pixel parity has not been verified.
+El sistema de diseño BSC para las apps de Genesis: reglas, tokens y todos los
+componentes de UI. **Las apps no crean componentes de UI**: los importan de
+aquí, y si uno no existe se crea primero en esta lib.
 
-## Open Storybook here (no consumer app needed)
+Antes de diseñar o escribir UI, lee [`DESIGN-RULES.md`](DESIGN-RULES.md).
 
-Run directly in this library directory with Node.js 20.19+ or 22.12+:
+## Contenido
 
-```sh
-npm ci
-npm run storybook
+| Carpeta | Qué hay |
+|---|---|
+| `DESIGN-RULES.md` | Todas las reglas de diseño y la referencia de tokens (fuente de verdad) |
+| `figma/` | Snapshot DTCG de las variables de Figma (solo lectura) — ver su `README.md` |
+| `scripts/generate-from-figma.cjs` | Genera `src/tokens/generated/figma.ts` desde el snapshot |
+| `src/tokens/` | Tokens independientes de plataforma: primitivos → semánticos → componentes, claro y oscuro |
+| `src/theme/` | Los tokens traducidos a estilos de React Native (`BscColors`, `BscTextStyles`, …) |
+| `src/components/` | Los componentes `Bsc*` |
+| `assets/fonts/` | Google Sans Flex (cortes estáticos) — ver su `README.md` |
+
+## Comandos (desde la raíz del repo)
+
+```bash
+pnpm nx run design-system:lint
+pnpm nx run design-system:typecheck
+pnpm nx run design-system:test
+pnpm nx run design-system:generate          # regenera los tokens desde figma/
+pnpm nx run design-system:check-generated   # falla si los tokens generados no coinciden con figma/
 ```
 
-Open **http://localhost:6006**. Start with **Actions → Button → Primary / Secondary / Disabled / Loading**, or **Cards → Card → Default**. Use **Controls** to change props, **Actions** to see `Button pressed`, and **Docs** for generated component documentation. Disabled and loading buttons block presses. Stop the server with **Ctrl+C**.
-
-This is genuine **Storybook 8.6.14**, using React/Vite and **React Native Web 0.19.13**. Stories are grouped by what the component does, not by source folder. React stays at **18.3.1** and React Native at **0.76.5**. Web tooling is development-only.
-
-### Storybook taxonomy
-
-Use the top-level group to find the component by purpose:
-
-| Group | Use for |
-| --- | --- |
-| **Actions** | Buttons and action cards, including compatibility button/card variants. |
-| **Forms** | Inputs, text fields, helper/error text, and password strength feedback. |
-| **Selection** | Checkboxes, switches, selects, pills, and OTP inputs. |
-| **Verification** | Multi-step and one-time-code verification patterns. |
-| **Cards** | Informational and pressable card surfaces. |
-| **Navigation** | Headers, app/brand headers, and drawer menu examples. |
-| **Conversation** | Message bubbles and typing indicators. |
-| **Feedback** | Loading and feedback modal adapters. |
-| **Modals/Surfaces** | Low-level centered and bottom-sheet modal surfaces. |
-| **Modals/Dialog Recipes** | Named modal recipes for errors, success, timeout, session, terms, disclaimer, and onboarding flows. |
-| **Modals/Compatibility** | Backward-compatible aliases or wrappers retained for existing consumers. |
-
-Compatibility stories are documented intentionally: aliases and wrappers remain available for existing applications and are not removed until a future major release.
-
-### Modal control: `visible` vs `ref`
-
-Use `visible` when application state owns the modal. Use an imperative `ref` for local preview/demo triggers or isolated UI events.
-
-```tsx
-const [visible, setVisible] = useState(false);
-
-<BottomSheetModal visible={visible} onOpenChange={setVisible} onDismiss={() => setVisible(false)}>
-  <Text>State-owned content</Text>
-</BottomSheetModal>;
-```
-
-```tsx
-const modalRef = useRef<ModalHandle>(null);
-
-<Button label="Preview" onPress={() => modalRef.current?.open()} />
-<CenteredModal ref={modalRef}>
-  <Text>Locally triggered content</Text>
-</CenteredModal>;
-```
-
-Prefer named recipes such as `TermsAndConditionsModal`, `DisclaimerModal`, `SuccessModal`, or `TimeoutErrorModal` for product flows. Compatibility adapters such as `ContentModal`, `ModalCommon`, `ModalCentered`, and the typo alias `TimoutErrorModal` stay exported for migration safety.
-
-Brand examples deliberately show neutral placeholders. Pass your authorized assets
-through `logoSource`/`illustrationSource` or render slots; no original bank images
-are copied or imported. Both Storybooks use a development-only Feather SVG adapter.
-
-To generate a static web catalog:
-
-```sh
-npm run build-storybook
-```
-
-The output is `storybook-static/` (serve it with a static HTTP server). It and the `.storybook/` web configuration are excluded from the npm package. Use npm and `package-lock.json` for this workflow.
-
-**Browser previews are not native validation.** React Native Web renders DOM elements, not Android/iOS views. Use the native catalog below to verify platform layout, gestures, accessibility, and native dependencies on a device or simulator. Both catalogs reuse `storybook/*.stories.tsx`; `.storybook/` only configures the web renderer, docs, and preview layout.
-
-Compatibility: [`@storybook/react-vite@8.6.14`](https://www.npmjs.com/package/@storybook/react-vite/v/8.6.14) accepts React 18 and Vite 6; [`react-native-web@0.19.13`](https://www.npmjs.com/package/react-native-web/v/0.19.13) requires React/React DOM `^18.0.0`. The web-only exact `react-native` alias leaves native Metro resolution unchanged.
-
-## Try it in an existing app
-
-For **native validation**, this library is not a standalone mobile app. Use an existing React Native CLI app with React 18.3.1 and React Native 0.76.5 (the consumer's CLI 15.0.1 stays in that app).
-
-1. In this library directory, install and create a local tarball:
-
-   ```sh
-   npm ci
-   npm pack
-   ```
-
-   `npm pack` builds JavaScript and TypeScript declarations automatically.
-
-2. In your existing app directory, install the tarball:
-
-   ```sh
-    npm install /path/to/rn-basic-components-0.1.0.tgz
-   ```
-
-3. Temporarily replace the app's `App.tsx` contents with:
-
-   ```tsx
-   import { DemoScreen } from 'rn-basic-components/example';
-
-   export default DemoScreen;
-   ```
-
-4. Start the app using its existing Metro and Android/iOS commands (typically `npm start`, then `npm run android` or `npm run ios` in another terminal). Existing native toolchains and device/simulator setup are required.
-
-Tap **Increment**, then **Reset**. Disabled and loading buttons must leave the count unchanged. The loading state is a static preview, not an API request. Keep your app's existing safe-area handling when embedding this screen in its navigation.
-
-## Open the native Storybook catalog
-
-Use the same tarball installation above in your **existing RN CLI app**. There is no `npm start` server or native app in this library. Storybook 8.6.4 exposes a real on-device story selector and Actions panel through `rn-basic-components/storybook`.
-
-### 1. Install the host dependencies
-
-Run in the app directory, keeping React 18.3.1 and RN 0.76.5:
-
-```sh
-npm install --save-dev --save-exact \
-  @storybook/react-native@8.6.4 @storybook/react-native-ui@8.6.4 \
-  @storybook/addon-ondevice-actions@8.6.4 \
-  @storybook/addon-actions@8.6.14 @storybook/react@8.6.14 \
-  @storybook/core@8.6.14 storybook@8.6.14 react-dom@18.3.1 ts-dedent@2.2.0
-npm install --save-exact \
-  @gorhom/bottom-sheet@5.1.2 react-native-gesture-handler@2.21.2 \
-  react-native-reanimated@3.16.7 react-native-safe-area-context@4.12.0 \
-  react-native-svg@15.8.0
-```
-
-These are the tested JavaScript dependency pins, not a claim of device validation. Reconcile existing native dependency versions rather than installing duplicate copies. Native packages are explicit host dependencies so RN autolinking can see them. `react-dom` satisfies the shared Storybook renderer's peer requirement; the catalog renders React Native components, not DOM elements. `ts-dedent` supplies an undeclared import in Storybook 8.6.4's native UI.
-
-### 2. Configure the host once
-
-Keep the host's existing Babel preset/plugins and add **`react-native-reanimated/plugin` last** in `babel.config.js`:
-
-```js
-module.exports = {
-  presets: ['module:@react-native/babel-preset'],
-  plugins: ['react-native-reanimated/plugin'],
-};
-```
-
-In `metro.config.js`, wrap the host's final merged config with the supplied resolver. This preserves other settings and uses Storybook 8.6.4's package-export conditions:
-
-```js
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
-const withCatalog = require('rn-basic-components/storybook/metro');
-
-const config = {}; // Preserve your existing custom configuration here.
-const finalConfig = mergeConfig(getDefaultConfig(__dirname), config);
-module.exports = process.env.STORYBOOK === '1' ? withCatalog(finalConfig) : finalConfig;
-```
-
-The app should already use `@react-native/metro-config@0.76.5`. No additional Metro `sourceExts`, `require.context`, `withStorybook` generator, or `.storybook/main.ts` is needed: this small packaged catalog registers its stories through static imports.
-
-For iOS, run `bundle exec pod install` **inside the app's `ios` directory** on macOS, using the app's existing Bundler/CocoaPods setup. Rebuild the native app on either platform after installing the native dependencies. No manual linking or extra provider wrappers are required: Storybook 8.6.4 supplies the safe-area, gesture-root, and bottom-sheet providers.
-
-### 3. Select the catalog and launch the app
-
-Temporarily replace the host's `App.tsx` with:
-
-```tsx
-export { default } from 'rn-basic-components/storybook';
-```
-
-Run in the app directory (POSIX shell):
-
-```sh
-STORYBOOK=1 npm start -- --reset-cache
-# In another terminal, use the existing platform script:
-STORYBOOK=1 npm run android
-# Or, on macOS:
-STORYBOOK=1 npm run ios
-```
-
-Open the native story selector under the same purpose-based groups used by the web catalog: **Actions**, **Forms**, **Selection**, **Verification**, **Cards**, **Navigation**, **Conversation**, **Feedback**, and **Modals**. Primary and Secondary buttons log `Button pressed` in Actions; Disabled and Loading block presses. Controlled examples use local state only. Selection persistence and WebSockets are disabled. Native Controls are omitted to avoid extra date-picker/slider dependencies.
-
-**Before shipping:** restore the normal `App.tsx` and start Metro without `STORYBOOK=1`. Do not import the catalog from the production entry, even behind a runtime switch. The library's root and example never import Storybook, and all catalog tooling is development-only in this package. Host native modules remain autolinked until removed from the host; a development-only JS entry does not strip native binaries automatically.
-
-### Maintain and verify the catalog
-
-Edit `storybook/*.stories.tsx`; add new story modules to `storybook/catalog.ts`. The static registry is intentionally manual so Metro can package every story through explicit imports. The Storybook tests compare the filesystem with the registry and fail if a story file is missing from the catalog. The stories import the same `src` exports as consumers, not duplicate implementations. There is no generated story file to refresh. Repack/reinstall after changes and fully reload the host catalog.
-
-```sh
-npm run test:storybook
-npm run check:metro
-```
-
-`check:metro` builds JavaScript bundles for Android and iOS without compiling a native app, and checks that the normal component bundle has no Storybook modules. Use npm and `package-lock.json` for this workflow.
-
-Compatibility evidence: npm metadata for [`@storybook/react-native@8.6.4`](https://www.npmjs.com/package/@storybook/react-native/v/8.6.4) declares React `*` and RN `>=0.72.0`; shared `@storybook/react@8.6.14` includes React 18. The [version-pinned README](https://unpkg.com/@storybook/react-native@8.6.4/README.md) and shipped `dist/metro/withStorybook.js` / `dist/index.js` define the resolver and `start` / `getStorybookUI` APIs used here. [Reanimated 3.16.x supports RN 0.76 on Paper and Fabric](https://docs.swmansion.com/react-native-reanimated/docs/3.x/guides/compatibility/); Bottom Sheet 5.1.2 requires Reanimated >=3.16.0 and Gesture Handler >=2.16.1, satisfied by these pins.
-
-## Use the components
-
-```tsx
-import { Button, Card } from 'rn-basic-components';
-
-<Card>
-  <Button label="Save" onPress={() => console.log('Save')} />
-</Card>;
-```
-
-### Button props
-
-| Prop | Type | Default / behavior |
-| --- | --- | --- |
-| `label` | `string` | Required; visible text and default accessible name |
-| `onPress` | `PressableProps['onPress']` | Required callback |
-| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'text'` | Primary blue; secondary green; outline is separate |
-| `disabled` | `boolean` | `false`; blocks presses |
-| `loading` | `boolean` | `false`; spinner replaces visible content, preserves accessible name, blocks presses |
-| `accessibilityLabel` | `string` | Overrides accessible name |
-| `testID` | `string` | Optional test identifier |
-
-Buttons expose the button role and disabled/busy accessibility state. Native screen-reader behavior still requires device testing.
-
-### Card and tokens
-
-`Card` accepts React Native `ViewProps`. **InfoCard** is the source Common/Card row.
-`tokens` exports source colors, spacing, the existing numeric `radius`, and additive
-`radii`, typography and shadow scales. `ThemeProvider`/`useTheme` are context helpers;
-the components currently use static tokens rather than context overrides.
-
-## Scope and checks
-
-Supported peer scope is React `^18.3.1` and React Native `~0.76.5` (0.76 patch releases from 0.76.5). Development is pinned to React 18.3.1, RN 0.76.5, TypeScript 5.6.2, and Jest/Babel-Jest 29.7.0. RN 0.76.5 declares React `^18.2.0`, which includes this baseline. Other RN minors and React 19 are not claimed as supported.
-
-```sh
-npm run typecheck
-npm test
-npm run build
-npm run build-storybook
-npm run check:metro
-npm pack --dry-run --ignore-scripts
-```
-
-Jest exercises behavior with mocked React Native primitives and checks the actual Storybook story index; it does not validate native rendering or Android/iOS accessibility. The Metro check verifies JavaScript bundling, not simulator/device execution. The package contains built CommonJS JavaScript and declarations, including the example and Storybook subpaths; React and React Native are peers, not bundled copies. Repack and reinstall the tarball after library changes.
-
-## Short phased plan
-
-1. **Foundation (this demo):** tokens, Button, Card, public exports, declarations, focused behavior tests, and an embeddable counter screen.
-2. **Native validation:** integrate the tarball into the existing app; check Android/iOS layout, presses, large text, contrast, and screen-reader announcements.
-3. **Grow from actual usage:** add only needed components, tests, and stories to the on-device catalog.
+Nx tags: `scope:shared`, `type:ui`.
