@@ -67,6 +67,9 @@ pnpm nx run design-tokens:generate                # regenerate tokens from the F
 
 pnpm feature:start GEN-123 story "Title"          # new OpenSpec change + branch, then Claude Code `run sdd on GEN-123`
 pnpm nx run design-system:generate                # regenerate tokens from the Figma snapshot
+
+pnpm nx run design-system:storybook               # component catalog, web only (http://127.0.0.1:6006)
+pnpm nx run design-system:build-storybook         # static build (storybook-static/), for sharing/CI
 ```
 
 The `<app>:start|android|ios` scripts in this package.json are shortcuts for
@@ -81,6 +84,7 @@ when a new app joins the monorepo. `pnpm nx show project <project>` lists every 
 - Shared dependencies (catalog, adding a dependency, unlinked native modules, adding an app): `docs/mobile/dependencias-compartidas.md`
 - Translations (adding text, adding a language, the selector): `libs/shared-i18n/README.md`
 - Font: `libs/BSC.genesis.design.system/assets/fonts/README.md`
+- Component catalog (Storybook, web only): `libs/BSC.genesis.design.system/storybook/` — run with `pnpm nx run design-system:storybook`
 - App migration history, security model and open questions: `apps/BSC.genesis.mobile.banking/docs/migration/`
 
 ## Known caveats
