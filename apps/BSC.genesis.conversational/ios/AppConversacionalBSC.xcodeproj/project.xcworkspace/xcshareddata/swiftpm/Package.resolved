@@ -1,0 +1,33 @@
+{
+  "originHash" : "e23ed6e4df6db96478021b13385ac9e1e8593979e2ca2cc4cf2df1abefcbf5fb",
+  "pins" : [
+    {
+      "identity" : "core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Autentikar/core",
+      "state" : {
+        "revision" : "a03cb70b066db39f3913e164b1299a150909c0ed",
+        "version" : "1.0.13"
+      }
+    },
+    {
+      "identity" : "facetec-dependency",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Autentikar/faceTec-dependency.git",
+      "state" : {
+        "revision" : "3a607ca3dfa0ef993d91044a35af8e8e7e4e8729",
+        "version" : "9.7.128"
+      }
+    },
+    {
+      "identity" : "unified-id",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Autentikar/unified-id",
+      "state" : {
+        "revision" : "8165b2063fd9d28f9b0d4c0eefb7981a2656ac87",
+        "version" : "9.7.128"
+      }
+    }
+  ],
+  "version" : 3
+}

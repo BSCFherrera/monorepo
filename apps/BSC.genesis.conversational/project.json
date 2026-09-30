@@ -1,0 +1,46 @@
+{
+  "name": "BSC.genesis.conversational",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/BSC.genesis.conversational/src",
+  "projectType": "application",
+  "tags": ["scope:conversational", "type:app"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/BSC.genesis.conversational",
+        "command": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "env": { "ESLINT_USE_FLAT_CONFIG": "false" }
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/BSC.genesis.conversational",
+        "command": "tsc -p tsconfig.json --noEmit"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/BSC.genesis.conversational/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.conversational", "command": "react-native start" }
+    },
+    "android": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/BSC.genesis.conversational",
+        "command": "react-native run-android --no-packager --active-arch-only"
+      }
+    },
+    "ios": {
+      "executor": "nx:run-commands",
+      "options": { "cwd": "apps/BSC.genesis.conversational", "command": "react-native run-ios" }
+    }
+  }
+}

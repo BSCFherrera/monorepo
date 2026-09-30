@@ -1,0 +1,254 @@
+{
+  "chooseDocument": {
+    "title": "Queremos conocerte",
+    "subtitle": "Ingresa tu documento de identidad para comenzar tu registro.",
+    "documentTypeLabel": "Tipo de documento",
+    "documentTypePlaceholder": "Selecciona tu tipo de documento",
+    "documentTypeOptions": {
+      "cedula": "Cédula",
+      "passport": "Pasaporte"
+    },
+    "documentNumberLabel": "Número de identificación",
+    "documentNumberPlaceholder": {
+      "cedula": "402-12345678-9",
+      "passport": "AB123456"
+    },
+    "errors": {
+      "cedulaLength": "La cédula debe tener 11 dígitos.",
+      "passportRequired": "Ingresa tu número de pasaporte.",
+      "passportLength": "El pasaporte solo debe contener letras y números, entre 6 y 12 caracteres",
+      "termsRequired": "Debes aceptar los Términos y Condiciones para continuar."
+    },
+    "terms": {
+      "prefix": "Acepto los",
+      "appTerms": "Términos y condiciones",
+      "and": "y la",
+      "dataTerms": "Política de datos personales",
+      "suffix": ""
+    },
+    "continueButton": "Continuar",
+    "exitButton": "Salir"
+  },
+  "disclaimerModal": {
+    "title": "Lo que debes tener en cuenta",
+    "subtitle": "Para continuar, necesitarás lo siguiente. El proceso es rápido y sencillo.",
+    "requirements": {
+      "cedula": "Indicar tu cédula",
+      "internet": "Conexión a internet estable",
+      "document": "Validar tu documento de identidad",
+      "biometric": "Comprobación biométrica"
+    },
+    "continueButton": "Continuar",
+    "exitButton": "Salir"
+  },
+  "clientVerifiedModal": {
+    "title": "Confirma tus datos",
+    "subtitle": "Confirma que tus datos de nombre(s) y apellido(s) estén correctos para proceder.",
+    "nameLabel": "NOMBRES Y APELLIDOS",
+    "continueButton": "Continuar",
+    "notMeButton": "No soy yo"
+  },
+  "errorGeneral": {
+    "contactPhone": "809-726-1000",
+    "contactWebsiteUrl": "https://www.bancosantacruz.com.do",
+    "title": "No pudimos realizar esta validación exitosamente.",
+    "message": {
+      "prefix": "Llama a nuestro Centro de Contacto al",
+      "middle": "o visita tu centro de Negocios más cercano, consultando en",
+      "linkText": "nuestro sitio web",
+      "suffix": ", para que te asistan con el proceso."
+    },
+    "goHomeButton": "Ir al inicio"
+  },
+  "errorServiceGeneral": {
+    "title": "Ocurrió un error inesperado.",
+    "message": "No pudimos completar tu solicitud en este momento. Por favor, inténtalo de nuevo más tarde.",
+    "closeButton": "Cerrar"
+  },
+  "errorUserWithoutData": {
+    "contactPhone": "809-726-1000",
+    "contactWebsiteUrl": "https://www.bancosantacruz.com.do",
+    "title": "Debe actualizar su información de contacto, por favor comuniquese con el Banco.",
+    "message": {
+      "prefix": "Llama a nuestro Centro de Contacto al",
+      "middle": "o visita tu centro de Negocios más cercano, consultando en",
+      "linkText": "nuestro sitio web",
+      "suffix": ", para que te asistan con el proceso."
+    },
+    "goHomeButton": "Ir al inicio"
+  },
+  "maximumIntentsModal": {
+    "contactPhone": "809-726-1000",
+    "contactWebsiteUrl": "https://www.bancosantacruz.com.do",
+    "title": "No pudimos realizar esta validación exitosamente.",
+    "warningMessage": "Has superado el número máximo de intentos permitidos. Por razones de seguridad, no podemos continuar con el proceso en línea.",
+    "message": {
+      "prefix": "Llama a nuestro Centro de Contacto al",
+      "middle": "o visita tu centro de Negocios más cercano, consultando en",
+      "linkText": "nuestro sitio web",
+      "suffix": ", para que te asistan con el proceso."
+    },
+    "goHomeButton": "Ir al inicio"
+  },
+  "notValidatedClientModal": {
+    "title": "No te pudimos validar como cliente",
+    "message": "Para usar el App Conversacional debes ser cliente de Banco Santa Cruz. Puedes solicitar tus productos desde nuestro Portal de Ventas.",
+    "portalUrl": "https://solicitudesdigitales.bsc.com.do",
+    "goToPortalButton": "Ir al Portal de Ventas",
+    "goHomeButton": "Ir al inicio"
+  },
+  "timeoutErrorModal": {
+    "title": "Estamos experimentando dificultades técnicas momentáneas",
+    "subtitle": "Te invitamos a visitar nuestro Centro de Negocios más cercano en donde un asesor podrá aclararte cualquier duda y ayudarte a continuar con el proceso. Lamentamos los inconvenientes.",
+    "goHomeButton": "Ir al inicio"
+  },
+  "termsAndConditionsModal": {
+    "title": "Términos y condiciones",
+    "content": "Estos Términos y Condiciones regulan el uso de la Aplicación Móvil, Web, Portal(es) y/o Plataforma(s) Digitales de Banco Santa Cruz. Al continuar, declaras haberlos leído y aceptado en su totalidad.\n\nEl uso de los canales digitales es personal e intransferible. Eres responsable de la custodia de tus credenciales de acceso, de los dispositivos que utilices y de toda operación realizada con ellos.\n\nEl Banco podrá suspender temporalmente los servicios por mantenimiento, seguridad o razones regulatorias, así como actualizar estos términos notificándolo a través de los mismos canales digitales.\n\nLas operaciones realizadas a través de los canales digitales tienen la misma validez legal que las efectuadas en nuestras oficinas, conforme a la normativa vigente en la República Dominicana.",
+    "acceptButton": "Entendido"
+  },
+  "personalDataPolicyModal": {
+    "title": "Política de datos personales",
+    "content": "Banco Santa Cruz trata tus datos personales conforme a la Ley No. 172-13 sobre Protección de Datos de Carácter Personal y demás normativa aplicable.\n\nRecolectamos datos de identificación, contacto, biométricos y transaccionales con la finalidad de validar tu identidad, prevenir fraudes, cumplir obligaciones legales y brindarte nuestros productos y servicios.\n\nTus datos podrán ser compartidos con entidades reguladoras, burós de crédito y proveedores tecnológicos que actúan bajo acuerdos de confidencialidad, siempre con las medidas de seguridad correspondientes.\n\nPuedes ejercer tus derechos de acceso, rectificación, oposición y supresión escribiendo a nuestro Centro de Contacto o visitando cualquier Centro de Negocios.",
+    "acceptButton": "Entendido"
+  },
+  "customerDataConfirmOtp": {
+    "title": "Hola {{firstName}}, necesitamos que indiques y valides tus datos de contacto.",
+    "email": {
+      "codeSent": "Código de verificación enviado al correo.",
+      "otpLabel": "Indica el código recibido en el correo"
+    },
+    "phone": {
+      "codeSent": "Código de verificación enviado al teléfono.",
+      "otpLabel": "Indica el código recibido en tu teléfono"
+    },
+    "sendCodeButton": "Enviar código de validación",
+    "resendCodeButton": "Reenviar código",
+    "otpError": "Código incorrecto. Intente de nuevo.",
+    "sendCodeErrorTitle": "No se pudo enviar el código",
+    "sendCodeErrorMessage": "Ocurrió un error al enviar el código. Intenta nuevamente.",
+    "continueButton": "Continuar",
+    "exitButton": "Salir",
+    "loadDocumentErrorTitle": "No pudimos continuar",
+    "loadDocumentErrorMessage": "Ocurrió un error al preparar tus documentos. Intenta nuevamente."
+  },
+  "completedValidation": {
+    "title": "¡Excelente! Completaste las validaciones con éxito.",
+    "subtitle": "Ya falta muy poco, continúa para completar algunos datos y finalizar el proceso.",
+    "continueButton": "Continuar",
+    "exitButton": "Salir"
+  },
+  "signDocument": {
+    "title": "Firma de documentos",
+    "documentName": "Contrato de Términos de Servicio",
+    "subtitle": "Para firmar los documentos ingresa el código que te enviaremos.",
+    "sendCodeButton": "Enviar código",
+    "exitButton": "Salir",
+    "loadingDocument": "Cargando documento...",
+    "loadErrorTitle": "No pudimos cargar el documento",
+    "loadErrorMessage": "Ocurrió un error al obtener el documento. Intenta nuevamente.",
+    "retryButton": "Reintentar"
+  },
+  "signDocumentOtpModal": {
+    "title": "Ingresa el código enviado al número {{phone}}",
+    "resendCountdown": "Reenviar nuevamente en {{seconds}} segundos.",
+    "resendButton": "Reenviar código",
+    "otpError": "Código incorrecto. Intenta de nuevo.",
+    "otpSuccess": "¡Código validado exitosamente!",
+    "signButton": "Firmar",
+    "cancelButton": "Cancelar",
+    "sendCodeErrorTitle": "No se pudo enviar el código",
+    "sendCodeErrorMessage": "Ocurrió un error al enviar el código. Intenta nuevamente."
+  },
+  "createUser": {
+    "title": "Crea tu usuario y contraseña",
+    "subtitle": "Define las credenciales que usarás para acceder a la aplicación.",
+    "usernameLabel": "Correo electrónico",
+    "usernamePlaceholder": "Ingresa tu cédula o pasaporte",
+    "usernameHint": "Tu correo será tu usuario de acceso a la aplicación.",
+    "usernameError": "Formato inválido. Cédula: 11 dígitos. Pasaporte: 6-12 caracteres alfanuméricos.",
+    "passwordLabel": "Contraseña",
+    "passwordHint": "La contraseña debe tener entre 8 y 20 caracteres. Puedes usar letras, números, espacios y símbolos libremente.",
+    "passwordStrength": {
+      "label": "Seguridad: {{level}}",
+      "weak": "Débil",
+      "medium": "Media",
+      "strong": "Fuerte"
+    },
+    "confirmPasswordLabel": "Confirmar contraseña",
+    "confirmPasswordError": "Las contraseñas no coinciden. Ingresa nuevamente la confirmación.",
+    "continueButton": "Continuar",
+    "creatingUserButton": "Creando usuario...",
+    "exitButton": "Salir",
+    "emailAlreadyInUseError": "Este email ya esta en uso, intenta con otro."
+  },
+  "configureAuthPasskey": {
+    "title": "Configura tu acceso con Passkey",
+    "subtitle": "Un último detalle para entrar más rápido y seguro, sin contraseña.",
+    "boxTitle": "Activa tu Passkey",
+    "boxSubtitle": "Usa la huella, el rostro o el PIN de tu teléfono para entrar. Más rápido y más difícil de suplantar que una contraseña.",
+    "benefit1": "Acceso en un toque, sin contraseña",
+    "benefit2": "Resistente a phishing y robo de credenciales",
+    "benefit3": "Tu contraseña queda como respaldo",
+    "activateButton": "Crear passkey",
+    "activatingButton": "Creando passkey...",
+    "skipButton": "Ahora no",
+    "unavailableTitle": "Passkey no disponible",
+    "unavailableMessage": "Este dispositivo no soporta el registro de passkeys. Puedes continuar sin activarlo.",
+    "enableCancelledTitle": "Registro cancelado",
+    "enableCancelledMessage": "No fue posible confirmar tu identidad para crear el passkey.",
+    "enableErrorTitle": "No se pudo crear el passkey",
+    "enableErrorMessage": "Ocurrió un error al registrar tu passkey en este dispositivo. Intenta nuevamente."
+  },
+  "configureAuthBiometric": {
+    "title": "¡Tu cuenta está lista, {{name}}!",
+    "titleDefault": "Configura tu autenticación biométrica",
+    "subtitle": "Un último detalle para entrar más rápido y seguro.",
+    "boxTitle": "Activa tu acceso con huella o rostro",
+    "boxSubtitle": "Entra con la biometría de tu teléfono, sin escribir tu contraseña. Más rápido y más difícil de suplantar.",
+    "benefit1": "Acceso en un toque",
+    "benefit2": "Resistente a phishing y robo de claves",
+    "benefit3": "Tu contraseña queda como respaldo",
+    "activateButton": "Activar ahora",
+    "skipButton": "Ahora no, quiero explorar la app",
+    "unavailableTitle": "Biometría no disponible",
+    "unavailableMessage": "Este dispositivo no tiene biometría configurada. Puedes continuar sin activarla.",
+    "enableConfirmPromptMessage": "Confirma tu {{biometryName}} para activar el acceso biométrico",
+    "enableKeychainPromptTitle": "Activa tu biometría",
+    "enableKeychainPromptSubtitle": "Vincula esta biometría a tu cuenta para futuros accesos",
+    "enableKeychainPromptCancel": "Cancelar",
+    "enableCancelledTitle": "Activación cancelada",
+    "enableCancelledMessage": "No fue posible confirmar tu biometría.",
+    "enableErrorTitle": "No se pudo activar la biometría",
+    "enableErrorMessage": "Ocurrió un error al guardar tu acceso biométrico en este dispositivo. Intenta nuevamente."
+  },
+  "registerSecureDevice": {
+    "title": "{{name}}, registremos tu dispositivo como seguro",
+    "titleDefault": "Registremos tu dispositivo como seguro",
+    "subtitle": "Para proteger tu cuenta y poder realizar transacciones, completa tu prueba de vida. Solo te tomará unos segundos.",
+    "continueButton": "Continuar",
+    "skipButton": "Omitir por ahora",
+    "livenessAlertMessage": "Aquí se accederá a la prueba de vida"
+  },
+  "proofOfLife": {
+    "title": "{{name}}, verifiquemos tu identidad",
+    "titleDefault": "Verifiquemos tu identidad",
+    "subtitle": "Vamos a tomar una foto de tu cédula dominicana y una de tu rostro para confirmar que eres tú. Solo te tomará unos segundos.",
+    "startButton": "Continuar",
+    "verifyingButton": "Verificando...",
+    "skipButton": "Omitir por ahora",
+    "successTitle": "¡Verificación exitosa!",
+    "successMessage": "Completamos tu prueba de vida correctamente.",
+    "successContinueButton": "Continuar"
+  },
+  "welcomeModal": {
+    "title": "¡Te damos la bienvenida, {{name}}!",
+    "titleDefault": "¡Te damos la bienvenida!",
+    "description": {
+      "prefix": "Has activado ",
+      "highlight": "Conecta BSC",
+      "suffix": ", tu nuevo canal conversacional. Aquí podrás consultar tus productos y resolver tus dudas escribiendo, como lo harías con una persona de tu confianza."
+    },
+    "accessButton": "Acceder al chat"
+  }
+}

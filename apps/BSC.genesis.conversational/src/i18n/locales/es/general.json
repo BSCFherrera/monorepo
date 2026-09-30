@@ -1,0 +1,58 @@
+{
+  "notValidatedClientModal": {
+    "title": "No te pudimos validar como cliente",
+    "message": "Para usar el App Conversacional debes ser cliente de Banco Santa Cruz. Puedes solicitar tus productos desde nuestro Portal de Ventas.",
+    "portalUrl": "https://solicitudesdigitales.bsc.com.do",
+    "goToPortalButton": "Ir al Portal de Ventas",
+    "goHomeButton": "Ir al inicio"
+  },
+  "timeoutErrorModal": {
+    "title": "Estamos experimentando dificultades técnicas momentáneas",
+    "subtitle": "Te invitamos a visitar nuestro Centro de Negocios más cercano en donde un asesor podrá aclararte cualquier duda y ayudarte a continuar con el proceso. Lamentamos los inconvenientes.",
+    "goHomeButton": "Ir al inicio"
+  },
+  "clientVerifiedModal": {
+    "title": "Confirma tus datos",
+    "subtitle": "Confirma que tus datos de nombre(s) y apellido(s) estén correctos para proceder.",
+    "nameLabel": "NOMBRES Y APELLIDOS",
+    "continueButton": "Continuar",
+    "notMeButton": "No soy yo"
+  },
+  "errorUserWithoutData": {
+    "contactPhone": "809-726-1000",
+    "contactWebsiteUrl": "https://www.bancosantacruz.com.do",
+    "title": "Debe actualizar su información de contacto, por favor comuniquese con el Banco.",
+    "message": {
+      "prefix": "Llama a nuestro Centro de Contacto al",
+      "middle": "o visita tu centro de Negocios más cercano, consultando en",
+      "linkText": "nuestro sitio web",
+      "suffix": ", para que te asistan con el proceso."
+    },
+    "goHomeButton": "Ir al inicio"
+  },
+  "maximumIntentsModal": {
+    "contactPhone": "809-726-1000",
+    "contactWebsiteUrl": "https://www.bancosantacruz.com.do",
+    "title": "No pudimos realizar esta validación exitosamente.",
+    "warningMessage": "Has superado el número máximo de intentos permitidos. Por razones de seguridad, no podemos continuar con el proceso en línea.",
+    "message": {
+      "prefix": "Llama a nuestro Centro de Contacto al",
+      "middle": "o visita tu centro de Negocios más cercano, consultando en",
+      "linkText": "nuestro sitio web",
+      "suffix": ", para que te asistan con el proceso."
+    },
+    "goHomeButton": "Ir al inicio"
+  },
+  "errorGeneral": {
+    "contactPhone": "809-726-1000",
+    "contactWebsiteUrl": "https://www.bancosantacruz.com.do",
+    "title": "No pudimos realizar esta validación exitosamente.",
+    "message": {
+      "prefix": "Llama a nuestro Centro de Contacto al",
+      "middle": "o visita tu centro de Negocios más cercano, consultando en",
+      "linkText": "nuestro sitio web",
+      "suffix": ", para que te asistan con el proceso."
+    },
+    "goHomeButton": "Ir al inicio"
+  }
+}

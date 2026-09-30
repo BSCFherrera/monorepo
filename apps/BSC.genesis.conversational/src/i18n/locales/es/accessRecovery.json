@@ -1,0 +1,98 @@
+{
+  "recoveryOptions": {
+    "title": "¿Qué necesitas recuperar?",
+    "description": "Elige la credencial que deseas gestionar para restablecer tu acceso.",
+    "userRecoverySubtitle": "Recuperar mi Usuario",
+    "userRecoveryLabel": "Te ayudaremos a identificar tu usuario validando tus datos registrados (documento de identidad)",
+    "passwordRecoverySubtitle": "Restablecer mi Contraseña",
+    "passwordRecoveryLabel": "Si conoces tu usuario, verificaremos tu identidad con prueba de vida biométrica para crear una nueva contraseña.",
+    "bothRecoverySubtitle": "¿Olvidaste ambos accesos?",
+    "bothRecoveryLabel": "No recuerdo ninguno de mis accesos. Te guiaremos paso a paso para recuperar primero tu usuario y luego tu contraseña."
+  },
+  "accountIdentification": {
+    "title": "Identifiquemos tu cuenta",
+    "subtitle": "Ingresa los datos registrados en tu cuenta para encontrar tu usuario de forma segura.",
+    "documentTypeLabel": "Tipo de documento",
+    "documentTypePlaceholder": "Selecciona tu tipo de documento",
+    "documentTypeOptions": {
+      "cedula": "Cédula",
+      "passport": "Pasaporte"
+    },
+    "documentNumberLabel": "Número de identificación",
+    "documentNumberPlaceholder": {
+      "cedula": "402-12345678-9",
+      "passport": "AB123456"
+    },
+    "errors": {
+      "cedulaLength": "La cédula debe tener 11 dígitos.",
+      "passportRequired": "Ingresa tu número de pasaporte.",
+      "passportLength": "El pasaporte solo debe contener letras y números, entre 6 y 12 caracteres",
+      "documentRequired": "El documento es requerido."
+    },
+    "continueButton": "Continuar",
+    "exitButton": "Salir"
+  },
+  "userRecovery": {
+    "title": "¡Usuario recuperado con éxito!",
+    "subtitle": "Identidad certificada por protocolo seguro BSC.",
+    "description": "Hemos verificado tu identidad correctamente mediante tus factores biométricos. Tu usuario asociado es:",
+    "userLabel": "Tu usuario de acceso",
+    "continue": "Restablecer mi contraseña",
+    "backToLogin": "Ir a Iniciar Sesión"
+  },
+  "confirmOtp": {
+    "title": "Hola {{firstName}}, necesitamos que indiques y valides tus datos de contacto.",
+    "email": {
+      "codeSent": "Código de verificación enviado al correo.",
+      "otpLabel": "Indica el código recibido en el correo"
+    },
+    "phone": {
+      "codeSent": "Código de verificación enviado al teléfono.",
+      "otpLabel": "Indica el código recibido en tu teléfono"
+    },
+    "sendCodeButton": "Enviar código de validación",
+    "resendCodeButton": "Reenviar código",
+    "otpError": "Código incorrecto. Intente de nuevo.",
+    "sendCodeErrorTitle": "No se pudo enviar el código",
+    "sendCodeErrorMessage": "Ocurrió un error al enviar el código. Intenta nuevamente.",
+    "continueButton": "Continuar",
+    "exitButton": "Salir",
+    "loadDocumentErrorTitle": "No pudimos continuar",
+    "loadDocumentErrorMessage": "Ocurrió un error al preparar tus documentos. Intenta nuevamente."
+  },
+  "passwordRecovery": {
+    "title": "Crea tu nueva contraseña.",
+    "subtitle": "Tu identidad ha sido verificada. Establece una contraseña robusta para proteger tu cuenta institucional.",
+    "passwordLabel": "Nueva contraseña.",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+
+    "confirmPasswordLabel": "Confirmar nueva contraseña.",
+    "confirmPasswordPlaceholder": "Repite tu contraseña",
+    "passwordHint": "La contraseña debe tener entre 8 y 20 caracteres. Puedes usar letras, números, espacios y símbolos libremente.",
+    "passwordStrength": {
+      "label": "Seguridad: {{level}}",
+      "weak": "Débil",
+      "medium": "Media",
+      "strong": "Fuerte"
+    },
+    "continueButton": "Guardar y actualizar contraseña",
+    "confirmPasswordError": "Las contraseñas no coinciden. Ingresa nuevamente la confirmación.",
+    "exitButton": "Cancelar o volver"
+  },
+  "modals": {
+    "successTitle": "¡Proceso completado con éxito!",
+    "successMessage": "Tu proceso de restauración se ha completado correctamente.",
+    "successContinueButton": "Continuar"
+  },
+  "proofOfLife": {
+    "title": "{{name}}, verifiquemos tu identidad",
+    "titleDefault": "Verifiquemos tu identidad",
+    "subtitle": "Vamos a tomar una foto de tu cédula dominicana y una de tu rostro para confirmar que eres tú. Solo te tomará unos segundos.",
+    "startButton": "Continuar",
+    "verifyingButton": "Verificando...",
+    "skipButton": "Omitir por ahora",
+    "successTitle": "¡Verificación exitosa!",
+    "successMessage": "Completamos tu prueba de vida correctamente.",
+    "successContinueButton": "Continuar"
+  }
+}
