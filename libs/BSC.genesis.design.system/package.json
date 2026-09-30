@@ -7,6 +7,10 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "sideEffects": false,
+  "scripts": {
+    "storybook": "storybook dev -p 6006 --host 127.0.0.1 --no-open --disable-telemetry",
+    "build-storybook": "storybook build --disable-telemetry"
+  },
   "dependencies": {
     "@bsc/contracts": "workspace:*",
     "@bsc/utils": "workspace:*"
@@ -26,6 +30,11 @@
     "@react-native/eslint-config": "catalog:",
     "@react-native/jest-preset": "catalog:",
     "@react-native/typescript-config": "catalog:",
+    "@storybook/addon-essentials": "8.6.14",
+    "@storybook/core": "8.6.14",
+    "@storybook/react": "8.6.14",
+    "@storybook/react-vite": "8.6.14",
+    "@storybook/test": "8.6.14",
     "@types/jest": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
@@ -34,11 +43,16 @@
     "jest": "catalog:",
     "prettier": "catalog:",
     "react": "catalog:",
+    "react-dom": "catalog:",
     "react-native": "catalog:",
     "react-native-linear-gradient": "catalog:",
     "react-native-safe-area-context": "catalog:",
     "react-native-svg": "catalog:",
+    "react-native-web": "catalog:",
     "react-test-renderer": "catalog:",
-    "typescript": "catalog:"
+    "storybook": "8.6.14",
+    "ts-dedent": "2.2.0",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }
