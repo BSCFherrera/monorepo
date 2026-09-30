@@ -1,16 +1,5 @@
 import type { ReactNode } from 'react';
 
-export interface HeaderProps {
-  title: string;
-  subtitle?: string;
-  leftComponent?: ReactNode;
-  rightComponent?: ReactNode;
-  onBack?: () => void;
-  backLabel?: string;
-  actions?: ReactNode;
-  topInset?: number;
-}
-
 export interface DrawerMenuGroup {
   title?: string;
   items: readonly DrawerMenuItem[];

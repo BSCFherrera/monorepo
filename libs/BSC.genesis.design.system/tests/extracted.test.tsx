@@ -3,7 +3,6 @@ import { AccessibilityInfo, Animated, Modal, StyleSheet, Text, View, type Measur
 import { Input, TextField, ErrorText, Checkbox } from '../src/components/forms';
 import { Select } from '../src/components/selection';
 import { OtpInput } from '../src/components/otp';
-import { Header } from '../src/components/navigation/Header';
 import { OtpVerificationField, FeedbackModal, ErrorGeneric, DrawerMenu, HamburgerMenu, TypingIndicator, ActionCard, MessageBubble } from '../src';
 
 test('Input composes focus callbacks and enforces read-only and disabled behavior', () => {
@@ -175,14 +174,9 @@ test('FeedbackModal confirmation does not auto-dismiss and canDismiss blocks bac
   expect(confirm).toHaveBeenCalledTimes(1);
 });
 
-test('headers work without navigation or application providers', () => {
-  const back = jest.fn();
+test('DrawerMenu renders without navigation or application providers', () => {
   const select = jest.fn();
   const dismiss = jest.fn();
-  const view = render(<Header title="Details" onBack={back} />);
-  fireEvent.press(screen.getByRole('button', { name: 'Back' }));
-  expect(back).toHaveBeenCalledTimes(1);
-  view.unmount();
   render(<DrawerMenu visible title="Menu" onDismiss={dismiss} items={[{ id: 'one', label: 'Overview', onPress: select }]} />);
   fireEvent.press(screen.getByRole('button', { name: 'Overview' }));
   expect(select).toHaveBeenCalledTimes(1);

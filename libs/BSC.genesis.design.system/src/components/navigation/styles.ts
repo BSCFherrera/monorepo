@@ -2,49 +2,6 @@ import { StyleSheet } from 'react-native';
 import { tokens } from '../../tokens';
 
 export const styles = StyleSheet.create({
-  // Header
-  headerContainer: {
-    height: tokens.dimensions.headerHeight,
-    backgroundColor: tokens.colors.primary,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: tokens.spacing.md,
-    borderBottomWidth: 1,
-    borderBottomColor: tokens.colors.primaryDark,
-  },
-  headerSide: {
-    minWidth: 40,
-  },
-  headerRightSide: {
-    alignItems: 'flex-end',
-  },
-  headerCenter: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: tokens.fontSizes.xl,
-    fontWeight: tokens.fontWeights.bold,
-    color: '#FFFFFF',
-  },
-  headerSubtitle: {
-    fontSize: tokens.fontSizes.sm,
-    color: '#FFFFFF',
-    opacity: 0.8,
-    marginTop: 2,
-  },
-  headerBack: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerBackText: {
-    color: '#FFFFFF',
-    fontSize: 28,
-    fontWeight: tokens.fontWeights.bold,
-  },
-
   // DrawerMenu
   drawerOverlay: {
     flex: 1,
