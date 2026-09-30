@@ -134,6 +134,16 @@ export {
 } from './components/BscTypingIndicator';
 
 export {
+  BscDrawerMenu,
+  type BscDrawerMenuGroup,
+  type BscDrawerMenuHistoryItem,
+  type BscDrawerMenuItem,
+  type BscDrawerMenuLegacyHistoryItem,
+  type BscDrawerMenuProps,
+  type BscDrawerMenuRoute,
+} from './components/BscDrawerMenu';
+
+export {
   BscSteps,
   type BscStepsProps,
 } from './components/BscSteps';

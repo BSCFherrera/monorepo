@@ -18,6 +18,7 @@ const catalogMappings = [
   ['Verification/BscOtpInput', bsc.BscOtpInput],
   ['Navigation/BscScreenHeader', bsc.BscScreenHeader],
   ['Navigation/BscPageHeader', bsc.BscPageHeader],
+  ['Navigation/BscDrawerMenu', bsc.BscDrawerMenu],
   ['Verification/BscOtpVerificationField', bsc.BscOtpVerificationField],
   ['Cards/BscCard', bsc.BscCard],
   ['Cards/BscActionCard', bsc.BscActionCard],

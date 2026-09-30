@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 import type { Meta, StoryObj } from '@storybook/react';
-import { BscPrimaryButton } from '@bsc/ui-native';
-import { HamburgerMenu as DrawerMenu } from '../src';
+import { BscDrawerMenu, BscPrimaryButton } from '@bsc/ui-native';
 
 const meta = {
-  title: 'Navigation/DrawerMenu',
-  component: DrawerMenu,
+  title: 'Navigation/BscDrawerMenu',
+  component: BscDrawerMenu,
   args: { visible: false, onDismiss: () => {} },
   parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof DrawerMenu>;
+} satisfies Meta<typeof BscDrawerMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -21,7 +20,7 @@ function DrawerExample() {
     <View style={{ gap: 16 }}>
       <BscPrimaryButton label="Open drawer" onPress={() => setVisible(true)} />
       <Text>Selected: {selected}</Text>
-      <DrawerMenu
+      <BscDrawerMenu
         visible={visible}
         onDismiss={() => setVisible(false)}
         selectedId={selected}
@@ -52,7 +51,7 @@ const [selected, setSelected] = useState('main');
 
 <>
   <BscPrimaryButton label="Open drawer" onPress={() => setVisible(true)} />
-  <DrawerMenu
+  <BscDrawerMenu
     visible={visible}
     onDismiss={() => setVisible(false)}
     selectedId={selected}

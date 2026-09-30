@@ -315,6 +315,55 @@ declare module '@bsc/ui-native' {
   export function useReducedMotionEnabled(): boolean;
   export function startTypingIndicatorAnimations(...args: unknown[]): () => void;
 
+  export interface BscDrawerMenuGroup {
+    title?: string;
+    items: readonly BscDrawerMenuItem[];
+  }
+
+  export interface BscDrawerMenuItem {
+    id: string;
+    label: string;
+    icon?: ReactNode;
+    onPress: () => void;
+    disabled?: boolean;
+  }
+
+  export interface BscDrawerMenuHistoryItem {
+    id: string;
+    title: string;
+    preview: string;
+    onPress?: () => void;
+  }
+
+  export type BscDrawerMenuRoute = 'Chat' | 'Transactions' | 'Products' | 'Profile' | (string & {});
+
+  export interface BscDrawerMenuLegacyHistoryItem {
+    id: string;
+    title: string;
+    preview: string;
+  }
+
+  export interface BscDrawerMenuProps {
+    visible: boolean;
+    onDismiss?: () => void;
+    onClose?: () => void;
+    groups?: readonly BscDrawerMenuGroup[];
+    items?: readonly BscDrawerMenuItem[];
+    selectedId?: string;
+    history?: readonly BscDrawerMenuHistoryItem[];
+    newConversationLabel?: string;
+    onNewConversation?: () => void;
+    logoutLabel?: string;
+    onLogout?: () => void;
+    footer?: ReactNode;
+    title?: string;
+    onNavigate?: (route: BscDrawerMenuRoute) => void;
+    onOpenHistory?: (history: BscDrawerMenuLegacyHistoryItem) => void;
+    currentRoute?: BscDrawerMenuRoute;
+  }
+
+  export function BscDrawerMenu(props: BscDrawerMenuProps): React.JSX.Element | null;
+
   export interface BscStepsProps {
     labels?: readonly string[];
     current: number;
