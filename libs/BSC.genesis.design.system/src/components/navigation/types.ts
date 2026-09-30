@@ -11,30 +11,6 @@ export interface HeaderProps {
   topInset?: number;
 }
 
-export interface AppHeaderProps {
-  brand?: ReactNode;
-  logo?: ReactNode;
-  showBackButton?: boolean;
-  onBackPress?: () => void;
-  showBottomLine?: boolean;
-  actions?: ReactNode;
-  avatar?: ReactNode;
-}
-
-export interface BrandHeaderProps {
-  brand?: ReactNode;
-  title?: string;
-  showMenu?: boolean;
-  onMenuPress?: () => void;
-  showProfile?: boolean;
-  onProfilePress?: () => void;
-  showNotification?: boolean;
-  onNotificationPress?: () => void;
-  userInitials?: string;
-  hasNotification?: boolean;
-  topInset?: number;
-}
-
 export interface DrawerMenuGroup {
   title?: string;
   items: readonly DrawerMenuItem[];
