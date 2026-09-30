@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { View } from 'react-native';
-import { MessageBubble } from '../src';
+import { BscMessageBubble } from '@bsc/ui-native';
 
 const meta = {
-  title: 'Conversation/MessageBubble',
-  component: MessageBubble,
+  title: 'Conversation/BscMessageBubble',
+  component: BscMessageBubble,
   args: { children: 'How can I help you today?', direction: 'incoming' },
-} satisfies Meta<typeof MessageBubble>;
+} satisfies Meta<typeof BscMessageBubble>;
 
 export default meta;
 export const Incoming: StoryObj<typeof meta> = {};
@@ -16,9 +16,9 @@ export const BoldText: StoryObj<typeof meta> = { args: { children: 'Your **accou
 export const Conversation: StoryObj = {
   render: () => (
     <View style={{ gap: 4 }}>
-      <MessageBubble timestampLabel="10:00">How can I help you?</MessageBubble>
-      <MessageBubble direction="outgoing" timestampLabel="10:01">Show me the available options.</MessageBubble>
-      <MessageBubble timestampLabel="10:02">Here are your **current options** for assistance.</MessageBubble>
+      <BscMessageBubble timestampLabel="10:00">How can I help you?</BscMessageBubble>
+      <BscMessageBubble direction="outgoing" timestampLabel="10:01">Show me the available options.</BscMessageBubble>
+      <BscMessageBubble timestampLabel="10:02">Here are your **current options** for assistance.</BscMessageBubble>
     </View>
   ),
 };

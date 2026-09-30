@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TypingIndicator } from '../src';
+import { BscTypingIndicator } from '@bsc/ui-native';
 
 const meta = {
-  title: 'Conversation/TypingIndicator',
-  component: TypingIndicator,
+  title: 'Conversation/BscTypingIndicator',
+  component: BscTypingIndicator,
   args: { animated: true },
-} satisfies Meta<typeof TypingIndicator>;
+} satisfies Meta<typeof BscTypingIndicator>;
 
 export default meta;
 export const Animated: StoryObj<typeof meta> = {};

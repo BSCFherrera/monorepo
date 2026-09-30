@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { BscColors } from '../theme/colors';
@@ -23,58 +24,115 @@ export function BscMessageBubble({
   message,
   testID,
 }: BscMessageBubbleProps): React.JSX.Element {
-  const outgoing = direction === 'outgoing';
+  const legacyDirection = mapSenderToDirection(message?.sender);
+  const resolvedDirection = legacyDirection ?? direction;
+  const outgoing = resolvedDirection === 'outgoing';
   const content = children ?? message?.content;
   const timestamp = timestampLabel ?? formatTimestamp(message?.timestamp);
+  const segments = useMemo(
+    () => (typeof content === 'string' ? parseBoldText(content) : null),
+    [content],
+  );
 
   return (
     <View style={[styles.wrapper, outgoing && styles.wrapperOutgoing]} testID={testID}>
-      {message?.sender === undefined ? null : <Text style={styles.sender}>{message.sender}</Text>}
       <View style={[styles.bubble, outgoing ? styles.outgoing : styles.incoming]}>
-        {typeof content === 'string' ? <Text style={styles.text}>{content}</Text> : content}
+        <Text style={[styles.text, outgoing ? styles.outgoingText : styles.incomingText]}>
+          {segments !== null
+            ? segments.map((segment, index) => (
+                <Text key={index} style={segment.bold ? styles.boldText : undefined}>
+                  {segment.text}
+                </Text>
+              ))
+            : content}
+        </Text>
+        {timestamp === undefined ? null : (
+          <Text style={[styles.timestamp, outgoing ? styles.outgoingTimestamp : styles.incomingTimestamp]}>
+            {timestamp}
+          </Text>
+        )}
       </View>
-      {timestamp === undefined ? null : <Text style={styles.timestamp}>{timestamp}</Text>}
     </View>
   );
 }
 
 function formatTimestamp(value: string | number | Date | undefined): string | undefined {
   if (value === undefined) return undefined;
-  if (typeof value === 'string') return value;
-  return new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function mapSenderToDirection(sender?: string): BscMessageBubbleProps['direction'] | undefined {
+  switch (sender?.toLowerCase()) {
+    case 'user':
+    case 'me':
+    case 'outgoing':
+      return 'outgoing';
+    case 'other':
+    case 'bot':
+    case 'assistant':
+    case 'incoming':
+      return 'incoming';
+    default:
+      return undefined;
+  }
+}
+
+function parseBoldText(input: string): Array<{ text: string; bold: boolean }> {
+  const parts = input.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+  return parts.map(part => {
+    const bold = part.startsWith('**') && part.endsWith('**');
+    return { text: bold ? part.slice(2, -2) : part, bold };
+  });
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    alignSelf: 'flex-start',
-    maxWidth: '86%',
-    gap: BscSpacing.xs,
+    width: '100%',
+    marginBottom: BscSpacing.md,
+    paddingHorizontal: BscSpacing.sm,
+    alignItems: 'flex-start',
   },
   wrapperOutgoing: {
-    alignSelf: 'flex-end',
+    alignItems: 'flex-end',
   },
   bubble: {
-    paddingHorizontal: BscSpacing.md,
-    paddingVertical: BscSpacing.sm,
+    maxWidth: '82%',
+    padding: BscSpacing.md,
     borderRadius: BscRadius.md,
   },
   incoming: {
-    backgroundColor: BscColors.surfaceMuted,
+    backgroundColor: BscColors.surface,
+    borderWidth: 1,
+    borderColor: BscColors.border,
+    borderBottomLeftRadius: BscRadius.xs,
   },
   outgoing: {
-    backgroundColor: BscColors.primarySoft,
+    backgroundColor: BscColors.primaryLight,
+    borderBottomRightRadius: BscRadius.xs,
   },
   text: {
     ...BscTextStyles['Body S/14 Regular'],
+  },
+  boldText: {
+    ...BscTextStyles['Body S/14 Bold'],
+  },
+  incomingText: {
     color: BscColors.textPrimary,
   },
-  sender: {
-    ...BscTextStyles['Caption/12 Medium'],
-    color: BscColors.textSecondary,
+  outgoingText: {
+    color: BscColors.textOnDark,
   },
   timestamp: {
     ...BscTextStyles['Caption/12 Regular'],
-    color: BscColors.textTertiary,
-    alignSelf: 'flex-end',
+    marginTop: BscSpacing.xs,
+  },
+  incomingTimestamp: {
+    color: BscColors.textSecondary,
+  },
+  outgoingTimestamp: {
+    color: BscColors.textSecondary,
+    textAlign: 'right',
   },
 });

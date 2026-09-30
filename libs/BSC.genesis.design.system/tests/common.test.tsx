@@ -22,6 +22,8 @@ const catalogMappings = [
   ['Cards/BscCard', bsc.BscCard],
   ['Cards/BscActionCard', bsc.BscActionCard],
   ['Cards/BscInfoCard', bsc.BscInfoCard],
+  ['Conversation/BscMessageBubble', bsc.BscMessageBubble],
+  ['Conversation/BscTypingIndicator', bsc.BscTypingIndicator],
   ['Verification/BscSteps', bsc.BscSteps],
   ['Feedback/BscLoadingOverlay', bsc.BscLoadingOverlay],
   ['Feedback/Loader', 'Loader'],
