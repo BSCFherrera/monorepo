@@ -56,6 +56,7 @@ pnpm deps:sync    # fix what can be fixed automatically, then run pnpm install
 
 pnpm banking:start                                # Metro (terminal 1)
 pnpm banking:android                              # or banking:ios (terminal 2)
+pnpm banking:run                                  # all in one: Metro + emulator/simulator + app on Android and iOS (--android, --ios, --stop)
 pnpm nx run BSC.genesis.mobile.banking:web        # browser preview (Vite)
 pnpm nx run BSC.genesis.mobile.banking:verify     # the app's full verification script
 

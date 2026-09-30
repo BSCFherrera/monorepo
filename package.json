@@ -18,6 +18,7 @@
     "banking:start": "nx run BSC.genesis.mobile.banking:start",
     "banking:android": "nx run BSC.genesis.mobile.banking:android",
     "banking:ios": "nx run BSC.genesis.mobile.banking:ios",
+    "banking:run": "node apps/BSC.genesis.mobile.banking/scripts/ejecutar-en-dispositivos.mjs",
     "conversational:start": "nx run BSC.genesis.conversational:start",
     "conversational:android": "nx run BSC.genesis.conversational:android",
     "conversational:ios": "nx run BSC.genesis.conversational:ios",

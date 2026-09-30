@@ -56,6 +56,8 @@ En un emulador, React Native busca Metro en `10.0.2.2:8081`, y la política de r
 
 La solución es apuntar la app a `localhost`, que llega a la laptop por `adb reverse`, sin tocar la política:
 
+`pnpm banking:run` (desde la raíz) lo hace solo en cada emulador: fija `metro.host=localhost` con `adb root`, abre el túnel y comprueba que Metro responde. A mano:
+
 1. Con la app abierta, `Ctrl+M` → **Change Bundle Location** → `localhost:8081` → recargar.
 2. Túneles de Metro y del backend (`run-android` crea el de Metro, pero no está de más):
 
