@@ -3,7 +3,8 @@ import { AccessibilityInfo, Animated, Modal, StyleSheet, Text, View, type Measur
 import { Input, TextField, ErrorText, Checkbox } from '../src/components/forms';
 import { Select } from '../src/components/selection';
 import { OtpInput } from '../src/components/otp';
-import { OtpVerificationField, FeedbackModal, ErrorGeneric, Header, DrawerMenu, HamburgerMenu, TypingIndicator, ActionCard, MessageBubble } from '../src';
+import { Header } from '../src/components/navigation/Header';
+import { OtpVerificationField, FeedbackModal, ErrorGeneric, DrawerMenu, HamburgerMenu, TypingIndicator, ActionCard, MessageBubble } from '../src';
 
 test('Input composes focus callbacks and enforces read-only and disabled behavior', () => {
   const change = jest.fn();

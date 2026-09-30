@@ -1,15 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HeaderOnboarding = exports.HamburgerMenu = exports.BankHeader = exports.DrawerMenu = exports.BrandHeader = exports.AppHeader = exports.Header = void 0;
-var Header_1 = require("./Header");
-Object.defineProperty(exports, "Header", { enumerable: true, get: function () { return Header_1.Header; } });
-var AppHeader_1 = require("./AppHeader");
-Object.defineProperty(exports, "AppHeader", { enumerable: true, get: function () { return AppHeader_1.AppHeader; } });
-var BrandHeader_1 = require("./BrandHeader");
-Object.defineProperty(exports, "BrandHeader", { enumerable: true, get: function () { return BrandHeader_1.BrandHeader; } });
+exports.HamburgerMenu = exports.DrawerMenu = void 0;
 var DrawerMenu_1 = require("./DrawerMenu");
 Object.defineProperty(exports, "DrawerMenu", { enumerable: true, get: function () { return DrawerMenu_1.DrawerMenu; } });
 var aliases_1 = require("./aliases");
-Object.defineProperty(exports, "BankHeader", { enumerable: true, get: function () { return aliases_1.BankHeader; } });
 Object.defineProperty(exports, "HamburgerMenu", { enumerable: true, get: function () { return aliases_1.HamburgerMenu; } });
-Object.defineProperty(exports, "HeaderOnboarding", { enumerable: true, get: function () { return aliases_1.HeaderOnboarding; } });
