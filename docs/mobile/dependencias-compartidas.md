@@ -2,7 +2,7 @@
 
 Las apps React Native del monorepo (`apps/BSC.genesis.mobile.banking` y las que
 se agreguen, como `apps/BSC.genesis.conversational`) usan **las mismas
-dependencias y en la misma versión**. Así un componente de `libs/shared-ui-native`
+dependencias y en la misma versión**. Así un componente de `libs/BSC.genesis.design.system`
 o una utilidad de `libs/shared-utils` se comporta igual en todas, y un módulo
 nativo nunca existe en dos versiones dentro del workspace.
 
@@ -26,7 +26,7 @@ escribir la versión:
 "dependencies": {
   "react": "catalog:",
   "react-native": "catalog:",
-  "@bsc/ui-native": "workspace:*"
+  "@bsc/design-system": "workspace:*"
 }
 ```
 
@@ -127,7 +127,7 @@ cambio, con `pod install` y compilación de todas las apps antes de integrar.
    del charter), con su propio `applicationId` / bundle id y su nombre en
    `app.json`.
 2. En su `package.json` deja `name`, `version`, `private`, los scripts y los
-   paquetes propios (`"@bsc/ui-native": "workspace:*"`, etc.). Sin versiones de
+   paquetes propios (`"@bsc/design-system": "workspace:*"`, etc.). Sin versiones de
    terceros.
 3. `pnpm deps:sync` añade todas las dependencias de terceros que ya declara
    mobile banking, como `catalog:`.

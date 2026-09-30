@@ -1,7 +1,7 @@
 /**
  * Sistema de diseño BSC — colores, en la forma que usan los componentes.
  *
- * Los valores viven en `@bsc/design-tokens`. Este archivo solo los presenta
+ * Los valores viven en `src/tokens`. Este archivo solo los presenta
  * como un mapa plano (`BscColors.primary`) y traduce los degradados a lo que
  * espera `react-native-linear-gradient`. Cambiar un color es cambiar el token.
  */
@@ -17,7 +17,7 @@ import {
   text,
   transaction,
   type GradientToken,
-} from '@bsc/design-tokens';
+} from '../tokens';
 
 export const BscColors = {
   // ─── Marca: azul ────────────────────────────────────────────────────────

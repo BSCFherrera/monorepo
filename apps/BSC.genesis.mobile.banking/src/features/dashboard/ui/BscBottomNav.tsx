@@ -10,8 +10,8 @@ import {
   BscShadows,
   coloredShadow,
   BscTextStyles,
-} from '@bsc/ui-native';
-import type { BscIconName } from '@bsc/ui-native';
+} from '@bsc/design-system';
+import type { BscIconName } from '@bsc/design-system';
 
 /**
  * Barra de navegación inferior.

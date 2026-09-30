@@ -9,11 +9,11 @@ import {
   sheet,
   spacing,
   type ShadowToken,
-} from '@bsc/design-tokens';
+} from '../tokens';
 
 /**
  * Sistema de diseño BSC — espaciado, radios y sombras, en la forma que usan
- * los componentes. Los valores viven en `@bsc/design-tokens`.
+ * los componentes. Los valores viven en `src/tokens`.
  *
  * Toda la interfaz se ajusta a la escala de 4 puntos para que el ritmo vertical
  * sea consistente entre pantallas hechas por personas distintas.

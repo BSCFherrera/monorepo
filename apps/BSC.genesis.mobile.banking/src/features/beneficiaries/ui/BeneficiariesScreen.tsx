@@ -19,8 +19,8 @@ import {
   BscSpacing,
   BscSpinner,
   type BscIconName,
-} from '@bsc/ui-native';
-import { buttonTokens } from '@bsc/ui-native';
+} from '@bsc/design-system';
+import { buttonTokens } from '@bsc/design-system';
 import type { TwoFactorRepository } from '../../twoFactor/data/twoFactorRepository';
 import {
   CATALOGOS_VACIOS,

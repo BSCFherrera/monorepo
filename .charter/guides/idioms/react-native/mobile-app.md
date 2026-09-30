@@ -10,7 +10,7 @@ globs:
   - "apps/*/ios/**"
   - "apps/*-e2e/**"
   - "apps/BSC.genesis.mobile.banking/src/**"
-  - "libs/shared-ui-native/src/**"
+  - "libs/BSC.genesis.design.system/src/**"
   - "apps/*/package.json"
   - "libs/*/package.json"
   - "pnpm-workspace.yaml"
@@ -33,6 +33,7 @@ Every mobile app is built with `react-native@0.87.x` — the currently supported
 - Scaffold new mobile apps as `apps/<name>` in the Nx monorepo (an Nx React Native generator/community plugin, or a manually wired RN project added to the Nx task graph) — never a standalone RN project living outside the monorepo.
 - The mobile app's backend is its own deployable app under `apps/<backend-name>`, following [`idioms/nx/monorepo-structure`](idioms/nx/monorepo-structure.md) and [`idioms/hexagonal-architecture`](idioms/hexagonal-architecture.md) layering (`domain/`, `application/`, `infrastructure/`, `presentation/`) — never a set of serverless functions or ad hoc endpoints bolted onto an existing app.
 - Mobile view-models/screens are the `presentation/` layer per hexagonal architecture: they validate input, call the backend API, and render the response — they never carry a calculation or derived value themselves.
+- The app's UI comes only from `@bsc/design-system` (`libs/BSC.genesis.design.system`): the app defines screens and navigation, never UI components, and a missing component is added to the lib first — per [`idioms/design-system/bsc-design-system`](idioms/design-system/bsc-design-system.md).
 - TDD applies per [`idioms/testing-policy`](idioms/testing-policy.md): the RN app's own unit/integration tests run under **Jest** + `@testing-library/react-native`, its mandated stack per [`idioms/testing-stack`](idioms/testing-stack.md) — the backend app's unit/integration tests still run under Vitest, since business logic lives there and most coverage lands on that side. The mobile app's own e2e suite runs under Appium against the real backend, never a mocked-API stand-in, per [`idioms/testing-policy`](idioms/testing-policy.md)'s real-backend rule.
 - **Shared first.** Code two apps can use (UI components, hooks, utils, contracts, i18n, tokens) lives in `libs/shared-*` as `@bsc/*` and is consumed with `workspace:*` — never copied into an app. Only app-specific code stays in `apps/<name>`.
 - **Same dependencies, same versions.** Third-party versions live only in the pnpm catalog (`pnpm-workspace.yaml`); every `package.json` under `apps/**` and `libs/**` declares `"<pkg>": "catalog:"`, never a version. Every RN app declares the same third-party set; native modules an app does not use stay declared but unlinked in its `react-native.config.js` (`platforms: { android: null, ios: null }`). New dependency: catalog entry → `pnpm deps:sync` → `pnpm install`; `pnpm deps:check` must pass. See `docs/mobile/dependencias-compartidas.md`.

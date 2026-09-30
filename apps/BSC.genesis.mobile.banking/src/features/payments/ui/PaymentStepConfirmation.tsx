@@ -11,7 +11,7 @@ import {
   withAlpha,
   type BscIconName,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { PieDelAsistente } from '../../transfers/ui/TransferWizardChrome';
 import {
   ETIQUETAS_DE_MONTO,

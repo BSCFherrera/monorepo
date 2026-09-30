@@ -22,7 +22,7 @@ import { BscRadius, BscSpacing } from '../theme/spacing';
 import { BscTypography, BscTextStyles } from '../theme/typography';
 
 import { BscIcon } from './BscIcon';
-import { overlay } from '@bsc/design-tokens';
+import { overlay } from '../tokens';
 import type { SheetProps } from '@bsc/contracts';
 
 /**

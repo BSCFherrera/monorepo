@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Svg, { Polygon } from 'react-native-svg';
 
 import { BscGradients, type BscGradient } from '../theme/colors';
-import { overlay } from '@bsc/design-tokens';
+import { overlay } from '../tokens';
 import type { GradientBackdropProps } from '@bsc/contracts';
 
 /**

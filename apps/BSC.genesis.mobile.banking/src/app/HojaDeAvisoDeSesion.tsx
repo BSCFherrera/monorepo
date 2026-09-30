@@ -6,7 +6,7 @@ import {
   BscSheet,
   BscSpacing,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 
 /**
  * El aviso de que la sesión está por cerrarse.

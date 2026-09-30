@@ -5,7 +5,7 @@ import { StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppRoot } from './src/app/AppRoot';
-import { BscColors } from '@bsc/ui-native';
+import { BscColors } from '@bsc/design-system';
 
 /**
  * Punto de entrada.

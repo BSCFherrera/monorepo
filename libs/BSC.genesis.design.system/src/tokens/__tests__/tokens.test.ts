@@ -18,7 +18,7 @@ import {
 } from '../index';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { generate, OUT_FILE } = require('../../scripts/generate-from-figma.cjs');
+const { generate, OUT_FILE } = require('../../../scripts/generate-from-figma.cjs');
 
 /** Every string leaf of a nested token object, with its path. */
 function hojas(valor: unknown, ruta = ''): Array<[string, unknown]> {
@@ -84,8 +84,8 @@ describe('lineHeightPx', () => {
 });
 
 describe('Figma is the source of truth', () => {
-  it('src/generated/figma.ts matches the snapshot in figma/*.json', () => {
-    // If this fails, run: pnpm nx run design-tokens:generate
+  it('src/tokens/generated/figma.ts matches the snapshot in figma/*.json', () => {
+    // If this fails, run: pnpm nx run design-system:generate
     expect(fs.readFileSync(OUT_FILE, 'utf8')).toBe(generate());
   });
 

@@ -15,10 +15,10 @@ import {
   BscTextField,
   withAlpha,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { type SelectOption } from '@bsc/contracts';
 import { CARGANDO_BENEFICIARIOS } from './medidasDeLosAsistentes';
-import { buttonTokens } from '@bsc/ui-native';
+import { buttonTokens } from '@bsc/design-system';
 import { MEDIDAS_DEL_DESTINO_EXPRESO as DESTINO_EXPRESO } from './medidasDelDestinoExpreso';
 import type { Beneficiario } from '../../beneficiaries/data/beneficiaryContracts';
 import type { Producto } from '../../dashboard/data/productContracts';

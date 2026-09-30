@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
 
 import App from '../App';
-import { BscColors } from '@bsc/ui-native';
+import { BscColors } from '@bsc/design-system';
 
 /**
  * `SafeAreaProvider` mide la pantalla antes de renderizar a sus hijos, y en un

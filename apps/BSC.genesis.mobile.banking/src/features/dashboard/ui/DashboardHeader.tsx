@@ -12,7 +12,7 @@ import {
   withAlpha,
   BscTextStyles,
   fontFamily,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import type { ResumenDeBalance } from '../data/balanceSummary';
 
 /**

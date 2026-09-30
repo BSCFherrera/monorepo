@@ -1,6 +1,6 @@
 import { formatCurrency } from '@bsc/shared';
 
-import { BscColors, BscDetailRow, BscDetailSection } from '@bsc/ui-native';
+import { BscColors, BscDetailRow, BscDetailSection } from '@bsc/design-system';
 import {
   estaActiva,
   tieneSobregiroOTransito,

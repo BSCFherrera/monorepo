@@ -20,7 +20,7 @@ import {
   withAlpha,
   type BscIconName,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import type { CustomerRepository } from '../../customer/data/customerRepository';
 import {
   CARGO_DEL_OFICIAL,

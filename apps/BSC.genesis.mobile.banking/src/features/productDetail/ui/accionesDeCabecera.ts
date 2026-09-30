@@ -1,4 +1,4 @@
-import type { BscIconName } from '@bsc/ui-native';
+import type { BscIconName } from '@bsc/design-system';
 import { ProductCategory } from '../../dashboard/data/productContracts';
 
 /**

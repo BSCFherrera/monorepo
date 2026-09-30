@@ -11,12 +11,10 @@ apps/
 │       └── bsc-shared/          @bsc/shared — pure business logic (formatters, validation)
 └── BSC.genesis.conversational/  React Native conversational app (AI chat over WebSocket, onboarding, access recovery)
 libs/
-├── shared-design-tokens/  @bsc/design-tokens — tokens generated from the Figma library (primitives → semantic → component, light + dark)
-├── shared-ui-native/      @bsc/ui-native — shared React Native components (Bsc*) and the Google Sans Flex font
+├── BSC.genesis.design.system/  @bsc/design-system — the design system: rules (DESIGN-RULES.md), Figma-generated tokens, every UI component (Bsc*) and the Google Sans Flex font
 ├── shared-contracts/      @bsc/contracts — framework-neutral prop and data contracts
 ├── shared-utils/          @bsc/utils — framework-neutral pure utilities
-├── shared-i18n/           @bsc/i18n — translation system (i18next); Spanish today, language selector ready
-└── BSC.genesis.design.system/   (placeholder from the original scaffold)
+└── shared-i18n/           @bsc/i18n — translation system (i18next); Spanish today, language selector ready
 docs/
 tools/scripts/                   workspace scripts (shared mobile dependencies check)
 ```
@@ -64,7 +62,7 @@ pnpm nx run BSC.genesis.mobile.banking:verify     # the app's full verification 
 pnpm conversational:start                         # Metro (terminal 1) — same port as banking
 pnpm conversational:android                       # or conversational:ios (terminal 2)
 
-pnpm nx run design-tokens:generate                # regenerate tokens from the Figma snapshot
+pnpm nx run design-system:generate                # regenerate tokens from the Figma snapshot
 ```
 
 The `<app>:start|android|ios` scripts in this package.json are shortcuts for
@@ -74,10 +72,11 @@ when a new app joins the monorepo. `pnpm nx show project <project>` lists every 
 
 ## Where things are documented
 
-- Design tokens and the Figma snapshot: `libs/shared-design-tokens/figma/README.md`
+- Design rules (read before any UI work): `libs/BSC.genesis.design.system/DESIGN-RULES.md`
+- Design tokens and the Figma snapshot: `libs/BSC.genesis.design.system/figma/README.md`
 - Shared dependencies (catalog, adding a dependency, unlinked native modules, adding an app): `docs/mobile/dependencias-compartidas.md`
 - Translations (adding text, adding a language, the selector): `libs/shared-i18n/README.md`
-- Font: `libs/shared-ui-native/assets/fonts/README.md`
+- Font: `libs/BSC.genesis.design.system/assets/fonts/README.md`
 - App migration history, security model and open questions: `apps/BSC.genesis.mobile.banking/docs/migration/`
 
 ## Known caveats

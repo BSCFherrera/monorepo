@@ -12,7 +12,7 @@ import {
   BscSpinner,
   BscTextButton,
   withAlpha,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { matchingPreset, lastDaysRange } from '@bsc/utils';
 import { type DateRange } from '@bsc/contracts';
 import {

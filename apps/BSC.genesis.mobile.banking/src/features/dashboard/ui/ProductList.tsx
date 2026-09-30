@@ -12,8 +12,8 @@ import {
   BscSectionHeader,
   BscShadows,
   BscSheet,
-} from '@bsc/ui-native';
-import type { BscIconName } from '@bsc/ui-native';
+} from '@bsc/design-system';
+import type { BscIconName } from '@bsc/design-system';
 
 import {
   nombreDeCategoria,

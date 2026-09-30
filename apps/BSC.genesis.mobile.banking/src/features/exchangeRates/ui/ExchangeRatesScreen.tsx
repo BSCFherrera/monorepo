@@ -23,7 +23,7 @@ import {
   BscSpinner,
   withAlpha,
   BscTextStyles,
-} from '@bsc/ui-native';
+} from '@bsc/design-system';
 import { ERROR_DE_TASA_DE_CAMBIO } from '../../../app/medidasDeLasOchoPantallas';
 import {
   convertirAPesos,

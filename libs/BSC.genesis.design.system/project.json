@@ -1,0 +1,42 @@
+{
+  "name": "design-system",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/BSC.genesis.design.system/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:ui"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "eslint src --ext .ts,.tsx",
+        "env": { "ESLINT_USE_FLAT_CONFIG": "false" }
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/BSC.genesis.design.system",
+        "command": "tsc -p tsconfig.json --noEmit"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/BSC.genesis.design.system/jest.config.js"
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node libs/BSC.genesis.design.system/scripts/generate-from-figma.cjs"
+      }
+    },
+    "check-generated": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node libs/BSC.genesis.design.system/scripts/generate-from-figma.cjs --check"
+      }
+    }
+  }
+}

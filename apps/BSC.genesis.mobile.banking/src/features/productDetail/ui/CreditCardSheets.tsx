@@ -23,8 +23,8 @@ import {
   BscSpacing,
   BscTypography,
   BscTextStyles,
-} from '@bsc/ui-native';
-import { buttonTokens } from '@bsc/ui-native';
+} from '@bsc/design-system';
+import { buttonTokens } from '@bsc/design-system';
 import { MEDIDAS_DE_LAS_HOJAS_DE_TARJETA as M } from './medidasDeLasHojasDeTarjeta';
 import {
   tieneActividadDePuntos,
