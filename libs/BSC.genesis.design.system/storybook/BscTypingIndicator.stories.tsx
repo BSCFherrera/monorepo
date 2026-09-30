@@ -15,3 +15,7 @@ export const Animated: Story = {};
 export const Static: Story = {
   args: { animated: false },
 };
+
+export const Bubble: Story = {
+  args: { variant: 'bubble' },
+};
