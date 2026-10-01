@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native';
+import { Modal, Pressable, Text } from 'react-native';
 import TestRenderer from 'react-test-renderer';
 
 import {
@@ -41,6 +41,7 @@ describe('BscLoadingOverlay', () => {
 
     const visible = render(<BscLoadingOverlay visible label="Loading accounts" />);
 
+    expect(visible.root.findByType(Modal).props.transparent).toBe(true);
     expect(visible.root.findByProps({ accessibilityRole: 'progressbar' }).props.accessibilityState).toEqual({ busy: true });
     expect(visible.root.findByProps({ children: 'Loading accounts' })).toBeTruthy();
   });

@@ -94,6 +94,17 @@ describe('BscModal', () => {
     expect(onClose).not.toHaveBeenCalled();
     expect(tree.root.findByType(Modal).props.visible).toBe(true);
   });
+
+  it('does not render a back action when onBack is omitted', () => {
+    const tree = render(
+      <BscModal visible title="Step 1" testID="flow-modal">
+        <Text>Step content</Text>
+      </BscModal>,
+    );
+
+    expect(tree.root.findAllByProps({ testID: 'flow-modal-back' })).toHaveLength(0);
+    expect(tree.root.findByProps({ testID: 'flow-modal-close' })).toBeTruthy();
+  });
 });
 
 describe('BscInfoModal', () => {
@@ -123,5 +134,29 @@ describe('BscInfoModal', () => {
 
     expect(onPrimaryPress).toHaveBeenCalledTimes(1);
     expect(onSecondaryPress).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses the modal header title when a back action is present', () => {
+    const onBack = jest.fn();
+    const tree = render(
+      <BscInfoModal
+        visible
+        title="Recovery options"
+        description="Choose how you want to continue."
+        primaryButtonLabel="Continue"
+        onPrimaryPress={jest.fn()}
+        onBack={onBack}
+        testID="info-flow-modal"
+      />,
+    );
+
+    expect(tree.root.findByProps({ testID: 'info-flow-modal-back' })).toBeTruthy();
+    expect(tree.root.findAllByType(Text).filter(node => node.props.children === 'Recovery options')).toHaveLength(1);
+
+    TestRenderer.act(() => {
+      tree.root.findByProps({ testID: 'info-flow-modal-back' }).props.onPress();
+    });
+
+    expect(onBack).toHaveBeenCalledTimes(1);
   });
 });

@@ -31,11 +31,13 @@ export const BscInfoModal = React.forwardRef<BscModalHandle, BscInfoModalProps>(
   ...modalProps
 }: BscInfoModalProps, ref): React.JSX.Element {
   const hasSecondaryAction = secondaryButtonLabel !== undefined && secondaryButtonLabel.length > 0;
+  const showHeaderTitle = modalProps.onBack !== undefined || (modalProps.showCloseButton ?? false);
 
   return (
     <BscModal
       ref={ref}
       testID={testID}
+      title={showHeaderTitle ? title : undefined}
       showCloseButton={modalProps.showCloseButton ?? false}
       scrollable={modalProps.scrollable ?? false}
       footer={
@@ -63,7 +65,7 @@ export const BscInfoModal = React.forwardRef<BscModalHandle, BscInfoModalProps>(
     >
       <View style={styles.content}>
         {illustration}
-        <Text style={styles.title}>{title}</Text>
+        {showHeaderTitle ? null : <Text style={styles.title}>{title}</Text>}
         <Text style={styles.description}>{description}</Text>
         {children}
       </View>
