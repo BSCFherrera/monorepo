@@ -32,6 +32,7 @@ import {
 } from '@components/Common';
 import { formatDocumentNumber, sanitizeDocumentNumber } from '@utils/helpers';
 import { AccessOrigin, useOnboardingStore } from '@store/onboarding.store';
+import { NotValidUserModal } from '@components/Common/NotValidUserModal';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -57,6 +58,7 @@ export const AccountIdentificationScreen = () => {
   const errorUserWithoutDataRef = useRef<ModalRef>(null);
   const notValidatedClientRef = useRef<ModalRef>(null);
   const maximumIntentsModalRef = useRef<ModalRef>(null);
+  const notValidUserRef = useRef<ModalRef>(null);
   const errorGeneralRef = useRef<ModalRef>(null);
 
   const openModalAfterFrame = (openModal: () => void) => {
@@ -192,8 +194,8 @@ export const AccountIdentificationScreen = () => {
       }
 
       if (!client.redirectToLogin) {
-        setAccessOrigin(AccessOrigin.REGISTER);
-        navigation.navigate('ChooseDocument');
+        pendingModal = () => notValidUserRef.current?.open();
+        openModalAfterFrame(pendingModal);
         return;
       }
 
@@ -315,6 +317,7 @@ export const AccountIdentificationScreen = () => {
       <ErrorUserWithoutData ref={errorUserWithoutDataRef} />
       <ErrorGeneral ref={errorGeneralRef} />
       <MaximumIntentsModal ref={maximumIntentsModalRef} />
+      <NotValidUserModal ref={notValidUserRef} />
       {/* <ErrorServiceGeneral visible={isServiceErrorModalOpen} onClose={closeServiceErrorModal} /> */}
     </SafeAreaView>
   );
