@@ -167,6 +167,7 @@ export interface ModalProps {
   visible?: boolean;
   defaultVisible?: boolean;
   title?: string | undefined;
+  onBack?: (() => void) | undefined;
   onClose?: (() => void) | undefined;
   onOpenChange?: ((visible: boolean) => void) | undefined;
   canDismiss?: boolean;
