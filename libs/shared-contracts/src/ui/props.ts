@@ -260,6 +260,23 @@ export interface RadioProps {
   testID?: string;
 }
 
+/** Opción neutral de `BscRadioGroup` (BscRadioGroup.tsx). */
+export interface RadioGroupOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
+
+/** Props neutrales de `BscRadioGroup` (BscRadioGroup.tsx). */
+export interface RadioGroupProps {
+  label?: string | undefined;
+  options: readonly RadioGroupOption[];
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  testID?: string;
+}
+
 /** Props neutrales de `BscReceiptRow` (BscReceiptRow.tsx). */
 export interface ReceiptRowProps {
   icon: IconName;
