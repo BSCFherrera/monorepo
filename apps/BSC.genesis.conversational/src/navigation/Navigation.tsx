@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native-stack';
 import {
   ChatScreen,
+  HomeScreen,
   LoginScreen,
   ProductsScreen,
   ProfileScreen,
@@ -175,9 +176,9 @@ export const Navigation: React.FC = () => {
 
       if (wasAuthenticatedRef.current && !isAuthenticated) {
         // Logout: 'ConfigureAuthBiometric' -presente en ambos stacks- se mantiene enfocada al
-        // perder la sesión en vez de volver a 'Login', así que se resetea explícitamente.
-        if (currentRoute !== 'Login') {
-          navigationRef.reset({index: 0, routes: [{name: 'Login'}]});
+        // perder la sesión en vez de volver a 'Inicio', así que se resetea explícitamente.
+        if (currentRoute !== 'Inicio') {
+          navigationRef.reset({index: 0, routes: [{name: 'Inicio'}]});
         }
       } else if (!wasAuthenticatedRef.current && isAuthenticated) {
         // Login/registro completado: sea cual sea la pantalla pública que marcó la sesión como
@@ -195,6 +196,7 @@ export const Navigation: React.FC = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {!isAuthenticated ? (
           <>
+            <Stack.Screen name="Inicio" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             {PUBLIC_SCREENS.map(({name, component, options}) => (
               <Stack.Screen key={name} name={name} component={component} options={options} />

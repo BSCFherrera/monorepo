@@ -4,8 +4,11 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   // Con pnpm el paquete real vive en `node_modules/.pnpm/<pkg>@<ver>/node_modules/<pkg>/`;
   // el prefijo opcional deja pasar también esa ruta (igual que en mobile banking).
+  // `react-native-linear-gradient` y `react-native-svg` se suman porque
+  // `@bsc/design-system` los usa internamente (p. ej. `BscGradientBackdrop`) y
+  // se publican como ESM sin transpilar.
   transformIgnorePatterns: [
-    'node_modules/(?!(?:\\.pnpm/[^/]+/node_modules/)?(react-native|@react-native|@react-navigation)/)',
+    'node_modules/(?!(?:\\.pnpm/[^/]+/node_modules/)?(react-native|@react-native|@react-navigation|react-native-linear-gradient|react-native-svg)/)',
   ],
   moduleNameMapper: {
     '^@components/(.*)$': '<rootDir>/src/components/$1',

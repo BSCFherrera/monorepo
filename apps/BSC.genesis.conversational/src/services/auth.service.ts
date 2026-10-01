@@ -41,6 +41,11 @@ const STORAGE_KEYS = {
   BIOMETRIC_USER: '@bsc_biometric_user',
   PASSKEY_ENABLED: '@bsc_passkey_enabled',
   PASSKEY_USER: '@bsc_passkey_user',
+  // Primer nombre del cliente, para saludarlo ("Hola Carlos") en la pantalla de inicio antes de
+  // autenticar. Se escribe junto al marcador de biometría/passkey (mismo evento: una sesión ya
+  // autenticada que activa un acceso rápido) y solo se limpia junto al biométrico, igual que ese
+  // marcador — el passkey hoy no tiene una vía para desactivarse.
+  REMEMBERED_FIRST_NAME: '@bsc_remembered_first_name',
 } as const;
 
 // Ventana de gracia para no considerar expirado un token que vence en los próximos segundos
@@ -535,9 +540,12 @@ class AuthService {
       );
     }
 
+    const primerNombre = useAuthStore.getState().user?.primerNombre;
+
     await AsyncStorage.multiSet([
       [STORAGE_KEYS.BIOMETRIC_ENABLED, 'true'],
       [STORAGE_KEYS.BIOMETRIC_USER, normalizedClientId],
+      ...(primerNombre ? ([[STORAGE_KEYS.REMEMBERED_FIRST_NAME, primerNombre]] as [string, string][]) : []),
     ]);
   }
 
@@ -553,7 +561,11 @@ class AuthService {
       console.warn('No se pudo limpiar el acceso biométrico del Keychain.', error);
     }
 
-    await AsyncStorage.multiRemove([STORAGE_KEYS.BIOMETRIC_ENABLED, STORAGE_KEYS.BIOMETRIC_USER]);
+    await AsyncStorage.multiRemove([
+      STORAGE_KEYS.BIOMETRIC_ENABLED,
+      STORAGE_KEYS.BIOMETRIC_USER,
+      STORAGE_KEYS.REMEMBERED_FIRST_NAME,
+    ]);
   }
 
   /**
@@ -568,6 +580,15 @@ class AuthService {
   /** `clientId` (normalizado) asociado al acceso biométrico configurado, o `null` si no hay ninguno. */
   async getBiometricLoginUser(): Promise<string | null> {
     return AsyncStorage.getItem(STORAGE_KEYS.BIOMETRIC_USER);
+  }
+
+  /**
+   * Primer nombre del cliente para saludarlo en la pantalla de inicio antes de autenticar (`Hola
+   * {nombre}`), o `null` si este dispositivo no tiene ningún acceso rápido configurado todavía.
+   * Ver `STORAGE_KEYS.REMEMBERED_FIRST_NAME`.
+   */
+  async getRememberedFirstName(): Promise<string | null> {
+    return AsyncStorage.getItem(STORAGE_KEYS.REMEMBERED_FIRST_NAME);
   }
 
   /**
@@ -805,9 +826,12 @@ class AuthService {
    * para la biometría. Solo se llama tras una respuesta exitosa de `completePasskeyRegistration`.
    */
   private async markPasskeyRegistered(email: string): Promise<void> {
+    const primerNombre = useAuthStore.getState().user?.primerNombre;
+
     await AsyncStorage.multiSet([
       [STORAGE_KEYS.PASSKEY_ENABLED, 'true'],
       [STORAGE_KEYS.PASSKEY_USER, email],
+      ...(primerNombre ? ([[STORAGE_KEYS.REMEMBERED_FIRST_NAME, primerNombre]] as [string, string][]) : []),
     ]);
   }
 

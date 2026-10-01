@@ -431,6 +431,7 @@ export interface ChatApiResponse {
 
 // Tipos para navegación
 export type RootStackParamList = {
+  Inicio: undefined;
   Login: undefined;
   ChooseDocument: undefined;
   CustomerDataConfirmOtp: undefined;
