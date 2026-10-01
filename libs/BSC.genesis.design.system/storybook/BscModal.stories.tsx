@@ -30,6 +30,28 @@ function BaseModalExample(): React.JSX.Element {
 
 export const Base: Story = {
   render: () => <BaseModalExample />,
+  parameters: {
+    docs: {
+      source: {
+        code: `function Example(): React.JSX.Element {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir modal" onPress={() => setVisible(true)} />
+      <BscModal
+        visible={visible}
+        title="Iniciar sesión"
+        onClose={() => setVisible(false)}
+      >
+        <Text>Este modal base acepta cualquier ReactNode como contenido.</Text>
+      </BscModal>
+    </>
+  );
+}`,
+      },
+    },
+  },
 };
 
 function ExpandedModalExample(): React.JSX.Element {
@@ -55,6 +77,32 @@ function ExpandedModalExample(): React.JSX.Element {
 
 export const Expanded: Story = {
   render: () => <ExpandedModalExample />,
+  parameters: {
+    docs: {
+      source: {
+        code: `function Example(): React.JSX.Element {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir modal expandido" onPress={() => setVisible(true)} />
+      <BscModal
+        visible={visible}
+        presentation="expanded"
+        title="Contenido reutilizado"
+        onClose={() => setVisible(false)}
+        scrollable={false}
+      >
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <Text>Una pantalla o bloque completo puede vivir temporalmente dentro de este modal de 90%.</Text>
+        </View>
+      </BscModal>
+    </>
+  );
+}`,
+      },
+    },
+  },
 };
 
 function InfoModalExample(): React.JSX.Element {
@@ -78,6 +126,30 @@ function InfoModalExample(): React.JSX.Element {
 
 export const Info: Story = {
   render: () => <InfoModalExample />,
+  parameters: {
+    docs: {
+      source: {
+        code: `function Example(): React.JSX.Element {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir modal informativo" onPress={() => setVisible(true)} />
+      <BscInfoModal
+        visible={visible}
+        title="Aun no eres cliente"
+        description="Parece que todavía no eres cliente del Banco Santa Cruz. Puedes abrir tu cuenta desde la app en pocos minutos."
+        primaryButtonLabel="Hazte cliente"
+        secondaryButtonLabel="Volver al inicio"
+        onPrimaryPress={() => setVisible(false)}
+        onSecondaryPress={() => setVisible(false)}
+      />
+    </>
+  );
+}`,
+      },
+    },
+  },
 };
 
 const styles = StyleSheet.create({
