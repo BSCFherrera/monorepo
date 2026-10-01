@@ -16,7 +16,7 @@ export default meta;
 type Story = StoryObj<typeof BscModal>;
 
 function BaseModalExample(): React.JSX.Element {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -33,7 +33,7 @@ export const Base: Story = {
 };
 
 function ExpandedModalExample(): React.JSX.Element {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -57,18 +57,27 @@ export const Expanded: Story = {
   render: () => <ExpandedModalExample />,
 };
 
+function InfoModalExample(): React.JSX.Element {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir modal informativo" onPress={() => setVisible(true)} />
+      <BscInfoModal
+        visible={visible}
+        title="Aun no eres cliente"
+        description="Parece que todavía no eres cliente del Banco Santa Cruz. Puedes abrir tu cuenta desde la app en pocos minutos."
+        primaryButtonLabel="Hazte cliente"
+        secondaryButtonLabel="Volver al inicio"
+        onPrimaryPress={() => setVisible(false)}
+        onSecondaryPress={() => setVisible(false)}
+      />
+    </>
+  );
+}
+
 export const Info: Story = {
-  render: () => (
-    <BscInfoModal
-      visible
-      title="Aun no eres cliente"
-      description="Parece que todavía no eres cliente del Banco Santa Cruz. Puedes abrir tu cuenta desde la app en pocos minutos."
-      primaryButtonLabel="Hazte cliente"
-      secondaryButtonLabel="Volver al inicio"
-      onPrimaryPress={() => undefined}
-      onSecondaryPress={() => undefined}
-    />
-  ),
+  render: () => <InfoModalExample />,
 };
 
 const styles = StyleSheet.create({
