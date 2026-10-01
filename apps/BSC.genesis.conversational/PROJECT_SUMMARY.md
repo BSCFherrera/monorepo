@@ -22,7 +22,7 @@ Se ha creado exitosamente una **aplicación móvil conversacional completa** par
 - ✅ **Button**: Botón personalizable con variantes
 - ✅ **Input**: Campo de entrada con validación
 - ✅ **MessageBubble**: Burbujas de chat (usuario/bot)
-- ✅ **TypingIndicator**: Indicador de escritura
+- ✅ **Indicador de escritura**: `BscTypingIndicator` de `@bsc/design-system`
 - ✅ **Header**: Encabezado consistente
 
 ### 3. Pantallas Principales ✅

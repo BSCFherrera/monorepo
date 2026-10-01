@@ -368,6 +368,23 @@ export interface BankProduct {
 }
 
 // Tipos para WebSocket
+/**
+ * Estado de la conexión del chat en tiempo real:
+ * - `idle`: sin conexión pedida (antes de `connect` o después de `disconnect`).
+ * - `connecting`: primer intento de un ciclo de conexión.
+ * - `connected`: socket abierto.
+ * - `reconnecting`: se perdió o no se logró la conexión y el servicio reintenta solo.
+ * - `failed`: se agotaron los reintentos; hace falta que el usuario pida reintentar.
+ */
+export type ConnectionStatus = 'idle' | 'connecting' | 'connected' | 'reconnecting' | 'failed';
+
+/**
+ * Origen de un error del WebSocket: `connection` (no se pudo abrir o se cayó el socket,
+ * incluidos los reintentos), `send` (falló un envío; el mensaje queda en cola) o
+ * `parse` (llegó un mensaje que no es JSON válido).
+ */
+export type WebSocketErrorKind = 'connection' | 'send' | 'parse';
+
 export interface WebSocketMessage {
   type: 'message' | 'transaction' | 'query' | 'request' | 'response' | 'error';
   action?: string;
