@@ -65,53 +65,64 @@ export const LoginModal = forwardRef<BscModalHandle, LoginModalProps>((props, re
 
   return (
     <>
-      <BscModal ref={ref} presentation="expanded">
+      <BscModal ref={ref} presentation="expanded" scrollable>
         <Text style={styles.title}>{t('credentialsSheet.title')}</Text>
         <Text style={styles.subtitle}>{t('credentialsSheet.subtitle')}</Text>
 
-        <View style={styles.marginFields}>
-          <BscTextField
-            label={t('credentialsSheet.username.label')}
-            value={username}
-            onChangeText={onChangeUsername}
-            placeholder={t('credentialsSheet.username.placeholder')}
-            maxLength={EMAIL_MAX_LENGTH}
-            error={usuarioVacio ? t('credentialsSheet.username.required') : undefined}
-            testID="campo-usuario"
-          />
-        </View>
+        <View style={styles.container}>
+          <View>
+            <View style={styles.marginFields}>
+              <BscTextField
+                label={t('credentialsSheet.username.label')}
+                value={username}
+                onChangeText={onChangeUsername}
+                placeholder={t('credentialsSheet.username.placeholder')}
+                maxLength={EMAIL_MAX_LENGTH}
+                error={usuarioVacio ? t('credentialsSheet.username.required') : undefined}
+                testID="campo-usuario"
+              />
+            </View>
 
-        <View style={styles.marginFields}>
-          <BscTextField
-            label={t('credentialsSheet.password.label')}
-            value={password}
-            onChangeText={onChangePassword}
-            placeholder={t('credentialsSheet.password.placeholder')}
-            error={contrasenaVacia ? t('credentialsSheet.password.required') : undefined}
-            secure
-            testID="campo-contrasena"
-          />
+            <View style={styles.marginFields}>
+              <BscTextField
+                label={t('credentialsSheet.password.label')}
+                value={password}
+                onChangeText={onChangePassword}
+                placeholder={t('credentialsSheet.password.placeholder')}
+                error={contrasenaVacia ? t('credentialsSheet.password.required') : undefined}
+                secure
+                testID="campo-contrasena"
+              />
+            </View>
+            <Text onPress={handleAccessRecoveryPress} style={styles.recovery}>
+              {t('credentialsSheet.accessRecovery')}
+            </Text>
+            {error !== null ? (
+              <Text style={styles.error} testID="hoja-error">
+                {error}
+              </Text>
+            ) : null}
+          </View>
+          <View style={styles.marginFields}>
+            <BscPrimaryButton
+              label={t('credentialsSheet.continue')}
+              loading={loading}
+              onPress={canContinue ? handleContinue : undefined}
+              testID="hoja-entrar"
+            />
+          </View>
         </View>
-        <Text onPress={handleAccessRecoveryPress} style={styles.recovery}>
-          {t('credentialsSheet.accessRecovery')}
-        </Text>
-        {error !== null ? (
-          <Text style={styles.error} testID="hoja-error">
-            {error}
-          </Text>
-        ) : null}
-        <BscPrimaryButton
-          label={t('credentialsSheet.continue')}
-          loading={loading}
-          onPress={canContinue ? handleContinue : undefined}
-          testID="hoja-entrar"
-        />
       </BscModal>
     </>
   );
 });
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
   marginFields: {
     marginVertical: BscSpacing.sm,
   },

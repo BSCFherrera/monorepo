@@ -10,15 +10,16 @@
     "bothRecoveryLabel": "No recuerdo ninguno de mis accesos. Te guiaremos paso a paso para recuperar primero tu usuario y luego tu contraseña."
   },
   "accountIdentification": {
-    "title": "Identifiquemos tu cuenta",
-    "subtitle": "Ingresa los datos registrados en tu cuenta para encontrar tu usuario de forma segura.",
+    "title": "Ingresa tus datos",
+    "subtitle": "Confirmanos que eres tu para empezar el proceso.",
+    "userLabel": "Usuario",
     "documentTypeLabel": "Tipo de documento",
     "documentTypePlaceholder": "Selecciona tu tipo de documento",
     "documentTypeOptions": {
       "cedula": "Cédula",
       "passport": "Pasaporte"
     },
-    "documentNumberLabel": "Número de identificación",
+    "documentNumberLabel": "Número de documento",
     "documentNumberPlaceholder": {
       "cedula": "402-12345678-9",
       "passport": "AB123456"

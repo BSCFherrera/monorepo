@@ -32,9 +32,11 @@ import { useLoginPostAuthNavigation } from '@hooks/useLoginPostAuthNavigation';
 import { DIMENSIONS, COLORS } from '@constants/theme';
 import { AccessOrigin, useOnboardingStore } from '@store/onboarding.store';
 import { useAuthStore } from '@store/auth.store';
-import type { AuthTokens, RootStackParamList } from '@/types/index';
+import type { AuthTokens, RecoveryType, RootStackParamList } from '@/types/index';
 import { LoginModal } from '@components/auth/LoginModal';
 import { AccessRecoveryOptionsModal } from '@components/access-recovery/AccessRecoveryOptionsModal';
+import { useAccesRecoveryStore } from '@store/access-recovery.store';
+import { AccountIdentificationModal } from '@components/access-recovery/AccountIdentificationModal';
 
 const fondoDeAcceso = require('@assets/fondo-de-acceso.jpg');
 const iconoAyuda = require('@assets/icono-ayuda.png');
@@ -66,6 +68,7 @@ export function HomeScreen(): React.JSX.Element {
   const { t } = useTranslation('auth');
   const navigation = useNavigation<InicioNavigationProp>();
 
+  const setRecoveryType = useAccesRecoveryStore(state => state.setRecoveryType);
   const setAccessOrigin = useOnboardingStore(state => state.setAccessOrigin);
   const clearAccessOrigin = useOnboardingStore(state => state.clearAccessOrigin);
   const sessionExpiredByInactivity = useAuthStore(state => state.sessionExpiredByInactivity);
@@ -100,6 +103,7 @@ export function HomeScreen(): React.JSX.Element {
 
   const loginRef = useRef<BscModalHandle>(null);
   const accesRecoveryRef = useRef<BscModalHandle>(null);
+  const accountIdentificacionRef = useRef<BscModalHandle>(null);
 
   useEffect(() => {
     clearAccessOrigin();
@@ -289,6 +293,12 @@ export function HomeScreen(): React.JSX.Element {
     accesRecoveryRef.current?.open();
   }, []);
 
+  const handleTypeRecoveryPress = (type: RecoveryType) => {
+    setRecoveryType(type);
+    accesRecoveryRef.current?.close();
+    accountIdentificacionRef.current?.open();
+  };
+
   return (
     <View style={styles.fondo} testID="inicio">
       <Image source={fondoDeAcceso} resizeMode="cover" style={styles.foto} />
@@ -447,7 +457,13 @@ export function HomeScreen(): React.JSX.Element {
         onHandleContinue={handleSubmitCredentials}
         handleAccessRecoveryPress={handleAccessRecoveryPress}
       />
-      <AccessRecoveryOptionsModal ref={accesRecoveryRef} />
+
+      <AccessRecoveryOptionsModal
+        ref={accesRecoveryRef}
+        handleTypeRecoveryPress={handleTypeRecoveryPress}
+      />
+
+      <AccountIdentificationModal ref={accountIdentificacionRef} />
 
       <ModalErrorUserBlockedLogin
         visible={userBlockedModalVisible}
