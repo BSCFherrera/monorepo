@@ -73,6 +73,27 @@ export interface CardProps {
   testID?: string;
 }
 
+/**
+ * Estado de la conexión que anuncia `BscConnectionBanner`: `reconnecting`
+ * mientras se reintenta por sí sola, `offline` cuando ya dejó de intentarlo y
+ * hace falta que el cliente lo pida.
+ */
+export type ConnectionBannerState = 'reconnecting' | 'offline';
+
+/** Props neutrales de `BscConnectionBanner` (BscConnectionBanner.tsx). */
+export interface ConnectionBannerProps {
+  state: ConnectionBannerState;
+  title: string;
+  subtitle?: string | undefined;
+  /**
+   * Solo en `offline`: con `onRetry` y `retryLabel` el aviso muestra la acción
+   * para volver a intentar la conexión.
+   */
+  onRetry?: (() => void) | undefined;
+  retryLabel?: string | undefined;
+  testID?: string;
+}
+
 /** Props neutrales de `BscDateRangeSheet` (BscDateRangeSheet.tsx). */
 export interface DateRangeSheetProps {
   visible: boolean;

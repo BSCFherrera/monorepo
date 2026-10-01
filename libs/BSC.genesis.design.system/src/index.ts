@@ -194,6 +194,12 @@ export { BscMeterBar, type BscMeterBarProps } from './components/BscMeterBar';
 export { BscToast, type BscToastProps } from './components/BscToast';
 
 export {
+  BscConnectionBanner,
+  type BscConnectionBannerProps,
+  type BscConnectionBannerState,
+} from './components/BscConnectionBanner';
+
+export {
   BscOptionCard,
   type BscOptionCardProps,
 } from './components/BscOptionCard';

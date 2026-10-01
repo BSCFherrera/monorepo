@@ -20,7 +20,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Voice, {SpeechErrorEvent, SpeechResultsEvent} from '@react-native-voice/voice';
 import Icon from '@react-native-vector-icons/feather';
 import {useTranslation} from 'react-i18next';
-import {BankHeader, HamburgerMenu, MessageBubble, TypingIndicator} from '@components/index';
+import {BscConnectionBanner, BscTypingIndicator} from '@bsc/design-system';
+import {BankHeader, HamburgerMenu, MessageBubble} from '@components/index';
 import {useChat} from '@hooks/useChat';
 import {useKeyboardOffset} from '@hooks/useKeyboardOffset';
 import {useAuthStore} from '@store/auth.store';
@@ -44,7 +45,8 @@ const MAX_CONSECUTIVE_CLIENT_ERRORS = 2;
 export const ChatScreen: React.FC = () => {
   const route = useRoute<ChatRouteProp>();
   const {t} = useTranslation('chat');
-  const {messages, isConnected, isTyping, sendMessage} = useChat();
+  const {messages, isConnected, connectionStatus, isTyping, sendMessage, retryConnection} =
+    useChat();
   const firstName = useAuthStore(state => state.user?.primerNombre);
   const keyboardOffset = useKeyboardOffset();
   const [inputValue, setInputValue] = useState('');
@@ -459,7 +461,18 @@ export const ChatScreen: React.FC = () => {
           renderItem={renderMessage}
           keyExtractor={item => item.id}
           contentContainerStyle={styles.messageList}
-          ListHeaderComponent={isTyping ? <TypingIndicator /> : undefined}
+          ListHeaderComponent={
+            isTyping ? (
+              <View style={styles.messageRowBot}>
+                <Image source={require('@assets/bsc-icon.png')} style={styles.assistantAvatar} />
+                <BscTypingIndicator
+                  variant="bubble"
+                  label={t('screen.typingAccessibilityLabel')}
+                  testID="chat-typing-indicator"
+                />
+              </View>
+            ) : undefined
+          }
           ListFooterComponent={
             <View style={styles.topSection}>
               <View style={styles.heroCard}>
@@ -501,6 +514,24 @@ export const ChatScreen: React.FC = () => {
           }
           showsVerticalScrollIndicator={false}
         />
+        {connectionStatus === 'reconnecting' && (
+          <BscConnectionBanner
+            state="reconnecting"
+            title={t('connection.reconnectingTitle')}
+            subtitle={t('connection.reconnectingMessage')}
+            testID="chat-connection-banner"
+          />
+        )}
+        {connectionStatus === 'failed' && (
+          <BscConnectionBanner
+            state="offline"
+            title={t('connection.offlineTitle')}
+            subtitle={t('connection.offlineMessage')}
+            retryLabel={t('connection.retry')}
+            onRetry={retryConnection}
+            testID="chat-connection-banner"
+          />
+        )}
         <View style={styles.inputContainer}>
           {isListening ? (
             <View style={styles.listeningIndicator}>

@@ -7,6 +7,13 @@ import { BscRadius, BscSpacing } from '../theme/spacing';
 export interface BscTypingIndicatorProps {
   label?: string;
   animated?: boolean;
+  /**
+   * `inline` (por defecto): solo los puntos, para colocarlos donde se necesiten.
+   * `bubble`: los puntos dentro de una burbuja de mensaje recibido (mismos tokens que la
+   * entrante de `BscMessageBubble`), para anunciar en el hilo de un chat que la otra parte
+   * está respondiendo.
+   */
+  variant?: 'inline' | 'bubble';
   testID?: string;
 }
 
@@ -50,6 +57,7 @@ export function startTypingIndicatorAnimations(values: readonly Animated.Value[]
 export function BscTypingIndicator({
   label = 'Typing',
   animated = true,
+  variant = 'inline',
   testID,
 }: BscTypingIndicatorProps): React.JSX.Element {
   const reducedMotion = useReducedMotionEnabled();
@@ -61,7 +69,12 @@ export function BscTypingIndicator({
   }, [animated, reducedMotion, values]);
 
   return (
-    <View accessibilityLabel={label} accessibilityRole="progressbar" style={styles.container} testID={testID}>
+    <View
+      accessibilityLabel={label}
+      accessibilityRole="progressbar"
+      style={[styles.container, variant === 'bubble' && styles.bubble]}
+      testID={testID}
+    >
       {values.map((value, index) => (
         <Animated.View
           key={index}
@@ -80,6 +93,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: BscSpacing.xs,
+  },
+  bubble: {
+    alignSelf: 'flex-start',
+    backgroundColor: BscColors.surface,
+    borderWidth: 1,
+    borderColor: BscColors.border,
+    borderRadius: BscRadius.md,
+    borderBottomLeftRadius: BscRadius.xs,
+    paddingHorizontal: BscSpacing.md,
+    paddingVertical: BscSpacing.sm,
+    marginHorizontal: BscSpacing.xs,
+    marginBottom: BscSpacing.md,
   },
   dot: {
     width: 8,

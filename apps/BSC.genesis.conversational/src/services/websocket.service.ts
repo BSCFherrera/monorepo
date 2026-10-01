@@ -1,16 +1,34 @@
-import {WebSocketMessage, WebSocketConfig} from '@/types/index';
+import {
+  ConnectionStatus,
+  WebSocketConfig,
+  WebSocketErrorKind,
+  WebSocketMessage,
+} from '@/types/index';
 import {APP_CONFIG} from '@constants/config';
 import SessionService from './session.service';
 import {Platform} from 'react-native';
 
+/**
+ * Error emitido por `onError`. `kind` permite a la UI distinguir un problema de
+ * conectividad (que se comunica con el estado de la conexión, no en el historial del
+ * chat) de un mensaje ilegible.
+ */
+export class WebSocketServiceError extends Error {
+  constructor(message: string, readonly kind: WebSocketErrorKind) {
+    super(message);
+    this.name = 'WebSocketServiceError';
+  }
+}
+
 type MessageHandler = (message: WebSocketMessage) => void;
-type ErrorHandler = (error: Error) => void;
+type ErrorHandler = (error: WebSocketServiceError) => void;
 type ConnectionHandler = (isConnected: boolean) => void;
+type StatusHandler = (status: ConnectionStatus) => void;
 
 /**
  * Servicio de WebSocket para comunicación en tiempo real con el servidor IA
  */
-class WebSocketService {
+export class WebSocketService {
   private ws: WebSocket | null = null;
   private config: WebSocketConfig;
   private reconnectAttempts = 0;
@@ -18,6 +36,8 @@ class WebSocketService {
   private messageHandlers: Set<MessageHandler> = new Set();
   private errorHandlers: Set<ErrorHandler> = new Set();
   private connectionHandlers: Set<ConnectionHandler> = new Set();
+  private statusHandlers: Set<StatusHandler> = new Set();
+  private status: ConnectionStatus = 'idle';
   private isConnecting = false;
   private shouldReconnect = true;
   private pendingMessages: WebSocketMessage[] = [];
@@ -89,6 +109,9 @@ class WebSocketService {
     this.isConnecting = true;
     this.shouldReconnect = true;
     this.connectionAttemptId++;
+    // Un intento con reintentos ya consumidos (o tras `failed`) sigue siendo una reconexión
+    // para el usuario; solo el primer intento de un ciclo es `connecting`.
+    this.setStatus(this.reconnectAttempts > 0 ? 'reconnecting' : 'connecting');
 
     const currentAttemptId = this.connectionAttemptId;
     const connectionUrl = this.buildConnectionUrl();
@@ -109,7 +132,7 @@ class WebSocketService {
 
       this.setupEventHandlers(currentAttemptId);
     } catch (error) {
-      this.handleError(new Error(`Failed to create WebSocket: ${error}`));
+      this.handleError(`Failed to create WebSocket: ${error}`, 'connection');
       this.isConnecting = false;
       this.scheduleReconnect();
     }
@@ -160,6 +183,22 @@ class WebSocketService {
 
     this.isConnecting = false;
     this.notifyConnectionHandlers(false);
+    this.setStatus('idle');
+  }
+
+  /**
+   * Reintento pedido por el usuario (p. ej. tras `failed`): reinicia el contador para que
+   * vuelva a tener el ciclo completo de reintentos automáticos.
+   */
+  retry(): void {
+    this.debugLog('Reintento de conexion solicitado por el usuario', {
+      status: this.status,
+      reconnectAttempts: this.reconnectAttempts,
+    });
+
+    this.clearReconnectTimer();
+    this.reconnectAttempts = 0;
+    this.connect();
   }
 
   /**
@@ -176,7 +215,7 @@ class WebSocketService {
         });
         this.ws.send(JSON.stringify(message));
       } catch (error) {
-        this.handleError(new Error(`Failed to send message: ${error}`));
+        this.handleError(`Failed to send message: ${error}`, 'send');
         this.pendingMessages.push(message);
         this.debugLog('Fallo envio, mensaje agregado a cola', {
           queueSizeAfterPush: this.pendingMessages.length,
@@ -218,10 +257,25 @@ class WebSocketService {
   }
 
   /**
+   * Registrar handler para cambios del estado de la conexión (ver `ConnectionStatus`)
+   */
+  onStatusChange(handler: StatusHandler): () => void {
+    this.statusHandlers.add(handler);
+    return () => this.statusHandlers.delete(handler);
+  }
+
+  /**
    * Obtener estado de conexión
    */
   isConnected(): boolean {
     return this.ws?.readyState === WebSocket.OPEN;
+  }
+
+  /**
+   * Estado actual de la conexión (ver `ConnectionStatus`)
+   */
+  getStatus(): ConnectionStatus {
+    return this.status;
   }
 
   /**
@@ -248,6 +302,7 @@ class WebSocketService {
       this.isConnecting = false;
       this.reconnectAttempts = 0;
       this.clearReconnectTimer();
+      this.setStatus('connected');
       this.notifyConnectionHandlers(true);
       this.sendPendingMessages();
     };
@@ -288,7 +343,7 @@ class WebSocketService {
               ? event.data.slice(0, 200)
               : '[payload no string recibido]',
         });
-        this.handleError(new Error(`Failed to parse message: ${error}`));
+        this.handleError(`Failed to parse message: ${error}`, 'parse');
       }
     };
 
@@ -302,7 +357,9 @@ class WebSocketService {
         readyState: this.ws?.readyState,
         error: errorDetail,
       });
-      this.handleError(new Error(`WebSocket error: ${errorDetail}`));
+      // El estado no cambia aquí: React Native dispara `onclose` a continuación y es ahí
+      // donde se decide entre `reconnecting` y `failed`.
+      this.handleError(`WebSocket error: ${errorDetail}`, 'connection');
     };
 
     this.ws.onclose = event => {
@@ -333,12 +390,14 @@ class WebSocketService {
         reconnectAttempts: this.reconnectAttempts,
         maxReconnectAttempts: this.config.maxReconnectAttempts,
       });
-      this.handleError(new Error('Max reconnection attempts reached'));
+      this.handleError('Max reconnection attempts reached', 'connection');
+      this.setStatus('failed');
       return;
     }
 
     this.clearReconnectTimer();
     this.reconnectAttempts++;
+    this.setStatus('reconnecting');
 
     this.debugLog('Programando reconexion', {
       reconnectAttempts: this.reconnectAttempts,
@@ -401,10 +460,33 @@ class WebSocketService {
   }
 
   /**
+   * Actualizar el estado de la conexión y notificar solo si cambió
+   */
+  private setStatus(status: ConnectionStatus): void {
+    if (this.status === status) {
+      return;
+    }
+
+    this.debugLog('Cambio de estado de la conexion', {from: this.status, to: status});
+    this.status = status;
+
+    this.statusHandlers.forEach(handler => {
+      try {
+        handler(status);
+      } catch (error) {
+        console.error('Error in status handler:', error);
+      }
+    });
+  }
+
+  /**
    * Notificar a los handlers de errores
    */
-  private handleError(error: Error): void {
+  private handleError(message: string, kind: WebSocketErrorKind): void {
+    const error = new WebSocketServiceError(message, kind);
+
     this.debugLog('Error procesado por WebSocketService', {
+      kind,
       message: error.message,
       stack: error.stack,
     });
