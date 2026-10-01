@@ -23,6 +23,7 @@ import { RootStackParamList } from '@/types/index';
 import { Steps } from '@components/Common/Steps';
 import { maskEmail } from '@utils/helpers';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { APP_CONFIG } from '@constants/config';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -97,7 +98,7 @@ export const UsernameRecoveryScreen = () => {
           />
         </View>
         <View style={styles.bottomButtons}>
-          {recoveryType === 'BOTH' && (
+          {(recoveryType === 'BOTH' || !APP_CONFIG.BOTH_RECOVERY) && (
             <View style={styles.continueButtonContainer}>
               <ButtonPill
                 onPress={handleContinue}

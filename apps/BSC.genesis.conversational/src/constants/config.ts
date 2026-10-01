@@ -40,6 +40,10 @@ export const APP_CONFIG = {
 
   // Activar o desactivar TTS hasta validar requerimimento completo
   TTS_ENABLED: false,
+
+  // Activar o desactivar tercera opcion de restauracion de accesos
+  // Permite ver el card y valida si desde UsernameRecoveryScreen muestra el boton de recuperar contrasena o no
+  BOTH_RECOVERY: false,
 };
 
 // Claves bajo las que se guardan los tokens de sesión en el Keychain del dispositivo

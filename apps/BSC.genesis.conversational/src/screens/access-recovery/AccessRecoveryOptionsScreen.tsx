@@ -1,14 +1,15 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text} from 'react-native';
-import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {COLORS, FONT_SIZES, FONT_WEIGHTS, SPACING} from '@constants/theme';
-import {useTranslation} from 'react-i18next';
-import {TouchableCard} from '@components/Common';
-import {useNavigation} from '@react-navigation/native';
-import {RecoveryType, RootStackParamList} from '@/types/index';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useAccesRecoveryStore} from '@store/access-recovery.store';
+import { ScrollView, StyleSheet, Text } from 'react-native';
+import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { COLORS, FONT_SIZES, FONT_WEIGHTS, SPACING } from '@constants/theme';
+import { useTranslation } from 'react-i18next';
+import { TouchableCard } from '@components/Common';
+import { useNavigation } from '@react-navigation/native';
+import { RecoveryType, RootStackParamList } from '@/types/index';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useAccesRecoveryStore } from '@store/access-recovery.store';
+import { APP_CONFIG } from '@constants/config';
 
 type AccessRecoveryOptionsScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -16,7 +17,7 @@ type AccessRecoveryOptionsScreenNavigationProp = NativeStackNavigationProp<
 >;
 
 export const AccessRecoveryOptionsScreen: React.FC = () => {
-  const {t} = useTranslation('accessRecovery');
+  const { t } = useTranslation('accessRecovery');
   const navigation = useNavigation<AccessRecoveryOptionsScreenNavigationProp>();
   const setRecoveryType = useAccesRecoveryStore(state => state.setRecoveryType);
 
@@ -32,7 +33,8 @@ export const AccessRecoveryOptionsScreen: React.FC = () => {
         style={styles.scroll}
         contentContainerStyle={styles.content}
         keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.title}>{t('recoveryOptions.title')}</Text>
         <Text style={styles.subtitle}>{t('recoveryOptions.description')}</Text>
 
@@ -50,12 +52,14 @@ export const AccessRecoveryOptionsScreen: React.FC = () => {
           onPress={() => handleRecoveryPress('PASSWORD')}
         />
 
-        <TouchableCard
-          title={t('recoveryOptions.bothRecoverySubtitle')}
-          subtitle={t('recoveryOptions.bothRecoveryLabel')}
-          iconName="help-circle"
-          onPress={() => handleRecoveryPress('BOTH')}
-        />
+        {APP_CONFIG.BOTH_RECOVERY && (
+          <TouchableCard
+            title={t('recoveryOptions.bothRecoverySubtitle')}
+            subtitle={t('recoveryOptions.bothRecoveryLabel')}
+            iconName="help-circle"
+            onPress={() => handleRecoveryPress('BOTH')}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );
