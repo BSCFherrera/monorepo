@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
   },
   backdropPressable: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
   surface: {
     overflow: 'hidden',

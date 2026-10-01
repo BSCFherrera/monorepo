@@ -6,7 +6,7 @@ import React, {
   useState,
   type ReactNode,
 } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, StyleSheet, Text, View } from 'react-native';
 
 import { BscColors } from '../theme/colors';
 import { BscSpacing, withAlpha } from '../theme/spacing';
@@ -38,17 +38,25 @@ export function BscLoadingOverlay({
   if (!visible) return null;
 
   return (
-    <View
-      accessibilityRole="progressbar"
-      accessibilityLabel={label ?? 'Loading'}
-      accessibilityState={{ busy: true }}
-      pointerEvents="auto"
-      style={styles.overlay}
-      testID={testID}
+    <Modal
+      visible
+      transparent
+      animationType="fade"
+      statusBarTranslucent
+      onRequestClose={() => undefined}
     >
-      {animated ? <ActivityIndicator size="large" color={BscColors.primary} /> : null}
-      {label === undefined ? null : <Text style={styles.label}>{label}</Text>}
-    </View>
+      <View
+        accessibilityRole="progressbar"
+        accessibilityLabel={label ?? 'Loading'}
+        accessibilityState={{ busy: true }}
+        pointerEvents="auto"
+        style={styles.overlay}
+        testID={testID}
+      >
+        {animated ? <ActivityIndicator size="large" color={BscColors.primary} /> : null}
+        {label === undefined ? null : <Text style={styles.label}>{label}</Text>}
+      </View>
+    </Modal>
   );
 }
 
