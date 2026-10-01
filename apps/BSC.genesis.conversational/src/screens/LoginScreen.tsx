@@ -351,7 +351,7 @@ export const LoginScreen: React.FC = () => {
           <Text style={styles.label}>{t('login.usernameLabel')}</Text>
           <TextField
             width="100%"
-            value={isPasswordHidden ? (enrolledUsername ?? '') : username}
+            value={isPasswordHidden ? enrolledUsername ?? '' : username}
             onChangeText={handleUsernameChange}
             onFocus={() => setFormError(null)}
             placeholder={t('login.usernamePlaceholder')}
@@ -394,8 +394,8 @@ export const LoginScreen: React.FC = () => {
                     ? t('login.loggingInButton')
                     : t('login.loginButton')
                   : authenticatingWithPasskey
-                    ? t('login.passkeyLoggingInButton')
-                    : t('login.continueButton')}
+                  ? t('login.passkeyLoggingInButton')
+                  : t('login.continueButton')}
               </ButtonPill>
             </View>
           )}

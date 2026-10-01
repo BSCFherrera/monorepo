@@ -7,7 +7,7 @@ import {
   VerifyClientDocumentApiResponse,
   GetUserIdByInternalIdResponse,
 } from '@/types/index';
-import {SERVICE_ERRORS} from '@constants/serviceErrors';
+import { SERVICE_ERRORS } from '@constants/serviceErrors';
 
 // Documentos de prueba: numeroDocumento -> escenario simulado
 export const MOCK_DOCUMENTOS = {
@@ -36,7 +36,7 @@ const buildMockResponse = (status: number, body: unknown): Response =>
     ok: status >= 200 && status < 300,
     status,
     json: async () => body,
-  }) as Response;
+  } as Response);
 
 // El endpoint "core" siempre responde HTTP 200: éxito/error se distingue por `isSucceded` y `code`
 const buildVerifyClientDocumentBody = (
@@ -44,7 +44,7 @@ const buildVerifyClientDocumentBody = (
   code: string,
   message: string,
   data: VerifyClientDocumentApiResponse['data'],
-): VerifyClientDocumentApiResponse => ({isSucceded, code, message, data});
+): VerifyClientDocumentApiResponse => ({ isSucceded, code, message, data });
 
 export const MOCK_CLIENTE: ClientInformationResponse = {
   aceptaPublicidadDigital: 'S',
@@ -53,7 +53,6 @@ export const MOCK_CLIENTE: ClientInformationResponse = {
   apellidoCasada: null,
   codigoPersona: '607749',
   dobleNacionalidad: 'N',
-  emailPrincipal: 'desarrollo@test11.com',
   emails: [
     {
       codigoEmail: '3',
@@ -118,11 +117,12 @@ export const MOCK_CLIENTE: ClientInformationResponse = {
   tipoPersona: 'F',
   isSecureDevice: true,
   isDeviceRegistered: true,
+  redirectToLogin: true,
 };
 
 export const ACCESS_RECOVERY_MOCK = {
   verifyClientDocument: async (request: ClientInformationRequest): Promise<Response> => {
-    const {numeroDocumento, categoria} = request;
+    const { numeroDocumento, categoria } = request;
 
     console.log('[ACCESS_RECOVERY_MOCK] verifyClientDocument request', {
       categoria,
@@ -135,7 +135,7 @@ export const ACCESS_RECOVERY_MOCK = {
 
     if (numeroDocumento === MOCK_DOCUMENTOS.CLIENTE_NO_VALIDADO) {
       console.log('[ACCESS_RECOVERY_MOCK] verifyClientDocument resultado: CLIENTE_NO_VALIDADO');
-      const {code, message} =
+      const { code, message } =
         SERVICE_ERRORS.ACCESS_RECOVERY.VERIFY_CLIENT_DOCUMENT.CLIENT_NOT_VALIDATED;
       return buildMockResponse(200, buildVerifyClientDocumentBody(false, code, message, {}));
     }
@@ -144,19 +144,20 @@ export const ACCESS_RECOVERY_MOCK = {
       console.log(
         '[ACCESS_RECOVERY_MOCK] verifyClientDocument resultado: LIMITE_INTENTOS_EXCEDIDO',
       );
-      const {code, message} =
+      const { code, message } =
         SERVICE_ERRORS.ONBOARDING.VERIFY_CLIENT_DOCUMENT.MAX_ATTEMPTS_EXCEEDED;
       return buildMockResponse(200, buildVerifyClientDocumentBody(false, code, message, {}));
     }
 
     if (numeroDocumento === MOCK_DOCUMENTOS.CLIENTE_SIN_DATOS) {
       console.log('[ACCESS_RECOVERY_MOCK] verifyClientDocument resultado: CLIENTE_SIN_DATOS');
-      const {code, message} = SERVICE_ERRORS.ONBOARDING.VERIFY_CLIENT_DOCUMENT.CLIENT_WITHOUT_DATA;
+      const { code, message } =
+        SERVICE_ERRORS.ONBOARDING.VERIFY_CLIENT_DOCUMENT.CLIENT_WITHOUT_DATA;
       return buildMockResponse(200, buildVerifyClientDocumentBody(false, code, message, {}));
     }
 
     console.log('[ACCESS_RECOVERY_MOCK] verifyClientDocument resultado: EXITOSO');
-    const {code: successCode, message: successMessage} =
+    const { code: successCode, message: successMessage } =
       SERVICE_ERRORS.ONBOARDING.VERIFY_CLIENT_DOCUMENT.SUCCESS;
     return buildMockResponse(
       200,
@@ -174,7 +175,7 @@ export const ACCESS_RECOVERY_MOCK = {
     });
     await delay(MOCK_DELAY_MS);
     console.log('[ACCESS_RECOVERY_MOCK] changePassword resultado: EXITOSO');
-    const {code, message} = SERVICE_ERRORS.ACCESS_RECOVERY.CHANGE_PASSWORD.SUCCESS;
+    const { code, message } = SERVICE_ERRORS.ACCESS_RECOVERY.CHANGE_PASSWORD.SUCCESS;
     const body: ApiResponse<ChangePasswordResponse> = {
       isSucceded: true,
       code,
@@ -195,7 +196,7 @@ export const ACCESS_RECOVERY_MOCK = {
     });
     await delay(MOCK_DELAY_MS);
     console.log('[ACCESS_RECOVERY_MOCK] changePassword resultado: EXITOSO');
-    const {code, message} = SERVICE_ERRORS.ACCESS_RECOVERY.CHANGE_PASSWORD.SUCCESS;
+    const { code, message } = SERVICE_ERRORS.ACCESS_RECOVERY.CHANGE_PASSWORD.SUCCESS;
     const body: ApiResponse<GetUserIdByInternalIdResponse> = {
       isSucceded: true,
       code,

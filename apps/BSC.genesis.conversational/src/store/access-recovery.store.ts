@@ -1,5 +1,5 @@
-import {create} from 'zustand';
-import {ClientInformationResponse, RecoveryStepResult, RecoveryType} from '../types';
+import { create } from 'zustand';
+import { ClientInformationResponse, RecoveryStepResult, RecoveryType } from '../types';
 
 interface AccessRecoveryState {
   /** Cliente verificado tras una consulta exitosa de documento */
@@ -16,6 +16,8 @@ interface AccessRecoveryState {
   verifiedEmail: string | null;
   /**  Tipo de recuperacion ('USERNAME', 'PASSWORD', 'BOTH') */
   recoveryType: RecoveryType | null;
+  //** Email principal de recuperacion de usuario*/
+  userEmail: string | null;
   setVerifiedClient: (client: ClientInformationResponse) => void;
   setVerifiedPhone: (phone: string) => void;
   setVerifiedEmail: (email: string) => void;
@@ -23,6 +25,7 @@ interface AccessRecoveryState {
   setDocumentCategory: (category: string) => void;
   setRecoveryStep: (step: RecoveryStepResult) => void;
   setRecoveryType: (type: RecoveryType) => void;
+  setUserEmail: (email: string) => void;
 }
 
 /**
@@ -35,10 +38,11 @@ export const useAccesRecoveryStore = create<AccessRecoveryState>(set => ({
   recoveryStep: null,
   verifiedPhone: null,
   verifiedEmail: null,
-  setVerifiedClient: client => set({verifiedClient: client}),
-  setDocumentCategory: category => set({documentCategory: category}),
-  setVerifiedPhone: phone => set({verifiedPhone: phone}),
-  setVerifiedEmail: email => set({verifiedEmail: email}),
+  userEmail: null,
+  setVerifiedClient: client => set({ verifiedClient: client }),
+  setDocumentCategory: category => set({ documentCategory: category }),
+  setVerifiedPhone: phone => set({ verifiedPhone: phone }),
+  setVerifiedEmail: email => set({ verifiedEmail: email }),
   clearVerifiedClient: () =>
     set({
       verifiedClient: null,
@@ -47,6 +51,7 @@ export const useAccesRecoveryStore = create<AccessRecoveryState>(set => ({
       verifiedEmail: null,
       recoveryType: null,
     }),
-  setRecoveryType: type => set({recoveryType: type}),
-  setRecoveryStep: step => set({recoveryStep: step}),
+  setRecoveryType: type => set({ recoveryType: type }),
+  setRecoveryStep: step => set({ recoveryStep: step }),
+  setUserEmail: email => set({ userEmail: email }),
 }));

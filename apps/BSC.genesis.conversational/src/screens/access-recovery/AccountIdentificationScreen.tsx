@@ -1,27 +1,27 @@
-import React, {useMemo, useRef, useState} from 'react';
-import {Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, { useMemo, useRef, useState } from 'react';
+import { Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
-import {COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS} from '@constants/theme';
-import {Steps} from '@components/Common/Steps';
-import {SelectPill} from '@components/Common/SelectPill';
-import {DOCUMENT_CATEGORY} from '@constants/documentCategory';
-import {TextField} from '@components/Common/TextField';
-import {ErrorText} from '@components/Common/ErrorText';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {AccessRecoveryApiError, AccessRecoveryService} from '@services/index';
+import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
+import { COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS } from '@constants/theme';
+import { Steps } from '@components/Common/Steps';
+import { SelectPill } from '@components/Common/SelectPill';
+import { DOCUMENT_CATEGORY } from '@constants/documentCategory';
+import { TextField } from '@components/Common/TextField';
+import { ErrorText } from '@components/Common/ErrorText';
+import { ButtonPill } from '@components/Common/ButtonPill';
+import { AccessRecoveryApiError, AccessRecoveryService } from '@services/index';
 import {
   AccessRecoveryErrorCode,
   ClientInformationResponse,
   ModalRef,
   RootStackParamList,
 } from '@/types/index';
-import {useAccesRecoveryStore} from '@store/access-recovery.store';
-import {useLoader} from '@components/Common/Loader';
+import { useAccesRecoveryStore } from '@store/access-recovery.store';
+import { useLoader } from '@components/Common/Loader';
 import {
   ErrorUserWithoutData,
   NotValidatedClientModal,
@@ -30,16 +30,19 @@ import {
   ErrorGeneral,
   MaximumIntentsModal,
 } from '@components/Common';
-import {formatDocumentNumber, sanitizeDocumentNumber} from '@utils/helpers';
+import { formatDocumentNumber, sanitizeDocumentNumber } from '@utils/helpers';
+import { AccessOrigin, useOnboardingStore } from '@store/onboarding.store';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const AccountIdentificationScreen = () => {
-  const {t} = useTranslation('accessRecovery');
+  const { t } = useTranslation('accessRecovery');
   const navigation = useNavigation<RootNavigationProp>();
-  const {showLoader, hideLoader} = useLoader();
+  const { showLoader, hideLoader } = useLoader();
   const setVerifiedClient = useAccesRecoveryStore(state => state.setVerifiedClient);
+  const setAccessOrigin = useOnboardingStore(state => state.setAccessOrigin);
   const setDocumentCategoryInStore = useAccesRecoveryStore(state => state.setDocumentCategory);
+  const setUserEmail = useAccesRecoveryStore(state => state.setUserEmail);
   const recoveryType = useAccesRecoveryStore(state => state.recoveryType);
 
   // States
@@ -188,6 +191,19 @@ export const AccountIdentificationScreen = () => {
         return;
       }
 
+      if (!client.redirectToLogin) {
+        setAccessOrigin(AccessOrigin.REGISTER);
+        navigation.navigate('ChooseDocument');
+        return;
+      }
+
+      if (client.emails.length === 1) {
+        setUserEmail(client.emails[0].email);
+      } else {
+        const email = client.emails.find(email => email.emailPorDefecto === 'S');
+        setUserEmail(email?.email || client.emails[0].email);
+      }
+
       pendingModal = () => clientVerifiedRef.current?.open();
     } catch (error) {
       const errorCode = error instanceof AccessRecoveryApiError ? error.code : null;
@@ -230,7 +246,8 @@ export const AccountIdentificationScreen = () => {
           style={styles.scroll}
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.title}>{t('accountIdentification.title')}</Text>
           <Text style={styles.subtitle}>{t('accountIdentification.subtitle')}</Text>
 
@@ -278,7 +295,8 @@ export const AccountIdentificationScreen = () => {
               width="100%"
               backgroundColor={COLORS.primary}
               textColor={COLORS.backgroundLight}
-              disabled={isContinueDisabled}>
+              disabled={isContinueDisabled}
+            >
               {t('accountIdentification.continueButton')}
             </ButtonPill>
           </View>

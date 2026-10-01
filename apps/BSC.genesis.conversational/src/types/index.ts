@@ -418,18 +418,18 @@ export type RootStackParamList = {
   ChooseDocument: undefined;
   CustomerDataConfirmOtp: undefined;
   CompletedValidation: undefined;
-  SignDocument: {documentUri: string; fileName: string; phone: string; cedula: string};
-  CreateUserOnboarding: {cedula: string};
-  ConfigurePasskey: {email: string};
+  SignDocument: { documentUri: string; fileName: string; phone: string; cedula: string };
+  CreateUserOnboarding: { cedula: string };
+  ConfigurePasskey: { email: string };
   ConfigureAuthBiometric: undefined;
   RegisterSecureDevice: undefined;
-  ProofOfLife: {numeroDocumento?: string; deviceId?: string; username?: string} | undefined;
+  ProofOfLife: { numeroDocumento?: string; deviceId?: string; username?: string } | undefined;
   WelcomeOnboarding: undefined;
-  Chat: {prefillMessage?: string} | undefined;
+  Chat: { prefillMessage?: string } | undefined;
   Transactions: undefined;
   Products: undefined;
   Profile: undefined;
-  TransactionDetail: {transactionId: string};
+  TransactionDetail: { transactionId: string };
   AccessRecovery: undefined;
   AccountIdentification: undefined;
   ResetPassword: undefined;
@@ -502,7 +502,6 @@ export interface ClientInformationResponse {
   apellidoCasada: string | null;
   codigoPersona: string;
   dobleNacionalidad: string;
-  emailPrincipal: string;
   emails: Email[];
   emailSecundario: string | null;
   esResidente: string;
@@ -533,6 +532,7 @@ export interface ClientInformationResponse {
   tipoPersona: string;
   isSecureDevice?: boolean;
   isDeviceRegistered?: boolean;
+  redirectToLogin: boolean;
 }
 
 // Envoltorio de respuesta "core" del cliente: éxito/error se determina por `isSucceded` y
@@ -821,7 +821,7 @@ export type DocumentErrorCode = 'TIMEOUT' | 'UNKNOWN_ERROR';
 export type BottomTabParamList = {
   Home: undefined;
   Transactions: undefined;
-  Chat: {prefillMessage?: string} | undefined;
+  Chat: { prefillMessage?: string } | undefined;
   Products: undefined;
 };
 

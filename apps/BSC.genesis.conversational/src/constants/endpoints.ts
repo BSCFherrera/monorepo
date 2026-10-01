@@ -54,6 +54,6 @@ export const DOCUMENT_ENDPOINTS = {
 } as const;
 
 export const ACCESS_RECOVERY_ENDPOINTS = {
-  CHANGE_PASSWORD: (id: string) => `user-directory/${id}/password`,
-  GET_USER_ID_BY_INTERNAL_ID: 'auth/users/by-internal-id',
+  CHANGE_PASSWORD: (id: string) => `/user-directory/${id}/password`,
+  GET_USER_ID_BY_INTERNAL_ID: '/auth/users/by-internal-id',
 };

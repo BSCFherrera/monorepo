@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import Icon from '@react-native-vector-icons/feather';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
+import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
 import {
   COLORS,
   SPACING,
@@ -15,24 +15,25 @@ import {
   DIMENSIONS,
   BORDER_RADIUS,
 } from '@constants/theme';
-import {Card} from '@components/Common/Card';
-import {TextField} from '@components/Common/TextField';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {useAccesRecoveryStore} from '@store/access-recovery.store';
-import {RootStackParamList} from '@/types/index';
-import {Steps} from '@components/Common/Steps';
-import {maskEmail} from '@utils/helpers';
+import { Card } from '@components/Common/Card';
+import { TextField } from '@components/Common/TextField';
+import { ButtonPill } from '@components/Common/ButtonPill';
+import { useAccesRecoveryStore } from '@store/access-recovery.store';
+import { RootStackParamList } from '@/types/index';
+import { Steps } from '@components/Common/Steps';
+import { maskEmail } from '@utils/helpers';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const UsernameRecoveryScreen = () => {
-  const {t} = useTranslation('accessRecovery');
-  const verifiedClient = useAccesRecoveryStore(state => state.verifiedClient);
+  const { t } = useTranslation('accessRecovery');
+  const userEmail = useAccesRecoveryStore(state => state.userEmail);
   const clearVerifiedClient = useAccesRecoveryStore(state => state.clearVerifiedClient);
   const navigation = useNavigation<RootNavigationProp>();
   const recoveryType = useAccesRecoveryStore(state => state.recoveryType);
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState(verifiedClient?.emailPrincipal);
+  const [email, setEmail] = useState(userEmail);
 
   const handleContinue = () => {
     navigation.navigate('ResetPassword');
@@ -45,11 +46,15 @@ export const UsernameRecoveryScreen = () => {
 
   useEffect(() => {
     if (showPassword) {
-      setEmail(verifiedClient?.emailPrincipal);
+      setEmail(userEmail);
     } else {
-      setEmail(maskEmail(verifiedClient?.emailPrincipal || ''));
+      setEmail(maskEmail(userEmail || ''));
     }
-  }, [showPassword, verifiedClient?.emailPrincipal]);
+  }, [showPassword, userEmail]);
+
+  const onCopy = () => {
+    Clipboard.setString(userEmail || '');
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
@@ -63,7 +68,8 @@ export const UsernameRecoveryScreen = () => {
         style={styles.scroll}
         contentContainerStyle={styles.content}
         keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+      >
         <Card
           style={styles.titleCard}
           title={t('userRecovery.title')}
@@ -81,11 +87,12 @@ export const UsernameRecoveryScreen = () => {
           </View>
           <TextField
             width="100%"
-            value={email}
+            value={email || ''}
             iconName={showPassword ? 'eye-off' : 'eye'}
             iconPosition="right"
             readOnly
             copyable
+            onCopy={onCopy}
             onIconPress={() => setShowPassword(prev => !prev)}
           />
         </View>
@@ -96,7 +103,8 @@ export const UsernameRecoveryScreen = () => {
                 onPress={handleContinue}
                 width="100%"
                 backgroundColor={COLORS.primary}
-                textColor={COLORS.backgroundLight}>
+                textColor={COLORS.backgroundLight}
+              >
                 {t('userRecovery.continue')}
               </ButtonPill>
             </View>
