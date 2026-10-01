@@ -159,6 +159,35 @@ export interface LogoProps {
   onDark?: boolean;
 }
 
+/** Forma visual de `BscModal` (BscModal.tsx). */
+export type ModalPresentation = 'dialog' | 'expanded';
+
+/** Props neutrales de `BscModal` (BscModal.tsx). */
+export interface ModalProps {
+  visible?: boolean;
+  defaultVisible?: boolean;
+  title?: string | undefined;
+  onClose?: (() => void) | undefined;
+  onOpenChange?: ((visible: boolean) => void) | undefined;
+  canDismiss?: boolean;
+  showCloseButton?: boolean;
+  presentation?: ModalPresentation;
+  testID?: string;
+}
+
+/** Props neutrales de `BscInfoModal` (BscInfoModal.tsx). */
+export interface InfoModalProps extends ModalProps {
+  title: string;
+  description: string;
+  primaryButtonLabel: string;
+  onPrimaryPress?: (() => void) | undefined;
+  secondaryButtonLabel?: string | undefined;
+  onSecondaryPress?: (() => void) | undefined;
+  primaryButtonLoading?: boolean;
+  primaryButtonDisabled?: boolean;
+  secondaryButtonDisabled?: boolean;
+}
+
 /** Props neutrales de `BscMeterBar` (BscMeterBar.tsx). */
 export interface MeterBarProps {
   label: string;

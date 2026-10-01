@@ -169,6 +169,17 @@ export {
 } from './components/BscSheet';
 
 export {
+  BscModal,
+  type BscModalHandle,
+  type BscModalProps,
+} from './components/BscModal';
+
+export {
+  BscInfoModal,
+  type BscInfoModalProps,
+} from './components/BscInfoModal';
+
+export {
   BscDateRangeSheet,
   type BscDateRangeSheetProps,
 } from './components/BscDateRangeSheet';
