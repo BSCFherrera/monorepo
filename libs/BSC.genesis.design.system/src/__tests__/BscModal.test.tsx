@@ -60,12 +60,14 @@ describe('BscModal', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('accepts a full screen ReactNode content slot', () => {
+  it('accepts an expanded ReactNode content slot without replacing the whole screen', () => {
     const tree = render(
-      <BscModal visible presentation="fullScreen" content={<Text>Screen content</Text>} />,
+      <BscModal visible presentation="expanded" testID="expanded-modal" content={<Text>Screen content</Text>} />,
     );
 
-    expect(tree.root.findByType(Modal).props.transparent).toBe(false);
+    expect(tree.root.findByType(Modal).props.transparent).toBe(true);
+    const expandedSurface = tree.root.findAllByProps({ testID: 'expanded-modal' }).find(node => node.props.style !== undefined);
+    expect(JSON.stringify(expandedSurface?.props.style)).toContain('"height":"90%"');
     expect(tree.root.findByProps({ children: 'Screen content' })).toBeTruthy();
   });
 });

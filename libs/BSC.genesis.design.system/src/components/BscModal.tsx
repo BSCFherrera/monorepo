@@ -14,7 +14,6 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { overlay } from '../tokens';
 import { BscColors } from '../theme/colors';
@@ -65,7 +64,6 @@ export const BscModal = forwardRef<BscModalHandle, BscModalProps>(function BscMo
   const [internalVisible, setInternalVisible] = useState(defaultVisible);
   const isControlled = visible !== undefined;
   const currentVisible = isControlled ? visible : internalVisible;
-  const insets = useSafeAreaInsets();
   const body = content ?? children;
 
   const setModalVisible = useCallback(
@@ -100,49 +98,47 @@ export const BscModal = forwardRef<BscModalHandle, BscModalProps>(function BscMo
     [close, currentVisible, setModalVisible],
   );
 
-  const isFullScreen = presentation === 'fullScreen';
+  const isExpanded = presentation === 'expanded';
   const contentNode = scrollable ? (
     <ScrollView
       style={styles.scroll}
-      contentContainerStyle={[styles.content, isFullScreen && styles.fullScreenContent, contentStyle]}
+      contentContainerStyle={[styles.content, isExpanded && styles.expandedContent, contentStyle]}
       keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
     >
       {body}
     </ScrollView>
   ) : (
-    <View style={[styles.content, isFullScreen && styles.fullScreenContent, styles.staticContent, contentStyle]}>{body}</View>
+    <View style={[styles.content, isExpanded && styles.expandedContent, styles.staticContent, contentStyle]}>{body}</View>
   );
 
   return (
     <Modal
       visible={currentVisible}
-      transparent={!isFullScreen}
-      animationType={isFullScreen ? 'slide' : 'fade'}
+      transparent
+      animationType={isExpanded ? 'slide' : 'fade'}
       onRequestClose={dismiss}
       statusBarTranslucent
     >
-      <View style={[styles.backdrop, isFullScreen && styles.fullScreenBackdrop]}>
-        {!isFullScreen ? (
-          <Pressable
-            testID={testID === undefined ? undefined : `${testID}-backdrop`}
-            style={styles.backdropPressable}
-            accessibilityRole="button"
-            accessibilityLabel="Cerrar"
-            onPress={dismiss}
-          />
-        ) : null}
+      <View style={[styles.backdrop, isExpanded && styles.expandedBackdrop]}>
+        <Pressable
+          testID={testID === undefined ? undefined : `${testID}-backdrop`}
+          style={styles.backdropPressable}
+          accessibilityRole="button"
+          accessibilityLabel="Cerrar"
+          onPress={dismiss}
+        />
 
         <View
           testID={testID}
           style={[
             styles.surface,
-            isFullScreen ? [styles.fullScreenSurface, { paddingTop: insets.top, paddingBottom: insets.bottom }] : styles.dialogSurface,
+            isExpanded ? styles.expandedSurface : styles.dialogSurface,
             surfaceStyle,
           ]}
         >
           {(title !== undefined && title.length > 0) || showCloseButton ? (
-            <View style={[styles.header, isFullScreen && styles.fullScreenHeader]}>
+            <View style={[styles.header, isExpanded && styles.expandedHeader]}>
               {showCloseButton ? <View style={styles.headerSide} /> : null}
               {title !== undefined && title.length > 0 ? (
                 <Text style={styles.title} numberOfLines={2}>
@@ -182,10 +178,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: BscSpacing.lg,
     backgroundColor: overlay.scrim,
   },
-  fullScreenBackdrop: {
-    justifyContent: 'flex-start',
+  expandedBackdrop: {
+    justifyContent: 'flex-end',
     paddingHorizontal: 0,
-    backgroundColor: BscColors.surface,
   },
   backdropPressable: {
     ...StyleSheet.absoluteFillObject,
@@ -198,8 +193,10 @@ const styles = StyleSheet.create({
     maxHeight: '86%',
     borderRadius: BscRadius.sheet,
   },
-  fullScreenSurface: {
-    flex: 1,
+  expandedSurface: {
+    height: '90%',
+    borderTopLeftRadius: BscRadius.sheet,
+    borderTopRightRadius: BscRadius.sheet,
   },
   header: {
     flexDirection: 'row',
@@ -213,7 +210,7 @@ const styles = StyleSheet.create({
     width: 44,
     minHeight: 44,
   },
-  fullScreenHeader: {
+  expandedHeader: {
     borderBottomWidth: 1,
     borderBottomColor: BscColors.divider,
   },
@@ -239,7 +236,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: BscSpacing.lg,
     paddingBottom: BscSpacing.lg,
   },
-  fullScreenContent: {
+  expandedContent: {
     flexGrow: 1,
   },
   staticContent: {

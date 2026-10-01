@@ -160,7 +160,7 @@ export interface LogoProps {
 }
 
 /** Forma visual de `BscModal` (BscModal.tsx). */
-export type ModalPresentation = 'dialog' | 'fullScreen';
+export type ModalPresentation = 'dialog' | 'expanded';
 
 /** Props neutrales de `BscModal` (BscModal.tsx). */
 export interface ModalProps {

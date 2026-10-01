@@ -32,29 +32,29 @@ export const Base: Story = {
   render: () => <BaseModalExample />,
 };
 
-function FullScreenModalExample(): React.JSX.Element {
+function ExpandedModalExample(): React.JSX.Element {
   const [visible, setVisible] = useState(true);
 
   return (
     <>
-      <BscPrimaryButton label="Abrir pantalla modal" onPress={() => setVisible(true)} />
+      <BscPrimaryButton label="Abrir modal expandido" onPress={() => setVisible(true)} />
       <BscModal
         visible={visible}
-        presentation="fullScreen"
-        title="Pantalla reutilizada"
+        presentation="expanded"
+        title="Contenido reutilizado"
         onClose={() => setVisible(false)}
         scrollable={false}
       >
-        <View style={styles.fullScreenExample}>
-          <Text>Una pantalla completa puede vivir temporalmente dentro del modal.</Text>
+        <View style={styles.expandedExample}>
+          <Text>Una pantalla o bloque completo puede vivir temporalmente dentro de este modal de 90%.</Text>
         </View>
       </BscModal>
     </>
   );
 }
 
-export const FullScreen: Story = {
-  render: () => <FullScreenModalExample />,
+export const Expanded: Story = {
+  render: () => <ExpandedModalExample />,
 };
 
 export const Info: Story = {
@@ -72,7 +72,7 @@ export const Info: Story = {
 };
 
 const styles = StyleSheet.create({
-  fullScreenExample: {
+  expandedExample: {
     flex: 1,
     justifyContent: 'center',
   },
