@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { BscInfoModal } from '../src/components/BscInfoModal';
-import { BscModal } from '../src/components/BscModal';
+import { BscModal, type BscModalHandle } from '../src/components/BscModal';
 import { BscPrimaryButton } from '../src/components/BscButton';
 
 const meta: Meta<typeof BscModal> = {
@@ -45,6 +45,53 @@ export const Base: Story = {
         onClose={() => setVisible(false)}
       >
         <Text>Este modal base acepta cualquier ReactNode como contenido.</Text>
+      </BscModal>
+    </>
+  );
+}`,
+      },
+    },
+  },
+};
+
+function ImperativeRefModalExample(): React.JSX.Element {
+  const modalRef = useRef<BscModalHandle>(null);
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir con ref" onPress={() => modalRef.current?.open()} />
+      <BscModal
+        ref={modalRef}
+        title="Uso imperativo"
+        footer={
+          <BscPrimaryButton label="Cerrar" onPress={() => modalRef.current?.close()} />
+        }
+      >
+        <Text>Usa el ref cuando la pantalla no quiera guardar estado visible.</Text>
+      </BscModal>
+    </>
+  );
+}
+
+export const ImperativeRef: Story = {
+  render: () => <ImperativeRefModalExample />,
+  parameters: {
+    docs: {
+      source: {
+        code: `function Example(): React.JSX.Element {
+  const modalRef = useRef<BscModalHandle>(null);
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir con ref" onPress={() => modalRef.current?.open()} />
+      <BscModal
+        ref={modalRef}
+        title="Uso imperativo"
+        footer={
+          <BscPrimaryButton label="Cerrar" onPress={() => modalRef.current?.close()} />
+        }
+      >
+        <Text>Usa el ref cuando la pantalla no quiera guardar estado visible.</Text>
       </BscModal>
     </>
   );
