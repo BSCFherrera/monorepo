@@ -167,6 +167,7 @@ export interface ModalProps {
   visible?: boolean;
   defaultVisible?: boolean;
   title?: string | undefined;
+  onBack?: (() => void) | undefined;
   onClose?: (() => void) | undefined;
   onOpenChange?: ((visible: boolean) => void) | undefined;
   canDismiss?: boolean;
@@ -256,6 +257,23 @@ export interface RadioProps {
   selected: boolean;
   /** El tinte del punto y del anillo cuando está elegido. */
   color?: string;
+  testID?: string;
+}
+
+/** Opción neutral de `BscRadioGroup` (BscRadioGroup.tsx). */
+export interface RadioGroupOption {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}
+
+/** Props neutrales de `BscRadioGroup` (BscRadioGroup.tsx). */
+export interface RadioGroupProps {
+  label?: string | undefined;
+  options: readonly RadioGroupOption[];
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
   testID?: string;
 }
 

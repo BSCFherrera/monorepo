@@ -54,6 +54,75 @@ export const Base: Story = {
   },
 };
 
+function BackActionModalExample(): React.JSX.Element {
+  const [visible, setVisible] = useState(false);
+  const [step, setStep] = useState(1);
+
+  const open = () => {
+    setStep(1);
+    setVisible(true);
+  };
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir flujo" onPress={open} />
+      <BscModal
+        visible={visible}
+        title={`Paso ${step}`}
+        onBack={step > 1 ? () => setStep(step - 1) : undefined}
+        onClose={() => setVisible(false)}
+        footer={
+          <BscPrimaryButton
+            label={step === 1 ? 'Ir al paso 2' : 'Cerrar'}
+            onPress={step === 1 ? () => setStep(2) : () => setVisible(false)}
+          />
+        }
+      >
+        <Text>{step === 1 ? 'Primer paso del flujo.' : 'Segundo paso con acción de volver.'}</Text>
+      </BscModal>
+    </>
+  );
+}
+
+export const BackAction: Story = {
+  render: () => <BackActionModalExample />,
+  parameters: {
+    docs: {
+      source: {
+        code: `function Example(): React.JSX.Element {
+  const [visible, setVisible] = useState(false);
+  const [step, setStep] = useState(1);
+
+  const open = () => {
+    setStep(1);
+    setVisible(true);
+  };
+
+  return (
+    <>
+      <BscPrimaryButton label="Abrir flujo" onPress={open} />
+      <BscModal
+        visible={visible}
+        title={\`Paso \${step}\`}
+        onBack={step > 1 ? () => setStep(step - 1) : undefined}
+        onClose={() => setVisible(false)}
+        footer={
+          <BscPrimaryButton
+            label={step === 1 ? 'Ir al paso 2' : 'Cerrar'}
+            onPress={step === 1 ? () => setStep(2) : () => setVisible(false)}
+          />
+        }
+      >
+        <Text>{step === 1 ? 'Primer paso del flujo.' : 'Segundo paso con acción de volver.'}</Text>
+      </BscModal>
+    </>
+  );
+}`,
+      },
+    },
+  },
+};
+
 function ImperativeRefModalExample(): React.JSX.Element {
   const modalRef = useRef<BscModalHandle>(null);
 

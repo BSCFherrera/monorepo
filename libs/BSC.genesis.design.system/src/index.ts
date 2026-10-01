@@ -107,6 +107,12 @@ export {
 export { BscRadio, type BscRadioProps } from './components/BscRadio';
 
 export {
+  BscRadioGroup,
+  type BscRadioGroupOption,
+  type BscRadioGroupProps,
+} from './components/BscRadioGroup';
+
+export {
   BscCheckbox,
   type BscCheckboxProps,
 } from './components/BscCheckbox';

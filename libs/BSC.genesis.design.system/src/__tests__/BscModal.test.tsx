@@ -70,6 +70,30 @@ describe('BscModal', () => {
     expect(JSON.stringify(expandedSurface?.props.style)).toContain('"height":"90%"');
     expect(tree.root.findByProps({ children: 'Screen content' })).toBeTruthy();
   });
+
+  it('separates back navigation from closing the modal', () => {
+    const onBack = jest.fn();
+    const onClose = jest.fn();
+    const tree = render(
+      <BscModal
+        visible
+        title="Step 2"
+        onBack={onBack}
+        onClose={onClose}
+        testID="flow-modal"
+      >
+        <Text>Step content</Text>
+      </BscModal>,
+    );
+
+    TestRenderer.act(() => {
+      tree.root.findByProps({ testID: 'flow-modal-back' }).props.onPress();
+    });
+
+    expect(onBack).toHaveBeenCalledTimes(1);
+    expect(onClose).not.toHaveBeenCalled();
+    expect(tree.root.findByType(Modal).props.visible).toBe(true);
+  });
 });
 
 describe('BscInfoModal', () => {

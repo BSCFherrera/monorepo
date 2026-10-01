@@ -48,6 +48,7 @@ export const BscModal = forwardRef<BscModalHandle, BscModalProps>(function BscMo
   visible,
   defaultVisible = false,
   title,
+  onBack,
   onClose,
   onOpenChange,
   canDismiss = true,
@@ -137,9 +138,22 @@ export const BscModal = forwardRef<BscModalHandle, BscModalProps>(function BscMo
             surfaceStyle,
           ]}
         >
-          {(title !== undefined && title.length > 0) || showCloseButton ? (
+          {(title !== undefined && title.length > 0) || onBack !== undefined || showCloseButton ? (
             <View style={[styles.header, isExpanded && styles.expandedHeader]}>
-              {showCloseButton ? <View style={styles.headerSide} /> : null}
+              {onBack !== undefined ? (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Volver"
+                  onPress={onBack}
+                  hitSlop={10}
+                  testID={testID === undefined ? undefined : `${testID}-back`}
+                  style={styles.headerButton}
+                >
+                  <BscIcon name="chevron-left" size={24} color={BscColors.textSecondary} />
+                </Pressable>
+              ) : showCloseButton ? (
+                <View style={styles.headerSide} />
+              ) : null}
               {title !== undefined && title.length > 0 ? (
                 <Text style={styles.title} numberOfLines={2}>
                   {title}
@@ -158,6 +172,8 @@ export const BscModal = forwardRef<BscModalHandle, BscModalProps>(function BscMo
                 >
                   <BscIcon name="close" size={24} color={BscColors.textSecondary} />
                 </Pressable>
+              ) : onBack !== undefined ? (
+                <View style={styles.headerSide} />
               ) : null}
             </View>
           ) : null}
@@ -224,6 +240,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   closeButton: {
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerButton: {
     minWidth: 44,
     minHeight: 44,
     alignItems: 'center',
