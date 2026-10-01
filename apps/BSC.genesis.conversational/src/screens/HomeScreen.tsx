@@ -1,16 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import {
-  Image,
-  Keyboard,
-  Modal,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-  type ImageSourcePropType,
-} from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Image, StyleSheet, Text, View, type ImageSourcePropType } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -21,21 +10,17 @@ import Icon from '@react-native-vector-icons/feather';
 
 import {
   BscColors,
-  BscIcon,
   BscLogo,
   BscPrimaryButton,
   BscSecondaryButton,
   BscTextButton,
-  BscTextField,
   BscRadius,
   BscSpacing,
   BscTextStyles,
   BscTypography,
-  sheetMaxHeight,
-  keyboardOverlap,
   withAlpha,
   FOOTNOTE_TEXT_STYLE,
-  buttonTokens,
+  BscModalHandle,
 } from '@bsc/design-system';
 
 import { ModalErrorUserBlockedLogin } from '@components/onboarding/ModalErrorUserBlockedLogin';
@@ -44,11 +29,12 @@ import { SessionExpiredModal } from '@components/Common/SessionExpiredModal';
 import { AuthApiError, AuthService, BiometricService } from '@services/index';
 import { usePasskeyAuthentication } from '@hooks/usePasskeyAuthentication';
 import { useLoginPostAuthNavigation } from '@hooks/useLoginPostAuthNavigation';
-import { EMAIL_MAX_LENGTH } from '@utils/helpers';
 import { DIMENSIONS, COLORS } from '@constants/theme';
 import { AccessOrigin, useOnboardingStore } from '@store/onboarding.store';
 import { useAuthStore } from '@store/auth.store';
 import type { AuthTokens, RootStackParamList } from '@/types/index';
+import { LoginModal } from '@components/auth/LoginModal';
+import { AccessRecoveryOptionsModal } from '@components/access-recovery/AccessRecoveryOptionsModal';
 
 const fondoDeAcceso = require('@assets/fondo-de-acceso.jpg');
 const iconoAyuda = require('@assets/icono-ayuda.png');
@@ -99,7 +85,6 @@ export function HomeScreen(): React.JSX.Element {
   const [rememberedPasskeyEmail, setRememberedPasskeyEmail] = useState<string | null>(null);
   const [rememberedFirstName, setRememberedFirstName] = useState<string | null>(null);
 
-  const [hojaAbierta, setHojaAbierta] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
@@ -112,6 +97,9 @@ export function HomeScreen(): React.JSX.Element {
   const [genericError, setGenericError] = useState<{ title: string; description: string } | null>(
     null,
   );
+
+  const loginRef = useRef<BscModalHandle>(null);
+  const accesRecoveryRef = useRef<BscModalHandle>(null);
 
   useEffect(() => {
     clearAccessOrigin();
@@ -244,17 +232,13 @@ export function HomeScreen(): React.JSX.Element {
     await proceedAfterAuthentication(correoRecordado, outcome.tokens);
   }, [correoRecordado, authenticateWithPasskey, setAccessOrigin, t, proceedAfterAuthentication]);
 
-  const abrirCredenciales = useCallback(
-    (usuarioInicial: string) => {
-      setAccessOrigin(AccessOrigin.LOGIN);
-      setFormError(null);
-      setTocado(false);
-      setUsername(usuarioInicial);
-      setPassword('');
-      setHojaAbierta(true);
-    },
-    [setAccessOrigin],
-  );
+  const abrirCredenciales = useCallback(() => {
+    setAccessOrigin(AccessOrigin.LOGIN);
+    setFormError(null);
+    setTocado(false);
+    setPassword('');
+    loginRef.current?.open();
+  }, [setAccessOrigin]);
 
   const handleSubmitCredentials = useCallback(async () => {
     setTocado(true);
@@ -281,7 +265,7 @@ export function HomeScreen(): React.JSX.Element {
     if (!tokens) return;
 
     const normalizedUsername = username.trim();
-    setHojaAbierta(false);
+    loginRef.current?.close();
     await proceedAfterAuthentication(normalizedUsername, tokens);
   }, [username, password, setAccessOrigin, t, proceedAfterAuthentication]);
 
@@ -299,6 +283,11 @@ export function HomeScreen(): React.JSX.Element {
     biometryType === BiometryTypes.FaceID
       ? BIOMETRIC_ICON_BY_TYPE.face
       : BIOMETRIC_ICON_BY_TYPE.default;
+
+  const handleAccessRecoveryPress = useCallback(() => {
+    loginRef.current?.close();
+    accesRecoveryRef.current?.open();
+  }, []);
 
   return (
     <View style={styles.fondo} testID="inicio">
@@ -328,7 +317,7 @@ export function HomeScreen(): React.JSX.Element {
 
         {/* ─── Acciones ───────────────────────────────────────────────── */}
         <View style={styles.acciones}>
-          {formError !== null && !hojaAbierta ? (
+          {formError !== null && !loginRef.current?.isOpen() ? (
             <Text style={styles.error} testID="inicio-error">
               {formError}
             </Text>
@@ -364,7 +353,7 @@ export function HomeScreen(): React.JSX.Element {
                 size="lg"
                 label={t('home.useCredentials')}
                 disabled={isBusy}
-                onPress={() => abrirCredenciales(correoRecordado)}
+                onPress={() => abrirCredenciales()}
                 testID="inicio-credenciales"
               />
 
@@ -387,7 +376,7 @@ export function HomeScreen(): React.JSX.Element {
                 label={t('home.switchAccount', { name: rememberedFirstName ?? correoRecordado })}
                 color={BscColors.textOnDark}
                 disabled={isBusy}
-                onPress={() => abrirCredenciales('')}
+                onPress={() => abrirCredenciales()}
                 testID="inicio-olvidar"
               />
             </>
@@ -397,7 +386,7 @@ export function HomeScreen(): React.JSX.Element {
                 size="lg"
                 label={t('home.signIn')}
                 loading={isBusy}
-                onPress={() => abrirCredenciales('')}
+                onPress={() => abrirCredenciales()}
                 testID="inicio-credenciales"
               />
 
@@ -441,8 +430,8 @@ export function HomeScreen(): React.JSX.Element {
         </View>
       </View>
 
-      <HojaDeCredenciales
-        visible={hojaAbierta}
+      <LoginModal
+        ref={loginRef}
         username={username}
         password={password}
         onChangeUsername={text => {
@@ -453,12 +442,12 @@ export function HomeScreen(): React.JSX.Element {
           setPassword(text);
           setFormError(null);
         }}
-        tocado={tocado}
-        cargando={loggingIn}
-        error={hojaAbierta ? formError : null}
-        onCerrar={() => setHojaAbierta(false)}
-        onEnviar={handleSubmitCredentials}
+        loading={loggingIn}
+        error={loginRef.current?.isOpen() ? formError : null}
+        onHandleContinue={handleSubmitCredentials}
+        handleAccessRecoveryPress={handleAccessRecoveryPress}
       />
+      <AccessRecoveryOptionsModal ref={accesRecoveryRef} />
 
       <ModalErrorUserBlockedLogin
         visible={userBlockedModalVisible}
@@ -527,150 +516,6 @@ function AccesoRapido({
         {etiqueta}
       </Text>
     </View>
-  );
-}
-
-/**
- * Hoja de usuario y contraseña.
- *
- * A diferencia de `LoginScreen.tsx`, no intenta Passkey antes de mostrar la
- * contraseña: en el Figma, "Entrar con Passkey" ya es su propio botón en la
- * pantalla principal, así que acá alcanza con un formulario directo.
- */
-function HojaDeCredenciales({
-  visible,
-  username,
-  password,
-  onChangeUsername,
-  onChangePassword,
-  tocado,
-  cargando,
-  error,
-  onCerrar,
-  onEnviar,
-}: {
-  visible: boolean;
-  username: string;
-  password: string;
-  onChangeUsername: (text: string) => void;
-  onChangePassword: (text: string) => void;
-  tocado: boolean;
-  cargando: boolean;
-  error: string | null;
-  onCerrar: () => void;
-  onEnviar: () => Promise<void>;
-}): React.JSX.Element {
-  const insets = useSafeAreaInsets();
-  const { t } = useTranslation('auth');
-  const { height: altoDeLaVentana } = useWindowDimensions();
-
-  const [alturaTeclado, setAlturaTeclado] = useState(0);
-
-  useEffect(() => {
-    const alAbrir = Keyboard.addListener('keyboardDidShow', evento => {
-      setAlturaTeclado(evento.endCoordinates.height);
-    });
-    const alCerrar = Keyboard.addListener('keyboardDidHide', () => {
-      setAlturaTeclado(0);
-    });
-
-    return () => {
-      alAbrir.remove();
-      alCerrar.remove();
-    };
-  }, []);
-
-  const tapadoPorElTeclado = keyboardOverlap({
-    reportedHeight: alturaTeclado,
-    bottomInset: insets.bottom,
-  });
-
-  const altoMaximo = sheetMaxHeight({
-    windowHeight: altoDeLaVentana,
-    keyboardHeight: tapadoPorElTeclado,
-  });
-
-  const usuarioVacio = tocado && username.trim() === '';
-  const contrasenaVacia = tocado && password === '';
-  const puedeEnviar = username.trim() !== '' && password !== '' && !cargando;
-
-  return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      statusBarTranslucent
-      onRequestClose={onCerrar}
-    >
-      <View style={styles.fondoModal}>
-        <Pressable style={styles.zonaCierre} onPress={onCerrar} />
-
-        <View style={{ paddingBottom: tapadoPorElTeclado }}>
-          <View
-            style={[
-              styles.hoja,
-              Number.isFinite(altoMaximo) ? { maxHeight: altoMaximo } : null,
-              {
-                paddingBottom: BscSpacing.lg + (alturaTeclado > 0 ? 0 : insets.bottom),
-              },
-            ]}
-          >
-            <View style={styles.asa} />
-
-            <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-              <Text style={styles.tituloHoja}>{t('credentialsSheet.title')}</Text>
-
-              <BscTextField
-                label={t('credentialsSheet.username.label')}
-                value={username}
-                onChangeText={onChangeUsername}
-                placeholder={t('credentialsSheet.username.placeholder')}
-                maxLength={EMAIL_MAX_LENGTH}
-                error={usuarioVacio ? t('credentialsSheet.username.required') : undefined}
-                editable={!cargando}
-                testID="campo-usuario"
-              />
-
-              <BscTextField
-                label={t('credentialsSheet.password.label')}
-                value={password}
-                onChangeText={onChangePassword}
-                placeholder={t('credentialsSheet.password.placeholder')}
-                secure
-                error={contrasenaVacia ? t('credentialsSheet.password.required') : undefined}
-                editable={!cargando}
-                onSubmitEditing={() => {
-                  onEnviar().catch(() => {});
-                }}
-                testID="campo-contrasena"
-              />
-
-              {error !== null ? (
-                <Text style={styles.errorHoja} testID="hoja-error">
-                  {error}
-                </Text>
-              ) : null}
-
-              <BscPrimaryButton
-                label={t('credentialsSheet.continue')}
-                loading={cargando}
-                onPress={
-                  puedeEnviar
-                    ? () => {
-                        onEnviar().catch(() => {});
-                      }
-                    : undefined
-                }
-                trailing={<BscIcon name="arrow-forward" size={buttonTokens.iconTrailing} />}
-                testID="hoja-entrar"
-              />
-
-              <Text style={styles.notaAlPie}>{t('credentialsSheet.fraudNotice')}</Text>
-            </ScrollView>
-          </View>
-        </View>
-      </View>
-    </Modal>
   );
 }
 
