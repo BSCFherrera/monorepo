@@ -80,14 +80,13 @@ const styles = StyleSheet.create({
     paddingBottom: BscSpacing.xl,
   },
   title: {
-    ...BscTextStyles['Subtitle/20 SemiBold'],
+    ...BscTextStyles['Title S/30 Bold'],
     color: BscColors.textPrimary,
     textAlign: 'center',
   },
   description: {
     ...BscTextStyles['Body S/14 Regular'],
     marginTop: BscSpacing.xs,
-    color: BscColors.textSecondary,
     textAlign: 'center',
   },
   actions: {

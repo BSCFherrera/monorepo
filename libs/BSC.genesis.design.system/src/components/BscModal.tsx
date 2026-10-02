@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     borderRadius: BscRadius.sheet,
   },
   expandedSurface: {
-    height: '90%',
+    height: '83%',
     borderTopLeftRadius: BscRadius.sheet,
     borderTopRightRadius: BscRadius.sheet,
   },
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scroll: {
-    flexGrow: 0,
+    flex: 1,
   },
   content: {
     paddingHorizontal: BscSpacing.lg,
