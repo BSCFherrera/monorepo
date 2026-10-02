@@ -173,6 +173,12 @@ export {
 export { BscOtpInput, type BscOtpInputProps } from './components/BscOtpInput';
 
 export {
+  BscOtpCodeField,
+  type BscOtpCodeFieldProps,
+  type BscOtpCodeFieldTimer,
+} from './components/BscOtpCodeField';
+
+export {
   BscOtpVerificationField,
   type BscOtpVerificationFieldProps,
   type BscOtpVerificationOption,
