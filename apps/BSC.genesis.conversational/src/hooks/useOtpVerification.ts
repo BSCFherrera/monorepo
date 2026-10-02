@@ -1,14 +1,13 @@
-import {useState} from 'react';
-import {useCountdown} from './useCountdown';
-import {OTPService} from '@services/index';
-import {OtpApiError} from '@/types/otpError';
-
-type OtpChannel = 'email' | 'sms';
+import { useState } from 'react';
+import { useCountdown } from './useCountdown';
+import { OTPService } from '@services/index';
+import { OtpApiError } from '@/types/otpError';
+import { OtpChannel } from '../types';
 
 interface UseOtpVerificationParams {
   identifier: string;
   document: string;
-  channel: OtpChannel;
+  channel: OtpChannel | '';
   resendSeconds?: number;
   onVerified?: (identifier: string) => void;
   onMaxAttempts?: () => void;
@@ -32,6 +31,7 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
   const [isSending, setIsSending] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [hasRequest, setHasRequest] = useState(false);
 
   const timer = useCountdown(sendCount, resendSeconds);
 
@@ -50,9 +50,11 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
 
     try {
       await OTPService.requestOTP(buildPayload());
+      setHasRequest(true);
       setSendCount(count => count + 1);
     } catch {
       onError?.();
+      setHasRequest(false);
     } finally {
       setIsSending(false);
     }
@@ -66,6 +68,7 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
     try {
       await OTPService.requestResendOTP(buildPayload());
 
+      setHasRequest(true);
       setOtp('');
       setHasError(false);
       setSendCount(count => count + 1);
@@ -106,6 +109,7 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
 
   const reset = () => {
     setOtp('');
+    setHasRequest(false);
     setSendCount(0);
     setHasError(false);
     setIsVerified(false);
@@ -118,11 +122,13 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
     hasError,
     isVerified,
     timer,
+    hasRequest,
 
     send,
     resend,
     validate,
     changeOtp,
     reset,
+    setHasRequest,
   };
 };

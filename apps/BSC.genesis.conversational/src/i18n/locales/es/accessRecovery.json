@@ -42,7 +42,11 @@
     "backToLogin": "Ir a Iniciar Sesión"
   },
   "confirmOtp": {
-    "title": "Hola {{firstName}}, necesitamos que indiques y valides tus datos de contacto.",
+    "title": "Hola, {{firstName}}",
+    "subtitle": "Elige dónde recibir tu código de verificación.",
+    "codeSent": "Enviamos un código de verificación a {{data}}.",
+    "emailLabel": "Correo electrónico",
+    "smsLabel": "Mensaje de texto (SMS)",
     "email": {
       "codeSent": "Código de verificación enviado al correo.",
       "otpLabel": "Indica el código recibido en el correo"
@@ -51,7 +55,7 @@
       "codeSent": "Código de verificación enviado al teléfono.",
       "otpLabel": "Indica el código recibido en tu teléfono"
     },
-    "sendCodeButton": "Enviar código de validación",
+    "sendCodeButton": "Enviar código",
     "resendCodeButton": "Reenviar código",
     "otpError": "Código incorrecto. Intente de nuevo.",
     "sendCodeErrorTitle": "No se pudo enviar el código",

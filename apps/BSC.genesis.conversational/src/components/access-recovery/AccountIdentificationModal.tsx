@@ -185,7 +185,7 @@ export const AccountIdentificationModal = forwardRef<
         return;
       }
 
-      if (client.redirectToLogin) {
+      if (!client.redirectToLogin) {
         pendingModal = () => notValidUserRef.current?.open();
         openModalAfterFrame(pendingModal);
         return;
