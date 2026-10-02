@@ -1,6 +1,9 @@
 import TestRenderer from 'react-test-renderer';
 
-import { BscSelectableListGroup } from '../components/BscSelectableListGroup';
+import {
+  BscSelectableListGroup,
+  type BscSelectableListGroupOption,
+} from '../components/BscSelectableListGroup';
 
 function render(element: React.JSX.Element): TestRenderer.ReactTestRenderer {
   let tree!: TestRenderer.ReactTestRenderer;
@@ -24,6 +27,11 @@ const options = [
     subtitle: '+52** **** **89',
   },
 ] as const;
+
+type ChannelType = '' | 'email' | 'sms';
+
+const typedOptions: readonly BscSelectableListGroupOption<ChannelType>[] =
+  options;
 
 describe('BscSelectableListGroup', () => {
   it('renders a labelled radiogroup with selected option semantics', () => {
@@ -81,6 +89,26 @@ describe('BscSelectableListGroup', () => {
     });
 
     expect(onChange).toHaveBeenCalledWith('sms');
+  });
+
+  it('accepts string literal union values', () => {
+    const onChange = jest.fn<void, [ChannelType]>();
+    const tree = render(
+      <BscSelectableListGroup
+        options={typedOptions}
+        value=""
+        onChange={onChange}
+        testID="verification-method"
+      />,
+    );
+
+    TestRenderer.act(() => {
+      tree.root
+        .findByProps({ testID: 'verification-method-email' })
+        .props.onPress();
+    });
+
+    expect(onChange).toHaveBeenCalledWith('email');
   });
 
   it('ignores disabled options', () => {

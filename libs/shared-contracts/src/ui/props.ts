@@ -291,8 +291,8 @@ export interface RadioGroupProps {
 }
 
 /** Opción neutral de `BscSelectableListGroup` (BscSelectableListGroup.tsx). */
-export interface SelectableListGroupOption {
-  value: string;
+export interface SelectableListGroupOption<TValue extends string = string> {
+  value: TValue;
   icon: IconName;
   title: string;
   subtitle?: string | undefined;
@@ -300,11 +300,11 @@ export interface SelectableListGroupOption {
 }
 
 /** Props neutrales de `BscSelectableListGroup` (BscSelectableListGroup.tsx). */
-export interface SelectableListGroupProps {
+export interface SelectableListGroupProps<TValue extends string = string> {
   label?: string | undefined;
-  options: readonly SelectableListGroupOption[];
-  value: string;
-  onChange: (value: string) => void;
+  options: readonly SelectableListGroupOption<TValue>[];
+  value: TValue;
+  onChange: (value: TValue) => void;
   disabled?: boolean;
   testID?: string;
 }

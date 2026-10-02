@@ -19,13 +19,16 @@ import { BscTextStyles } from '../theme/typography';
 import { BscRadio } from './BscRadio';
 import { BscIconTile } from './BscRow';
 
-export interface BscSelectableListGroupProps extends SelectableListGroupProps {
+export interface BscSelectableListGroupProps<
+  TValue extends string = string,
+> extends SelectableListGroupProps<TValue> {
   style?: StyleProp<ViewStyle>;
 }
 
-export type BscSelectableListGroupOption = SelectableListGroupOption;
+export type BscSelectableListGroupOption<TValue extends string = string> =
+  SelectableListGroupOption<TValue>;
 
-export function BscSelectableListGroup({
+export function BscSelectableListGroup<TValue extends string = string>({
   label,
   options,
   value,
@@ -33,7 +36,7 @@ export function BscSelectableListGroup({
   disabled = false,
   style,
   testID,
-}: BscSelectableListGroupProps): React.JSX.Element {
+}: BscSelectableListGroupProps<TValue>): React.JSX.Element {
   return (
     <View style={[styles.container, style]} testID={testID}>
       {label === undefined ? null : <Text style={styles.label}>{label}</Text>}
