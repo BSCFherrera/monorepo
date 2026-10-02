@@ -118,6 +118,12 @@ export {
 } from './components/BscRadioGroup';
 
 export {
+  BscSelectableListGroup,
+  type BscSelectableListGroupOption,
+  type BscSelectableListGroupProps,
+} from './components/BscSelectableListGroup';
+
+export {
   BscCheckbox,
   type BscCheckboxProps,
 } from './components/BscCheckbox';

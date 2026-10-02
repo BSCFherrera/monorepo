@@ -290,6 +290,25 @@ export interface RadioGroupProps {
   testID?: string;
 }
 
+/** Opción neutral de `BscSelectableListGroup` (BscSelectableListGroup.tsx). */
+export interface SelectableListGroupOption {
+  value: string;
+  icon: IconName;
+  title: string;
+  subtitle?: string | undefined;
+  disabled?: boolean;
+}
+
+/** Props neutrales de `BscSelectableListGroup` (BscSelectableListGroup.tsx). */
+export interface SelectableListGroupProps {
+  label?: string | undefined;
+  options: readonly SelectableListGroupOption[];
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  testID?: string;
+}
+
 /** Props neutrales de `BscReceiptRow` (BscReceiptRow.tsx). */
 export interface ReceiptRowProps {
   icon: IconName;
