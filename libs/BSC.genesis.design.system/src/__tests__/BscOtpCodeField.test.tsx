@@ -1,4 +1,4 @@
-import { TextInput } from 'react-native';
+import { Text, TextInput } from 'react-native';
 import TestRenderer from 'react-test-renderer';
 
 import { BscOtpCodeField } from '../components/BscOtpCodeField';
@@ -10,6 +10,10 @@ function render(element: React.JSX.Element): TestRenderer.ReactTestRenderer {
     tree = TestRenderer.create(element);
   });
   return tree;
+}
+
+function textNodesWith(tree: TestRenderer.ReactTestRenderer, children: string): TestRenderer.ReactTestInstance[] {
+  return tree.root.findAllByType(Text).filter(node => node.props.children === children);
 }
 
 describe('BscOtpCodeField', () => {
@@ -26,13 +30,13 @@ describe('BscOtpCodeField', () => {
     expect(validate).toHaveBeenCalledWith('123456');
   });
 
-  it('shows typed digits before the code is verified', () => {
+  it('keeps typed digits hidden before the code is verified', () => {
     const tree = render(<BscOtpCodeField otp="123" changeOtp={() => {}} />);
 
-    expect(tree.root.findByProps({ children: '1' })).toBeTruthy();
-    expect(tree.root.findByProps({ children: '2' })).toBeTruthy();
-    expect(tree.root.findByProps({ children: '3' })).toBeTruthy();
-    expect(tree.root.findAllByProps({ children: '•' })).toHaveLength(0);
+    expect(textNodesWith(tree, '1')).toHaveLength(0);
+    expect(textNodesWith(tree, '2')).toHaveLength(0);
+    expect(textNodesWith(tree, '3')).toHaveLength(0);
+    expect(textNodesWith(tree, '•')).toHaveLength(3);
   });
 
   it('shows the countdown and disables resend while the timer is running', () => {
@@ -76,8 +80,12 @@ describe('BscOtpCodeField', () => {
     const tree = render(<BscOtpCodeField otp="123456" changeOtp={() => {}} isVerified />);
 
     expect(tree.root.findByType(TextInput).props.editable).toBe(false);
+    const hiddenDigits = textNodesWith(tree, '•');
+
+    expect(textNodesWith(tree, '1')).toHaveLength(0);
+    expect(hiddenDigits).toHaveLength(6);
     expect(tree.root.findByProps({ children: '-' })).toBeTruthy();
-    expect(tree.root.findByProps({ children: '1' }).parent?.props.style).toContainEqual({
+    expect(hiddenDigits[0]?.parent?.props.style).toContainEqual({
       backgroundColor: BscColors.surface,
       borderColor: BscColors.primaryLight,
     });
