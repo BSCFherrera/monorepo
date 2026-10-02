@@ -1,30 +1,30 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 
-import {BORDER_RADIUS, COLORS, DIMENSIONS, FONT_SIZES, FONT_WEIGHTS, SPACING} from '@constants/theme';
 import {RootStackParamList} from '@/types/index';
-import Icon from '@react-native-vector-icons/feather';
 import {AuthService} from '@services/index';
 import {usePasskeyRegistration} from '@hooks/usePasskeyRegistration';
 
 // COMPONENTS
 import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
+import {
+  BscCard,
+  BscColors,
+  BscIcon,
+  BscIconTile,
+  BscListRow,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextButton,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type ConfigurePasskeyRouteProp = RouteProp<RootStackParamList, 'ConfigurePasskey'>;
-
-const BenefitItem: React.FC<{text: string}> = ({text}) => (
-  <View style={styles.benefitRow}>
-    <View style={styles.benefitCheckCircle}>
-      <Icon name="check" size={9} color={COLORS.backgroundLight} />
-    </View>
-    <Text style={styles.benefitText}>{text}</Text>
-  </View>
-);
 
 /**
  * Ofrece registrar un Passkey justo después de un login exitoso con usuario/contraseña (ver
@@ -106,47 +106,66 @@ export const ConfigureAuthPasskeyScreen: React.FC = () => {
 
       <View style={styles.mainContent}>
         <View style={styles.content}>
-          <View style={styles.titleBadgeCircle}>
-            <Icon name="key" size={DIMENSIONS.iconSize.md} color={COLORS.backgroundLight} />
-          </View>
+          <BscIconTile
+            icon="lock"
+            size={44}
+            iconSize={20}
+            color={BscColors.textOnPrimary}
+            background={BscColors.primary}
+          />
 
           <Text style={styles.title}>{t('configureAuthPasskey.title')}</Text>
           <Text style={styles.subtitle}>{t('configureAuthPasskey.subtitle')}</Text>
 
-          <View style={styles.passkeyBox}>
-            <View style={styles.keyCircle}>
-              <Icon name="key" size={DIMENSIONS.iconSize.lg} color={COLORS.primary} />
-            </View>
+          <BscCard style={styles.passkeyBox}>
+            <BscIconTile icon="lock" size={64} iconSize={32} />
 
             <Text style={styles.boxTitle}>{t('configureAuthPasskey.boxTitle')}</Text>
             <Text style={styles.boxSubtitle}>{t('configureAuthPasskey.boxSubtitle')}</Text>
 
             <View style={styles.benefitsList}>
-              <BenefitItem text={t('configureAuthPasskey.benefit1')} />
-              <BenefitItem text={t('configureAuthPasskey.benefit2')} />
-              <BenefitItem text={t('configureAuthPasskey.benefit3')} />
+              {[
+                t('configureAuthPasskey.benefit1'),
+                t('configureAuthPasskey.benefit2'),
+                t('configureAuthPasskey.benefit3'),
+              ].map(benefit => (
+                <BscListRow
+                  key={benefit}
+                  leading={
+                    <BscIconTile
+                      icon="check"
+                      size={24}
+                      iconSize={14}
+                      color={BscColors.textOnPrimary}
+                      background={BscColors.primary}
+                    />
+                  }
+                  title={benefit}
+                />
+              ))}
             </View>
-          </View>
+          </BscCard>
         </View>
 
         <View style={styles.bottomButtons}>
-          <TouchableOpacity
+          <BscPrimaryButton
+            label={
+              isRegistering
+                ? t('configureAuthPasskey.activatingButton')
+                : t('configureAuthPasskey.activateButton')
+            }
             onPress={handleActivate}
             disabled={isActivateDisabled}
-            style={[styles.activateButton, isActivateDisabled && styles.activateButtonDisabled]}>
-            <Icon name="key" size={DIMENSIONS.iconSize.sm} color={COLORS.backgroundLight} />
-            <Text style={styles.activateButtonText}>
-              {isRegistering
-                ? t('configureAuthPasskey.activatingButton')
-                : t('configureAuthPasskey.activateButton')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+            loading={isRegistering}
+            leading={<BscIcon name="lock" size={18} color={BscColors.textOnPrimary} />}
+            testID="activar-passkey"
+          />
+          <BscTextButton
+            label={t('configureAuthPasskey.skipButton')}
             onPress={handleSkip}
             disabled={isNavigating}
-            style={styles.skipButton}>
-            <Text style={styles.skipButtonText}>{t('configureAuthPasskey.skipButton')}</Text>
-          </TouchableOpacity>
+            style={styles.skipButton}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -156,124 +175,55 @@ export const ConfigureAuthPasskeyScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   mainContent: {
     flex: 1,
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: BscSpacing.lg,
     justifyContent: 'space-between',
   },
   content: {
-    paddingTop: SPACING.md,
-  },
-  titleBadgeCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
+    paddingTop: BscSpacing.md,
     alignItems: 'center',
-    alignSelf: 'center',
-    marginBottom: SPACING.lg,
   },
   title: {
-    fontSize: FONT_SIZES.xxl,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
+    ...BscTextStyles['Title S/30 Bold'],
     textAlign: 'center',
-    marginBottom: SPACING.sm,
+    marginTop: BscSpacing.lg,
+    marginBottom: BscSpacing.sm,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: SPACING.xl,
+    marginBottom: BscSpacing.xl,
   },
   passkeyBox: {
+    width: '100%',
     alignItems: 'center',
-    backgroundColor: COLORS.backgroundLight,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: BORDER_RADIUS.lg,
-    padding: SPACING.lg,
-    marginBottom: SPACING.lg,
-  },
-  keyCircle: {
-    width: 64,
-    height: 64,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: SPACING.md,
+    marginBottom: BscSpacing.lg,
   },
   boxTitle: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Body S/14 SemiBold'],
     textAlign: 'center',
-    marginBottom: SPACING.xs,
+    marginTop: BscSpacing.md,
+    marginBottom: BscSpacing.xs,
   },
   boxSubtitle: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textSecondary,
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    lineHeight: 18,
-    marginBottom: SPACING.md,
+    marginBottom: BscSpacing.md,
   },
   benefitsList: {
     width: '100%',
-    gap: SPACING.sm,
-  },
-  benefitRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.sm,
-  },
-  benefitCheckCircle: {
-    width: 16,
-    height: 16,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  benefitText: {
-    flex: 1,
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textPrimary,
   },
   bottomButtons: {
-    paddingTop: SPACING.md,
-  },
-  activateButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: SPACING.sm,
-    backgroundColor: COLORS.primary,
-    borderRadius: BORDER_RADIUS.round,
-    paddingVertical: SPACING.md,
-    marginBottom: SPACING.sm,
-  },
-  activateButtonDisabled: {
-    opacity: 0.6,
-  },
-  activateButtonText: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: FONT_WEIGHTS.semibold,
-    color: COLORS.backgroundLight,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.sm,
+    gap: BscSpacing.sm,
   },
   skipButton: {
-    alignItems: 'center',
-    paddingTop: SPACING.sm,
-    paddingBottom: SPACING.lg,
-  },
-  skipButtonText: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
+    alignSelf: 'center',
   },
 });

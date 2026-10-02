@@ -132,14 +132,14 @@ export function HomeScreen(): React.JSX.Element {
     cargarAccesosGuardados();
   }, []);
 
-  // const correoRecordado = enrolledUsername ?? rememberedPasskeyEmail ?? '';
-  // const conocido = correoRecordado !== '';
-  // const mostrarBiometria = biometricEnabled && biometryAvailable;
-  // const mostrarPasskey = passkeySupported && rememberedPasskeyEmail !== null;
-  const correoRecordado = 'Francisco';
-  const conocido = true;
-  const mostrarBiometria = true;
-  const mostrarPasskey = true;
+  const correoRecordado = enrolledUsername ?? rememberedPasskeyEmail ?? '';
+  const conocido = correoRecordado !== '';
+  const mostrarBiometria = biometricEnabled && biometryAvailable;
+  const mostrarPasskey = passkeySupported && rememberedPasskeyEmail !== null;
+  // const correoRecordado = 'Francisco';
+  // const conocido = true;
+  // const mostrarBiometria = true;
+  // const mostrarPasskey = true;
   const isBusy = loggingIn || authenticating || authenticatingWithPasskey;
 
   /**

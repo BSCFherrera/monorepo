@@ -27,9 +27,10 @@ type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
  * Prueba de vida de Autentikar (cédula dominicana + rostro). Reutiliza `useAutentikarVerification`
  * para el ciclo backend + módulo nativo; esta pantalla solo aporta la UI y decide a dónde navegar
  * al terminar, según `accessOrigin` (mismo patrón que `ConfigureAuthBiometricScreen`):
- * - Registro (`ConfigureAuthBiometricScreen`): al completar la prueba de vida se avanza a
- *   'CompletedValidation'; en la omisión o el segundo fallo seguido se va directo a
- *   'WelcomeOnboarding'.
+ * - Registro: al completar la prueba de vida se avanza a 'CompletedValidation'; en la omisión o
+ *   el segundo fallo seguido se va directo a 'ConfigureAuthBiometric' (mismo destino al que
+ *   'CompletedValidation' lleva después, para que la sesión de registro se cierre en el backend
+ *   sin importar si la prueba de vida se completó u omitió — ver `ConfigureAuthBiometricScreen`).
  * - Login (`LoginScreen`, cuando el backend devuelve `biometricLivenessRequired`): tanto al
  *   completarla como al omitirla se retoma el flujo normal de login (`useLoginPostAuthNavigation`),
  *   igual que si nunca se hubiera exigido la prueba de vida.
@@ -65,7 +66,10 @@ export const ProofOfLifeScreen: React.FC = () => {
       finishLoginFlow();
       return;
     }
-    navigation.replace('WelcomeOnboarding');
+    // Registro: igual que tras completar la prueba de vida (`goToCompletedValidation`), sigue
+    // hacia 'ConfigureAuthBiometric' — es el punto donde se cierra la sesión de registro en el
+    // backend, y debe pasar por ahí sin importar si la prueba de vida se completó u omitió.
+    navigation.replace('ConfigureAuthBiometric');
   };
 
   // Éxito de la prueba de vida: el registro del dispositivo seguro ya se resolvió al iniciar

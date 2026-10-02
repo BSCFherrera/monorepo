@@ -1,23 +1,37 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 
-// import {APP_CONFIG} from '@constants/config';
-import {COLORS, FONT_SIZES, FONT_WEIGHTS, SPACING} from '@constants/theme';
 import {RootStackParamList} from '@/types/index';
+import {useOnboardingStore} from '@store/index';
 
 // COMPONENTS
 import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
-import {ButtonPill} from '@components/Common/ButtonPill';
+import {
+  BscColors,
+  BscIconTile,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextButton,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const CompletedValidationScreen: React.FC = () => {
   const {t} = useTranslation('onboarding');
   const navigation = useNavigation<RootNavigationProp>();
+  const setProofOfLifeCompleted = useOnboardingStore(state => state.setProofOfLifeCompleted);
+
+  // Esta pantalla solo se alcanza cuando Autentikar terminó la prueba de vida con éxito (nunca al
+  // omitirla) — ver `ProofOfLifeScreen.goToCompletedValidation`. Es el único punto seguro (fuera
+  // de Autentikar) donde queda registrado que de verdad se completó, no solo que se saltó.
+  useEffect(() => {
+    setProofOfLifeCompleted(true);
+  }, [setProofOfLifeCompleted]);
 
   const handleExit = () => {
     if (navigation.canGoBack()) {
@@ -26,9 +40,10 @@ export const CompletedValidationScreen: React.FC = () => {
   };
 
   // El dispositivo seguro ya quedó registrado en el paso previo (prueba de vida de Autentikar);
-  // desde aquí solo se avanza a la bienvenida del onboarding.
+  // desde aquí se avanza a decidir el acceso biométrico de inicio de sesión (Face ID/huella),
+  // igual que si nunca hubiera habido prueba de vida.
   const handleContinue = () => {
-    navigation.replace('WelcomeOnboarding');
+    navigation.replace('ConfigureAuthBiometric');
   };
 
   return (
@@ -36,27 +51,28 @@ export const CompletedValidationScreen: React.FC = () => {
       <HeaderOnboarding showBottomLine />
 
       <View style={styles.content}>
-        <Image
-          source={require('@assets/verified.png')}
-          style={styles.verifiedIcon}
-          resizeMode="contain"
+        <BscIconTile
+          icon="verified"
+          size={64}
+          iconSize={32}
+          color={BscColors.textOnPrimary}
+          background={BscColors.success}
         />
         <Text style={styles.title}>{t('completedValidation.title')}</Text>
         <Text style={styles.subtitle}>{t('completedValidation.subtitle')}</Text>
       </View>
 
       <View style={styles.bottomButtons}>
-        <ButtonPill
+        <BscPrimaryButton
+          label={t('completedValidation.continueButton')}
           onPress={handleContinue}
-          width="100%"
-          backgroundColor={COLORS.primary}
-          textColor={COLORS.backgroundLight}>
-          {t('completedValidation.continueButton')}
-        </ButtonPill>
-        <TouchableOpacity onPress={handleExit} style={styles.exitButton}>
-          <Text style={styles.exitButtonText}>{t('completedValidation.exitButton')}</Text>
-        </TouchableOpacity>
-        {/* <Text style={styles.versionText}>{`v${APP_CONFIG.APP_VERSION}`}</Text> */}
+          testID="continuar-validacion-completa"
+        />
+        <BscTextButton
+          label={t('completedValidation.exitButton')}
+          onPress={handleExit}
+          style={styles.exitButton}
+        />
       </View>
     </SafeAreaView>
   );
@@ -65,50 +81,32 @@ export const CompletedValidationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: SPACING.xl,
-  },
-  verifiedIcon: {
-    width: 50,
-    height: 50,
-    marginBottom: SPACING.xl,
+    paddingHorizontal: BscSpacing.xl,
   },
   title: {
-    fontSize: FONT_SIZES.title,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
+    ...BscTextStyles['Title S/30 Bold'],
     textAlign: 'center',
-    marginBottom: SPACING.lg,
+    marginTop: BscSpacing.xl,
+    marginBottom: BscSpacing.lg,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
   },
   bottomButtons: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.md,
+    paddingHorizontal: BscSpacing.lg,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.md,
+    gap: BscSpacing.sm,
   },
   exitButton: {
-    alignItems: 'center',
-    paddingVertical: SPACING.sm,
-  },
-  exitButtonText: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
-  },
-  versionText: {
-    fontSize: FONT_SIZES.xs,
-    color: COLORS.textDisabled,
-    textAlign: 'center',
+    alignSelf: 'center',
   },
 });

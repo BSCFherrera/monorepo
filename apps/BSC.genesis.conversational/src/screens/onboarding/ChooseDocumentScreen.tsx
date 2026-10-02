@@ -1,17 +1,22 @@
 import React, {useState} from 'react';
-import {
-  Animated,
-  Linking,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import {Animated, Linking, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {BORDER_RADIUS, COLORS, FONT_SIZES, FONT_WEIGHTS, SPACING} from '@constants/theme';
+import {
+  BscCheckbox,
+  BscColors,
+  BscErrorText,
+  BscNavigationHeader,
+  BscPrimaryButton,
+  BscRadioGroup,
+  BscSpacing,
+  BscSteps,
+  BscTextButton,
+  BscTextField,
+  BscTextStyles,
+  useBscLoader,
+} from '@bsc/design-system';
 import {REGISTRATION_STEPS} from '@constants/registrationSteps';
 import {DOCUMENT_CATEGORY} from '@constants/documentCategory';
 import {OnboardingApiError, OnboardingService} from '@services/index';
@@ -19,9 +24,9 @@ import {useOnboardingStore} from '@store/index';
 import {useRegistrationStepUpdate} from '@hooks/useRegistrationStepUpdate';
 import {useKeyboardOffset} from '@hooks/useKeyboardOffset';
 import {ClientInformationResponse, OnboardingErrorCode} from '@/types/index';
+import {formatDocumentNumber, sanitizeDocumentNumber} from '@utils/helpers';
 
 // COMPONENTS
-import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
 import {DisclaimerModal} from '@components/onboarding/DisclaimerModal';
 import {ClientVerifiedModal} from '@components/onboarding/ClientVerifiedModal';
 import {ErrorGeneral} from '@components/onboarding/ErrorGeneral';
@@ -31,18 +36,11 @@ import {ErrorUserWithoutData} from '@components/onboarding/ErrorUserWithoutData'
 import {TimoutErrorModal} from '@components/onboarding/TimoutErrorModal';
 import {MaximumIntentsModal} from '@components/onboarding/MaximumIntentsModal';
 import {TermsAndConditionsModal} from '@components/onboarding/TermsAndConditionsModal';
-import {ErrorText} from '@components/Common/ErrorText';
-import {Steps} from '@components/Common/Steps';
-import {SelectPill} from '@components/Common/SelectPill';
-import {TextField} from '@components/Common/TextField';
-import {Checkbox} from '@components/Common/Checkbox';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {useLoader} from '@components/Common/Loader';
 
 export const ChooseDocumentScreen: React.FC = () => {
   const {t} = useTranslation('onboarding');
   const navigation = useNavigation();
-  const {showLoader, hideLoader} = useLoader();
+  const {showLoader, hideLoader} = useBscLoader();
   const setVerifiedClient = useOnboardingStore(state => state.setVerifiedClient);
   const setDocumentCategoryInStore = useOnboardingStore(state => state.setDocumentCategory);
   const setRegistrationSession = useOnboardingStore(state => state.setRegistrationSession);
@@ -78,12 +76,10 @@ export const ChooseDocumentScreen: React.FC = () => {
     {
       label: t('chooseDocument.documentTypeOptions.cedula'),
       value: DOCUMENT_CATEGORY.CEDULA,
-      iconName: 'credit-card' as const,
     },
     {
       label: t('chooseDocument.documentTypeOptions.passport'),
       value: DOCUMENT_CATEGORY.PASSPORT,
-      iconName: 'send' as const,
     },
   ];
 
@@ -95,49 +91,23 @@ export const ChooseDocumentScreen: React.FC = () => {
 
   const handleDocumentNumberChange = (text: string) => {
     setDocumentNumberError('');
-    if (documentCategory === DOCUMENT_CATEGORY.CEDULA) {
-      const cleaned = text.replace(/[^0-9]/g, '');
-      const limited = cleaned.substring(0, 11);
-      let formatted = '';
-      if (limited.length > 0) {
-        formatted = limited.substring(0, 3);
-        if (limited.length > 3) {
-          formatted += '-' + limited.substring(3, 10);
-          if (limited.length > 10) {
-            formatted += '-' + limited.substring(10, 11);
-          }
-        }
-      }
-      setDocumentNumber(formatted);
-    }
-    if (documentCategory === DOCUMENT_CATEGORY.PASSPORT) {
-      // Para pasaporte extranjero, limpiar caracteres no alfanuméricos y convertir a mayúsculas
-      let cleaned = text.replace(/[^a-zA-Z0-9]/g, '');
-      if (cleaned.length > 12) {
-        cleaned = cleaned.slice(0, 12);
-      }
-      setDocumentNumber(cleaned);
-    }
-  };
-
-  const sanitizeDocumentNumber = () => {
-    return documentCategory === DOCUMENT_CATEGORY.PASSPORT
-      ? documentNumber.toUpperCase()
-      : documentNumber.replace(/[^0-9]/g, '');
+    setDocumentNumber(formatDocumentNumber(text, documentCategory));
   };
 
   const validateDocumentNumber = (): string => {
-    if (documentCategory === DOCUMENT_CATEGORY.CEDULA && sanitizeDocumentNumber().length < 11) {
+    const sanitized = sanitizeDocumentNumber(documentCategory, documentNumber);
+
+    if (documentCategory === DOCUMENT_CATEGORY.CEDULA && sanitized.length < 11) {
       return t('chooseDocument.errors.cedulaLength');
     }
 
-    if (!documentNumber) {
+    if (!sanitized) {
       return t('chooseDocument.errors.passportRequired');
     }
 
     if (
       documentCategory === DOCUMENT_CATEGORY.PASSPORT &&
-      (documentNumber.length < 6 || documentNumber.length > 12)
+      (sanitized.length < 6 || sanitized.length > 12)
     ) {
       return t('chooseDocument.errors.passportLength');
     }
@@ -145,15 +115,11 @@ export const ChooseDocumentScreen: React.FC = () => {
     return '';
   };
 
-  const handleDocumentNumberBlur = () => {
-    setDocumentNumberError(validateDocumentNumber());
-  };
-
   const isDocumentNumberValid = !validateDocumentNumber();
   const isContinueDisabled = !isDocumentNumberValid || !termsAccepted;
 
   const handleOpenTermsModal = async () => {
-    const loaderToken = showLoader();
+    showLoader();
     let pendingModal: (() => void) | null = null;
     try {
       const content = await OnboardingService.getTermsAndConditions();
@@ -162,7 +128,7 @@ export const ChooseDocumentScreen: React.FC = () => {
     } catch {
       pendingModal = () => setIsErrorGeneralModalOpen(true);
     } finally {
-      hideLoader(loaderToken);
+      hideLoader();
       if (pendingModal) {
         openModalAfterFrame(pendingModal);
       }
@@ -172,7 +138,7 @@ export const ChooseDocumentScreen: React.FC = () => {
   // Registra la aceptación de T&C con el documento verificado (hasheado en el servicio).
   // Proceso aislado: si el endpoint falla se loguea pero NO se interrumpe el avance del onboarding.
   const handleAcceptTermsAndConditions = () => {
-    OnboardingService.acceptTermsAndConditions(sanitizeDocumentNumber())
+    OnboardingService.acceptTermsAndConditions(sanitizeDocumentNumber(documentCategory, documentNumber))
       .then(() => console.log('[ChooseDocumentScreen] acceptTermsAndConditions OK'))
       .catch(error =>
         console.log('[ChooseDocumentScreen] acceptTermsAndConditions error (ignorado)', error),
@@ -180,7 +146,7 @@ export const ChooseDocumentScreen: React.FC = () => {
   };
 
   const handleOpenDataPolicyModal = async () => {
-    const loaderToken = showLoader();
+    showLoader();
     let pendingModal: (() => void) | null = null;
     try {
       const content = await OnboardingService.getPersonalDataPolicy();
@@ -189,7 +155,7 @@ export const ChooseDocumentScreen: React.FC = () => {
     } catch {
       pendingModal = () => setIsErrorGeneralModalOpen(true);
     } finally {
-      hideLoader(loaderToken);
+      hideLoader();
       if (pendingModal) {
         openModalAfterFrame(pendingModal);
       }
@@ -229,7 +195,7 @@ export const ChooseDocumentScreen: React.FC = () => {
   const verifyClient = async (): Promise<ClientInformationResponse | null> => {
     try {
       const response = await OnboardingService.verifyClientDocument(
-        sanitizeDocumentNumber(),
+        sanitizeDocumentNumber(documentCategory, documentNumber),
         documentCategory,
       );
 
@@ -277,7 +243,7 @@ export const ChooseDocumentScreen: React.FC = () => {
       return;
     }
 
-    const loaderToken = showLoader();
+    showLoader();
     let pendingModal: (() => void) | null = null;
     let currentStep: 'verify' | 'session' | 'registrationStep' = 'verify';
 
@@ -313,7 +279,7 @@ export const ChooseDocumentScreen: React.FC = () => {
         pendingModal = () => setIsTimoutErrorModalOpen(true);
       }
     } finally {
-      hideLoader(loaderToken);
+      hideLoader();
     }
 
     if (pendingModal) {
@@ -323,10 +289,14 @@ export const ChooseDocumentScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <Animated.View style={[styles.keyboardContainer, {paddingBottom: keyboardOffset}]}>
-        <HeaderOnboarding showBackButton={true} onBackPress={handleBack} />
-      <Steps totalSteps={3} currentStep={1} containerStyle={styles.steps} />
-      <View style={styles.mainContent}>
+      <BscNavigationHeader
+        onBack={handleBack}
+        onClose={handleBack}
+        showSupportButton
+        title="Registro"
+      />
+      <BscSteps totalSteps={3} current={0} style={styles.steps} />
+      <Animated.View style={[styles.mainContent, {paddingBottom: keyboardOffset}]}>
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.content}
@@ -336,23 +306,21 @@ export const ChooseDocumentScreen: React.FC = () => {
           <Text style={styles.subtitle}>{t('chooseDocument.subtitle')}</Text>
 
           <View style={styles.formSection}>
-            <Text style={styles.label}>{t('chooseDocument.documentTypeLabel')}</Text>
-            <SelectPill
+            <BscRadioGroup
+              label={t('chooseDocument.documentTypeLabel')}
               options={documentOptions}
               value={documentCategory}
-              onSelect={value => {
+              onChange={value => {
                 setDocumentCategory(value);
                 setDocumentNumber('');
                 setDocumentNumberError('');
               }}
+              testID="campo-tipo-documento"
             />
 
-            <Text style={[styles.label, styles.labelSpacing]}>
-              {t('chooseDocument.documentNumberLabel')}
-            </Text>
-            <TextField
+            <BscTextField
               key={documentCategory}
-              width="100%"
+              label={t('chooseDocument.documentNumberLabel')}
               value={documentNumber}
               onChangeText={handleDocumentNumberChange}
               placeholder={
@@ -361,26 +329,12 @@ export const ChooseDocumentScreen: React.FC = () => {
                   : t('chooseDocument.documentNumberPlaceholder.cedula')
               }
               keyboardType={documentCategory === DOCUMENT_CATEGORY.CEDULA ? 'numeric' : 'default'}
-              iconName="credit-card"
-              iconPosition="left"
-              autoCapitalize="characters"
-              autoCorrect={false}
-              error={!!documentNumberError}
-              onBlur={handleDocumentNumberBlur}
+              error={documentNumberError}
+              testID="campo-numero-documento"
             />
-            {documentNumberError ? (
-              <ErrorText text={documentNumberError} iconName="info" color={COLORS.error} />
-            ) : null}
 
             <View style={styles.checkboxContainer}>
-              <Checkbox
-                value={termsAccepted}
-                onValueChange={value => {
-                  setTermsAccepted(value);
-                  if (value) {
-                    setTermsError('');
-                  }
-                }}>
+              <BscCheckbox checked={termsAccepted} onChange={setTermsAccepted}>
                 <Text style={styles.checkboxLabel}>
                   {t('chooseDocument.terms.prefix')}{' '}
                   <Text
@@ -398,34 +352,25 @@ export const ChooseDocumentScreen: React.FC = () => {
                   </Text>
                   {t('chooseDocument.terms.suffix')}
                 </Text>
-              </Checkbox>
-              {termsError ? (
-                <ErrorText
-                  text={termsError}
-                  iconName="info"
-                  color={COLORS.error}
-                  containerStyle={styles.termsErrorContainer}
-                />
-              ) : null}
+              </BscCheckbox>
+              <BscErrorText text={termsError} containerStyle={styles.termsErrorContainer} />
             </View>
           </View>
         </ScrollView>
         <View style={styles.bottomButtons}>
-          <View style={styles.continueButtonContainer}>
-            <ButtonPill
-              onPress={handleContinue}
-              width="100%"
-              backgroundColor={COLORS.primary}
-              textColor={COLORS.backgroundLight}
-              disabled={isContinueDisabled}>
-              {t('chooseDocument.continueButton')}
-            </ButtonPill>
-          </View>
-          <TouchableOpacity onPress={handleBack} style={styles.exitButton}>
-            <Text style={styles.exitButtonText}>{t('chooseDocument.exitButton')}</Text>
-          </TouchableOpacity>
+          <BscPrimaryButton
+            label={t('chooseDocument.continueButton')}
+            onPress={handleContinue}
+            disabled={isContinueDisabled}
+            testID="continuar-registro"
+          />
+          <BscTextButton
+            label={t('chooseDocument.exitButton')}
+            onPress={handleBack}
+            style={styles.exitButton}
+          />
         </View>
-      </View>
+      </Animated.View>
       <DisclaimerModal visible={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <NotValidatedClientModal
         visible={isNotValidatedClientModalOpen}
@@ -487,7 +432,6 @@ export const ChooseDocumentScreen: React.FC = () => {
           handleBack();
         }}
       />
-      </Animated.View>
     </SafeAreaView>
   );
 };
@@ -495,89 +439,60 @@ export const ChooseDocumentScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
-  },
-  keyboardContainer: {
-    flex: 1,
+    backgroundColor: BscColors.surface,
   },
   steps: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.sm,
+    paddingHorizontal: BscSpacing.lg,
+    paddingTop: BscSpacing.sm,
   },
   mainContent: {
     flex: 1,
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: BscSpacing.lg,
   },
   scroll: {
     flex: 1,
   },
   content: {
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.lg,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.lg,
   },
   title: {
-    fontSize: FONT_SIZES.title,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
-    marginBottom: SPACING.sm,
+    ...BscTextStyles['Title S/30 Bold'],
+    marginBottom: BscSpacing.sm,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textPrimary,
-    lineHeight: 22,
-    marginBottom: SPACING.xl,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
+    marginBottom: BscSpacing.xl,
   },
   formSection: {
     width: '100%',
-  },
-  label: {
-    fontSize: FONT_SIZES.sm,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
-    marginBottom: 4,
-  },
-  labelSpacing: {
-    marginTop: SPACING.lg,
-  },
-  errorText: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.error,
-    marginTop: 4,
+    gap: BscSpacing.lg,
   },
   checkboxContainer: {
-    marginTop: SPACING.lg,
-    backgroundColor: COLORS.background,
-    borderRadius: BORDER_RADIUS.md,
-    padding: SPACING.md,
+    backgroundColor: BscColors.surfaceVariant,
+    borderRadius: BscSpacing.md,
+    padding: BscSpacing.md,
+    gap: BscSpacing.xs,
   },
   termsErrorContainer: {
-    marginLeft: SPACING.md,
+    marginLeft: BscSpacing.md,
   },
   checkboxLabel: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Body S/14 Regular'],
     lineHeight: 18,
     textAlign: 'justify',
   },
   checkboxLabelBold: {
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.primary,
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.primary,
   },
   bottomButtons: {
-    // paddingBottom: Platform.OS === 'ios' ? 34 : SPACING.lg,
-    paddingTop: SPACING.md,
-  },
-  continueButtonContainer: {
-    marginBottom: SPACING.sm,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.sm,
+    gap: BscSpacing.sm,
   },
   exitButton: {
-    alignItems: 'center',
-    paddingVertical: SPACING.sm,
-  },
-  exitButtonText: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
+    alignSelf: 'center',
   },
 });

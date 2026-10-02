@@ -14,13 +14,17 @@ import {
   ChooseDocumentScreen,
   CustomerDataConfirmOtpScreen,
   CompletedValidationScreen,
-  SignDocumentScreen,
+  SelectUsernameScreen,
   CreateUserOnboardingScreen,
+  RegistrationCompleteScreen,
   ConfigureAuthBiometricScreen,
   ConfigureAuthPasskeyScreen,
   RegisterSecureDeviceScreen,
   ProofOfLifeScreen,
   WelcomeOnboardingScreen,
+  IdentityVerifiedScreen,
+  FirmaDeDocumentoScreen,
+  RegistroFinalizadoScreen,
   AccessRecoveryOptionsScreen,
 } from '@screens/index';
 import { RootStackParamList } from '@/types/index';
@@ -68,10 +72,19 @@ const PUBLIC_SCREENS: ScreenConfig[] = [
     component: CompletedValidationScreen,
     options: ONBOARDING_SCREEN_OPTIONS,
   },
-  { name: 'SignDocument', component: SignDocumentScreen, options: ONBOARDING_SCREEN_OPTIONS },
+  {
+    name: 'SelectUsername',
+    component: SelectUsernameScreen,
+    options: ONBOARDING_SCREEN_OPTIONS,
+  },
   {
     name: 'CreateUserOnboarding',
     component: CreateUserOnboardingScreen,
+    options: ONBOARDING_SCREEN_OPTIONS,
+  },
+  {
+    name: 'RegistrationComplete',
+    component: RegistrationCompleteScreen,
     options: ONBOARDING_SCREEN_OPTIONS,
   },
   {
@@ -97,6 +110,21 @@ const PUBLIC_SCREENS: ScreenConfig[] = [
   {
     name: 'WelcomeOnboarding',
     component: WelcomeOnboardingScreen,
+    options: ONBOARDING_SCREEN_OPTIONS,
+  },
+  {
+    name: 'IdentityVerified',
+    component: IdentityVerifiedScreen,
+    options: ONBOARDING_SCREEN_OPTIONS,
+  },
+  {
+    name: 'FirmaDeDocumento',
+    component: FirmaDeDocumentoScreen,
+    options: ONBOARDING_SCREEN_OPTIONS,
+  },
+  {
+    name: 'RegistroFinalizado',
+    component: RegistroFinalizadoScreen,
     options: ONBOARDING_SCREEN_OPTIONS,
   },
   {

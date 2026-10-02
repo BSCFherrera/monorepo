@@ -33,6 +33,10 @@ interface OnboardingState {
   registrationDevice: {deviceId: string; documentNumberHash: string} | null;
   /** Último paso del flujo de registro reportado como exitoso por el backend */
   registrationStep: RegistrationStepResult | null;
+  /** `true` solo si la prueba de vida de Autentikar se completó con éxito (se llegó a
+   * 'CompletedValidation'), no si simplemente se omitió. Usado para reflejar el estado real en
+   * los checklists de 'RegistrationComplete'/'IdentityVerified'/'RegistroFinalizado'. */
+  proofOfLifeCompleted: boolean;
   setVerifiedClient: (client: ClientInformationResponse) => void;
   setDocumentCategory: (category: string) => void;
   setVerifiedPhone: (phone: string) => void;
@@ -44,6 +48,7 @@ interface OnboardingState {
   clearRegistrationSession: () => void;
   setRegistrationDevice: (device: {deviceId: string; documentNumberHash: string}) => void;
   setRegistrationStep: (step: RegistrationStepResult) => void;
+  setProofOfLifeCompleted: (completed: boolean) => void;
 }
 
 /**
@@ -58,16 +63,24 @@ export const useOnboardingStore = create<OnboardingState>(set => ({
   registrationSession: null,
   registrationDevice: null,
   registrationStep: null,
+  proofOfLifeCompleted: false,
   setVerifiedClient: client => set({verifiedClient: client}),
   setDocumentCategory: category => set({documentCategory: category}),
   setVerifiedPhone: phone => set({verifiedPhone: phone}),
   setVerifiedEmail: email => set({verifiedEmail: email}),
   clearVerifiedClient: () =>
-    set({verifiedClient: null, documentCategory: null, verifiedPhone: null, verifiedEmail: null}),
+    set({
+      verifiedClient: null,
+      documentCategory: null,
+      verifiedPhone: null,
+      verifiedEmail: null,
+      proofOfLifeCompleted: false,
+    }),
   setAccessOrigin: origin => set({accessOrigin: origin}),
   clearAccessOrigin: () => set({accessOrigin: null}),
   setRegistrationSession: session => set({registrationSession: session}),
   clearRegistrationSession: () => set({registrationSession: null, registrationDevice: null}),
   setRegistrationDevice: device => set({registrationDevice: device}),
   setRegistrationStep: step => set({registrationStep: step}),
+  setProofOfLifeCompleted: completed => set({proofOfLifeCompleted: completed}),
 }));

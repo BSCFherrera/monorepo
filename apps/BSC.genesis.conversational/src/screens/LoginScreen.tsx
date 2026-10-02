@@ -1,34 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Animated,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { BiometryType } from 'react-native-biometrics';
 import { BiometryTypes } from 'react-native-biometrics';
 import { useTranslation } from 'react-i18next';
-import Icon from '@react-native-vector-icons/feather';
 import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
 import { ModalErrorUserBlockedLogin } from '@components/onboarding/ModalErrorUserBlockedLogin';
-import { TextField } from '@components/Common/TextField';
-import { ButtonPill } from '@components/Common/ButtonPill';
-import { RegisterPromptCard } from '@components/Common/RegisterPromptCard';
-import { useLoader } from '@components/Common/Loader';
 import { ErrorGeneric } from '@components/Common/ErrorGeneric';
 import { SessionExpiredModal } from '@components/Common/SessionExpiredModal';
 import {
-  BORDER_RADIUS,
-  COLORS,
-  DIMENSIONS,
-  FONT_SIZES,
-  FONT_WEIGHTS,
-  SPACING,
-} from '@constants/theme';
+  BscActionCard,
+  BscColors,
+  BscIcon,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextButton,
+  BscTextField,
+  BscTextStyles,
+  useBscLoader,
+} from '@bsc/design-system';
 import { AuthApiError, AuthService, BiometricService } from '@services/index';
 import { useKeyboardOffset } from '@hooks/useKeyboardOffset';
 import { usePasskeyAuthentication } from '@hooks/usePasskeyAuthentication';
@@ -43,14 +33,14 @@ import { useAuthStore } from '@store/auth.store';
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 const BIOMETRIC_ICON_BY_TYPE = {
-  face: require('@assets/biometric-face.png'),
-  default: require('@assets/biometric-fingerprint.webp'),
+  face: 'face' as const,
+  default: 'fingerprint' as const,
 };
 
 export const LoginScreen: React.FC = () => {
   const { t } = useTranslation('auth');
   const keyboardOffset = useKeyboardOffset();
-  const { withLoader } = useLoader();
+  const { showLoader, hideLoader } = useBscLoader();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -63,7 +53,6 @@ export const LoginScreen: React.FC = () => {
   const [genericError, setGenericError] = useState<{ title: string; description: string } | null>(
     null,
   );
-  const [showPassword, setShowPassword] = useState(false);
   const [biometryType, setBiometryType] = useState<BiometryType | undefined>(undefined);
   const [biometryAvailable, setBiometryAvailable] = useState(false);
   // Indica si este dispositivo ya tiene un acceso biométrico configurado (y para qué cuenta),
@@ -183,9 +172,11 @@ export const LoginScreen: React.FC = () => {
     setLoggingIn(true);
 
     let tokens = null;
+    showLoader();
     try {
-      tokens = await withLoader(loginWithCredentials);
+      tokens = await loginWithCredentials();
     } finally {
+      hideLoader();
       setLoggingIn(false);
     }
 
@@ -348,62 +339,55 @@ export const LoginScreen: React.FC = () => {
           <Text style={styles.title}>{t('login.title')}</Text>
           <Text style={styles.subtitle}>{t('login.subtitle')}</Text>
 
-          <Text style={styles.label}>{t('login.usernameLabel')}</Text>
-          <TextField
-            width="100%"
+          <BscTextField
+            label={t('login.usernameLabel')}
             value={isPasswordHidden ? enrolledUsername ?? '' : username}
             onChangeText={handleUsernameChange}
-            onFocus={() => setFormError(null)}
             placeholder={t('login.usernamePlaceholder')}
-            autoCorrect={false}
+            autoCapitalize="none"
             maxLength={EMAIL_MAX_LENGTH}
-            disabled={isPasswordHidden}
-            error={!!formError}
+            editable={!isPasswordHidden}
+            error={formError ?? undefined}
+            testID="campo-usuario-login"
           />
 
           {!isPasswordHidden && showPasswordField && (
-            <>
-              <Text style={[styles.label, styles.labelSpacing]}>{t('login.passwordLabel')}</Text>
-              <TextField
-                width="100%"
-                value={password}
-                onChangeText={handlePasswordChange}
-                onFocus={() => setFormError(null)}
-                secureTextEntry={!showPassword}
-                iconName={showPassword ? 'eye-off' : 'eye'}
-                iconPosition="right"
-                onIconPress={() => setShowPassword(prev => !prev)}
-                error={!!formError}
-              />
-            </>
+            <BscTextField
+              style={styles.fieldSpacing}
+              label={t('login.passwordLabel')}
+              value={password}
+              onChangeText={handlePasswordChange}
+              secure
+              testID="campo-contrasena-login"
+            />
           )}
-
-          {formError && <Text style={styles.errorText}>{formError}</Text>}
 
           {!isPasswordHidden && (
             <View style={styles.loginButtonWrapper}>
-              <ButtonPill
+              <BscPrimaryButton
+                label={
+                  showPasswordField
+                    ? loggingIn
+                      ? t('login.loggingInButton')
+                      : t('login.loginButton')
+                    : authenticatingWithPasskey
+                    ? t('login.passkeyLoggingInButton')
+                    : t('login.continueButton')
+                }
                 onPress={showPasswordField ? handlePasswordLogin : handleContinue}
                 disabled={showPasswordField ? isPasswordLoginDisabled : isContinueDisabled}
-                width="100%"
-                backgroundColor={COLORS.primary}
-                textColor={COLORS.backgroundLight}
-              >
-                {showPasswordField
-                  ? loggingIn
-                    ? t('login.loggingInButton')
-                    : t('login.loginButton')
-                  : authenticatingWithPasskey
-                  ? t('login.passkeyLoggingInButton')
-                  : t('login.continueButton')}
-              </ButtonPill>
+                loading={showPasswordField ? loggingIn : authenticatingWithPasskey}
+                testID="continuar-login"
+              />
             </View>
           )}
 
           {!isPasswordHidden && !showPasswordField && (
-            <TouchableOpacity onPress={() => setShowPasswordField(true)}>
-              <Text style={styles.register}>{t('login.usePasswordInsteadLink')}</Text>
-            </TouchableOpacity>
+            <BscTextButton
+              label={t('login.usePasswordInsteadLink')}
+              onPress={() => setShowPasswordField(true)}
+              style={styles.linkButton}
+            />
           )}
 
           <TouchableOpacity
@@ -412,35 +396,38 @@ export const LoginScreen: React.FC = () => {
             disabled={authenticating || authenticatingWithPasskey || loggingIn}
             style={styles.biometricButtonContainer}
           >
-            <Image
-              source={biometricIcon}
-              style={styles.biometricButtonImage}
-              resizeMode="contain"
-            />
+            <BscIcon name={biometricIcon} size={20} color={BscColors.textPrimary} />
             <Text style={styles.biometricButtonText}>{t('login.biometricButtonLabel')}</Text>
           </TouchableOpacity>
 
           {isPasswordHidden && (
-            <TouchableOpacity onPress={() => setManualLoginRequested(true)}>
-              <Text style={styles.register}>{t('login.switchAccountLink')}</Text>
-            </TouchableOpacity>
+            <BscTextButton
+              label={t('login.switchAccountLink')}
+              onPress={() => setManualLoginRequested(true)}
+              style={styles.linkButton}
+            />
           )}
 
           <View>
             <Text style={styles.center}>{t('login.problemsLabel')}</Text>
-            <TouchableOpacity onPress={handleAccessRecoveryPress}>
-              <Text style={styles.register}>{t('login.accessRecovery')}</Text>
-            </TouchableOpacity>
+            <BscTextButton
+              label={t('login.accessRecovery')}
+              onPress={handleAccessRecoveryPress}
+              style={styles.linkButton}
+            />
           </View>
 
           <View style={styles.registerCardWrapper}>
-            <RegisterPromptCard
+            <BscActionCard
               title={t('login.registerCardTitle')}
               subtitle={t('login.registerCardSubtitle')}
+              iconName="person-add"
+              variant="registration"
               onPress={() => {
                 setAccessOrigin(AccessOrigin.REGISTER);
                 navigation.navigate('ChooseDocument');
               }}
+              testID="ir-a-registro"
             />
           </View>
         </ScrollView>
@@ -456,7 +443,7 @@ export const LoginScreen: React.FC = () => {
         onClose={() => setGenericError(null)}
         title={genericError?.title ?? ''}
         description={genericError?.description ?? ''}
-        icon={<Icon name="alert-triangle" size={DIMENSIONS.iconSize.xl} color={COLORS.error} />}
+        icon={<BscIcon name="warning" size={32} color={BscColors.error} />}
       />
 
       <SessionExpiredModal
@@ -470,7 +457,7 @@ export const LoginScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   keyboardContainer: {
     flex: 1,
@@ -479,80 +466,53 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: SPACING.xxl + SPACING.sm,
-    paddingTop: SPACING.xl,
-    paddingBottom: SPACING.lg,
+    paddingHorizontal: BscSpacing.lg,
+    paddingTop: BscSpacing.xl,
+    paddingBottom: BscSpacing.lg,
   },
   title: {
-    fontSize: FONT_SIZES.title,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
+    ...BscTextStyles['Title S/30 Bold'],
     textAlign: 'center',
-    marginBottom: SPACING.xs,
+    marginBottom: BscSpacing.xs,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    marginBottom: SPACING.xl,
+    marginBottom: BscSpacing.xl,
   },
-  label: {
-    fontSize: FONT_SIZES.sm,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
-    marginBottom: SPACING.xs,
-  },
-  labelSpacing: {
-    marginTop: SPACING.lg,
-  },
-  errorText: {
-    fontSize: FONT_SIZES.xs,
-    color: COLORS.error,
-    marginTop: SPACING.xs,
+  fieldSpacing: {
+    marginTop: BscSpacing.lg,
   },
   loginButtonWrapper: {
-    marginTop: SPACING.lg,
+    marginTop: BscSpacing.lg,
   },
   biometricButtonContainer: {
-    marginTop: SPACING.md,
+    marginTop: BscSpacing.md,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    gap: BscSpacing.sm,
     borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: BORDER_RADIUS.round,
-    paddingVertical: SPACING.md,
-  },
-  biometricButtonImage: {
-    width: DIMENSIONS.iconSize.md,
-    height: DIMENSIONS.iconSize.md,
-    marginRight: SPACING.sm,
+    borderColor: BscColors.border,
+    borderRadius: BscSpacing.xxl,
+    paddingVertical: BscSpacing.md,
   },
   biometricButtonText: {
-    color: COLORS.textPrimary,
-    fontSize: FONT_SIZES.md,
-    fontWeight: FONT_WEIGHTS.bold,
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.textPrimary,
     textAlign: 'center',
   },
-  register: {
-    textAlign: 'center',
-    marginTop: SPACING.lg,
-    color: COLORS.secondary,
-    fontWeight: FONT_WEIGHTS.bold,
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'solid',
+  linkButton: {
+    alignSelf: 'center',
+    marginTop: BscSpacing.lg,
   },
   center: {
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    textDecorationStyle: 'solid',
   },
   registerCardWrapper: {
-    marginTop: SPACING.xl,
-  },
-  version: {
-    textAlign: 'center',
-    color: COLORS.textDisabled,
-    fontSize: FONT_SIZES.xs,
-    paddingVertical: SPACING.sm,
+    marginTop: BscSpacing.xl,
   },
 });

@@ -1,49 +1,45 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
 
-import {
-  BORDER_RADIUS,
-  COLORS,
-  DIMENSIONS,
-  FONT_SIZES,
-  FONT_WEIGHTS,
-  SPACING,
-} from '@constants/theme';
 import {RootStackParamList} from '@/types/index';
-import Icon from '@react-native-vector-icons/feather';
 import {AccessOrigin, useOnboardingStore} from '@store/onboarding.store';
-import {DOCUMENT_CATEGORY} from '@constants/documentCategory';
 import {useAuthStore} from '@store/auth.store';
 import {REGISTRATION_STEPS} from '@constants/registrationSteps';
 import {useRegistrationStepUpdate} from '@hooks/useRegistrationStepUpdate';
-import {AuthService, BiometricService, OnboardingService, SessionService} from '@services/index';
+import {
+  AuthService,
+  BiometricService,
+  OnboardingService,
+  SessionService,
+} from '@services/index';
 import {formatName} from '@utils/helpers';
 
 // COMPONENTS
 import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
 import {ErrorServiceGeneral} from '@components/onboarding/ErrorServiceGeneral';
+import {
+  BscCard,
+  BscColors,
+  BscIcon,
+  BscIconTile,
+  BscListRow,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextButton,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
-
-const BenefitItem: React.FC<{text: string}> = ({text}) => (
-  <View style={styles.benefitRow}>
-    <View style={styles.benefitCheckCircle}>
-      <Icon name="check" size={9} color={COLORS.backgroundLight} />
-    </View>
-    <Text style={styles.benefitText}>{text}</Text>
-  </View>
-);
 
 export const ConfigureAuthBiometricScreen: React.FC = () => {
   const {t} = useTranslation('onboarding');
   const navigation = useNavigation<RootNavigationProp>();
   const accessOrigin = useOnboardingStore(state => state.accessOrigin);
   const verifiedClient = useOnboardingStore(state => state.verifiedClient);
-  const documentCategory = useOnboardingStore(state => state.documentCategory);
   const markAuthenticated = useAuthStore(state => state.login);
   const {isServiceErrorModalOpen, closeServiceErrorModal, updateRegistrationStep} =
     useRegistrationStepUpdate('ConfigureAuthBiometricScreen');
@@ -137,15 +133,13 @@ export const ConfigureAuthBiometricScreen: React.FC = () => {
     }
   };
 
+  // Punto de convergencia único de ambos caminos de registro (con o sin prueba de vida de
+  // Autentikar: cédula pasa por 'RegistrationComplete' → ProofOfLife → 'CompletedValidation';
+  // pasaporte llega aquí directo desde 'CreateUserOnboardingScreen'). Por eso el cierre de la
+  // sesión de registro vive acá y no en ninguna de esas otras pantallas: así se ejecuta una sola
+  // vez sin importar el camino recorrido.
   const navigateRegisterStep = async () => {
-    // TODO: se fuerza `isSecureDevice` a `true` mientras se implementa la detección real del
-    // dispositivo seguro; con eso, este flujo siempre salta el registro del dispositivo.
-    const isSecureDevice = true;
-    const nextStep = isSecureDevice
-      ? REGISTRATION_STEPS.WELCOME_COMPLETED
-      : REGISTRATION_STEPS.PASSKEY_ENROLLMENT;
-
-    const stepRegistered = await updateRegistrationStep(nextStep);
+    const stepRegistered = await updateRegistrationStep(REGISTRATION_STEPS.WELCOME_COMPLETED);
     if (!stepRegistered) {
       return;
     }
@@ -154,20 +148,7 @@ export const ConfigureAuthBiometricScreen: React.FC = () => {
       return;
     }
 
-    // `replace` (no `navigate`) para sacar 'ConfigureAuthBiometric' del historial: la sesión de
-    // registro ya se cerró en el backend, así que esta pantalla no debe volver a ser alcanzable
-    // (ni por back ni por el fallback de navegación que arma `Navigation` al marcar la sesión
-    // autenticada desde 'WelcomeOnboarding').
-    if (!isSecureDevice) {
-      navigation.replace('RegisterSecureDevice');
-      return;
-    }
-
-    // La prueba de vida de Autentikar (cédula + rostro) solo aplica a clientes que se
-    // verificaron con cédula dominicana; con pasaporte u otro documento se sigue directo a
-    // 'WelcomeOnboarding' como hasta ahora.
-    const requiresProofOfLife = documentCategory === DOCUMENT_CATEGORY.CEDULA;
-    navigation.replace(requiresProofOfLife ? 'ProofOfLife' : 'WelcomeOnboarding');
+    navigation.replace('WelcomeOnboarding');
   };
 
   const navigateNext = async () => {
@@ -254,53 +235,61 @@ export const ConfigureAuthBiometricScreen: React.FC = () => {
 
       <View style={styles.mainContent}>
         <View style={styles.content}>
-          <View style={styles.titleBadgeCircle}>
-            <Icon name="check" size={DIMENSIONS.iconSize.md} color={COLORS.backgroundLight} />
-          </View>
+          <BscIconTile
+            icon="check"
+            size={44}
+            iconSize={20}
+            color={BscColors.textOnPrimary}
+            background={BscColors.primary}
+          />
 
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{t('configureAuthBiometric.subtitle')}</Text>
 
-          <View style={styles.biometricBox}>
-            <View style={styles.fingerprintCircle}>
-              <Image
-                source={require('@assets/biometric-fingerprint.webp')}
-                style={styles.fingerprintIcon}
-                tintColor={COLORS.primary}
-              />
-            </View>
+          <BscCard style={styles.biometricBox}>
+            <BscIconTile icon="fingerprint" size={64} iconSize={32} />
 
             <Text style={styles.boxTitle}>{t('configureAuthBiometric.boxTitle')}</Text>
             <Text style={styles.boxSubtitle}>{t('configureAuthBiometric.boxSubtitle')}</Text>
 
             <View style={styles.benefitsList}>
-              <BenefitItem text={t('configureAuthBiometric.benefit1')} />
-              <BenefitItem text={t('configureAuthBiometric.benefit2')} />
-              <BenefitItem text={t('configureAuthBiometric.benefit3')} />
+              {[
+                t('configureAuthBiometric.benefit1'),
+                t('configureAuthBiometric.benefit2'),
+                t('configureAuthBiometric.benefit3'),
+              ].map(benefit => (
+                <BscListRow
+                  key={benefit}
+                  leading={
+                    <BscIconTile
+                      icon="check"
+                      size={24}
+                      iconSize={14}
+                      color={BscColors.textOnPrimary}
+                      background={BscColors.primary}
+                    />
+                  }
+                  title={benefit}
+                />
+              ))}
             </View>
-          </View>
+          </BscCard>
         </View>
 
         <View style={styles.bottomButtons}>
-          <TouchableOpacity
+          <BscPrimaryButton
+            label={t('configureAuthBiometric.activateButton')}
             onPress={handleActivate}
             disabled={isActivateDisabled}
-            style={[styles.activateButton, isActivateDisabled && styles.activateButtonDisabled]}>
-            <Image
-              source={require('@assets/biometric-fingerprint.webp')}
-              style={styles.activateButtonIcon}
-              tintColor={COLORS.backgroundLight}
-            />
-            <Text style={styles.activateButtonText}>
-              {t('configureAuthBiometric.activateButton')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+            leading={<BscIcon name="fingerprint" size={18} color={BscColors.textOnPrimary} />}
+            testID="activar-biometria"
+          />
+          <BscTextButton
+            label={t('configureAuthBiometric.skipButton')}
             onPress={handleSkip}
             disabled={isNavigating}
-            style={styles.skipButton}>
-            <Text style={styles.skipButtonText}>{t('configureAuthBiometric.skipButton')}</Text>
-          </TouchableOpacity>
+            style={styles.skipButton}
+          />
         </View>
       </View>
 
@@ -316,134 +305,55 @@ export const ConfigureAuthBiometricScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   mainContent: {
     flex: 1,
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: BscSpacing.lg,
     justifyContent: 'space-between',
   },
   content: {
-    paddingTop: SPACING.md,
-  },
-  titleBadgeCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
+    paddingTop: BscSpacing.md,
     alignItems: 'center',
-    alignSelf: 'center',
-    marginBottom: SPACING.lg,
   },
   title: {
-    fontSize: FONT_SIZES.xxl,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
+    ...BscTextStyles['Title S/30 Bold'],
     textAlign: 'center',
-    marginBottom: SPACING.sm,
+    marginTop: BscSpacing.lg,
+    marginBottom: BscSpacing.sm,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: SPACING.xl,
+    marginBottom: BscSpacing.xl,
   },
   biometricBox: {
+    width: '100%',
     alignItems: 'center',
-    backgroundColor: COLORS.backgroundLight,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: BORDER_RADIUS.lg,
-    padding: SPACING.lg,
-    marginBottom: SPACING.lg,
-  },
-  fingerprintCircle: {
-    width: 64,
-    height: 64,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: SPACING.md,
-  },
-  fingerprintIcon: {
-    width: DIMENSIONS.iconSize.lg,
-    height: DIMENSIONS.iconSize.lg,
-    resizeMode: 'contain',
+    marginBottom: BscSpacing.lg,
   },
   boxTitle: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Body S/14 SemiBold'],
     textAlign: 'center',
-    marginBottom: SPACING.xs,
+    marginTop: BscSpacing.md,
+    marginBottom: BscSpacing.xs,
   },
   boxSubtitle: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textSecondary,
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    lineHeight: 18,
-    marginBottom: SPACING.md,
+    marginBottom: BscSpacing.md,
   },
   benefitsList: {
     width: '100%',
-    gap: SPACING.sm,
-  },
-  benefitRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.sm,
-  },
-  benefitCheckCircle: {
-    width: 16,
-    height: 16,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  benefitText: {
-    flex: 1,
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textPrimary,
   },
   bottomButtons: {
-    paddingTop: SPACING.md,
-  },
-  activateButton: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: SPACING.sm,
-    backgroundColor: COLORS.primary,
-    borderRadius: BORDER_RADIUS.round,
-    paddingVertical: SPACING.md,
-    marginBottom: SPACING.sm,
-  },
-  activateButtonDisabled: {
-    opacity: 0.6,
-  },
-  activateButtonIcon: {
-    width: DIMENSIONS.iconSize.sm,
-    height: DIMENSIONS.iconSize.sm,
-    resizeMode: 'contain',
-  },
-  activateButtonText: {
-    fontSize: FONT_SIZES.lg,
-    fontWeight: FONT_WEIGHTS.semibold,
-    color: COLORS.backgroundLight,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.sm,
+    gap: BscSpacing.sm,
   },
   skipButton: {
-    alignItems: 'center',
-    paddingTop: SPACING.sm,
-    paddingBottom: SPACING.lg,
-  },
-  skipButtonText: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
+    alignSelf: 'center',
   },
 });

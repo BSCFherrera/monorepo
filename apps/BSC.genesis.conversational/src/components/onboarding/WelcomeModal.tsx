@@ -1,11 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import Icon from '@react-native-vector-icons/feather';
 
-import {ModalCommon} from '@components/Common/ModalCommon';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {BORDER_RADIUS, COLORS, DIMENSIONS, FONT_SIZES, FONT_WEIGHTS, SPACING} from '@constants/theme';
+import {
+  BscColors,
+  BscIconTile,
+  BscModal,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 interface WelcomeModalProps {
   visible: boolean;
@@ -26,13 +30,9 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
     : t('welcomeModal.titleDefault');
 
   return (
-    <ModalCommon visible={visible} onClose={onClose}>
-      <TouchableOpacity onPress={onClose} activeOpacity={0.7} style={styles.closeIcon}>
-        <Icon name="x" size={DIMENSIONS.iconSize.md} color={COLORS.textDisabled} />
-      </TouchableOpacity>
-
+    <BscModal visible={visible} onClose={onClose} presentation="dialog">
       <View style={styles.iconContainer}>
-        <Icon name="message-circle" size={DIMENSIONS.iconSize.lg} color={COLORS.primary} />
+        <BscIconTile icon="headset" size={64} iconSize={32} />
       </View>
 
       <Text style={styles.title}>{title}</Text>
@@ -43,48 +43,33 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
         {t('welcomeModal.description.suffix')}
       </Text>
 
-      <ButtonPill
-        width="100%"
-        backgroundColor={COLORS.primary}
-        textColor={COLORS.backgroundLight}
-        onPress={onAccessChat}>
-        {t('welcomeModal.accessButton')}
-      </ButtonPill>
-    </ModalCommon>
+      <BscPrimaryButton
+        label={t('welcomeModal.accessButton')}
+        onPress={onAccessChat}
+        testID="acceder-chat-bienvenida"
+      />
+    </BscModal>
   );
 };
 
 const styles = StyleSheet.create({
-  closeIcon: {
-    alignSelf: 'flex-end',
-    marginTop: SPACING.sm,
-  },
   iconContainer: {
     alignSelf: 'center',
-    width: 64,
-    height: 64,
-    borderRadius: BORDER_RADIUS.lg,
-    backgroundColor: '#EAF0FE',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: SPACING.md,
+    marginBottom: BscSpacing.md,
   },
   title: {
-    fontSize: FONT_SIZES.xl,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Title XS/24 Bold'],
     textAlign: 'center',
-    marginBottom: SPACING.sm,
+    marginBottom: BscSpacing.sm,
   },
   description: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    lineHeight: 20,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    marginBottom: SPACING.lg,
+    marginBottom: BscSpacing.lg,
   },
   bold: {
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.textPrimary,
   },
 });

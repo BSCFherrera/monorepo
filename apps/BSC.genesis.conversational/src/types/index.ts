@@ -436,13 +436,17 @@ export type RootStackParamList = {
   ChooseDocument: undefined;
   CustomerDataConfirmOtp: undefined;
   CompletedValidation: undefined;
-  SignDocument: { documentUri: string; fileName: string; phone: string; cedula: string };
+  SelectUsername: { cedula: string };
   CreateUserOnboarding: { cedula: string };
+  RegistrationComplete: undefined;
   ConfigurePasskey: { email: string };
   ConfigureAuthBiometric: undefined;
   RegisterSecureDevice: undefined;
   ProofOfLife: { numeroDocumento?: string; deviceId?: string; username?: string } | undefined;
   WelcomeOnboarding: undefined;
+  IdentityVerified: undefined;
+  FirmaDeDocumento: undefined;
+  RegistroFinalizado: undefined;
   Chat: { prefillMessage?: string } | undefined;
   Transactions: undefined;
   Products: undefined;

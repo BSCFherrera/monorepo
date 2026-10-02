@@ -1,11 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import Icon from '@react-native-vector-icons/feather';
 
-import {ModalCommon} from '@components/Common/ModalCommon';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {COLORS, DIMENSIONS, FONT_SIZES, FONT_WEIGHTS, SPACING} from '@constants/theme';
+import {
+  BscColors,
+  BscIcon,
+  BscModal,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 interface ModalErrorUserBlockedLoginProps {
   visible: boolean;
@@ -20,9 +24,9 @@ export const ModalErrorUserBlockedLogin: React.FC<ModalErrorUserBlockedLoginProp
   const contactPhone = t('userBlockedModal.contactPhone');
 
   return (
-    <ModalCommon visible={visible} onClose={onClose}>
+    <BscModal visible={visible} onClose={onClose} presentation="dialog">
       <View style={styles.iconCircle}>
-        <Icon name="lock" size={DIMENSIONS.iconSize.lg} color={COLORS.error} />
+        <BscIcon name="lock" size={32} color={BscColors.error} />
       </View>
 
       <Text style={styles.title}>{t('userBlockedModal.title')}</Text>
@@ -32,46 +36,40 @@ export const ModalErrorUserBlockedLogin: React.FC<ModalErrorUserBlockedLoginProp
         {t('userBlockedModal.message.suffix')}
       </Text>
 
-      <ButtonPill
-        width="100%"
-        backgroundColor={COLORS.primary}
-        textColor={COLORS.backgroundLight}
-        onPress={onClose}>
-        {t('userBlockedModal.confirmButton')}
-      </ButtonPill>
-    </ModalCommon>
+      <BscPrimaryButton
+        label={t('userBlockedModal.confirmButton')}
+        onPress={onClose}
+        testID="confirmar-usuario-bloqueado"
+      />
+    </BscModal>
   );
 };
 
 const styles = StyleSheet.create({
   iconCircle: {
     alignSelf: 'center',
-    width: DIMENSIONS.iconSize.xl * 1.6,
-    height: DIMENSIONS.iconSize.xl * 1.6,
-    borderRadius: (DIMENSIONS.iconSize.xl * 1.6) / 2,
-    backgroundColor: '#FDECEC',
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: BscColors.errorSoft,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: SPACING.md,
-    marginBottom: SPACING.lg,
+    marginBottom: BscSpacing.lg,
   },
   title: {
-    fontSize: FONT_SIZES.xl,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Title XS/24 Bold'],
     textAlign: 'center',
-    marginBottom: SPACING.lg,
-    paddingHorizontal: SPACING.xxl,
+    marginBottom: BscSpacing.lg,
+    paddingHorizontal: BscSpacing.xl,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    lineHeight: 20,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
-    marginBottom: SPACING.lg,
+    marginBottom: BscSpacing.lg,
   },
   bold: {
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
+    ...BscTextStyles['Body S/14 SemiBold'],
+    color: BscColors.textPrimary,
   },
 });
