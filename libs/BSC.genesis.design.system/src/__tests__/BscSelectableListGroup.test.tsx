@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import {
   BscSelectableListGroup,
   type BscSelectableListGroupOption,
-} from '../components/BscSelectableListGroup';
+} from '../index';
 
 function render(element: React.JSX.Element): TestRenderer.ReactTestRenderer {
   let tree!: TestRenderer.ReactTestRenderer;
