@@ -7,13 +7,14 @@ import {
   BscModal,
   BscModalHandle,
   BscPrimaryButton,
-  BscRadio,
+  BscRadioGroup,
   BscSpacing,
   BscSteps,
   BscTextField,
   BscTextStyles,
   useBscLoader,
 } from '@bsc/design-system';
+import { ClientVerifiedModal } from '@components/Common';
 import { NotValidUserModal } from '@components/Common/NotValidUserModal';
 import { DOCUMENT_CATEGORY } from '@constants/documentCategory';
 import { useNavigation } from '@react-navigation/native';
@@ -21,12 +22,20 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AccessRecoveryApiError, AccessRecoveryService } from '@services/index';
 import { useAccesRecoveryStore } from '@store/access-recovery.store';
 import { formatDocumentNumber, sanitizeDocumentNumber } from '@utils/helpers';
-import { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-export const AccountIdentificationModal = forwardRef<BscModalHandle>((_props, ref) => {
+interface AccountIdentificationModalProps {
+  goToRegister: () => void;
+}
+
+export const AccountIdentificationModal = forwardRef<
+  BscModalHandle,
+  AccountIdentificationModalProps
+>((props, ref) => {
+  const { goToRegister } = props;
   const { t } = useTranslation('accessRecovery');
   const navigation = useNavigation<RootNavigationProp>();
   const { showLoader, hideLoader } = useBscLoader();
@@ -51,6 +60,29 @@ export const AccountIdentificationModal = forwardRef<BscModalHandle>((_props, re
   const maximumIntentsModalRef = useRef<BscModalHandle>(null);
   const notValidUserRef = useRef<BscModalHandle>(null);
   const errorGeneralRef = useRef<BscModalHandle>(null);
+
+  const modalRef = useRef<BscModalHandle>(null);
+
+  const resetForm = () => {
+    setDocumentNumber('');
+    setDocumentCategory(DOCUMENT_CATEGORY.CEDULA);
+    setDocumentNumberError('');
+    setClientInfo(null);
+  };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      open: () => {
+        resetForm();
+        modalRef.current?.open();
+      },
+      close: () => modalRef.current?.close(),
+      toggle: nextVisible => modalRef.current?.toggle(nextVisible),
+      isOpen: () => modalRef.current?.isOpen() ?? false,
+    }),
+    [],
+  );
 
   const openModalAfterFrame = (openModal: () => void) => {
     requestAnimationFrame(openModal);
@@ -144,7 +176,7 @@ export const AccountIdentificationModal = forwardRef<BscModalHandle>((_props, re
       return;
     }
 
-    showLoader();
+    showLoader('Validando...');
     let pendingModal: (() => void) | null = null;
 
     try {
@@ -153,7 +185,7 @@ export const AccountIdentificationModal = forwardRef<BscModalHandle>((_props, re
         return;
       }
 
-      if (!client.redirectToLogin) {
+      if (client.redirectToLogin) {
         pendingModal = () => notValidUserRef.current?.open();
         openModalAfterFrame(pendingModal);
         return;
@@ -185,15 +217,69 @@ export const AccountIdentificationModal = forwardRef<BscModalHandle>((_props, re
     }
   };
 
+  const onDocumentCategoryChange = (value: string) => {
+    setDocumentCategory(value);
+    setDocumentNumber('');
+    setDocumentNumberError('');
+  };
+
+  const documentOptions = useMemo(
+    () => [
+      {
+        label: t('accountIdentification.documentTypeOptions.cedula'),
+        value: DOCUMENT_CATEGORY.CEDULA,
+      },
+      {
+        label: t('accountIdentification.documentTypeOptions.passport'),
+        value: DOCUMENT_CATEGORY.PASSPORT,
+      },
+    ],
+    [t],
+  );
+
+  const handleConfirmClientData = () => {
+    const requiresProofOfLife = documentCategory === DOCUMENT_CATEGORY.CEDULA;
+    if (requiresProofOfLife) {
+      navigation.navigate('FacialVerification');
+      return;
+    }
+    navigation.navigate('ConfirmOtp');
+    return;
+  };
+
+  const onClose = () => {
+    goToRegister();
+    modalRef.current?.close();
+  };
+
+  const onGoTo = () => {
+    modalRef.current?.close();
+  };
+
   return (
     <>
-      <BscModal ref={ref} presentation="expanded" scrollable>
+      <BscModal ref={modalRef} presentation="expanded" scrollable>
         <BscSteps totalSteps={recoveryType === 'BOTH' ? 4 : 3} current={0} />
         <Text style={styles.title}>{t('accountIdentification.title')}</Text>
         <Text style={styles.subtitle}>{t('accountIdentification.subtitle')}</Text>
 
         <View style={styles.container}>
-          <View>
+          <View style={styles.content}>
+            <BscTextField
+              label={t('accountIdentification.userLabel')}
+              value={documentNumber}
+              onChangeText={handleDocumentNumberChange}
+              placeholder={t('accountIdentification.userLabel')}
+              error={documentNumberError !== '' ? documentNumberError : ''}
+              testID="campo-usuario"
+            />
+            <BscRadioGroup
+              label="Tipo de documento"
+              options={documentOptions}
+              value={documentCategory}
+              onChange={onDocumentCategoryChange}
+              testID="campo-tipo-documento"
+            />
             <BscTextField
               label={t('accountIdentification.documentNumberLabel')}
               value={documentNumber}
@@ -211,13 +297,18 @@ export const AccountIdentificationModal = forwardRef<BscModalHandle>((_props, re
 
           <BscPrimaryButton
             label={t('accountIdentification.continueButton')}
+            disabled={isContinueDisabled}
             onPress={handleContinue}
             testID="validar-identificacion"
           />
         </View>
       </BscModal>
-
-      <NotValidUserModal ref={notValidUserRef} />
+      <NotValidUserModal ref={notValidUserRef} onClose={onClose} onGoTo={onGoTo} />
+      <ClientVerifiedModal
+        ref={clientVerifiedRef}
+        clientInfo={clientInfo}
+        onContinue={handleConfirmClientData}
+      />
     </>
   );
 });
@@ -228,13 +319,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
+  content: {
+    gap: 20,
+  },
   title: {
     ...BscTextStyles['Title S/30 Bold'],
-    textAlign: 'justify',
-    marginBottom: BscSpacing.md,
+    textAlign: 'center',
+    marginTop: BscSpacing.md,
   },
   subtitle: {
     ...BscTextStyles['Body S/14 Regular'],
+    textAlign: 'center',
     marginBottom: BscSpacing.xl,
   },
   label: {

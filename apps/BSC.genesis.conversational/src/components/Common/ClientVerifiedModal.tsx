@@ -1,19 +1,11 @@
-import React, {useState, forwardRef, useImperativeHandle} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useTranslation} from 'react-i18next';
+import { forwardRef } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-import {ModalCommon} from '@components/Common/ModalCommon';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {
-  BORDER_RADIUS,
-  COLORS,
-  DIMENSIONS,
-  FONT_SIZES,
-  FONT_WEIGHTS,
-  SPACING,
-} from '@constants/theme';
-import {ClientInformationResponse, ModalRef} from '@/types/index';
-import Icon from '@react-native-vector-icons/feather';
+import { ButtonPill } from '@components/Common/ButtonPill';
+import { BORDER_RADIUS, COLORS, FONT_SIZES, FONT_WEIGHTS, SPACING } from '@constants/theme';
+import { ClientInformationResponse } from '@/types/index';
+import { BscModalHandle, BscPrimaryButton, BscSheet, BscTextButton } from '@bsc/design-system';
 
 interface ClientVerifiedModalProps {
   onClose?: () => void;
@@ -26,20 +18,10 @@ interface ClientVerifiedModalProps {
   onContinue?: () => void;
 }
 
-export const ClientVerifiedModal = forwardRef<ModalRef, ClientVerifiedModalProps>(
-  ({onClose, registerContactDataStep, onContinue, clientInfo, onAcceptTerms}, ref) => {
-    const {t} = useTranslation('general');
+export const ClientVerifiedModal = forwardRef<BscModalHandle, ClientVerifiedModalProps>(
+  ({ onClose, registerContactDataStep, onContinue, clientInfo, onAcceptTerms }, ref) => {
+    const { t } = useTranslation('general');
     const fullName = clientInfo?.nombreCompleto ?? '';
-    const [visible, setVisible] = useState(false);
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        open: () => setVisible(true),
-        close: () => setVisible(false),
-      }),
-      [],
-    );
 
     const handleContinue = async () => {
       if (!clientInfo) {
@@ -61,21 +43,12 @@ export const ClientVerifiedModal = forwardRef<ModalRef, ClientVerifiedModalProps
     };
 
     function handleOnClose() {
-      setVisible(false);
       onClose?.();
     }
 
     return (
       <>
-        <ModalCommon visible={visible} onClose={handleOnClose}>
-          <TouchableOpacity onPress={handleOnClose} activeOpacity={0.7} style={styles.back}>
-            <Icon name="arrow-left" size={DIMENSIONS.iconSize.md} color={COLORS.textPrimary} />
-          </TouchableOpacity>
-
-          <View style={styles.logoGroup}>
-            <Image source={require('@assets/bsc-logo.png')} style={styles.logo} />
-          </View>
-
+        <BscSheet title="" ref={ref} onClose={handleOnClose}>
           <Text style={styles.title}>{t('clientVerifiedModal.title')}</Text>
           <Text style={styles.subtitle}>{t('clientVerifiedModal.subtitle')}</Text>
 
@@ -84,18 +57,13 @@ export const ClientVerifiedModal = forwardRef<ModalRef, ClientVerifiedModalProps
             <Text style={styles.fullName}>{fullName}</Text>
           </View>
 
-          <ButtonPill
-            width="100%"
-            backgroundColor={COLORS.primary}
-            textColor={COLORS.backgroundLight}
-            onPress={handleContinue}>
-            {t('clientVerifiedModal.continueButton')}
-          </ButtonPill>
+          <BscPrimaryButton
+            label={t('clientVerifiedModal.continueButton')}
+            onPress={handleContinue}
+          />
 
-          <TouchableOpacity onPress={handleOnClose} activeOpacity={0.7}>
-            <Text style={styles.noSoyYoText}>{t('clientVerifiedModal.notMeButton')}</Text>
-          </TouchableOpacity>
-        </ModalCommon>
+          <BscTextButton label={t('clientVerifiedModal.notMeButton')} onPress={handleOnClose} />
+        </BscSheet>
       </>
     );
   },

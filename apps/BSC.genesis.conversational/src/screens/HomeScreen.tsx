@@ -299,6 +299,8 @@ export function HomeScreen(): React.JSX.Element {
     accountIdentificacionRef.current?.open();
   };
 
+  const goToRegister = () => {};
+
   return (
     <View style={styles.fondo} testID="inicio">
       <Image source={fondoDeAcceso} resizeMode="cover" style={styles.foto} />
@@ -463,7 +465,7 @@ export function HomeScreen(): React.JSX.Element {
         handleTypeRecoveryPress={handleTypeRecoveryPress}
       />
 
-      <AccountIdentificationModal ref={accountIdentificacionRef} />
+      <AccountIdentificationModal ref={accountIdentificacionRef} goToRegister={goToRegister} />
 
       <ModalErrorUserBlockedLogin
         visible={userBlockedModalVisible}

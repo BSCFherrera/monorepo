@@ -1,9 +1,9 @@
 {
   "notValidUserModal": {
-    "title": "No pudimos validar tu identidad",
-    "message": "Para restaurar tu acceso debes de contar con una cuenta de Banco Santa Cruz.",
-    "goRegisterButton": "Ir al registro",
-    "back": "Volver"
+    "title": "Aun no eres cliente",
+    "message": "Parece que todavía no eres cliente del Banco Santa Cruz. Puedes abrir tu cuenta desde la app en pocos minutos, o revisar el número e intentarlo de nuevo",
+    "goRegisterButton": "Hazte cliente",
+    "back": "Volver al inicio"
   },
   "notValidatedClientModal": {
     "title": "No te pudimos validar como cliente",
