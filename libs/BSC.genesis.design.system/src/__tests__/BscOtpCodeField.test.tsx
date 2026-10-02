@@ -2,6 +2,7 @@ import { TextInput } from 'react-native';
 import TestRenderer from 'react-test-renderer';
 
 import { BscOtpCodeField } from '../components/BscOtpCodeField';
+import { BscColors } from '../theme/colors';
 
 function render(element: React.JSX.Element): TestRenderer.ReactTestRenderer {
   let tree!: TestRenderer.ReactTestRenderer;
@@ -23,6 +24,15 @@ describe('BscOtpCodeField', () => {
 
     expect(changeOtp).toHaveBeenCalledWith('123456');
     expect(validate).toHaveBeenCalledWith('123456');
+  });
+
+  it('shows typed digits before the code is verified', () => {
+    const tree = render(<BscOtpCodeField otp="123" changeOtp={() => {}} />);
+
+    expect(tree.root.findByProps({ children: '1' })).toBeTruthy();
+    expect(tree.root.findByProps({ children: '2' })).toBeTruthy();
+    expect(tree.root.findByProps({ children: '3' })).toBeTruthy();
+    expect(tree.root.findAllByProps({ children: '•' })).toHaveLength(0);
   });
 
   it('shows the countdown and disables resend while the timer is running', () => {
@@ -62,13 +72,15 @@ describe('BscOtpCodeField', () => {
     expect(resend).toHaveBeenCalledTimes(1);
   });
 
-  it('disables the OTP input when the code is verified', () => {
+  it('disables the OTP input and applies the verified border when the code is verified', () => {
     const tree = render(<BscOtpCodeField otp="123456" changeOtp={() => {}} isVerified />);
 
     expect(tree.root.findByType(TextInput).props.editable).toBe(false);
-    expect(tree.root.findByProps({ children: '1' })).toBeTruthy();
-    expect(tree.root.findByProps({ children: '6' })).toBeTruthy();
     expect(tree.root.findByProps({ children: '-' })).toBeTruthy();
+    expect(tree.root.findByProps({ children: '1' }).parent?.props.style).toContainEqual({
+      backgroundColor: BscColors.surface,
+      borderColor: BscColors.primaryLight,
+    });
     expect(tree.root.findAllByProps({ accessibilityLabel: 'Reenviar código' })).toHaveLength(0);
   });
 });
