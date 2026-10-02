@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -47,6 +47,9 @@ export function BscOtpInput({
   onCompleted,
   hasError = false,
   errorMessage,
+  showValue = false,
+  verified = false,
+  separatorAfter,
   enabled = true,
   autoFocus = false,
   clearOn = 0,
@@ -90,29 +93,38 @@ export function BscOtpInput({
         {Array.from({ length }, (_, indice) => {
           const llena = indice < value.length;
           const activa = enabled && enfocado && indice === value.length;
+          const visible = showValue ? value[indice] ?? '' : llena ? '•' : '';
+          const separadorVisible = separatorAfter !== undefined && indice === separatorAfter - 1 && indice < length - 1;
 
           return (
-            <View
-              key={indice}
-              style={[
-                styles.casilla,
-                {
-                  backgroundColor: hasError
-                    ? BscColors.errorSoft
-                    : enabled
-                    ? BscColors.surfaceVariant
-                    : BscColors.background,
-                  borderColor: activa
-                    ? BscColors.primary
-                    : hasError
-                    ? BscColors.error
-                    : BscColors.border,
-                  borderWidth: activa ? 1.6 : 1,
-                },
-              ]}
-            >
-              <Text style={styles.punto}>{llena ? '•' : ''}</Text>
-            </View>
+            <Fragment key={indice}>
+              <View
+                style={[
+                  styles.casilla,
+                  {
+                    backgroundColor: hasError
+                      ? BscColors.errorSoft
+                      : verified
+                      ? BscColors.surface
+                      : enabled
+                      ? BscColors.surfaceVariant
+                      : BscColors.background,
+                    borderColor: activa
+                      ? BscColors.primary
+                      : hasError
+                      ? BscColors.error
+                      : verified
+                      ? BscColors.primaryLight
+                      : BscColors.border,
+                  },
+                  activa ? styles.casillaActiva : null,
+                  verified && !activa ? styles.casillaValidada : null,
+                ]}
+              >
+                <Text style={[styles.punto, showValue && styles.digitoVisible]}>{visible}</Text>
+              </View>
+              {separadorVisible ? <Text style={styles.separador}>-</Text> : null}
+            </Fragment>
           );
         })}
 
@@ -159,13 +171,29 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 56,
     marginHorizontal: 3,
+    borderWidth: 1,
     borderRadius: BscRadius.sm,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  casillaActiva: {
+    borderWidth: 1.6,
+  },
+  casillaValidada: {
+    borderWidth: 1.5,
+  },
   punto: {
     ...BscTextStyles['Subtitle/20 Bold'],
     color: BscColors.textPrimary,
+  },
+  digitoVisible: {
+    color: BscColors.primary,
+  },
+  separador: {
+    ...BscTextStyles['Subtitle/20 Regular'],
+    color: BscColors.textSecondary,
+    alignSelf: 'center',
+    marginHorizontal: 3,
   },
   campoInvisible: {
     ...StyleSheet.absoluteFill,
