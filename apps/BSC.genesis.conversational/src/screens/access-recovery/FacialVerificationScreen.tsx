@@ -4,16 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useTranslation} from 'react-i18next';
-import Icon from '@react-native-vector-icons/feather';
 
-import {
-  BORDER_RADIUS,
-  COLORS,
-  DIMENSIONS,
-  FONT_SIZES,
-  FONT_WEIGHTS,
-  SPACING,
-} from '@constants/theme';
 import {RootStackParamList} from '@/types/index';
 import {useAutentikarVerification} from '@hooks/useAutentikarVerification';
 import {formatName} from '@utils/helpers';
@@ -22,8 +13,14 @@ import {formatName} from '@utils/helpers';
 import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
 import {ErrorServiceGeneral} from '@components/onboarding/ErrorServiceGeneral';
 import {ProofOfLifeSuccessModal} from '@components/onboarding/ProofOfLifeSuccessModal';
-import {ButtonPill} from '@components/Common/ButtonPill';
 import {useAccesRecoveryStore} from '@store/access-recovery.store';
+import {
+  BscColors,
+  BscIconTile,
+  BscPrimaryButton,
+  BscSpacing,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -103,9 +100,7 @@ export const FacialVerificationScreen: React.FC = () => {
       <HeaderOnboarding showBottomLine />
 
       <View style={styles.content}>
-        <View style={styles.iconCircle}>
-          <Icon name="shield" size={DIMENSIONS.iconSize.lg} color={COLORS.secondary} />
-        </View>
+        <BscIconTile icon="fingerprint" size={72} iconSize={32} />
 
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{t('proofOfLife.subtitle')}</Text>
@@ -118,14 +113,12 @@ export const FacialVerificationScreen: React.FC = () => {
       </View>
 
       <View style={styles.bottomButtons}>
-        <ButtonPill
+        <BscPrimaryButton
+          label={isBusy ? t('proofOfLife.verifyingButton') : t('proofOfLife.startButton')}
           onPress={handleContinue}
-          width="100%"
-          backgroundColor={COLORS.primary}
-          textColor={COLORS.backgroundLight}
-          disabled={isBusy}>
-          {isBusy ? t('proofOfLife.verifyingButton') : t('proofOfLife.startButton')}
-        </ButtonPill>
+          disabled={isBusy}
+          testID="continuar-prueba-vida"
+        />
       </View>
 
       <ProofOfLifeSuccessModal
@@ -144,54 +137,34 @@ export const FacialVerificationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   content: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: SPACING.xl,
-    paddingHorizontal: SPACING.xl,
-  },
-  iconCircle: {
-    width: 72,
-    height: 72,
-    borderRadius: BORDER_RADIUS.round,
-    backgroundColor: COLORS.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: SPACING.lg,
+    paddingTop: BscSpacing.xl,
+    paddingHorizontal: BscSpacing.xl,
   },
   title: {
-    fontSize: FONT_SIZES.title,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
+    ...BscTextStyles['Title XS/24 SemiBold'],
     textAlign: 'center',
-    marginBottom: SPACING.sm,
+    marginTop: BscSpacing.lg,
+    marginBottom: BscSpacing.sm,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
+    ...BscTextStyles['Body S/14 Regular'],
+    color: BscColors.textSecondary,
     textAlign: 'center',
     lineHeight: 22,
   },
   faceImage: {
     width: 120,
     height: 120,
-    marginTop: SPACING.xl,
+    marginTop: BscSpacing.xl,
   },
   bottomButtons: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.md,
-  },
-  skipButton: {
-    alignItems: 'center',
-    paddingVertical: SPACING.sm,
-  },
-  skipButtonText: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
+    paddingHorizontal: BscSpacing.lg,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.md,
   },
 });

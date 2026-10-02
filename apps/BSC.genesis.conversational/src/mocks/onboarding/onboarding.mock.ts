@@ -61,7 +61,6 @@ export const MOCK_CLIENTE: ClientInformationResponse = {
   apellidoCasada: null,
   codigoPersona: '607749',
   dobleNacionalidad: 'N',
-  emailPrincipal: 'desarrollo@test11.com',
   emails: [
     {
       codigoEmail: '3',
@@ -126,6 +125,7 @@ export const MOCK_CLIENTE: ClientInformationResponse = {
   tipoPersona: 'F',
   isSecureDevice: true,
   isDeviceRegistered: true,
+  redirectToLogin: true,
 };
 
 export const ONBOARDING_MOCK = {
@@ -316,7 +316,7 @@ export const ONBOARDING_MOCK = {
       message: 'User linked to session successfully.',
       data: {
         userId: request.userId,
-        email: MOCK_CLIENTE.emailPrincipal,
+        email: MOCK_CLIENTE.emails[0].email,
         internalId: MOCK_CLIENTE.codigoPersona,
       },
     };

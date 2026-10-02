@@ -12,7 +12,7 @@ import {useAuthStore} from '@store/auth.store';
 import {useOtpVerification} from '@hooks/useOtpVerification';
 import {useRegistrationStepUpdate} from '@hooks/useRegistrationStepUpdate';
 import {useKeyboardOffset} from '@hooks/useKeyboardOffset';
-import {formatName, maskEmail, maskPhone} from '@utils/helpers';
+import {formatName, maskPhone} from '@utils/helpers';
 
 // COMPONENTS
 import {
@@ -33,8 +33,8 @@ import {ErrorServiceGeneral} from '@components/onboarding/ErrorServiceGeneral';
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 /**
- *  The screen where the user confirms their email and phone number by entering the OTP codes sent to them.
- *  It handles sending, resending, and verifying the OTP codes for both email and phone.
+ *  The screen where the user confirms their phone number by entering the OTP code sent to it.
+ *  It handles sending, resending, and verifying the OTP code.
  * @returns A React component for the Customer Data Confirmation OTP screen.
  */
 export const CustomerDataConfirmOtpScreen: React.FC = () => {
@@ -43,7 +43,6 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
   const accessOrigin = useOnboardingStore(state => state.accessOrigin);
   const verifiedClient = useOnboardingStore(state => state.verifiedClient);
   const setVerifiedPhone = useOnboardingStore(state => state.setVerifiedPhone);
-  const setVerifiedEmail = useOnboardingStore(state => state.setVerifiedEmail);
   const {isServiceErrorModalOpen, closeServiceErrorModal, updateRegistrationStep} =
     useRegistrationStepUpdate('CustomerDataConfirmOtpScreen');
   const authUser = useAuthStore(state => state.user);
@@ -55,28 +54,19 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
   const documentNumber = verifiedClient?.numeroIdentificacion ?? '';
 
   const [isMaxAttemptsModalOpen, setIsMaxAttemptsModalOpen] = useState(false);
-  const [selectedEmailIndex, setSelectedEmailIndex] = useState(0);
-  const [selectedPhoneIndex, setSelectedPhoneIndex] = useState(0);
-  // Igual que `ConfirmOtpScreen` de access-recovery: una sola lista combinada (correo + teléfono),
-  // el usuario elige UN radio para enviar/validar, nunca los dos canales a la vez. A diferencia de
-  // recovery, acá basta con validar ese único canal para continuar (ver `handlePrimaryContinue`) —
-  // no se vuelve a pedir el otro.
-  const [selectedChannel, setSelectedChannel] = useState<'email' | 'phone' | ''>('');
+  const [selectedPhoneIndex, setSelectedPhoneIndex] = useState<number | null>(null);
 
   const phoneNumber = useMemo(
     () => clientInfo?.telefonos.filter(tel => tel.tipoTelefono === 'Celular') ?? [],
     [clientInfo],
   );
-  const emailList = useMemo(() => clientInfo?.emails ?? [], [clientInfo]);
 
-  const selectedPhone = phoneNumber[selectedPhoneIndex];
-  const selectedEmail = emailList[selectedEmailIndex];
+  const selectedPhone = selectedPhoneIndex !== null ? phoneNumber[selectedPhoneIndex] : undefined;
 
   // Este es el valor real que se envía al servicio de OTP, sin enmascarar
   const phone = selectedPhone
     ? `${selectedPhone.codigoArea}${selectedPhone.numeroTelefono}`
     : '000-000-0000';
-  const email = selectedEmail?.email ?? '';
 
   const handleSendCodeError = () => {
     Alert.alert(
@@ -87,17 +77,7 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
 
   const handleMaxAttempts = () => setIsMaxAttemptsModalOpen(true);
 
-  // Mismo hook que usa access-recovery (`useOtpVerification`): maneja envío, reenvío, contador y
-  // validación de cada canal de forma idéntica, uno por correo y otro por teléfono.
-  const emailOtp = useOtpVerification({
-    identifier: email,
-    document: documentNumber,
-    channel: 'email',
-    onVerified: value => setVerifiedEmail(value),
-    onMaxAttempts: handleMaxAttempts,
-    onError: handleSendCodeError,
-  });
-
+  // Mismo hook que usa access-recovery (`useOtpVerification`), aquí con un único canal: teléfono.
   const phoneOtp = useOtpVerification({
     identifier: phone,
     document: documentNumber,
@@ -107,45 +87,23 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
     onError: handleSendCodeError,
   });
 
-  // Lista combinada: una fila por correo y una por teléfono disponibles (igual que
-  // `SelectChannelVerification` de access-recovery), excluyendo el canal que ya quedó verificado.
-  // El `value` codifica canal+índice ("email:0"/"phone:0") para resolver cuál dato real usar.
+  // Lista de teléfonos disponibles para validar (solo "Celular"), vacía una vez verificado.
   const contactOptions: readonly BscSelectableListGroupOption[] = useMemo(() => {
-    const emailRows = emailOtp.isVerified
-      ? []
-      : emailList.map((item, index) => ({
-          value: `email:${index}`,
-          icon: 'mail' as const,
-          title: maskEmail(item.email),
-        }));
+    if (phoneOtp.isVerified) {
+      return [];
+    }
 
-    const phoneRows = phoneOtp.isVerified
-      ? []
-      : phoneNumber.map((item, index) => ({
-          value: `phone:${index}`,
-          icon: 'smartphone' as const,
-          title: maskPhone(`${item.codigoArea}${item.numeroTelefono}`),
-        }));
+    return phoneNumber.map((item, index) => ({
+      value: String(index),
+      icon: 'smartphone' as const,
+      title: maskPhone(`${item.codigoArea}${item.numeroTelefono}`),
+    }));
+  }, [phoneNumber, phoneOtp.isVerified]);
 
-    return [...emailRows, ...phoneRows];
-  }, [emailList, phoneNumber, emailOtp.isVerified, phoneOtp.isVerified]);
-
-  const selectedValue =
-    selectedChannel === 'email'
-      ? `email:${selectedEmailIndex}`
-      : selectedChannel === 'phone'
-        ? `phone:${selectedPhoneIndex}`
-        : '';
+  const selectedValue = selectedPhoneIndex !== null ? String(selectedPhoneIndex) : '';
 
   const handleSelectContact = (value: string) => {
-    const [channel, index] = value.split(':');
-    if (channel === 'email') {
-      setSelectedEmailIndex(Number(index));
-      setSelectedChannel('email');
-    } else {
-      setSelectedPhoneIndex(Number(index));
-      setSelectedChannel('phone');
-    }
+    setSelectedPhoneIndex(Number(value));
   };
 
   // Si no hay cliente verificado en el estado global, se regresa a la pantalla anterior
@@ -161,15 +119,11 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
 
   const client = clientInfo;
 
-  const isEmailRound = selectedChannel === 'email';
-  const currentOtp = isEmailRound ? emailOtp : phoneOtp;
-  const canSend = selectedChannel !== '';
-  const showValidation = canSend && currentOtp.hasRequest;
+  const canSend = selectedPhoneIndex !== null;
+  const showValidation = canSend && phoneOtp.hasRequest;
 
-  // Igual que access-recovery: basta con validar UN canal (el que el cliente elija) para
-  // continuar — no se le vuelve a pedir el otro.
   const handlePrimaryContinue = () => {
-    if (!currentOtp.isVerified) {
+    if (!phoneOtp.isVerified) {
       return;
     }
 
@@ -195,7 +149,7 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
   };
 
   const handleContinue = async () => {
-    if (!emailOtp.isVerified && !phoneOtp.isVerified) {
+    if (!phoneOtp.isVerified) {
       return;
     }
 
@@ -238,49 +192,41 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
                 options={contactOptions}
                 value={selectedValue}
                 onChange={handleSelectContact}
-                disabled={canSend && currentOtp.isSending}
+                disabled={canSend && phoneOtp.isSending}
                 testID="campo-contacto"
               />
 
               <BscPrimaryButton
                 label={t('customerDataConfirmOtp.sendCodeButton')}
-                onPress={currentOtp.send}
-                disabled={!canSend || currentOtp.isSending}
-                loading={canSend && currentOtp.isSending}
+                onPress={phoneOtp.send}
+                disabled={!canSend || phoneOtp.isSending}
+                loading={canSend && phoneOtp.isSending}
                 testID="enviar-codigo-contacto"
               />
             </View>
           ) : (
             <View style={styles.fieldGroup}>
-              <Text style={styles.sentText}>
-                {isEmailRound
-                  ? t('customerDataConfirmOtp.email.codeSent')
-                  : t('customerDataConfirmOtp.phone.codeSent')}
-              </Text>
+              <Text style={styles.sentText}>{t('customerDataConfirmOtp.codeSent')}</Text>
 
               <BscOtpCodeField
-                otp={currentOtp.otp}
-                changeOtp={currentOtp.changeOtp}
-                validate={currentOtp.validate}
-                resend={currentOtp.resend}
-                timer={currentOtp.timer}
-                hasError={currentOtp.hasError}
+                otp={phoneOtp.otp}
+                changeOtp={phoneOtp.changeOtp}
+                validate={phoneOtp.validate}
+                resend={phoneOtp.resend}
+                timer={phoneOtp.timer}
+                hasError={phoneOtp.hasError}
                 errorText={t('customerDataConfirmOtp.otpError')}
-                isVerified={currentOtp.isVerified}
-                isSending={currentOtp.isSending}
-                label={
-                  isEmailRound
-                    ? t('customerDataConfirmOtp.email.otpLabel')
-                    : t('customerDataConfirmOtp.phone.otpLabel')
-                }
+                isVerified={phoneOtp.isVerified}
+                isSending={phoneOtp.isSending}
+                label={t('customerDataConfirmOtp.otpLabel')}
                 resendLabel={t('customerDataConfirmOtp.resendCodeButton')}
-                testID={isEmailRound ? 'otp-email' : 'otp-telefono'}
+                testID="otp-telefono"
               />
 
               <BscPrimaryButton
                 label={t('customerDataConfirmOtp.continueButton')}
                 onPress={handlePrimaryContinue}
-                disabled={!currentOtp.isVerified}
+                disabled={!phoneOtp.isVerified}
                 testID="continuar-contactos"
               />
             </View>

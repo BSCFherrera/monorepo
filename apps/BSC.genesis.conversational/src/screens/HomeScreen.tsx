@@ -91,7 +91,7 @@ export function HomeScreen(): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [formError, setFormError] = useState<string | null>(null);
-  const [tocado, setTocado] = useState(false);
+  const [, setTocado] = useState(false);
 
   const [authenticating, setAuthenticating] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
@@ -278,11 +278,6 @@ export function HomeScreen(): React.JSX.Element {
     navigation.navigate('ChooseDocument');
   }, [navigation, setAccessOrigin]);
 
-  const handleAccessRecovery = useCallback(() => {
-    setAccessOrigin(AccessOrigin.LOGIN);
-    navigation.navigate('AccessRecovery');
-  }, [navigation, setAccessOrigin]);
-
   const biometricIcon =
     biometryType === BiometryTypes.FaceID
       ? BIOMETRIC_ICON_BY_TYPE.face
@@ -413,15 +408,6 @@ export function HomeScreen(): React.JSX.Element {
               />
             </>
           )}
-
-          <BscTextButton
-            size="md"
-            label={t('home.accessRecovery')}
-            color={BscColors.textOnDark}
-            disabled={isBusy}
-            onPress={handleAccessRecovery}
-            testID="inicio-recuperar-acceso"
-          />
         </View>
 
         <View style={styles.espacioInferior} />

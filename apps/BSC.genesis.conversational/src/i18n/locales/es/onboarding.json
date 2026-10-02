@@ -114,14 +114,8 @@
   },
   "customerDataConfirmOtp": {
     "title": "Hola {{firstName}}, necesitamos que indiques y valides tus datos de contacto.",
-    "email": {
-      "codeSent": "Código de verificación enviado al correo.",
-      "otpLabel": "Indica el código recibido en el correo"
-    },
-    "phone": {
-      "codeSent": "Código de verificación enviado al teléfono.",
-      "otpLabel": "Indica el código recibido en tu teléfono"
-    },
+    "codeSent": "Código de verificación enviado al teléfono.",
+    "otpLabel": "Indica el código recibido en tu teléfono",
     "sendCodeButton": "Enviar código de validación",
     "resendCodeButton": "Reenviar código",
     "otpError": "Código incorrecto. Intente de nuevo.",

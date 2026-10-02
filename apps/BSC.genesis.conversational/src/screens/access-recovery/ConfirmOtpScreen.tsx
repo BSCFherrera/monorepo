@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -32,7 +32,7 @@ export const ConfirmOtpScreen = () => {
   const documentNumber = verifiedClient?.numeroIdentificacion ?? '';
 
   const [dataSelected, setDataSelected] = useState('');
-  const [step, setStep] = useState(1);
+  const [step] = useState(1);
   const [channelVerification, setChannelVerification] = useState<OtpChannel | ''>('');
 
   const handleChannelChange = (value: OtpChannel | ''): void => {

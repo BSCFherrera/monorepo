@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { ButtonPill } from '@components/Common/ButtonPill';
 import { BORDER_RADIUS, COLORS, FONT_SIZES, FONT_WEIGHTS, SPACING } from '@constants/theme';
 import { ClientInformationResponse } from '@/types/index';
 import { BscModalHandle, BscPrimaryButton, BscSheet, BscTextButton } from '@bsc/design-system';

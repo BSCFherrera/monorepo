@@ -14,6 +14,7 @@ import { TextField } from '@components/Common/TextField';
 import { ErrorText } from '@components/Common/ErrorText';
 import { ButtonPill } from '@components/Common/ButtonPill';
 import { AccessRecoveryApiError, AccessRecoveryService } from '@services/index';
+import { BscModalHandle } from '@bsc/design-system';
 import {
   AccessRecoveryErrorCode,
   ClientInformationResponse,
@@ -31,7 +32,6 @@ import {
   MaximumIntentsModal,
 } from '@components/Common';
 import { formatDocumentNumber, sanitizeDocumentNumber } from '@utils/helpers';
-import { AccessOrigin, useOnboardingStore } from '@store/onboarding.store';
 import { NotValidUserModal } from '@components/Common/NotValidUserModal';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -41,7 +41,6 @@ export const AccountIdentificationScreen = () => {
   const navigation = useNavigation<RootNavigationProp>();
   const { showLoader, hideLoader } = useLoader();
   const setVerifiedClient = useAccesRecoveryStore(state => state.setVerifiedClient);
-  const setAccessOrigin = useOnboardingStore(state => state.setAccessOrigin);
   const setDocumentCategoryInStore = useAccesRecoveryStore(state => state.setDocumentCategory);
   const setUserEmail = useAccesRecoveryStore(state => state.setUserEmail);
   const recoveryType = useAccesRecoveryStore(state => state.recoveryType);
@@ -54,11 +53,12 @@ export const AccountIdentificationScreen = () => {
 
   // refs
   const timeoutRef = useRef<ModalRef>(null);
-  const clientVerifiedRef = useRef<ModalRef>(null);
+  // Migrados al design system: `ClientVerifiedModal` y `NotValidUserModal` ya exponen `BscModalHandle`.
+  const clientVerifiedRef = useRef<BscModalHandle>(null);
   const errorUserWithoutDataRef = useRef<ModalRef>(null);
   const notValidatedClientRef = useRef<ModalRef>(null);
   const maximumIntentsModalRef = useRef<ModalRef>(null);
-  const notValidUserRef = useRef<ModalRef>(null);
+  const notValidUserRef = useRef<BscModalHandle>(null);
   const errorGeneralRef = useRef<ModalRef>(null);
 
   const openModalAfterFrame = (openModal: () => void) => {

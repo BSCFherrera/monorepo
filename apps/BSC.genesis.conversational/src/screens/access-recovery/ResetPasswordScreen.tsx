@@ -1,31 +1,27 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import Icon from '@react-native-vector-icons/feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Animated, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Animated, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS, DIMENSIONS } from '@constants/theme';
 import { PASSWORD_MAX_LENGTH } from '@utils/helpers';
 
-import { Steps } from '@components/Common/Steps';
 import { useAccesRecoveryStore } from '@store/access-recovery.store';
-import { TextField } from '@components/Common/TextField';
-import { ErrorText } from '@components/Common/ErrorText';
-import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
 import { useKeyboardOffset } from '@hooks/useKeyboardOffset';
 import { PasswordStrengthMeter } from '@components/onboarding/PasswordStrengthMeter';
 import { ModalRef, RootStackParamList } from '@/types/index';
-import { ButtonPill } from '@components/Common/ButtonPill';
 import { ErrorServiceGeneral } from '@components/Common/ErrorServiceGeneral';
 import { AccessRecoveryService } from '@services/index';
 import { SuccessModal } from '@components/Common/SuccessModal';
 import {
   BscColors,
   BscNavigationHeader,
+  BscPrimaryButton,
   BscSpacing,
   BscSteps,
+  BscTextButton,
+  BscTextField,
   BscTextStyles,
 } from '@bsc/design-system';
 
@@ -40,10 +36,8 @@ export const ResetPasswordScreen = () => {
   const keyboardOffset = useKeyboardOffset();
 
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isRecoveringPassword, setIsRecoveringPassword] = useState(false);
 
   const errorServiceGeneralRef = useRef<ModalRef>(null);
@@ -139,74 +133,46 @@ export const ResetPasswordScreen = () => {
             <Text style={styles.title}>{t('passwordRecovery.title')}</Text>
             <Text style={styles.subtitle}>{t('passwordRecovery.subtitle')}</Text>
 
-            <Text style={[styles.label, styles.labelSpacing]}>
-              {t('passwordRecovery.passwordLabel')}
-            </Text>
-            <TextField
-              width="100%"
+            <BscTextField
+              label={t('passwordRecovery.passwordLabel')}
               value={password}
               placeholder={t('passwordRecovery.passwordPlaceholder')}
               onChangeText={setPassword}
               maxLength={PASSWORD_MAX_LENGTH}
-              secureTextEntry={!showPassword}
-              iconName={showPassword ? 'eye-off' : 'eye'}
-              iconPosition="right"
-              onIconPress={() => setShowPassword(prev => !prev)}
+              secure
+              testID="campo-contrasena"
             />
             <PasswordStrengthMeter password={password} />
             <Text style={styles.hintText}>{t('passwordRecovery.passwordHint')}</Text>
 
-            <Text style={[styles.label, styles.labelSpacing]}>
-              {t('passwordRecovery.confirmPasswordLabel')}
-            </Text>
-            <TextField
-              width="100%"
+            <BscTextField
+              style={styles.fieldSpacing}
+              label={t('passwordRecovery.confirmPasswordLabel')}
               value={confirmPassword}
               placeholder={t('passwordRecovery.confirmPasswordPlaceholder')}
               onChangeText={handleConfirmPasswordChange}
               onBlur={handleConfirmPasswordBlur}
               maxLength={PASSWORD_MAX_LENGTH}
-              secureTextEntry={!showConfirmPassword}
-              error={!!confirmPasswordError}
-              rightElement={
-                <View style={styles.confirmIconsRow}>
-                  {isConfirmPasswordValid && (
-                    <Icon
-                      name="check-circle"
-                      size={DIMENSIONS.iconSize.sm}
-                      color={COLORS.success}
-                    />
-                  )}
-                  <TouchableOpacity
-                    onPress={() => setShowConfirmPassword(prev => !prev)}
-                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                  >
-                    <Icon
-                      name={showConfirmPassword ? 'eye-off' : 'eye'}
-                      size={DIMENSIONS.iconSize.sm}
-                      color={COLORS.border}
-                    />
-                  </TouchableOpacity>
-                </View>
-              }
+              secure
+              error={confirmPasswordError || undefined}
+              testID="campo-confirmar-contrasena"
             />
-            {confirmPasswordError ? <ErrorText text={confirmPasswordError} /> : null}
           </ScrollView>
           <View style={styles.bottomButtons}>
             <View style={styles.continueButtonContainer}>
-              <ButtonPill
+              <BscPrimaryButton
+                label={t('passwordRecovery.continueButton')}
                 onPress={handleContinue}
                 disabled={!canContinue}
-                width="100%"
-                backgroundColor={COLORS.primary}
-                textColor={COLORS.backgroundLight}
-              >
-                {t('passwordRecovery.continueButton')}
-              </ButtonPill>
+                loading={isRecoveringPassword}
+                testID="continuar-restablecer-contrasena"
+              />
             </View>
-            <TouchableOpacity onPress={handleBack} style={styles.exitButton}>
-              <Text style={styles.exitButtonText}>{t('passwordRecovery.exitButton')}</Text>
-            </TouchableOpacity>
+            <BscTextButton
+              label={t('passwordRecovery.exitButton')}
+              onPress={handleBack}
+              style={styles.exitButton}
+            />
           </View>
         </View>
         <SuccessModal
@@ -253,12 +219,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: BscSpacing.xl,
   },
-  label: {
-    ...BscTextStyles['Caption/12 Regular'],
-    marginBottom: BscSpacing.xs,
-    paddingLeft: 10,
-  },
-  labelSpacing: {
+  fieldSpacing: {
     marginTop: BscSpacing.lg,
   },
   hintText: {
@@ -267,11 +228,6 @@ const styles = StyleSheet.create({
     marginTop: BscSpacing.xs,
     lineHeight: 18,
   },
-  confirmIconsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: BscSpacing.sm,
-  },
   bottomButtons: {
     paddingTop: BscSpacing.md,
   },
@@ -279,13 +235,6 @@ const styles = StyleSheet.create({
     marginBottom: BscSpacing.sm,
   },
   exitButton: {
-    alignItems: 'center',
-    paddingVertical: BscSpacing.sm,
-  },
-  exitButtonText: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: BscSpacing.sm,
+    alignSelf: 'center',
   },
 });

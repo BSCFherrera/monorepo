@@ -27,6 +27,8 @@ import type { TextFieldProps } from '@bsc/contracts';
 export interface BscTextFieldProps extends TextFieldProps {
   keyboardType?: KeyboardTypeOptions;
   style?: ViewStyle;
+  /** Se dispara al perder el foco (ej. validar confirmación de contraseña al salir del campo). */
+  onBlur?: () => void;
 }
 
 export function BscTextField({
@@ -41,6 +43,7 @@ export function BscTextField({
   editable = true,
   maxLength,
   onSubmitEditing,
+  onBlur,
   style,
   testID,
 }: BscTextFieldProps): React.JSX.Element {
@@ -85,7 +88,10 @@ export function BscTextField({
           maxLength={maxLength}
           onSubmitEditing={onSubmitEditing}
           onFocus={() => setEnfocado(true)}
-          onBlur={() => setEnfocado(false)}
+          onBlur={() => {
+            setEnfocado(false);
+            onBlur?.();
+          }}
           style={styles.entrada}
           // El teclado no debe sugerir ni guardar lo que se escribe en un campo
           // de credenciales.

@@ -5,8 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAccesRecoveryStore } from '@store/access-recovery.store';
 import { formatName } from '@utils/helpers';
 import { useTranslation } from 'react-i18next';
-import Video from 'react-native-video';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 

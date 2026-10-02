@@ -39,6 +39,9 @@
     "subtitle": "Identidad certificada por protocolo seguro BSC.",
     "description": "Hemos verificado tu identidad correctamente mediante tus factores biométricos. Tu usuario asociado es:",
     "userLabel": "Tu usuario de acceso",
+    "showButton": "Mostrar",
+    "hideButton": "Ocultar",
+    "copyButton": "Copiar",
     "continue": "Restablecer mi contraseña",
     "backToLogin": "Ir a Iniciar Sesión"
   },
