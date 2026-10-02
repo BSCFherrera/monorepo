@@ -13,6 +13,7 @@
     "title": "Ingresa tus datos",
     "subtitle": "Confirmanos que eres tu para empezar el proceso.",
     "userLabel": "Usuario",
+    "emailError": "Email no válido",
     "documentTypeLabel": "Tipo de documento",
     "documentTypePlaceholder": "Selecciona tu tipo de documento",
     "documentTypeOptions": {
@@ -28,10 +29,13 @@
       "cedulaLength": "La cédula debe tener 11 dígitos.",
       "passportRequired": "Ingresa tu número de pasaporte.",
       "passportLength": "El pasaporte solo debe contener letras y números, entre 6 y 12 caracteres",
-      "documentRequired": "El documento es requerido."
+      "documentRequired": "El documento es requerido.",
+      "mismatchDataTitle": "Datos incorrectos",
+      "mismatchDataDescription": "Los datos ingresados no son válidos, por favor ingresa nuevamente los datos y vuelve a intentar."
     },
     "continueButton": "Continuar",
-    "exitButton": "Salir"
+    "exitButton": "Salir",
+    "goBackButton": "Regresar"
   },
   "userRecovery": {
     "titleNavbar": "Recuperación de usuario.",

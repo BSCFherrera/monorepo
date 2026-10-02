@@ -4,6 +4,7 @@ import {
   RootStackParamList,
 } from '@/types/index';
 import {
+  BscInfoModal,
   BscModal,
   BscModalHandle,
   BscPrimaryButton,
@@ -21,8 +22,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AccessRecoveryApiError, AccessRecoveryService } from '@services/index';
 import { useAccesRecoveryStore } from '@store/access-recovery.store';
-import { formatDocumentNumber, sanitizeDocumentNumber } from '@utils/helpers';
-import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { formatDocumentNumber, sanitizeDocumentNumber, validateEmail } from '@utils/helpers';
+import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -50,6 +51,8 @@ export const AccountIdentificationModal = forwardRef<
   const [documentNumber, setDocumentNumber] = useState('');
   const [documentCategory, setDocumentCategory] = useState<string>(DOCUMENT_CATEGORY.CEDULA);
   const [documentNumberError, setDocumentNumberError] = useState('');
+  const [userEmailError, setUserEmailError] = useState('');
+  const [emailValidate, setEmailValidate] = useState('');
   const [clientInfo, setClientInfo] = useState<ClientInformationResponse | null>(null);
 
   // Refs
@@ -60,6 +63,7 @@ export const AccountIdentificationModal = forwardRef<
   const maximumIntentsModalRef = useRef<BscModalHandle>(null);
   const notValidUserRef = useRef<BscModalHandle>(null);
   const errorGeneralRef = useRef<BscModalHandle>(null);
+  const mismatchRef = useRef<BscModalHandle>(null);
 
   const modalRef = useRef<BscModalHandle>(null);
 
@@ -164,12 +168,26 @@ export const AccountIdentificationModal = forwardRef<
     setDocumentNumber(formatDocumentNumber(text, documentCategory));
   };
 
+  const handleUserEmailChange = (text: string) => {
+    setUserEmailError('');
+    setEmailValidate(text);
+  };
+
   const isContinueFormValid = (): boolean => {
     const documentError = validateDocumentNumber();
     setDocumentNumberError(documentError);
 
+    // const emailError = validateEmail(emailValidate);
+    // setUserEmailError(emailError ? t('accountIdentification.emailError') : '');
+
     return !documentError;
   };
+
+  console.log('emailError', userEmailError);
+
+  const handleOnGoToBack = useCallback(() => {
+    mismatchRef.current?.close();
+  }, []);
 
   const handleContinue = async () => {
     if (!isContinueFormValid()) {
@@ -191,13 +209,21 @@ export const AccountIdentificationModal = forwardRef<
         return;
       }
 
+      let userEmailVerified = '';
+
       if (client.emails.length === 1) {
-        setUserEmail(client.emails[0].email);
+        userEmailVerified = client.emails[0].email;
       } else {
         const email = client.emails.find(email => email.emailPorDefecto === 'S');
-        setUserEmail(email?.email || client.emails[0].email);
+        userEmailVerified = email?.email || client.emails[0].email;
       }
 
+      if (recoveryType === 'PASSWORD' && userEmailVerified !== emailValidate) {
+        mismatchRef.current?.open();
+        return;
+      }
+
+      setUserEmail(userEmailVerified);
       pendingModal = () => clientVerifiedRef.current?.open();
     } catch (error) {
       const errorCode = error instanceof AccessRecoveryApiError ? error.code : null;
@@ -265,14 +291,16 @@ export const AccountIdentificationModal = forwardRef<
 
         <View style={styles.container}>
           <View style={styles.content}>
-            <BscTextField
-              label={t('accountIdentification.userLabel')}
-              value={documentNumber}
-              onChangeText={handleDocumentNumberChange}
-              placeholder={t('accountIdentification.userLabel')}
-              error={documentNumberError !== '' ? documentNumberError : ''}
-              testID="campo-usuario"
-            />
+            {recoveryType === 'PASSWORD' ? (
+              <BscTextField
+                label={t('accountIdentification.userLabel')}
+                value={emailValidate}
+                onChangeText={handleUserEmailChange}
+                placeholder={t('accountIdentification.userLabel')}
+                error={userEmailError !== '' ? userEmailError : ''}
+                testID="campo-usuario"
+              />
+            ) : null}
             <BscRadioGroup
               label="Tipo de documento"
               options={documentOptions}
@@ -308,6 +336,14 @@ export const AccountIdentificationModal = forwardRef<
         ref={clientVerifiedRef}
         clientInfo={clientInfo}
         onContinue={handleConfirmClientData}
+      />
+      <BscInfoModal
+        presentation="expanded"
+        title={t('accountIdentification.errors.mismatchDataTitle')}
+        description={t('accountIdentification.errors.mismatchDataDescription')}
+        ref={mismatchRef}
+        primaryButtonLabel={t('accountIdentification.goBackButton')}
+        onPrimaryPress={handleOnGoToBack}
       />
     </>
   );
