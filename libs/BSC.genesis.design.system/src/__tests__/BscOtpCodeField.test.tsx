@@ -66,6 +66,9 @@ describe('BscOtpCodeField', () => {
     const tree = render(<BscOtpCodeField otp="123456" changeOtp={() => {}} isVerified />);
 
     expect(tree.root.findByType(TextInput).props.editable).toBe(false);
+    expect(tree.root.findByProps({ children: '1' })).toBeTruthy();
+    expect(tree.root.findByProps({ children: '6' })).toBeTruthy();
+    expect(tree.root.findByProps({ children: '-' })).toBeTruthy();
     expect(tree.root.findAllByProps({ accessibilityLabel: 'Reenviar código' })).toHaveLength(0);
   });
 });

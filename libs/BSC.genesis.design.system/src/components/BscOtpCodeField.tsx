@@ -103,6 +103,9 @@ export function BscOtpCodeField({
         onChangeText={change}
         onCompleted={complete}
         hasError={hasError}
+        showValue={isVerified}
+        verified={isVerified}
+        separatorAfter={3}
         enabled={!blocked}
         autoFocus={autoFocus}
         clearOn={clearOn}

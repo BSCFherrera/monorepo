@@ -60,3 +60,7 @@ export const WithError: Story = {
     />
   ),
 };
+
+export const Verified: Story = {
+  render: () => <BscOtpCodeField otp="123456" changeOtp={() => {}} isVerified />,
+};

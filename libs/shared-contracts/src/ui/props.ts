@@ -231,6 +231,9 @@ export interface OtpInputProps {
   onCompleted?: ((codigo: string) => void) | undefined;
   hasError?: boolean;
   errorMessage?: string | undefined;
+  showValue?: boolean;
+  verified?: boolean;
+  separatorAfter?: number;
   enabled?: boolean;
   autoFocus?: boolean;
   /**
