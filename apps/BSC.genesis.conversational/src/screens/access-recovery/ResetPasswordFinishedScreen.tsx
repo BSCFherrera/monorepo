@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAccesRecoveryStore } from '@store/access-recovery.store';
 import { formatName } from '@utils/helpers';
 import { useTranslation } from 'react-i18next';
+import Video from 'react-native-video';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -25,24 +26,35 @@ export const ResetPasswordFinishedScreen = () => {
   });
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.body}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={styles.title}>{t('passwordRecovery.finishTitle')}</Text>
-        <Text style={styles.subtitle}>{subTitle}</Text>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.body}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.title}>{t('passwordRecovery.finishTitle')}</Text>
+          <Text style={styles.subtitle}>{subTitle}</Text>
 
-        <View style={styles.content}>
-          <BscPrimaryButton
-            label={t('passwordRecovery.login')}
-            onPress={handleContinueSuccess}
-            testID="button-to-login"
-          />
-        </View>
-      </ScrollView>
-    </View>
+          <View style={styles.content}>
+            <Video
+              source={require('@assets/success.mp4')}
+              style={styles.video}
+              resizeMode="contain"
+              repeat
+              muted
+              useTextureView
+              playWhenInactive
+            />
+            <BscPrimaryButton
+              label={t('passwordRecovery.login')}
+              onPress={handleContinueSuccess}
+              testID="button-to-login"
+            />
+          </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -50,6 +62,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BscColors.surface,
+  },
+
+  video: {
+    width: 250,
+    height: 250,
   },
   body: {
     flexGrow: 1,
@@ -61,6 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   scroll: {
     flex: 1,

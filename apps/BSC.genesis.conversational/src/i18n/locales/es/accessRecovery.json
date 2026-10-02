@@ -85,6 +85,7 @@
     "continueButton": "Actualizar contraseña",
     "confirmPasswordError": "Las contraseñas no coinciden. Ingresa nuevamente la confirmación.",
     "exitButton": "Cancelar",
+    "login": "Iniciar Sesión",
     "finishTitle": "Tu contraseña fue cambiada con éxito",
     "finishSubtitle": "{{firstName}}, ya puedes acceder a tu App BSC"
   },
