@@ -26,35 +26,24 @@ export const ResetPasswordFinishedScreen = () => {
   });
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.body}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <Text style={styles.title}>{t('passwordRecovery.finishTitle')}</Text>
-          <Text style={styles.subtitle}>{subTitle}</Text>
+    <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.body}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.title}>{t('passwordRecovery.finishTitle')}</Text>
+        <Text style={styles.subtitle}>{subTitle}</Text>
 
-          <View style={styles.content}>
-            <Video
-              source={require('@assets/success.mp4')}
-              style={styles.video}
-              resizeMode="contain"
-              repeat
-              muted
-              useTextureView
-              playWhenInactive
-            />
-            <BscPrimaryButton
-              label={t('passwordRecovery.login')}
-              onPress={handleContinueSuccess}
-              testID="button-to-login"
-            />
-          </View>
-        </ScrollView>
-      </View>
-    </SafeAreaView>
+        <View style={styles.content}>
+          <BscPrimaryButton
+            label={t('passwordRecovery.login')}
+            onPress={handleContinueSuccess}
+            testID="button-to-login"
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
