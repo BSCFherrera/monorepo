@@ -40,6 +40,7 @@
     "react-native-screens": "catalog:",
     "react-native-svg": "catalog:",
     "react-native-tts": "catalog:",
+    "react-native-video": "catalog:",
     "zustand": "catalog:"
   },
   "devDependencies": {

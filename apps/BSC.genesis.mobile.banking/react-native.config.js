@@ -30,6 +30,7 @@ const SOLO_EN_OTRAS_APPS = [
   'react-native-passkey',
   'react-native-pdf',
   'react-native-tts',
+  'react-native-video',
 ];
 
 module.exports = {
