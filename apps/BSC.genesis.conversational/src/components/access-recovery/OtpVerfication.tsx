@@ -1,5 +1,6 @@
 import { ClientInformationResponse, OtpChannel } from '@/types/index';
-import { BscPrimaryButton, BscSpacing, BscTextStyles } from '@bsc/design-system';
+import { BscOtpCodeField, BscPrimaryButton, BscSpacing, BscTextStyles } from '@bsc/design-system';
+import { UseOtpVerification } from '@hooks/useOtpVerification';
 import { formatName, maskEmail, maskPhone } from '@utils/helpers';
 import { TFunction } from 'i18next';
 import { useMemo } from 'react';
@@ -11,11 +12,10 @@ interface OtpVerficationProps {
   channelVerification: OtpChannel | '';
   handleContinue: () => void;
   selectedData: string;
-  isVerified: boolean;
+  otp: UseOtpVerification;
 }
 export const OtpVerfication = (props: OtpVerficationProps) => {
-  const { verifiedClient, t, channelVerification, selectedData, handleContinue, isVerified } =
-    props;
+  const { verifiedClient, t, channelVerification, selectedData, handleContinue, otp } = props;
 
   const dataEncrypted = useMemo(() => {
     switch (channelVerification) {
@@ -42,10 +42,20 @@ export const OtpVerfication = (props: OtpVerficationProps) => {
       <Text style={styles.subtitle}>{subtitle}</Text>
 
       <View style={styles.content}>
+        <BscOtpCodeField
+          otp={otp.otp}
+          changeOtp={otp.changeOtp}
+          validate={otp.validate}
+          resend={otp.resend}
+          timer={otp.timer}
+          hasError={otp.hasError}
+          errorText={t('confirmOtp.otpError')}
+          isVerified={otp.isVerified}
+        />
         <BscPrimaryButton
           label={t('confirmOtp.continueButton')}
           onPress={handleContinue}
-          disabled={!isVerified}
+          disabled={!otp.isVerified}
         />
       </View>
     </>

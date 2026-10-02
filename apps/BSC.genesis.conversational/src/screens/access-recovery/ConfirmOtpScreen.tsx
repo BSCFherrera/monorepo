@@ -5,24 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
 import { COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS } from '@constants/theme';
 import { useAccesRecoveryStore } from '@store/access-recovery.store';
-import { Steps } from '@components/Common/Steps';
-import { formatName, maskEmail, maskPhone } from '@utils/helpers';
-import { SelectOption } from '@components/Common/Select';
 import { ModalRef, OtpChannel, RootStackParamList } from '@/types/index';
-import { ButtonPill } from '@components/Common/ButtonPill';
 import { MaximumIntentsModal } from '@components/Common';
-import { useOtpVerification } from '@hooks/useOtpVerification';
-import { OtpVerificationField } from '@components/Common/OtpVerificationField';
-import {
-  BscNavigationHeader,
-  BscPrimaryButton,
-  BscSelectableListGroup,
-  BscSelectableListGroupOption,
-  BscSteps,
-} from '@bsc/design-system';
+import { UseOtpVerification, useOtpVerification } from '@hooks/useOtpVerification';
+import { BscNavigationHeader, BscSteps } from '@bsc/design-system';
 import { SelectChannelVerification } from '../../components/access-recovery/SelectChannelVerification';
 import { OtpVerfication } from '@components/access-recovery/OtpVerfication';
 
@@ -66,7 +54,7 @@ export const ConfirmOtpScreen = () => {
     }
   };
 
-  const otp = useOtpVerification({
+  const otp: UseOtpVerification = useOtpVerification({
     identifier: dataSelected,
     document: documentNumber,
     channel: channelVerification,
@@ -129,12 +117,12 @@ export const ConfirmOtpScreen = () => {
           />
         ) : (
           <OtpVerfication
+            otp={otp}
             verifiedClient={verifiedClient}
             t={t}
             channelVerification={channelVerification}
             handleContinue={handleContinue}
             selectedData={dataSelected}
-            isVerified={otp.isVerified}
           />
         )}
 

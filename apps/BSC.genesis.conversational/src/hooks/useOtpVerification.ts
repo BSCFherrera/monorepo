@@ -14,6 +14,25 @@ interface UseOtpVerificationParams {
   onError?: () => void;
 }
 
+export interface UseOtpVerification {
+  otp: string;
+  codeSent: boolean;
+  isSending: boolean;
+  hasError: boolean;
+  isVerified: boolean;
+  timer: {
+    label: string;
+    finished: boolean;
+  };
+  hasRequest: boolean;
+  send: () => Promise<void>;
+  resend: () => Promise<void>;
+  validate: (code: string) => Promise<void>;
+  changeOtp: (code: string) => void;
+  reset: () => void;
+  setHasRequest: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const RESEND_SECONDS = 60;
 
 export const useOtpVerification = (params: UseOtpVerificationParams) => {
@@ -47,6 +66,7 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
     if (!identifier) return;
 
     setIsSending(true);
+    setIsVerified(false);
 
     try {
       await OTPService.requestOTP(buildPayload());
@@ -69,6 +89,7 @@ export const useOtpVerification = (params: UseOtpVerificationParams) => {
       await OTPService.requestResendOTP(buildPayload());
 
       setHasRequest(true);
+      setIsVerified(false);
       setOtp('');
       setHasError(false);
       setSendCount(count => count + 1);
