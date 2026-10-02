@@ -34,6 +34,7 @@
     "exitButton": "Salir"
   },
   "userRecovery": {
+    "titleNavbar": "Recuperación de usuario.",
     "title": "¡Usuario recuperado con éxito!",
     "subtitle": "Identidad certificada por protocolo seguro BSC.",
     "description": "Hemos verificado tu identidad correctamente mediante tus factores biométricos. Tu usuario asociado es:",
@@ -66,23 +67,26 @@
     "loadDocumentErrorMessage": "Ocurrió un error al preparar tus documentos. Intenta nuevamente."
   },
   "passwordRecovery": {
-    "title": "Crea tu nueva contraseña.",
+    "titleNavbar": "Cambiar contraseña.",
+    "title": "Actualiza tu contraseña.",
     "subtitle": "Tu identidad ha sido verificada. Establece una contraseña robusta para proteger tu cuenta institucional.",
-    "passwordLabel": "Nueva contraseña.",
+    "passwordLabel": "Contraseña",
     "passwordPlaceholder": "Ingresa tu contraseña",
 
-    "confirmPasswordLabel": "Confirmar nueva contraseña.",
+    "confirmPasswordLabel": "Confirma tu contraseña.",
     "confirmPasswordPlaceholder": "Repite tu contraseña",
-    "passwordHint": "La contraseña debe tener entre 8 y 20 caracteres. Puedes usar letras, números, espacios y símbolos libremente.",
+    "passwordHint": "Debe tener una minúscula, una mayúscula, y un simbolo",
     "passwordStrength": {
       "label": "Seguridad: {{level}}",
       "weak": "Débil",
       "medium": "Media",
       "strong": "Fuerte"
     },
-    "continueButton": "Guardar y actualizar contraseña",
+    "continueButton": "Actualizar contraseña",
     "confirmPasswordError": "Las contraseñas no coinciden. Ingresa nuevamente la confirmación.",
-    "exitButton": "Cancelar o volver"
+    "exitButton": "Cancelar",
+    "finishTitle": "Tu contraseña fue cambiada con éxito",
+    "finishSubtitle": "{{firstName}}, ya puedes acceder a tu App BSC"
   },
   "modals": {
     "successTitle": "¡Proceso completado con éxito!",

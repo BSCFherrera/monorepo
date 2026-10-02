@@ -24,6 +24,13 @@ import { Steps } from '@components/Common/Steps';
 import { maskEmail } from '@utils/helpers';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { APP_CONFIG } from '@constants/config';
+import {
+  BscColors,
+  BscNavigationHeader,
+  BscRadius,
+  BscSpacing,
+  BscSteps,
+} from '@bsc/design-system';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -41,7 +48,7 @@ export const UsernameRecoveryScreen = () => {
   };
 
   const handleBack = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Inicio');
     clearVerifiedClient();
   };
 
@@ -59,12 +66,14 @@ export const UsernameRecoveryScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <HeaderOnboarding showBottomLine />
-      <Steps
-        totalSteps={recoveryType === 'BOTH' ? 4 : 3}
-        currentStep={3}
-        containerStyle={styles.steps}
+      <BscNavigationHeader
+        onBack={handleBack}
+        onClose={handleBack}
+        showSupportButton
+        title={t('userRecovery.titleNavbar')}
       />
+
+      <BscSteps totalSteps={recoveryType === 'BOTH' ? 5 : 5} current={3} style={styles.steps} />
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.content}
@@ -123,27 +132,27 @@ export const UsernameRecoveryScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   scroll: {
     flex: 1,
   },
   row: {
-    marginVertical: SPACING.sm,
+    marginVertical: BscSpacing.sm,
     flexDirection: 'row',
     gap: 10,
   },
   content: {
-    paddingHorizontal: SPACING.md + SPACING.sm,
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.lg,
+    paddingHorizontal: BscSpacing.md + BscSpacing.sm,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.lg,
     gap: 15,
   },
   contentUser: {
-    paddingHorizontal: SPACING.sm + SPACING.sm,
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.lg,
-    borderRadius: BORDER_RADIUS.md,
+    paddingHorizontal: BscSpacing.sm + BscSpacing.sm,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.lg,
+    borderRadius: BscRadius.md,
     backgroundColor: COLORS.backgroundDark,
   },
   title: {
@@ -159,31 +168,31 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.md,
     fontWeight: FONT_WEIGHTS.semibold,
     color: COLORS.textPrimary,
-    marginBottom: SPACING.xs,
+    marginBottom: BscSpacing.xs,
   },
   titleCard: {
     backgroundColor: COLORS.primaryDark,
   },
   bottomButtons: {
-    paddingTop: SPACING.md,
+    paddingTop: BscSpacing.md,
   },
   continueButtonContainer: {
-    marginBottom: SPACING.sm,
+    marginBottom: BscSpacing.sm,
   },
   exitButton: {
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingVertical: SPACING.sm,
+    paddingVertical: BscSpacing.sm,
     gap: 10,
   },
   exitButtonText: {
     fontSize: FONT_SIZES.md,
     color: COLORS.textSecondary,
     fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
+    paddingBottom: BscSpacing.sm,
   },
   steps: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.sm,
+    paddingHorizontal: BscSpacing.lg,
+    paddingTop: BscSpacing.sm,
   },
 });

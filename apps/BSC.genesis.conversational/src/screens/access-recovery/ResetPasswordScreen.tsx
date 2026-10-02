@@ -1,35 +1,41 @@
-import React, {useMemo, useRef, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
+import React, { useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import Icon from '@react-native-vector-icons/feather';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {Animated, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Animated, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import {COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS, DIMENSIONS} from '@constants/theme';
-import {PASSWORD_MAX_LENGTH} from '@utils/helpers';
+import { COLORS, SPACING, FONT_SIZES, FONT_WEIGHTS, DIMENSIONS } from '@constants/theme';
+import { PASSWORD_MAX_LENGTH } from '@utils/helpers';
 
-import {Steps} from '@components/Common/Steps';
-import {useAccesRecoveryStore} from '@store/access-recovery.store';
-import {TextField} from '@components/Common/TextField';
-import {ErrorText} from '@components/Common/ErrorText';
-import {HeaderOnboarding} from '@components/onboarding/HeaderOnboarding';
-import {useKeyboardOffset} from '@hooks/useKeyboardOffset';
-import {PasswordStrengthMeter} from '@components/onboarding/PasswordStrengthMeter';
-import {ModalRef, RootStackParamList} from '@/types/index';
-import {ButtonPill} from '@components/Common/ButtonPill';
-import {ErrorServiceGeneral} from '@components/Common/ErrorServiceGeneral';
-import {AccessRecoveryService} from '@services/index';
-import {SuccessModal} from '@components/Common/SuccessModal';
+import { Steps } from '@components/Common/Steps';
+import { useAccesRecoveryStore } from '@store/access-recovery.store';
+import { TextField } from '@components/Common/TextField';
+import { ErrorText } from '@components/Common/ErrorText';
+import { HeaderOnboarding } from '@components/onboarding/HeaderOnboarding';
+import { useKeyboardOffset } from '@hooks/useKeyboardOffset';
+import { PasswordStrengthMeter } from '@components/onboarding/PasswordStrengthMeter';
+import { ModalRef, RootStackParamList } from '@/types/index';
+import { ButtonPill } from '@components/Common/ButtonPill';
+import { ErrorServiceGeneral } from '@components/Common/ErrorServiceGeneral';
+import { AccessRecoveryService } from '@services/index';
+import { SuccessModal } from '@components/Common/SuccessModal';
+import {
+  BscColors,
+  BscNavigationHeader,
+  BscSpacing,
+  BscSteps,
+  BscTextStyles,
+} from '@bsc/design-system';
 
 type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const ResetPasswordScreen = () => {
-  const {t} = useTranslation('accessRecovery');
+  const { t } = useTranslation('accessRecovery');
   const navigation = useNavigation<RootNavigationProp>();
   const recoveryType = useAccesRecoveryStore(state => state.recoveryType);
   const verifiedClient = useAccesRecoveryStore(state => state.verifiedClient);
-  const clearVerifiedClient = useAccesRecoveryStore(state => state.clearVerifiedClient);
 
   const keyboardOffset = useKeyboardOffset();
 
@@ -86,8 +92,7 @@ export const ResetPasswordScreen = () => {
   };
 
   const handleContinueSuccess = () => {
-    navigation.navigate('Login');
-    clearVerifiedClient();
+    navigation.navigate('ResetPasswordFinished');
   };
 
   const handleContinue = async () => {
@@ -115,19 +120,22 @@ export const ResetPasswordScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <Animated.View style={[styles.keyboardContainer, {paddingBottom: keyboardOffset}]}>
-        <HeaderOnboarding showBottomLine />
-        <Steps
-          totalSteps={recoveryType === 'BOTH' ? 4 : 3}
-          currentStep={recoveryType === 'BOTH' ? 4 : 3}
-          containerStyle={styles.steps}
+      <Animated.View style={[styles.keyboardContainer, { paddingBottom: keyboardOffset }]}>
+        <BscNavigationHeader
+          onBack={handleBack}
+          onClose={handleBack}
+          showSupportButton
+          title={t('passwordRecovery.titleNavbar')}
         />
+
+        <BscSteps totalSteps={recoveryType === 'BOTH' ? 5 : 5} current={3} style={styles.steps} />
         <View style={styles.mainContent}>
           <ScrollView
             style={styles.scroll}
             contentContainerStyle={styles.content}
             keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}>
+            showsVerticalScrollIndicator={false}
+          >
             <Text style={styles.title}>{t('passwordRecovery.title')}</Text>
             <Text style={styles.subtitle}>{t('passwordRecovery.subtitle')}</Text>
 
@@ -171,7 +179,8 @@ export const ResetPasswordScreen = () => {
                   )}
                   <TouchableOpacity
                     onPress={() => setShowConfirmPassword(prev => !prev)}
-                    hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}>
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  >
                     <Icon
                       name={showConfirmPassword ? 'eye-off' : 'eye'}
                       size={DIMENSIONS.iconSize.sm}
@@ -190,7 +199,8 @@ export const ResetPasswordScreen = () => {
                 disabled={!canContinue}
                 width="100%"
                 backgroundColor={COLORS.primary}
-                textColor={COLORS.backgroundLight}>
+                textColor={COLORS.backgroundLight}
+              >
                 {t('passwordRecovery.continueButton')}
               </ButtonPill>
             </View>
@@ -213,72 +223,69 @@ export const ResetPasswordScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: BscColors.surface,
   },
   keyboardContainer: {
     flex: 1,
   },
   steps: {
-    paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.sm,
+    paddingHorizontal: BscSpacing.lg,
+    paddingTop: BscSpacing.sm,
   },
   mainContent: {
     flex: 1,
-    paddingHorizontal: SPACING.lg,
+    paddingHorizontal: BscSpacing.lg,
   },
   scroll: {
     flex: 1,
   },
   content: {
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.lg,
+    paddingTop: BscSpacing.md,
+    paddingBottom: BscSpacing.lg,
   },
   title: {
-    fontSize: FONT_SIZES.title,
-    color: COLORS.textPrimary,
-    fontWeight: FONT_WEIGHTS.bold,
-    marginBottom: SPACING.sm,
+    ...BscTextStyles['Title S/30 Bold'],
+    textAlign: 'center',
+    marginTop: BscSpacing.md,
   },
   subtitle: {
-    fontSize: FONT_SIZES.md,
-    color: COLORS.textSecondary,
-    lineHeight: 22,
-    marginBottom: SPACING.xl,
+    ...BscTextStyles['Body S/14 Regular'],
+    textAlign: 'center',
+    marginBottom: BscSpacing.xl,
   },
   label: {
-    fontSize: FONT_SIZES.sm,
-    fontWeight: FONT_WEIGHTS.bold,
-    color: COLORS.textPrimary,
-    marginBottom: 4,
+    ...BscTextStyles['Caption/12 Regular'],
+    marginBottom: BscSpacing.xs,
+    paddingLeft: 10,
   },
   labelSpacing: {
-    marginTop: SPACING.lg,
+    marginTop: BscSpacing.lg,
   },
   hintText: {
-    fontSize: FONT_SIZES.sm,
-    color: COLORS.textSecondary,
-    marginTop: SPACING.xs,
+    ...BscTextStyles['Caption/12 Regular'],
+    color: BscColors.secondary,
+    marginTop: BscSpacing.xs,
     lineHeight: 18,
   },
   confirmIconsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: SPACING.sm,
+    gap: BscSpacing.sm,
   },
   bottomButtons: {
-    paddingTop: SPACING.md,
+    paddingTop: BscSpacing.md,
   },
   continueButtonContainer: {
-    marginBottom: SPACING.sm,
+    marginBottom: BscSpacing.sm,
   },
   exitButton: {
     alignItems: 'center',
-    paddingVertical: SPACING.sm,
+    paddingVertical: BscSpacing.sm,
   },
   exitButtonText: {
     fontSize: FONT_SIZES.md,
     color: COLORS.textSecondary,
     fontWeight: FONT_WEIGHTS.medium,
-    paddingBottom: SPACING.sm,
+    paddingBottom: BscSpacing.sm,
   },
 });

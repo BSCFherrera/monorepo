@@ -1,11 +1,10 @@
 import React, { forwardRef } from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { COLORS, FONT_SIZES, FONT_WEIGHTS } from '@constants/theme';
 import { useTranslation } from 'react-i18next';
 import { TouchableCard } from '@components/Common';
 import { RecoveryType } from '@/types/index';
 import { APP_CONFIG } from '@constants/config';
-import { BscColors, BscModal, BscModalHandle, BscSpacing, BscTextStyles } from '@bsc/design-system';
+import { BscModal, BscModalHandle, BscSpacing, BscTextStyles } from '@bsc/design-system';
 
 interface AccessRecoveryOptionsModalProps {
   handleTypeRecoveryPress: (type: RecoveryType) => void;

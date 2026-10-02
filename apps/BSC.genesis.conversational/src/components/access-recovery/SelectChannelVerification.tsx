@@ -6,7 +6,7 @@ import {
   BscSpacing,
   BscTextStyles,
 } from '@bsc/design-system';
-import { formatName } from '@utils/helpers';
+import { formatName, maskEmail, maskPhone } from '@utils/helpers';
 import { TFunction } from 'i18next';
 import { useState, useMemo, Dispatch } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -36,7 +36,7 @@ export const SelectChannelVerification = (props: SelectChannelVerificationProps)
 
   const onChannelChange = (value: OtpChannel | '') => {
     handleChannelChange(value);
-    switch (channelVerification) {
+    switch (value) {
       case 'email':
         setDataSelected(emailSelected);
         break;
@@ -65,13 +65,13 @@ export const SelectChannelVerification = (props: SelectChannelVerificationProps)
         value: 'email',
         icon: 'mail',
         title: t('confirmOtp.emailLabel'),
-        subtitle: email,
+        subtitle: maskEmail(email),
       },
       {
         value: 'phone',
         icon: 'smartphone',
         title: t('confirmOtp.smsLabel'),
-        subtitle: phone,
+        subtitle: maskPhone(phone),
       },
     ];
   }, [verifiedClient?.emails, verifiedClient?.telefonos, t]);

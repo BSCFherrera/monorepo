@@ -454,6 +454,7 @@ export type RootStackParamList = {
   FacialVerification: undefined;
   UsernameRecovery: undefined;
   ConfirmOtp: undefined;
+  ResetPasswordFinished: undefined;
 };
 
 // Tipos para Onboarding - Verificación de documento del cliente

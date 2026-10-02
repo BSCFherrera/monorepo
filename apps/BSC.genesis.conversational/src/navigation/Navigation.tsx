@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from 'react';
-import {createNavigationContainerRef, NavigationContainer} from '@react-navigation/native';
+import React, { useEffect, useRef } from 'react';
+import { createNavigationContainerRef, NavigationContainer } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
@@ -23,14 +23,15 @@ import {
   WelcomeOnboardingScreen,
   AccessRecoveryOptionsScreen,
 } from '@screens/index';
-import {RootStackParamList} from '@/types/index';
-import {useAuthStore} from '@store/auth.store';
-import {AuthService} from '@services/index';
-import {AccountIdentificationScreen} from '@screens/access-recovery/AccountIdentificationScreen';
-import {ResetPasswordScreen} from '@screens/access-recovery/ResetPasswordScreen';
-import {FacialVerificationScreen} from '@screens/access-recovery/FacialVerificationScreen';
-import {UsernameRecoveryScreen} from '@screens/access-recovery/UsernameRecoveryScreen';
-import {ConfirmOtpScreen} from '@screens/access-recovery/ConfirmOtpScreen';
+import { RootStackParamList } from '@/types/index';
+import { useAuthStore } from '@store/auth.store';
+import { AuthService } from '@services/index';
+import { AccountIdentificationScreen } from '@screens/access-recovery/AccountIdentificationScreen';
+import { ResetPasswordScreen } from '@screens/access-recovery/ResetPasswordScreen';
+import { FacialVerificationScreen } from '@screens/access-recovery/FacialVerificationScreen';
+import { UsernameRecoveryScreen } from '@screens/access-recovery/UsernameRecoveryScreen';
+import { ConfirmOtpScreen } from '@screens/access-recovery/ConfirmOtpScreen';
+import { ResetPasswordFinishedScreen } from '@screens/access-recovery/ResetPasswordFinishedScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -56,7 +57,7 @@ const ONBOARDING_SCREEN_OPTIONS: NativeStackNavigationOptions = {
  * Para agregar una ruta pública nueva, basta con sumarla a este arreglo.
  */
 const PUBLIC_SCREENS: ScreenConfig[] = [
-  {name: 'ChooseDocument', component: ChooseDocumentScreen, options: ONBOARDING_SCREEN_OPTIONS},
+  { name: 'ChooseDocument', component: ChooseDocumentScreen, options: ONBOARDING_SCREEN_OPTIONS },
   {
     name: 'CustomerDataConfirmOtp',
     component: CustomerDataConfirmOtpScreen,
@@ -67,7 +68,7 @@ const PUBLIC_SCREENS: ScreenConfig[] = [
     component: CompletedValidationScreen,
     options: ONBOARDING_SCREEN_OPTIONS,
   },
-  {name: 'SignDocument', component: SignDocumentScreen, options: ONBOARDING_SCREEN_OPTIONS},
+  { name: 'SignDocument', component: SignDocumentScreen, options: ONBOARDING_SCREEN_OPTIONS },
   {
     name: 'CreateUserOnboarding',
     component: CreateUserOnboardingScreen,
@@ -128,6 +129,11 @@ const PUBLIC_SCREENS: ScreenConfig[] = [
     component: ConfirmOtpScreen,
     options: ONBOARDING_SCREEN_OPTIONS,
   },
+  {
+    name: 'ResetPasswordFinished',
+    component: ResetPasswordFinishedScreen,
+    options: ONBOARDING_SCREEN_OPTIONS,
+  },
 ];
 
 /**
@@ -140,9 +146,9 @@ const PUBLIC_SCREENS: ScreenConfig[] = [
  * pantalla debe existir en ambos stacks para seguir siendo alcanzable justo después de un login.
  */
 const PROTECTED_SCREENS: ScreenConfig[] = [
-  {name: 'Chat', component: ChatScreen},
-  {name: 'Transactions', component: TransactionsScreen},
-  {name: 'Products', component: ProductsScreen},
+  { name: 'Chat', component: ChatScreen },
+  { name: 'Transactions', component: TransactionsScreen },
+  { name: 'Products', component: ProductsScreen },
   {
     name: 'ConfigureAuthBiometric',
     component: ConfigureAuthBiometricScreen,
@@ -178,13 +184,13 @@ export const Navigation: React.FC = () => {
         // Logout: 'ConfigureAuthBiometric' -presente en ambos stacks- se mantiene enfocada al
         // perder la sesión en vez de volver a 'Inicio', así que se resetea explícitamente.
         if (currentRoute !== 'Inicio') {
-          navigationRef.reset({index: 0, routes: [{name: 'Inicio'}]});
+          navigationRef.reset({ index: 0, routes: [{ name: 'Inicio' }] });
         }
       } else if (!wasAuthenticatedRef.current && isAuthenticated) {
         // Login/registro completado: sea cual sea la pantalla pública que marcó la sesión como
         // autenticada, el destino siempre es 'Chat'.
         if (currentRoute !== 'Chat') {
-          navigationRef.reset({index: 0, routes: [{name: 'Chat'}]});
+          navigationRef.reset({ index: 0, routes: [{ name: 'Chat' }] });
         }
       }
     }
@@ -193,18 +199,18 @@ export const Navigation: React.FC = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isAuthenticated ? (
           <>
             <Stack.Screen name="Inicio" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
-            {PUBLIC_SCREENS.map(({name, component, options}) => (
+            {PUBLIC_SCREENS.map(({ name, component, options }) => (
               <Stack.Screen key={name} name={name} component={component} options={options} />
             ))}
           </>
         ) : (
           <>
-            {PROTECTED_SCREENS.map(({name, component, options}) => (
+            {PROTECTED_SCREENS.map(({ name, component, options }) => (
               <Stack.Screen key={name} name={name} component={component} options={options} />
             ))}
             <Stack.Screen name="Profile">
