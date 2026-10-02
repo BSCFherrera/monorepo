@@ -100,6 +100,11 @@ export {
 } from './components/BscPageHeader';
 
 export {
+  BscNavigationHeader,
+  type BscNavigationHeaderProps,
+} from './components/BscNavigationHeader';
+
+export {
   BscEmptyState,
   type BscEmptyStateProps,
 } from './components/BscEmptyState';

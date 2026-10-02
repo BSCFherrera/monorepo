@@ -176,6 +176,19 @@ export interface ModalProps {
   testID?: string;
 }
 
+/** Props neutrales de `BscNavigationHeader` (BscNavigationHeader.tsx). */
+export interface NavigationHeaderProps {
+  title: string;
+  /** Sin esta función no se dibuja la flecha de volver. */
+  onBack?: (() => void) | undefined;
+  /** Muestra el acceso a soporte con icono de audífonos. */
+  showSupportButton?: boolean;
+  onSupportPress?: (() => void) | undefined;
+  /** Sin esta función no se dibuja la acción de cerrar. */
+  onClose?: (() => void) | undefined;
+  testID?: string;
+}
+
 /** Props neutrales de `BscInfoModal` (BscInfoModal.tsx). */
 export interface InfoModalProps extends ModalProps {
   title: string;
