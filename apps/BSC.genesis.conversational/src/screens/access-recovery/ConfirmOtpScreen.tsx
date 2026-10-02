@@ -52,7 +52,7 @@ export const ConfirmOtpScreen = () => {
       case 'email':
         setVerifiedEmail(value);
         break;
-      case 'phone':
+      case 'sms':
         setVerifiedPhone(value);
         break;
     }

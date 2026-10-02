@@ -40,7 +40,7 @@ export const SelectChannelVerification = (props: SelectChannelVerificationProps)
       case 'email':
         setDataSelected(emailSelected);
         break;
-      case 'phone':
+      case 'sms':
         setDataSelected(phoneSelected);
         break;
     }
@@ -68,7 +68,7 @@ export const SelectChannelVerification = (props: SelectChannelVerificationProps)
         subtitle: maskEmail(email),
       },
       {
-        value: 'phone',
+        value: 'sms',
         icon: 'smartphone',
         title: t('confirmOtp.smsLabel'),
         subtitle: maskPhone(phone),

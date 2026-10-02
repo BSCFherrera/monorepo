@@ -81,7 +81,7 @@ export const CustomerDataConfirmOtpScreen: React.FC = () => {
   const phoneOtp = useOtpVerification({
     identifier: phone,
     document: documentNumber,
-    channel: 'phone',
+    channel: 'sms',
     onVerified: value => setVerifiedPhone(value),
     onMaxAttempts: handleMaxAttempts,
     onError: handleSendCodeError,

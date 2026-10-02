@@ -746,7 +746,7 @@ export interface RegistrationStepApiResponse {
 }
 
 // Tipos para Onboarding - Verificación OTP de contacto (correo / teléfono)
-export type OtpChannel = 'email' | 'phone';
+export type OtpChannel = 'email' | 'sms';
 
 export interface SendOtpRequest {
   canal: OtpChannel;

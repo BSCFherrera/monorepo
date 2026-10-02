@@ -21,7 +21,7 @@ export const OtpVerfication = (props: OtpVerficationProps) => {
     switch (channelVerification) {
       case 'email':
         return maskEmail(selectedData);
-      case 'phone':
+      case 'sms':
         return maskPhone(selectedData);
       default:
         return '';
