@@ -192,6 +192,9 @@ catalogs:
     react-native-tts:
       specifier: 4.1.1
       version: 4.1.1
+    react-native-video:
+      specifier: 6.19.3
+      version: 6.19.3
     react-native-web:
       specifier: ^0.21.2
       version: 0.21.2
@@ -367,6 +370,9 @@ importers:
       react-native-tts:
         specifier: 'catalog:'
         version: 4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta)
+      react-native-video:
+        specifier: 'catalog:'
+        version: 6.19.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       zustand:
         specifier: 'catalog:'
         version: 5.0.15(@types/react@19.3.0)(react@19.2.3)(use-sync-external-store@1.7.0(react@19.2.3))
@@ -575,6 +581,9 @@ importers:
       react-native-tts:
         specifier: 'catalog:'
         version: 4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta)
+      react-native-video:
+        specifier: 'catalog:'
+        version: 6.19.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       zustand:
         specifier: 'catalog:'
         version: 5.0.15(@types/react@19.3.0)(react@19.2.3)(use-sync-external-store@1.7.0(react@19.2.3))
@@ -5882,6 +5891,12 @@ packages:
 
   react-native-tts@4.1.1:
     resolution: {integrity: sha512-VL0TgCwkUWggbbFGIXAPKC3rM1baluAYtgOdgnaTm7UYsWf/y8n5VgmVB0J2Wa8qt1dldZ1cSsdQY9iz3evcAg==}
+
+  react-native-video@6.19.3:
+    resolution: {integrity: sha512-hI0YhEH6NdkfbFfMoZTZizEmLIm13rLlMf6KyWlGSe0+6If7/gvhapR2j/BMKBEwmlAIZjU4A6ax4Qn7yssjLQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
 
   react-native-web-linear-gradient@1.1.2:
     resolution: {integrity: sha512-SmUnpwT49CEe78pXvIvYf72Es8Pv+ZYKCnEOgb2zAKpEUDMo0+xElfRJhwt5nfI8krJ5WbFPKnoDgD0uUjAN1A==}
@@ -13215,6 +13230,11 @@ snapshots:
       react-native: 0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3)
 
   react-native-tts@4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta): {}
+
+  react-native-video@6.19.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+      react-native: 0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3)
 
   react-native-web-linear-gradient@1.1.2(react-native-web@0.21.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)):
     dependencies:

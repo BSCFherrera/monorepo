@@ -34,6 +34,7 @@ catalog:
   "react-native-safe-area-context": "^5.5.2"
   "react-native-screens": "^4.28.0"
   "react-native-svg": "^15.15.5"
+  "react-native-video": "6.19.3"
   # Pinned to the versions the conversational app was validated with. voice and tts
   # also carry pnpm patches (patches/), which only apply to these exact versions.
   "@react-native-async-storage/async-storage": "1.23.0"
