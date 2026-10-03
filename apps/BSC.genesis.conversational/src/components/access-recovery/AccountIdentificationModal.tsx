@@ -218,7 +218,10 @@ export const AccountIdentificationModal = forwardRef<
         userEmailVerified = email?.email || client.emails[0].email;
       }
 
-      if (recoveryType === 'PASSWORD' && userEmailVerified !== emailValidate) {
+      if (
+        recoveryType === 'PASSWORD' &&
+        userEmailVerified.trim().toLowerCase() !== emailValidate.trim().toLowerCase()
+      ) {
         mismatchRef.current?.open();
         return;
       }
