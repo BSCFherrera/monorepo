@@ -174,6 +174,9 @@ catalogs:
     react-native-linear-gradient:
       specifier: ^2.8.3
       version: 2.8.3
+    react-native-nitro-modules:
+      specifier: 0.37.1
+      version: 0.37.1
     react-native-passkey:
       specifier: 3.5.0
       version: 3.5.0
@@ -193,8 +196,8 @@ catalogs:
       specifier: 4.1.1
       version: 4.1.1
     react-native-video:
-      specifier: 6.19.3
-      version: 6.19.3
+      specifier: 7.0.0-alpha.12
+      version: 7.0.0-alpha.12
     react-native-web:
       specifier: ^0.21.2
       version: 0.21.2
@@ -352,6 +355,9 @@ importers:
       react-native-linear-gradient:
         specifier: 'catalog:'
         version: 2.8.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+      react-native-nitro-modules:
+        specifier: 'catalog:'
+        version: 0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       react-native-passkey:
         specifier: 'catalog:'
         version: 3.5.0(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
@@ -372,7 +378,7 @@ importers:
         version: 4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta)
       react-native-video:
         specifier: 'catalog:'
-        version: 6.19.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+        version: 7.0.0-alpha.12(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       zustand:
         specifier: 'catalog:'
         version: 5.0.15(@types/react@19.3.0)(react@19.2.3)(use-sync-external-store@1.7.0(react@19.2.3))
@@ -563,6 +569,9 @@ importers:
       react-native-linear-gradient:
         specifier: 'catalog:'
         version: 2.8.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+      react-native-nitro-modules:
+        specifier: 'catalog:'
+        version: 0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       react-native-passkey:
         specifier: 'catalog:'
         version: 3.5.0(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
@@ -583,7 +592,7 @@ importers:
         version: 4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta)
       react-native-video:
         specifier: 'catalog:'
-        version: 6.19.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+        version: 7.0.0-alpha.12(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       zustand:
         specifier: 'catalog:'
         version: 5.0.15(@types/react@19.3.0)(react@19.2.3)(use-sync-external-store@1.7.0(react@19.2.3))
@@ -5858,6 +5867,12 @@ packages:
       react: '*'
       react-native: '*'
 
+  react-native-nitro-modules@0.37.1:
+    resolution: {integrity: sha512-KpW6EQVQ/bfegpCGxN9Be+ndvsfj56t4IESEvCASu9gWpJa/NDfHpIeIwCOvZQ3eXmLEj6YD4wCLqcC1FJPr2w==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
   react-native-passkey@3.5.0:
     resolution: {integrity: sha512-hNY5Ik8A1KMoCL38edbVS4jXyDmk6hec+Q+keskCHcFa+E2NC7vROtdCDl77JxsJe/BK00csQtiK6Cqd54QFmg==}
     peerDependencies:
@@ -5892,11 +5907,12 @@ packages:
   react-native-tts@4.1.1:
     resolution: {integrity: sha512-VL0TgCwkUWggbbFGIXAPKC3rM1baluAYtgOdgnaTm7UYsWf/y8n5VgmVB0J2Wa8qt1dldZ1cSsdQY9iz3evcAg==}
 
-  react-native-video@6.19.3:
-    resolution: {integrity: sha512-hI0YhEH6NdkfbFfMoZTZizEmLIm13rLlMf6KyWlGSe0+6If7/gvhapR2j/BMKBEwmlAIZjU4A6ax4Qn7yssjLQ==}
+  react-native-video@7.0.0-alpha.12:
+    resolution: {integrity: sha512-L9NXTOOilWXH4rzNUkwNgHn9Qkcs5ntNlY0j5Wk8996qXXvaWKpnmx9FwR+KnLe3uKVdO3So+xQXeGBdY6hvVw==}
     peerDependencies:
       react: '*'
       react-native: '*'
+      react-native-nitro-modules: '>=0.27.2'
 
   react-native-web-linear-gradient@1.1.2:
     resolution: {integrity: sha512-SmUnpwT49CEe78pXvIvYf72Es8Pv+ZYKCnEOgb2zAKpEUDMo0+xElfRJhwt5nfI8krJ5WbFPKnoDgD0uUjAN1A==}
@@ -13197,6 +13213,11 @@ snapshots:
       react: 19.2.3
       react-native: 0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3)
 
+  react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+      react-native: 0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3)
+
   react-native-passkey@3.5.0(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
     dependencies:
       react: 19.2.3
@@ -13231,10 +13252,11 @@ snapshots:
 
   react-native-tts@4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta): {}
 
-  react-native-video@6.19.3(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
+  react-native-video@7.0.0-alpha.12(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
     dependencies:
       react: 19.2.3
       react-native: 0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3)
+      react-native-nitro-modules: 0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
 
   react-native-web-linear-gradient@1.1.2(react-native-web@0.21.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)):
     dependencies:

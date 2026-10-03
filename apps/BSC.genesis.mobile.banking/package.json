@@ -51,6 +51,7 @@
     "react-native-device-info": "catalog:",
     "react-native-keychain": "catalog:",
     "react-native-linear-gradient": "catalog:",
+    "react-native-nitro-modules": "catalog:",
     "react-native-passkey": "catalog:",
     "react-native-pdf": "catalog:",
     "react-native-safe-area-context": "catalog:",

@@ -29,6 +29,7 @@ const SOLO_EN_OTRAS_APPS = [
   'react-native-keychain',
   'react-native-passkey',
   'react-native-pdf',
+  'react-native-nitro-modules',
   'react-native-tts',
   'react-native-video',
 ];
