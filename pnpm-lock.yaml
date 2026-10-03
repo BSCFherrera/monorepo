@@ -196,8 +196,8 @@ catalogs:
       specifier: 4.1.1
       version: 4.1.1
     react-native-video:
-      specifier: 7.0.0-alpha.12
-      version: 7.0.0-alpha.12
+      specifier: 7.0.0-beta.11
+      version: 7.0.0-beta.11
     react-native-web:
       specifier: ^0.21.2
       version: 0.21.2
@@ -378,7 +378,7 @@ importers:
         version: 4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta)
       react-native-video:
         specifier: 'catalog:'
-        version: 7.0.0-alpha.12(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+        version: 7.0.0-beta.11(react-dom@19.2.3(react@19.2.3))(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       zustand:
         specifier: 'catalog:'
         version: 5.0.15(@types/react@19.3.0)(react@19.2.3)(use-sync-external-store@1.7.0(react@19.2.3))
@@ -592,7 +592,7 @@ importers:
         version: 4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta)
       react-native-video:
         specifier: 'catalog:'
-        version: 7.0.0-alpha.12(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+        version: 7.0.0-beta.11(react-dom@19.2.3(react@19.2.3))(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
       zustand:
         specifier: 'catalog:'
         version: 5.0.15(@types/react@19.3.0)(react@19.2.3)(use-sync-external-store@1.7.0(react@19.2.3))
@@ -3193,6 +3193,81 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@videojs/core@10.0.1':
+    resolution: {integrity: sha512-N+f41wgFcmpe0QUhO0Q9sFHpMxKvr38ojkX5FlxAo3LKDAo2UrG2KIeklte+1VVae3oaJfP6J/KYtrRRObRxxw==}
+
+  '@videojs/media@10.0.1':
+    resolution: {integrity: sha512-hMC2aS/8PovwJBi8y2qShC/amYfH6SBce7SZAM54qzRq8hl4FwWGFeUMMmXp8x4agRxLuCSqGqZg/EoGH2I5mQ==}
+
+  '@videojs/native-hls-video@10.0.1':
+    resolution: {integrity: sha512-MElgeDaxOJUj+OjHV3++TuW8TTgipTuzlRkfFDMMbnutlPLkSlX3VKhXo5ZNPhhXkt47oBVx4RGnAQJLWzilPw==}
+
+  '@videojs/react@10.0.1':
+    resolution: {integrity: sha512-qK2GrVnWM2Hadcj6bWHS+UGThTtFD5VNfUrwGoFA6+D2/iW1Q8VVIU6N3+JY0YEq8dazvPVMPpSVvnmfQmPK0w==}
+    peerDependencies:
+      '@videojs/cloudflare-video': 10.0.1
+      '@videojs/dash-video': 10.0.1
+      '@videojs/google-cast': 10.0.1
+      '@videojs/hlsjs-video': 10.0.1
+      '@videojs/mux-audio': 10.0.1
+      '@videojs/mux-data': 10.0.1
+      '@videojs/mux-video': 10.0.1
+      '@videojs/shaka-video': 10.0.1
+      '@videojs/spotify-audio': 10.0.1
+      '@videojs/tiktok-video': 10.0.1
+      '@videojs/twitch-video': 10.0.1
+      '@videojs/vimeo-video': 10.0.1
+      '@videojs/wistia-video': 10.0.1
+      '@videojs/youtube-video': 10.0.1
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@videojs/cloudflare-video':
+        optional: true
+      '@videojs/dash-video':
+        optional: true
+      '@videojs/google-cast':
+        optional: true
+      '@videojs/hlsjs-video':
+        optional: true
+      '@videojs/mux-audio':
+        optional: true
+      '@videojs/mux-data':
+        optional: true
+      '@videojs/mux-video':
+        optional: true
+      '@videojs/shaka-video':
+        optional: true
+      '@videojs/spotify-audio':
+        optional: true
+      '@videojs/tiktok-video':
+        optional: true
+      '@videojs/twitch-video':
+        optional: true
+      '@videojs/vimeo-video':
+        optional: true
+      '@videojs/wistia-video':
+        optional: true
+      '@videojs/youtube-video':
+        optional: true
+
+  '@videojs/spf@10.0.1':
+    resolution: {integrity: sha512-1HUTI1W++EKZuO3MaklFdEU/cEUhkJlKKuQx0Xi3VwjeHgVToAz7b1ySDH903KluPQy6cAGqXpro5Wt00y4DYA==}
+
+  '@videojs/store@10.0.1':
+    resolution: {integrity: sha512-BTkkTRHAU0XaZi+n3yWhtQJbe0BNjQLBd414u/s/nMZDz5bc1fp6b/voNbNriuSMd0Ro+ZmyzfPaMskiCa6GUQ==}
+    peerDependencies:
+      '@videojs/element': 10.0.1
+      react: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@videojs/element':
+        optional: true
+      react:
+        optional: true
+
+  '@videojs/utils@10.0.1':
+    resolution: {integrity: sha512-S7WO9lPfyCz5YQYWtpE42JZTtJKUaiWaAZGAa+VLoBiFMfpoogCloSP4pjChTYcQ6sGcLlQJNxVKhM1RvI/Dig==}
+
   '@vitejs/plugin-react@5.2.0':
     resolution: {integrity: sha512-YmKkfhOAi3wsB1PhJq5Scj3GXMn3WvtQ/JC0xoopuHoXSdmtdStOpFrYaT1kie2YgFBcIe64ROzMYRjCrYOdYw==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -5782,6 +5857,11 @@ packages:
     resolution: {integrity: sha512-K5zQjDllxWkf7Z5xJdV0/B0WTNqx6vxG70zJE4N0kBs4LovmEYWJzQGxC9bS9RAKu3bgM40lrd5zoLJ12MQ5BA==}
     engines: {node: '>= 0.10'}
 
+  react-compiler-runtime@1.0.0:
+    resolution: {integrity: sha512-rRfjYv66HlG8896yPUDONgKzG5BxZD1nV9U6rkm+7VCuvQc903C4MjcoZR4zPw53IKSOX9wMQVpA1IAbRtzQ7w==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
+
   react-devtools-core@6.1.5:
     resolution: {integrity: sha512-ePrwPfxAnB+7hgnEr8vpKxL9cmnp7F322t8oqcPshbIQQhDKgFDW4tjhF2wjVbdXF9O/nyuy3sQWd9JGpiLPvA==}
 
@@ -5907,12 +5987,12 @@ packages:
   react-native-tts@4.1.1:
     resolution: {integrity: sha512-VL0TgCwkUWggbbFGIXAPKC3rM1baluAYtgOdgnaTm7UYsWf/y8n5VgmVB0J2Wa8qt1dldZ1cSsdQY9iz3evcAg==}
 
-  react-native-video@7.0.0-alpha.12:
-    resolution: {integrity: sha512-L9NXTOOilWXH4rzNUkwNgHn9Qkcs5ntNlY0j5Wk8996qXXvaWKpnmx9FwR+KnLe3uKVdO3So+xQXeGBdY6hvVw==}
+  react-native-video@7.0.0-beta.11:
+    resolution: {integrity: sha512-EJkW+40lzX/qjclGW5sHeQkNlYKYjaqulh5ryalqU5tBs+rOF72kvrNjL4c3NKoGeGhzB5SZuUBj8m3xXTBbOQ==}
     peerDependencies:
       react: '*'
       react-native: '*'
-      react-native-nitro-modules: '>=0.27.2'
+      react-native-nitro-modules: '>=0.35.0'
 
   react-native-web-linear-gradient@1.1.2:
     resolution: {integrity: sha512-SmUnpwT49CEe78pXvIvYf72Es8Pv+ZYKCnEOgb2zAKpEUDMo0+xElfRJhwt5nfI8krJ5WbFPKnoDgD0uUjAN1A==}
@@ -6165,6 +6245,9 @@ packages:
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  signal-polyfill@0.2.2:
+    resolution: {integrity: sha512-p63Y4Er5/eMQ9RHg0M0Y64NlsQKpiu6MDdhBXpyywRuWiPywhJTpKJ1iB5K2hJEbFZ0BnDS7ZkJ+0AfTuL37Rg==}
 
   simple-plist@1.3.1:
     resolution: {integrity: sha512-iMSw5i0XseMnrhtIzRb7XpQEXepa9xhWxGUojHBL43SIpQuDQkh3Wpy67ZbDzZVr6EKxvwVChnVpdl8hEVLDiw==}
@@ -9706,6 +9789,53 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.12.2':
     optional: true
 
+  '@videojs/core@10.0.1(react@19.2.3)':
+    dependencies:
+      '@videojs/media': 10.0.1
+      '@videojs/store': 10.0.1(react@19.2.3)
+      '@videojs/utils': 10.0.1
+    transitivePeerDependencies:
+      - '@videojs/element'
+      - react
+
+  '@videojs/media@10.0.1':
+    dependencies:
+      '@videojs/utils': 10.0.1
+
+  '@videojs/native-hls-video@10.0.1':
+    dependencies:
+      '@videojs/media': 10.0.1
+      '@videojs/utils': 10.0.1
+
+  '@videojs/react@10.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
+    dependencies:
+      '@videojs/core': 10.0.1(react@19.2.3)
+      '@videojs/media': 10.0.1
+      '@videojs/native-hls-video': 10.0.1
+      '@videojs/spf': 10.0.1
+      '@videojs/store': 10.0.1(react@19.2.3)
+      '@videojs/utils': 10.0.1
+      react: 19.2.3
+      react-compiler-runtime: 1.0.0(react@19.2.3)
+      react-dom: 19.2.3(react@19.2.3)
+    transitivePeerDependencies:
+      - '@videojs/element'
+
+  '@videojs/spf@10.0.1':
+    dependencies:
+      '@videojs/media': 10.0.1
+      '@videojs/utils': 10.0.1
+      signal-polyfill: 0.2.2
+
+  '@videojs/store@10.0.1(react@19.2.3)':
+    dependencies:
+      '@videojs/utils': 10.0.1
+      react-compiler-runtime: 1.0.0(react@19.2.3)
+    optionalDependencies:
+      react: 19.2.3
+
+  '@videojs/utils@10.0.1': {}
+
   '@vitejs/plugin-react@5.2.0(vite@7.3.6(@types/node@22.20.3)(terser@5.51.2)(yaml@2.9.1))':
     dependencies:
       '@babel/core': 7.29.7
@@ -13133,6 +13263,10 @@ snapshots:
       iconv-lite: 0.7.3
       unpipe: 1.0.0
 
+  react-compiler-runtime@1.0.0(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+
   react-devtools-core@6.1.5:
     dependencies:
       shell-quote: 1.10.0
@@ -13252,11 +13386,29 @@ snapshots:
 
   react-native-tts@4.1.1(patch_hash=mfgbnlsefp52hiscxq45wn2pta): {}
 
-  react-native-video@7.0.0-alpha.12(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
+  react-native-video@7.0.0-beta.11(react-dom@19.2.3(react@19.2.3))(react-native-nitro-modules@0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3))(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3):
     dependencies:
+      '@videojs/react': 10.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react: 19.2.3
       react-native: 0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3)
       react-native-nitro-modules: 0.37.1(react-native@0.87.1(@babel/core@7.29.7)(@react-native-community/cli@20.2.0(typescript@5.9.3))(@react-native/metro-config@0.87.1(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.2.3))(react@19.2.3)
+    transitivePeerDependencies:
+      - '@videojs/cloudflare-video'
+      - '@videojs/dash-video'
+      - '@videojs/element'
+      - '@videojs/google-cast'
+      - '@videojs/hlsjs-video'
+      - '@videojs/mux-audio'
+      - '@videojs/mux-data'
+      - '@videojs/mux-video'
+      - '@videojs/shaka-video'
+      - '@videojs/spotify-audio'
+      - '@videojs/tiktok-video'
+      - '@videojs/twitch-video'
+      - '@videojs/vimeo-video'
+      - '@videojs/wistia-video'
+      - '@videojs/youtube-video'
+      - react-dom
 
   react-native-web-linear-gradient@1.1.2(react-native-web@0.21.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)):
     dependencies:
@@ -13606,6 +13758,8 @@ snapshots:
   signal-exit@3.0.7: {}
 
   signal-exit@4.1.0: {}
+
+  signal-polyfill@0.2.2: {}
 
   simple-plist@1.3.1:
     dependencies:
